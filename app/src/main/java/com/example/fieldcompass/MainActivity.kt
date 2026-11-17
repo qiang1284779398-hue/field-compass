@@ -150,7 +150,7 @@ private class CompassView(context: Context, private val onCalibrate: () -> Unit)
             val outer = radius - dp(2f)
             val p = Paint(Paint.ANTI_ALIAS_FLAG).apply {
                 color = if (major) green else if (medium) 0xFF718276.toInt() else 0xFF34443A.toInt()
-                strokeWidth = if (major) dp(2f) else dp(1f)
+                strokeWidth = if (major) dp(2f) else 0xFF34443A.toInt()
             }
             val a = Math.toRadians(i.toDouble())
             canvas.drawLine(cx + (inner * sin(a)).toFloat(), cy - (inner * cos(a)).toFloat(), cx + (outer * sin(a)).toFloat(), cy - (outer * cos(a)).toFloat(), p)
@@ -215,11 +215,29 @@ private class CompassView(context: Context, private val onCalibrate: () -> Unit)
     }
 
     override fun onTouchEvent(event: android.view.MotionEvent): Boolean {
-        if (event.action == android.view.MotionEvent.ACTION_UP) {
-            val y = height - dp(60f)
-            if (event.y >= y - dp(8f)) onCalibrate()
-            return true
+        val btnW = dp(174f)
+        val btnH = dp(42f)
+        val bx = width / 2f - btnW / 2f
+        val by = height - dp(60f)
+
+        when (event.action) {
+            android.view.MotionEvent.ACTION_UP -> {
+                val insideButton =
+                    event.x >= bx &&
+                    event.x <= bx + btnW &&
+                    event.y >= by &&
+                    event.y <= by + btnH
+
+                if (insideButton) onCalibrate()
+                performClick()
+                return true
+            }
+            else -> return true
         }
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
         return true
     }
 }
