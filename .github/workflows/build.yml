@@ -1,10 +1,10 @@
 name: Build Android APK
+
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
-permissions:
-  contents: read
+    branches: [ "main", "master" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,15 +16,16 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android platform
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.9'
-      - name: Build debug APK
+      - name: Build APK
         run: gradle assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: field-compass-debug-apk
+          name: field-compass-apk
           path: app/build/outputs/apk/debug/app-debug.apk
-          retention-days: 14

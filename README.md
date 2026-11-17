@@ -1,17 +1,15 @@
-# 户外指北针 Android 项目
+# 户外指南针（全新重做）
 
-- 原生 Android Kotlin 应用，使用手机方向/磁力传感器。
-- 黑绿户外仪表风格，显示磁方位角和中文方向。
-- 优先使用旋转矢量传感器；没有时回退到加速度计 + 磁场传感器。
-- 不申请网络、定位或通讯录权限；不上传数据。
-- 最低 Android 6.0（API 23）。手机必须有磁力计/电子罗盘硬件才能正常指向。
+这是一个不依赖 AndroidX / 第三方 UI 库的原生 Android Java 项目。
+使用 Android `TYPE_ROTATION_VECTOR` 方向传感器；设备没有该传感器时会显示提示，不会因空传感器直接崩溃。
 
-## 手机上构建 APK（无需电脑）
+## 自动生成 APK
+1. 将本项目全部文件上传到 GitHub 仓库根目录（不要把外层文件夹套进去）。
+2. 提交到 `main` 或 `master` 分支。
+3. 打开仓库的 Actions 页面，等待 `Build Android APK` 运行完成。
+4. 打开绿色成功的构建记录，在 Artifacts 下载 `field-compass-apk`。
+5. 解压后安装 `app-debug.apk`。
 
-1. 把整个项目上传到自己的 GitHub 仓库，默认分支命名为 `main`。
-2. 打开仓库的 **Actions** 页面。
-3. 选择 **Build Android APK**，点击 **Run workflow**（如果上传时已触发 push 构建，也可以直接打开最近一次运行）。
-4. 等待构建成功，在页面底部 **Artifacts** 下载 `field-compass-debug-apk`。
-5. 解压 ZIP，得到 `app-debug.apk`，在安卓手机上安装。首次安装可能需要允许浏览器/文件管理器安装未知应用。
-
-这是 debug 测试包，不是 Play 商店发布签名包。
+## 本地构建
+需要 JDK 17、Android SDK 35 和 Gradle 8.9+：
+`gradle assembleDebug`
