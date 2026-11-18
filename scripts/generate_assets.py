@@ -70,6 +70,10 @@ idraw.line((64, 18, 64, 110), fill=(220, 82, 54, 255), width=7)
 idraw.polygon([(64, 12), (49, 68), (64, 58), (79, 68)], fill=(230, 94, 60, 255))
 idraw.ellipse((55, 55, 73, 73), fill=(230, 190, 110, 255))
 icon.save(os.path.join(ASSET_DIR, "icon.png"))
+# Zeus CLI also resolves the package icon from the project root on some CLI versions.
+icon.save(os.path.join(ROOT, "icon.png"))
+os.makedirs(os.path.join(ROOT, "assets", "balance3"), exist_ok=True)
+icon.save(os.path.join(ROOT, "assets", "balance3", "icon.png"))
 
 # QR code opens the latest downloadable release page.
 install_url = "https://github.com/qiang1284779398-hue/field-compass/releases/latest"
