@@ -31,17 +31,17 @@ jobs:
           python -m pip install pillow qrcode
           python scripts/generate_assets.py
 
-      - name: Install Zeus CLI
-        run: npm install --global @zeppos/zeus-cli
-
-      - name: Build Zepp OS package
-        run: zeus build
-
       - name: Save generated images to repository
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Generate compass assets and install QR code"
           file_pattern: "assets/** INSTALL_QR.png"
+
+      - name: Install Zeus CLI
+        run: npm install --global @zeppos/zeus-cli
+
+      - name: Build Zepp OS package
+        run: zeus build
 
       - name: Upload build package
         uses: actions/upload-artifact@v4
