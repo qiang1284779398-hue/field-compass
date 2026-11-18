@@ -3,6 +3,7 @@
   "app": {
     "appId": 20261118,
     "appName": "野外指北针",
+    "icon": "icon.png",
     "appType": "app",
     "version": {
       "code": 1,
