@@ -1,0 +1,61 @@
+name: Build Balance 3 Compass
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate compass graphics and QR code
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pillow qrcode
+          python scripts/generate_assets.py
+
+      - name: Install Zeus CLI
+        run: npm install --global @zeppos/zeus-cli
+
+      - name: Build Zepp OS package
+        run: zeus build
+
+      - name: Save generated images to repository
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Generate compass assets and install QR code"
+          file_pattern: "assets/** INSTALL_QR.png"
+
+      - name: Upload build package
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-compass-balance3
+          path: dist/*
+          if-no-files-found: error
+
+      - name: Publish latest release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: v1.0.0
+          name: Field Compass 1.0.0
+          artifacts: "dist/*"
+          allowUpdates: true
+          makeLatest: true
+          token: ${{ secrets.GITHUB_TOKEN }}
