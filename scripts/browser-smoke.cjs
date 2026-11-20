@@ -127,16 +127,28 @@ const assert = require("node:assert/strict");
       fight.enemies.forEach(e => { e.alive = true; e.hp = 50000; e.max = 50000; e.shield = 0; e.status = {}; });
       fight.target = 0; fight.logs = [];
       const energyBefore = fight.allies[0].energy;
+      const enemyHpBefore = fight.enemies.slice(0,2).map(e => e.hp);
       await useHeroSkill();
-      return { energySpent: energyBefore - fight.allies[0].energy, logs: fight.logs.slice(), actor: fight.actor, phase: fight.phase, actionRunning: fight.actionRunning, acted: fight.acted.slice() };
+      if (name === "青龙偃月") {
+        if (!fight.skillTargetMode) throw new Error("Qinglong must enter explicit target-selection mode");
+        selectTarget(0); selectTarget(1);
+        if (fight.skillTargetSelection.length !== 2) throw new Error("Qinglong must allow two independently selected targets");
+        await useHeroSkill();
+      }
+      return { energySpent: energyBefore - fight.allies[0].energy, logs: fight.logs.slice(), actor: fight.actor, phase: fight.phase, actionRunning: fight.actionRunning, acted: fight.acted.slice(), enemyHpBefore, enemyHpAfter: fight.enemies.slice(0,2).map(e => e.hp), skillTargetMode: fight.skillTargetMode };
     }, skillName);
     assert.ok(result.energySpent > 0, skillName + " must spend energy");
     assert.ok(result.logs.some(line => line.includes(skillName)), skillName + " must write a skill-specific combat log: " + JSON.stringify(result));
     assert.equal(result.actionRunning, false, skillName + " must release the action lock");
     assert.equal(result.phase, "player", skillName + " must not unexpectedly leave the player phase");
     assert.ok(result.acted.includes(0), skillName + " must consume the acting hero's action exactly once");
+    if (skillName === "青龙偃月") {
+      assert.equal(result.skillTargetMode, false, "Qinglong target-selection mode must close after confirmation");
+      assert.ok(result.enemyHpAfter[0] < result.enemyHpBefore[0] && result.enemyHpAfter[1] < result.enemyHpBefore[1], "Qinglong must damage both manually selected enemies");
+      assert.ok(result.logs.some(line => line.includes("横扫2名指定敌军")), "Qinglong combat log must report two selected targets");
+    }
   }
-  await page.evaluate(() => { fight.phase = "player"; fight.actionRunning = false; fight.actor = 2; fight.acted = [0,1]; drawBattle(); });
+  await page.evaluate(() => { fight.phase = "player"; fight.actionRunning = false; fight.skillTargetMode = false; fight.skillTargetSelection = []; fight.actor = 2; fight.acted = [0,1]; drawBattle(); });
 
   // Defensive action must create a shield; completing all three actions must trigger enemy AI.
   await page.locator('button[onclick="selectActor(2)"]').click();
