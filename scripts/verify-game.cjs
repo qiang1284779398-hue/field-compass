@@ -422,7 +422,9 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
 
   console.log("Game QA passed:", {
     chapters: chapters.length,
-    randomEvents: events.length,\n    randomEventBranches: eventBranchesTested,\n    inlineButtonHandlers: new Set(inlineHandlerNames).size,
+    randomEvents: events.length,
+    randomEventBranches: eventBranchesTested,
+    inlineButtonHandlers: new Set(inlineHandlerNames).size,
     heroes: game.state().heroes.length,
     battleWaves: 3,
     gameHtmlBytes: Buffer.byteLength(html),
