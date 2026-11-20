@@ -117,7 +117,7 @@ const assert = require("node:assert/strict");
   await page.locator('button[onclick="rations()"]').click();
   assert.ok((await page.locator("#modal").innerText()).includes("军粮制度"), "army page should expose the rations panel");
   await page.evaluate(() => { closeModal(); go("home"); });
-  await page.locator('button.tile[onclick="randomEvent()"]'.replace('button.tile', 'button.tile')).waitFor({ state: "visible", timeout: 3000 });
+  await page.locator('button.tile[onclick="randomEvent()"]').waitFor({ state: "visible", timeout: 3000 });
 
   // Resolve a random event through its visible choice button and verify persistent state.
   await page.locator('button.tile[onclick="randomEvent()"]').click();
