@@ -86,6 +86,54 @@ def parse_extras():
 BASE = parse_base()
 EXTRAS = parse_extras()
 PHYSIQUE_DATA = json.loads((ROOT / "app/src/main/assets/characters/2d/character-identity.json").read_text(encoding="utf-8"))["characters"]
+EXTRA_SKILLS = {
+"machao":("西凉突骑","银枪引动三段骑势，先刺穿敌方前锋，再追击其身后目标；首击破甲，末击追加冲锋伤害。","敌方前排两名目标","xiliang-charge"),
+"weiyan":("狂骨裂阵","大刀沿斜线撕开一名敌将的防线；若目标已受伤，则追加重击并为魏延回复少量生命。","敌方单体；受伤目标追加重击","blood-maw"),
+"pangtong":("凤雏涅槃","以自身少量生命点燃凤羽奇阵，随后对敌方全体造成谋略伤害；若我方有人倒下，凤火额外提升。","敌方全体；我方减员时强化","phoenix-rebirth"),
+"fazheng":("睚眦定计","锁定敌方当前攻击最高者，施加破甲与缴械；其下一次行动结束后再受到一次谋略伤害。","敌方攻击最高单体","weakpoint-mark"),
+"xushu":("剑心破阵","拔剑疾进斩击目标，并以剑势封住其兵刃；目标迟缓且缴械，徐庶获得临时护盾。","敌方单体＋自身护盾","sword-rift"),
+"madai":("雁门追风","绕过敌方前排，专取后排弓弩手；若没有远程单位，则追击生命最低的敌人。","敌方后排优先单体","rear-hunt"),
+"guanping":("青锋断浪","以长刀正面破盾，先削除目标护盾，再造成高额斩击并破甲。","敌方护盾最高单体","river-break"),
+"guanxing":("青龙继志","承袭关家刀法，对两名敌将发动先后追斩；第二刀若命中同一目标则追加破甲。","敌方两名不同目标","dragon-inherit"),
+"zhangbao":("丈八破军","双手挺矛猛击地面，震退敌阵前排并使其迟缓；前排不足两人时集中重刺。","敌方前排全体","snake-spear"),
+"zhangliao":("逍遥津突袭","骑兵长驱直入，横穿敌阵打击一整列；若击倒目标，敌军士气额外下降。","敌方一列目标","swift-cavalry"),
+"zhanghe":("长驱巧变","连续变换枪路，先佯攻再回马刺；三次攻击分别针对不同存活目标。","敌方随机三名目标","feint-step"),
+"xuhuang":("断粮破阵","抡起大斧重劈敌方防御最高者，造成破阵伤害并持续破甲。","敌方防御最高单体","siege-axe"),
+"xuchu":("虎侯震山","重锤砸地形成三圈震荡，对全体敌人造成震击；中央目标额外眩晕。","敌方全体；中央目标眩晕","tiger-earthquake"),
+"xiahou-dun":("拔矢啖睛","以伤换势，夏侯惇损失少量生命后发动复仇重斩；自身生命越低，伤害越高。","敌方单体；自身低血量强化","one-eye-reckoning"),
+"xiahou-yuan":("定军神速","连射三箭，分别追踪生命最低、攻击最高和随机敌人，箭矢不会重复锁定同一目标。","敌方最多三名不同目标","triple-arrow"),
+"guojia":("遗计定局","预先落下三枚命运棋子，随机标记三名敌人；其各自下一次行动前触发额外谋略伤害。","敌方随机三名目标；延迟触发","fate-ambush"),
+"xunyu":("王佐筹谋","为生命比例最低的友军恢复生命并净化异常，再提升全军攻击；不重复治疗已满血单位。","我方最低生命比例单体＋全军攻击增益","kingmaker-aegis"),
+"simayi":("鹰视狼顾","暗影扑向当前能量最高的敌将，偷取其行动气势并施加中毒；司马懿同时回复能量。","敌方能量最高单体＋自身回能","wolf-shadow"),
+"caoren":("固若金汤","曹仁架起盾阵，优先为前排友军构筑重盾；本回合承受的首次攻击伤害大幅降低。","我方前排防护","iron-wall"),
+"caopi":("魏嗣承天","以帝王诏令压制敌方主将，造成雷霆伤害并缴械；敌方士气随之下降。","敌方主将优先单体","imperial-edict"),
+"yuejin":("先登陷阵","乐进以短兵抢入敌阵，专攻生命最低的前排；若目标生命低于四分之一则追加处决伤害。","敌方前排最低生命单体","first-breach"),
+"yujin":("持军有度","于禁整肃军纪，全军获得防御强化与薄层护盾；我方已有护盾越少，增益越强。","我方全体防守增益","formation-lock"),
+"sunce":("霸王冲阵","孙策以霸王之势突进，击穿目标并提升自身攻击；击倒敌人时立即获得额外能量。","敌方单体＋自身攻击强化","overlord"),
+"sunquan":("江东号令","孙权发出中军号令，使全军恢复能量并提升士气；弓弩单位额外获得攻击提升。","我方全体能量与士气","jiangdong-command"),
+"luxun":("火烧连营","陆逊引火焚烧敌方阵地，造成持续灼烧；敌人若已灼烧，火势蔓延至相邻目标。","敌方全体；灼烧可蔓延","burning-camp"),
+"lvmeng":("白衣奇袭","吕蒙伪装突入敌后，对后排造成突袭伤害并眩晕最脆弱的远程目标。","敌方后排；远程目标优先眩晕","white-cloak"),
+"ganning":("锦帆夜袭","甘宁双刀夜袭两名后排目标，先斩其能量再造成伤害；对弓弩单位追加流血。","敌方后排两名目标","night-raid"),
+"taishici":("神亭破敌","太史慈张弓蓄力，对单体射出贯穿箭；若目标护盾被击破，箭势穿透至另一名敌人。","敌方单体；破盾后穿透","shen-ting"),
+"huanggai":("苦肉诈降","黄盖引爆火攻器械，自身承受少量反噬，对全体敌人造成火器伤害并施加灼烧。","敌方全体＋自身反噬","fire-vessel"),
+"lusu":("榻上定策","鲁肃为当前生命最低的友军献策，恢复其生命与能量，并为其添加厚盾。","我方最低生命单体","taying-plan"),
+"sunshangxiang":("枭姬连弩","孙尚香以连弩快速三连射，优先锁定三个不同敌人；每箭命中后提升自身闪避势头。","敌方最多三名不同目标","crossbow-volley"),
+"daqiao":("江东花影","大乔以花影安抚军心，净化全体友军异常状态，并重点治疗生命比例最低者。","我方全体净化＋单体治疗","flower-recovery"),
+"xiaoqiao":("流火双扇","小乔双扇交替舞出两道火弧，分别攻击两名敌人；同一目标不可同时承受两道主焰。","敌方两名不同目标","twin-fan"),
+"zhenji":("洛水惊鸿","甄宓引洛水寒潮冻结敌阵，造成谋略伤害并迟缓全体；当前已迟缓者有概率眩晕。","敌方全体；迟缓目标有机会眩晕","luoshui-freeze"),
+"huangyueying":("木牛流马","黄月英召出机关木牛，为全军补充护盾与能量；护盾最低的友军获得额外机关护卫。","我方全体＋薄盾友军强化","wooden-cattle"),
+"wangyi":("忠烈断刃","王异以双刃进行两次反击式斩击；若自身生命低于一半，第二刀必定暴击并吸取部分伤害。","敌方单体两段；低血量强化","vengeful-blade"),
+"mayunlu":("银月枪舞","马云禄旋枪扫击敌方前排，随后突刺最远处目标；两段攻击使用不同距离与倍率。","敌方前排＋最远目标","silver-moon"),
+"ganfuren":("母仪护佑","甘夫人守护生命最低的友军，为其恢复生命并赋予一次濒死保护护盾；若无重伤者则保护主将。","我方濒危单体保护","maternal-aegis")
+}
+for hero in EXTRAS:
+    if hero["slug"] not in EXTRA_SKILLS:
+        raise ValueError(f"missing unique skill for {hero['slug']}")
+    hero["skill"],hero["desc"],hero["skillRange"],hero["fx"]=EXTRA_SKILLS[hero["slug"]]
+if len({hero["skill"] for hero in EXTRAS}) != len(EXTRAS):
+    raise ValueError("new general skill names must all be unique")
+if len({hero["fx"] for hero in EXTRAS}) != len(EXTRAS):
+    raise ValueError("new general skill FX identifiers must all be unique")
 ALL_ART = BASE + EXTRAS
 for hero in ALL_ART:
     hero["physique"] = PHYSIQUE_DATA[hero["slug"]]
