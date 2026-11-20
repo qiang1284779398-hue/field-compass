@@ -114,7 +114,7 @@ const storage = {
 };
 const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,applyFactionBattleTactic,factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle,applyFactionBattleTactic};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,applyFactionBattleTactic,setFight:v=>{fight=v},factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle,applyFactionBattleTactic};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -126,8 +126,6 @@ const doctrines=doctrineIds.map(id=>game.factionDoctrine(id));
 assert.equal(new Set(doctrines.map(d=>d.name)).size,6,"each faction must have a distinct military doctrine");
 assert.ok(doctrines.every(d=>d.siege>0&&d.inf>0&&d.cav>0&&d.arch>0&&d.desc),"every faction doctrine needs valid siege and reinforcement weights");
 {
-  const f=game.fight()||{};
-  const original=game.fight;
   const cases=[
     {id:"yellow",round:3,expected:"黄巾蜂拥",shield:24},
     {id:"xiliang",round:2,expected:"西凉奔袭",field:"doctrineChargeRound"},
@@ -138,11 +136,8 @@ assert.ok(doctrines.every(d=>d.siege>0&&d.inf>0&&d.cav>0&&d.arch>0&&d.desc),"eve
   ];
   for(const c of cases){
     const enemy={name:"QA敌军",troop:c.troop||"步兵",atk:30,def:20,hp:200,max:200,alive:true,shield:0};
-    const battle={enemyFactionId:c.id,round:c.round,doctrineRound:null,enemies:[enemy],logs:[],enemyMorale:60,mode:"territory",territoryIndex:0,chapter:0};
-    // The resolver closes over the active battle state; replace the exposed accessor's object in place.
-    const active=game.fight();
-    if(active){Object.assign(active,battle);active.enemies=[enemy];}
-    else throw new Error("battle fixture unavailable for doctrine test");
+    const active={enemyFactionId:c.id,round:c.round,doctrineRound:null,enemies:[enemy],logs:[],enemyMorale:60,mode:"territory",territoryIndex:0,chapter:0};
+    game.setFight(active);
     const message=game.applyFactionBattleTactic();
     assert.ok(message.includes(c.expected),"faction tactic should trigger: "+c.id);
     if(c.shield)assert.ok(enemy.shield>=c.shield,"faction tactic should grant its shield effect: "+c.id);
