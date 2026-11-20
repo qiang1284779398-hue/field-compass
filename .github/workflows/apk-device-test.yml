@@ -11,6 +11,14 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright CDP client
+        run: npm install --no-save --package-lock=false playwright
       - name: Download APK from successful build
         uses: actions/download-artifact@v4
         with:
@@ -18,7 +26,7 @@ jobs:
           path: apk
           github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
-      - name: Boot Android emulator, install and launch APK
+      - name: Boot Android emulator, install APK and test real WebView battle
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
@@ -29,28 +37,29 @@ jobs:
           disable-animations: true
           script: |
             set -e
+            mkdir -p artifacts
             APK="$(find apk -name '*.apk' -print -quit)"
             test -n "$APK"
             adb install -r "$APK"
+            adb shell am force-stop com.hxsg.game || true
             adb shell monkey -p com.hxsg.game 1
-            sleep 15
+            sleep 12
             adb shell dumpsys activity activities | grep -q 'com.hxsg.game'
-            adb logcat -d -s AndroidRuntime:E | tee /tmp/android-runtime-errors.txt
-            if grep -q 'FATAL EXCEPTION' /tmp/android-runtime-errors.txt; then
-              echo "Android app crashed during launch"
-              exit 1
-            fi
-            adb shell uiautomator dump /sdcard/window.xml >/dev/null
-            adb pull /sdcard/window.xml ./window.xml
-            grep -Eq '新野|主城' window.xml
-            adb shell screencap -p /sdcard/game-home.png
-            adb pull /sdcard/game-home.png ./game-home.png
-      - name: Upload emulator launch evidence
-        uses: actions/upload-artifact@v4
+            PID="$(adb shell pidof -s com.hxsg.game | tr -d '\r')"
+            test -n "$PID"
+            adb forward tcp:9222 localabstract:webview_devtools_remote_$PID
+            for i in $(seq 1 40); do
+              if curl -fsS http://127.0.0.1:9222/json/version >/dev/null; then break; fi
+              sleep 2
+            done
+            curl -fsS http://127.0.0.1:9222/json/version
+            node scripts/android-webview-smoke.cjs
+            adb logcat -d -s AndroidRuntime:E HuanxiangWebView:D > artifacts/android-logcat.txt
+            adb exec-out screencap -p > artifacts/android-final-screen.png
+      - name: Upload Android emulator battle evidence
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: android-emulator-evidence
-          path: |
-            window.xml
-            game-home.png
-            /tmp/android-runtime-errors.txt
+          path: artifacts/
+          if-no-files-found: warn
