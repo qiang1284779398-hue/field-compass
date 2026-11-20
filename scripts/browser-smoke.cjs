@@ -94,6 +94,7 @@ const assert = require("node:assert/strict");
 
 
   // Exercise real home-screen service buttons and confirm their modals/actions work.
+  await page.evaluate(() => closeModal());
   await page.locator('button[data-p="home"]').click();
   await page.evaluate(() => eval("s.gold=100000;s.food=100000;s.wood=100000;s.iron=100000;s.eventDay=null"));
   for (const [handler, heading] of [
