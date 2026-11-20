@@ -9,7 +9,8 @@ const assert = require("node:assert/strict");
   for (const id of ["liu-bei","guan-yu","zhang-fei"]) {
     assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/"+id+".svg")), id+" full-body 2D SVG must be bundled");
     assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/portraits/"+id+".svg")), id+" portrait SVG must be bundled");
-    assert.ok(html.includes('characters/2d/'+id+'.svg'), id+" full-body sprite path must be wired into the game");
+    assert.ok(html.includes('characters/2d/\'+artId+\'.svg'), id+" must use the shared local full-body sprite path");
+    assert.ok(html.includes('"'+id+'"'), id+" must have a dedicated character identity mapping");
   }
   assert.ok(html.includes("data-hero2d") && html.includes("class=\\"hero-portrait\\""), "battle actors must expose integrated 2D hero image anchors");
   assert.ok(html.includes("function generalPortrait") && html.includes("characters/2d/portraits/"), "general roster must use bespoke 2D portraits");
@@ -43,6 +44,13 @@ const assert = require("node:assert/strict");
     const pageText = (await page.locator("#view").innerText()).trim();
     assert.ok(pageText.length > 20, tab + " page should render content");
     assert.ok(pageText.includes(pageMarkers[tab]), tab + " page should render its expected feature section");
+    if (tab === "heroes") {
+      await page.waitForFunction(() => ["liu-bei","guan-yu","zhang-fei"].every(id => {
+        const img = document.querySelector('.portrait .general-portrait[src$="'+id+'.svg"]');
+        return !!img && img.complete && img.naturalWidth > 0;
+      }), { timeout: 10000 });
+      assert.equal(await page.locator(".portrait .general-portrait").count(), 3, "roster must display all three bespoke general portraits");
+    }
     if (tab === "world") assert.match(pageText, /敌对|戒备|中立|友善/, "world page should show readable faction diplomacy tiers");
   }
 
