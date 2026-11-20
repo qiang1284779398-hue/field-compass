@@ -420,6 +420,28 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
   }
   assert.equal(eventBranchesTested,events.length*2,"both branches of every random event should be exercised");
 
+  // Walk every campaign chapter through dialogue, branch, battle and unlock.
+  let chapterFlowsTested=0;
+  for(let i=0;i<chapters.length;i++){
+    const st=game.state();
+    st.story=i;st.gold=100000;st.food=100000;st.wood=100000;st.iron=100000;st.jade=100000;
+    game.startChapter(i);
+    let steps=0;
+    while(elements.get("view").innerHTML.includes('onclick="storyNext()"')){
+      game.storyNext();steps++;
+      assert.ok(steps<30,"chapter dialogue must terminate: "+chapters[i].title);
+    }
+    assert.ok(steps>=3,"chapter should present at least three dialogue advances: "+chapters[i].title);
+    game.chapterChoice(0);
+    assert.ok(game.fight(),"chapter branch should start battle: "+chapters[i].title);
+    assert.equal(game.fight().waves,3,"chapter battle should contain three waves: "+chapters[i].title);
+    game.fight().phase="end";game.fight().win=true;
+    game.finishBattle();
+    assert.equal(game.state().story,i+1,"victory should unlock next chapter: "+chapters[i].title);
+    chapterFlowsTested++;
+  }
+  assert.equal(chapterFlowsTested,30,"all 30 chapter flows should be exercised");
+
   console.log("Game QA passed:", {
     chapters: chapters.length,
     randomEvents: events.length,
