@@ -79,8 +79,7 @@ assert.ok(elements.get("view").innerHTML.includes("<svg"), "battle should render
   await game.basicAttack();
   game.selectActor(1);
   await game.useHeroSkill();
-  game.selectActor(2);
-  game.defendAction();
+  assert.equal(game.fight().acted.length, 2, "each player action should be recorded once");
   assert.ok(game.fight(), "combat state should remain valid after player actions");
 
   game.fight().phase = "end";
