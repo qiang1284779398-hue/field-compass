@@ -235,7 +235,7 @@ def body_svg(h, index):
 <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0c7"/><stop offset=".3" stop-color="{accent}"/><stop offset=".7" stop-color="#8a653b"/><stop offset="1" stop-color="#30251c"/></linearGradient>
 <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0c0"/><stop offset=".65" stop-color="{skin}"/><stop offset="1" stop-color="#a96e5a"/></linearGradient>
 <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#51403a"/><stop offset=".45" stop-color="#211e20"/><stop offset="1" stop-color="#090e12"/></linearGradient>
-<linearGradient id="ink"><stop stop-color="#24201e"/><stop offset="1" stop-color="#0d1318"/></linearGradient>
+<linearGradient id="ink"><stop stop-color="#24201e"/><stop offset="1" stop-color="#0d1318"/></linearGradient><linearGradient id="accent"><stop stop-color="{accent}"/><stop offset="1" stop-color="#5f472e"/></linearGradient>
 </defs>'''
     title=f'<title>{esc(h["name"])} · 独立全身立绘</title><desc>统一厚涂质感线稿、完整双臂与双手结构、分层胸甲和专属武器。</desc>'
     # Render weapon behind the arms so the grip sits in the palm rather than floating beside it.
@@ -323,9 +323,9 @@ def main():
         if h in EXTRAS:
             extra_ids[h["id"]]=slug
             extras_js.append(dict(id=h["id"],name=h["name"],title=h["title"],rarity=h["rarity"],role=h["role"],troop=h["troop"],
-                                  atk=h["atk"],defense=h["defense"],hp=h["hp"],energy=h["energy"],skill=h["skill"],desc=h["desc"],
+                                  atk=h["atk"],def=h["defense"],hp=h["hp"],energy=h["energy"],skill=h["skill"],desc=h["desc"],
                                   face=h["face"],bio=h["bio"],weapon=h["weapon"],skillFx=h["fx"]))
-    js="window.EXTRA_HEROES="+json.dumps(extras_js,ensure_ascii=False,separators=(",",":"))+";\\n"
+    js="window.EXTRA_HEROES="+json.dumps(extras_js,ensure_ascii=False,separators=(",",":"))+";\n"
     js+="window.EXTRA_HERO_ART_IDS="+json.dumps(extra_ids,ensure_ascii=False,separators=(",",":"))+";\\n"
     js+="window.HERO_ANIM_META="+json.dumps(meta,ensure_ascii=False,separators=(",",":"))+";\\n"
     write(ART/"roster-extra.js",js)
