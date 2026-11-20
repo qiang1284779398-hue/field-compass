@@ -40,7 +40,7 @@ assert.ok(source.includes("doctrine=factionDoctrine(f)") && source.includes("((d
 assert.ok(source.includes('施展"+doctrine.name+"：'), "regional battle logs should identify the enemy faction doctrine");
 assert.ok(source.includes("function applyFactionBattleTactic"), "six faction battlefield tactic resolver missing");
 assert.ok(source.includes("doctrineChargeRound===fight.round") && source.includes("doctrineVolleyRound===fight.round"), "cavalry charge and crossbow suppression must affect actual enemy attacks");
-assert.ok(source.includes("doctrine-chip") && source.includes("doctrine-jingwu") && source.includes("doctrine-xiliang"), "faction tactics need visible battlefield feedback");
+assert.ok(html.includes("doctrine-chip") && html.includes("doctrine-jingwu") && html.includes("doctrine-xiliang"), "faction tactics need visible battlefield feedback");
 assert.ok(source.includes("suppressed=(troop.includes(\"弓\")||troop.includes(\"弩\"))&&(fight.doctrineVolleyRound===fight.round||Math.random()<.24)"), "Jingwu doctrine should guarantee ranged suppression on its volley round");
 assert.ok(source.includes("enemyFaction")||source.includes("factionForRegion"), "enemy faction data should exist");
 assert.ok(source.includes("campRecovery=Math.min(s.wounded||0,4+Math.floor((s.morale||0)/25))"), "daily camp recovery should heal wounded troops based on morale");
