@@ -22,3 +22,14 @@ The game already had basic regional scouting, enemy garrison reports, supply sab
 - Music routing uses the existing bundled tracks; no new soundtrack recordings are claimed.
 - Spy field-operation success is probability-based. Capture/recovery, costs and persistent reports need hands-on playtesting.
 - A successful source check or APK build does not prove every gameplay path is bug-free.
+
+## Non-regression contract (mandatory for every future pass)
+
+1. **Inventory before editing:** inspect the current implementation and tests for the target feature; reuse and extend existing systems. Never reimplement an existing subsystem under a new name.
+2. **Additive changes only:** preserve the 30-chapter campaign, story-choice consequences, battle engine and three-wave flow, troop counters/synergies, seven status effects, six faction doctrines, spy operations, diplomacy, local saves and legacy-save migration. A feature may be refactored only when its current behavior is covered and the replacement passes the same regression cases.
+3. **Save compatibility:** keep the current hxsg_save_v4 schema and the v3 migration path compatible. New save fields require safe defaults for existing saves; never reset player progress to introduce a feature.
+4. **Test before calling complete:** run deterministic logic checks, browser interaction checks and APK build. Run Android emulator installation/launch checks when a fresh APK is available. A failed or skipped regression blocks the release claim.
+5. **Review the diff:** inspect changed files and deletion counts against the prior commit. Any removal or rewrite of established content must be justified and tested; accidental chapter, event, asset, battle, or save-data loss is a blocker.
+6. **Report honestly:** separate implemented, tested, pending and known limitations. Do not equate a passing source assertion with a fully playtested feature.
+
+Every workstream must meet this contract; speed or feature count never overrides preservation of existing progress.
