@@ -476,7 +476,7 @@ def female_hero_svg(h):
             clothes+=f'<path d="M350 385 Q400 365 450 385 L462 520 Q400 550 338 520Z" fill="{dress2}" stroke="{accent}" stroke-width="7"/><path d="M400 390 L400 530 M350 458 L450 458" stroke="{accent}" stroke-width="5"/>'
     weapon=""
     if slug=="sunshangxiang":
-        weapon=f'<g><path d="M612 465 L714 465 L744 500 L714 535 L612 535Z" fill="#66523e" stroke="{ink}" stroke-width="9"/><path d="M620 480 L704 480 L725 500 L704 520 L620 520Z" fill="#c5a66d" stroke="{ink}" stroke-width="6"/><path d="M640 465 Q680 410 724 465 M640 535 Q680 590 724 535" fill="none" stroke="#dce7e8" stroke-width="8"/><path d="M608 500 L745 500" stroke="#fff" stroke-width="5"/><path d="M690 452 L690 548" stroke="{accent}" stroke-width="6"/></g>'
+        weapon=f'<g><path d="M455 486 L610 486 L650 516 L610 546 L455 546Z" fill="#66523e" stroke="{ink}" stroke-width="9"/><path d="M468 498 L603 498 L628 516 L603 534 L468 534Z" fill="#c5a66d" stroke="{ink}" stroke-width="6"/><path d="M488 486 Q535 430 610 486 M488 546 Q535 600 610 546" fill="none" stroke="#dce7e8" stroke-width="8"/><path d="M454 516 L650 516" stroke="#fff" stroke-width="5"/><path d="M585 470 L585 562" stroke="{accent}" stroke-width="6"/><path d="M482 474 L482 558 M497 474 L497 558" stroke="{ink}" stroke-width="5"/></g>'
     elif slug=="wangyi":
         weapon=f'<g stroke="{ink}" stroke-width="8"><path d="M270 590 L205 425 Q198 390 225 390 Q250 405 248 440 L295 550Z" fill="#d8e0df"/><path d="M550 590 L615 425 Q622 390 595 390 Q570 405 572 440 L525 550Z" fill="#d8e0df"/><path d="M245 545 L290 570 M555 570 L600 545" stroke="{accent}" stroke-width="11"/></g>'
     elif slug=="mayunlu":
@@ -514,16 +514,17 @@ def female_hero_svg(h):
 <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf0"/><stop offset=".4" stop-color="#b8c7c9"/><stop offset="1" stop-color="#53656a"/></linearGradient>
 </defs>
 <ellipse cx="430" cy="960" rx="220" ry="24" fill="#0d1118" opacity=".22"/>
-{weapon}
-<path d="M350 370 Q275 392 238 555 L250 880 Q315 944 400 915 Q485 944 550 880 L566 555 Q520 392 450 370Z" fill="{_dark(cloth,.17)}" stroke="{ink}" stroke-width="12" opacity="{.9 if not fighter and not engineer else .30}"/>
+{weapon if slug!="sunshangxiang" else ""}
+<path d="M350 370 Q275 392 238 555 L250 880 Q315 944 400 915 Q485 944 550 880 L566 555 Q520 392 450 370Z" fill="{_dark(cloth,.17)}" stroke="{ink}" stroke-width="12" opacity="{.9 if not fighter and not engineer else .12}"/>
 {clothes}
 {legs}
 <path d="M340 374 Q310 405 300 490 L280 570 Q300 590 330 570 L367 470 M460 374 Q500 400 520 490 L540 570 Q520 590 490 570 L453 470" fill="none" stroke="{ink}" stroke-width="28" stroke-linecap="round"/>
 <path d="M340 374 Q310 405 300 490 L280 570 Q300 590 330 570 L367 470 M460 374 Q500 400 520 490 L540 570 Q520 590 490 570 L453 470" fill="none" stroke="{_light(armor,.18)}" stroke-width="17" stroke-linecap="round"/>
 {hands}
+{weapon if slug=="sunshangxiang" else ""}
 <path d="M360 330 L360 390 Q400 415 490 390 L490 330Z" fill="url(#skin)" stroke="#704936" stroke-width="7"/>
-{face}
 {hair_markup}
+{face}
 {crest}
 {accent_detail}
 </svg>'''
