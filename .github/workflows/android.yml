@@ -15,6 +15,12 @@ jobs:
           node-version: '20'
       - name: Verify game logic and content
         run: node scripts/verify-game.cjs
+      - name: Install Chromium for browser playability test
+        run: |
+          npm install --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium
+      - name: Run browser playability test
+        run: node scripts/browser-smoke.cjs
       - name: Download CC0 soundtrack for offline play
         run: |
           mkdir -p app/src/main/assets/audio
