@@ -391,8 +391,147 @@ def apply_character_identity(source,h,base_slug):
     return source
 
 
+def female_hero_svg(h):
+    p=h["physique"]; slug=h["slug"]; accent=h["accent"]; armor=h["armor"]; cloth=h["cloth"]
+    sx=float(p.get("widthScale",1.0)); sy=float(p.get("heightScale",1.0))
+    if not (0.72<=sx<=1.42 and 0.84<=sy<=1.12): raise ValueError(f"unsafe female physique for {slug}: {sx}/{sy}")
+    fighter=slug in ("sunshangxiang","wangyi","mayunlu")
+    engineer=slug=="huangyueying"
+    skin="#f0c6ae"; hair="#161820"; ink="#211d20"
+    palettes={
+      "sunshangxiang":("#873b36","#293943","#d4b06f","#70443b"),
+      "wangyi":("#713d43","#27313a","#caa46a","#493b3c"),
+      "mayunlu":("#9c4541","#526d78","#ded6bf","#495159"),
+      "huangyueying":("#7b835e","#3c554f","#d4b77a","#594b3b"),
+      "daqiao":("#7c9e9a","#d1b89e","#e5d2a4","#a7b9b2"),
+      "xiaoqiao":("#bd756d","#63495d","#e4c17e","#bd8e8a"),
+      "zhenji":("#8baebb","#dbe8e8","#d9cda9","#a8d1df"),
+      "ganfuren":("#8a9276","#c6b99c","#cdbb88","#8b816b")
+    }
+    armor,cloth,accent,hair=palettes.get(slug,(armor,cloth,accent,hair))
+    if slug=="sunshangxiang":
+        hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M486 110 Q557 50 606 91 Q570 128 530 164" fill="none" stroke="{hair}" stroke-width="25" stroke-linecap="round"/><path d="M545 104 Q585 44 619 58" fill="none" stroke="'+accent+'" stroke-width="9"/>'
+    elif slug=="wangyi":
+        hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M515 155 Q580 230 560 365 Q545 470 600 520 Q520 485 510 395 L492 254" fill="none" stroke="{hair}" stroke-width="26" stroke-linecap="round"/>'
+    elif slug=="mayunlu":
+        hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M492 102 Q545 45 585 75 Q555 125 520 150" fill="none" stroke="{hair}" stroke-width="24" stroke-linecap="round"/>'
+    elif slug=="huangyueying":
+        hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M400 112 Q410 40 480 48 Q530 53 536 112" fill="none" stroke="{hair}" stroke-width="22"/><g fill="none" stroke="{accent}" stroke-width="7"><circle cx="510" cy="98" r="20"/><path d="M510 70 L510 126 M482 98 L538 98"/></g>'
+    elif slug=="daqiao":
+        hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M410 97 Q430 42 480 61 Q520 72 527 113" fill="none" stroke="{hair}" stroke-width="23"/><g fill="{accent}" stroke="#6a584a" stroke-width="4"><circle cx="512" cy="106" r="12"/><path d="M512 75 L512 55 M490 105 L474 90 M532 105 L550 90" fill="none"/></g>'
+    elif slug=="xiaoqiao":
+        hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><circle cx="376" cy="131" r="34" fill="{hair}" stroke="{ink}" stroke-width="8"/><circle cx="528" cy="131" r="34" fill="{hair}" stroke="{ink}" stroke-width="8"/><path d="M358 104 Q330 73 320 100 M546 103 Q576 75 590 103" fill="none" stroke="{accent}" stroke-width="9"/>'
+    elif slug=="zhenji":
+        hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M522 170 Q604 280 566 485" fill="none" stroke="{hair}" stroke-width="25" stroke-linecap="round"/><path d="M394 98 Q440 35 490 85" fill="none" stroke="{accent}" stroke-width="10"/><g fill="#cce5ec" stroke="#768f9a" stroke-width="4"><circle cx="444" cy="86" r="12"/><circle cx="467" cy="78" r="8"/></g>'
+    else:
+        hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M410 98 Q440 65 480 78" fill="none" stroke="{hair}" stroke-width="20"/><g fill="{accent}" stroke="#655744" stroke-width="3"><circle cx="510" cy="108" r="8"/><circle cx="525" cy="93" r="5"/></g>'
+    face=f'<path d="M365 222 Q370 120 447 112 Q523 118 540 223 L525 295 Q504 347 450 361 Q397 346 379 294Z" fill="url(#skin)" stroke="#704936" stroke-width="9"/><path d="M390 243 Q412 225 433 242 M466 242 Q489 225 511 243" fill="none" stroke="{ink}" stroke-width="6" stroke-linecap="round"/><path d="M391 261 Q413 270 434 261 Q413 250 391 261Z M466 261 Q489 270 511 261 Q489 250 466 261Z" fill="#fff0df"/><ellipse cx="413" cy="262" rx="4" ry="6" fill="#281d20"/><ellipse cx="489" cy="262" rx="4" ry="6" fill="#281d20"/><path d="M451 266 L442 294 Q451 299 461 293 M435 315 Q452 324 470 315" fill="none" stroke="#a9695b" stroke-width="4"/>'
+    if slug in ("sunshangxiang","wangyi","mayunlu"):
+        clothes=f'''
+<path d="M335 635 L390 625 L380 896 L344 942 L303 935Z M455 625 L515 635 L546 935 L505 942 L470 896Z" fill="#303a41" stroke="{ink}" stroke-width="11"/>
+<path d="M330 680 L390 670 L380 744 L326 738Z M458 670 L520 680 L523 738 L470 744Z" fill="{_light(armor,.20)}" stroke="{accent}" stroke-width="7"/>
+<path d="M320 890 L389 905 L371 970 L300 972Z M467 905 L536 890 L559 972 L488 970Z" fill="#273139" stroke="{ink}" stroke-width="10"/>
+<path d="M305 962 L380 962 L385 994 L290 994Z M485 962 L560 962 L570 994 L475 994Z" fill="#171e23" stroke="{accent}" stroke-width="7"/>
+<path d="M335 365 Q400 335 465 365 L485 538 Q400 585 315 538Z" fill="{cloth}" stroke="{ink}" stroke-width="12"/>
+<path d="M350 388 Q400 365 450 388 L462 498 Q400 535 338 498Z" fill="{armor}" stroke="{accent}" stroke-width="9"/>
+<path d="M400 375 L400 526 M350 442 L450 442 M354 489 L446 489" fill="none" stroke="{accent}" stroke-width="7"/>
+<path d="M300 374 Q328 345 355 376 L370 454 L342 493 L292 439Z M445 376 Q474 345 501 374 L509 439 L462 493 L432 454Z" fill="{_dark(armor,.15)}" stroke="{ink}" stroke-width="10"/>
+<path d="M285 465 L315 478 L300 552 L270 546Z M520 465 L550 478 L565 546 L535 552Z" fill="{_light(armor,.12)}" stroke="{ink}" stroke-width="8"/>
+<path d="M320 548 Q400 576 480 548 L468 606 Q400 633 332 606Z" fill="#473b32" stroke="{ink}" stroke-width="9"/><path d="M338 561 Q400 580 462 561" fill="none" stroke="{accent}" stroke-width="8"/>
+<path d="M354 420 Q398 395 446 420" fill="none" stroke="#fff0d0" stroke-width="4" opacity=".7"/>
+'''
+        if slug=="sunshangxiang":
+            clothes+=f'<path d="M328 398 L355 386 L370 506 L340 516Z M430 386 L463 398 L450 516 L420 506Z" fill="#58656a" stroke="{ink}" stroke-width="7"/><path d="M342 426 L365 438 M430 438 L455 426" stroke="{accent}" stroke-width="6"/>'
+        elif slug=="wangyi":
+            clothes+=f'<path d="M345 360 L455 360 L475 510 L400 550 L325 510Z" fill="none" stroke="{accent}" stroke-width="7"/><path d="M360 390 L440 500 M440 390 L360 500" stroke="{accent}" stroke-width="5"/>'
+        else:
+            clothes+=f'<path d="M330 405 Q400 345 470 405 L485 520 L400 563 L315 520Z" fill="none" stroke="#e6e8dc" stroke-width="6"/><path d="M370 390 L430 540" stroke="{accent}" stroke-width="7"/>'
+    elif engineer:
+        clothes=f'''
+<path d="M340 625 L405 640 L390 910 L350 952 L310 938Z M450 640 L510 625 L545 938 L505 952 L470 910Z" fill="#465348" stroke="{ink}" stroke-width="10"/>
+<path d="M305 940 L386 940 L390 988 L295 988Z M482 940 L562 940 L574 988 L477 988Z" fill="#29332e" stroke="{accent}" stroke-width="7"/>
+<path d="M330 365 Q400 330 470 365 L485 565 Q400 608 315 565Z" fill="{cloth}" stroke="{ink}" stroke-width="11"/>
+<path d="M350 390 Q400 365 450 390 L460 515 Q400 552 340 515Z" fill="{armor}" stroke="{accent}" stroke-width="8"/>
+<path d="M400 375 L400 540 M350 450 L450 450" stroke="{accent}" stroke-width="7"/>
+<path d="M300 382 Q330 345 356 375 L370 475 L338 500 L290 440Z M444 375 Q472 345 500 382 L510 440 L462 500 L430 475Z" fill="{_dark(armor,.15)}" stroke="{ink}" stroke-width="10"/>
+<path d="M315 540 L485 540 L475 630 L325 630Z" fill="#5d5744" stroke="{ink}" stroke-width="8"/><g fill="none" stroke="{accent}" stroke-width="7"><circle cx="360" cy="578" r="20"/><circle cx="435" cy="578" r="27"/><path d="M435 542 L435 614 M399 578 L471 578"/></g>
+'''
+    else:
+        dress="#718f89" if slug=="daqiao" else "#b86f74" if slug=="xiaoqiao" else "#d5e4e6" if slug=="zhenji" else "#b9b39a"
+        dress2="#e4d3b5" if slug=="daqiao" else "#e4bb83" if slug=="xiaoqiao" else "#f2f3ea" if slug=="zhenji" else "#ded1b8"
+        clothes=f'''
+<path d="M355 360 Q400 330 455 360 L500 545 Q555 745 610 918 Q525 967 450 928 Q385 970 280 925 Q330 720 300 545Z" fill="{dress}" stroke="{ink}" stroke-width="11"/>
+<path d="M365 380 Q410 357 450 380 L470 560 Q430 690 410 900 L330 910 Q370 690 340 550Z" fill="{dress2}" stroke="{accent}" stroke-width="7"/>
+<path d="M455 385 Q490 420 492 565 L570 900 L505 928 Q475 715 432 570Z" fill="{_dark(dress,.16)}" stroke="{accent}" stroke-width="7"/>
+<path d="M330 380 Q350 355 385 380 L405 500 Q380 570 345 550 L300 470Z M455 380 Q485 350 510 380 L560 470 L520 550 Q485 570 460 500Z" fill="{dress}" stroke="{ink}" stroke-width="10"/>
+<path d="M330 568 Q400 600 510 568 L520 625 Q410 666 320 625Z" fill="{_dark(dress,.2)}" stroke="{accent}" stroke-width="8"/><path d="M400 600 L435 615 L430 662 L395 650Z" fill="{accent}" stroke="{ink}" stroke-width="5"/>
+'''
+        if slug=="daqiao":
+            clothes+=f'<path d="M305 515 Q210 500 180 700 Q215 735 270 720 L352 600 M510 510 Q610 490 650 690 Q615 735 555 710 L470 600" fill="none" stroke="{dress2}" stroke-width="24" stroke-linecap="round"/><path d="M300 530 Q220 510 190 690 M515 530 Q600 510 640 685" fill="none" stroke="{accent}" stroke-width="4"/>'
+        elif slug=="xiaoqiao":
+            clothes+=f'<path d="M340 365 Q400 335 460 365 L480 520 L400 556 L320 520Z" fill="{dress2}" stroke="{accent}" stroke-width="8"/><path d="M365 415 Q400 450 435 415" fill="none" stroke="{accent}" stroke-width="7"/>'
+        elif slug=="zhenji":
+            clothes+=f'<path d="M340 364 Q400 330 460 364 L480 530 Q400 568 320 530Z" fill="{dress2}" stroke="{accent}" stroke-width="8"/><path d="M370 370 Q400 430 430 370 M330 690 Q400 745 490 690" fill="none" stroke="#fff" stroke-width="7"/><path d="M565 440 Q650 510 700 650" fill="none" stroke="#bfe0e7" stroke-width="12"/>'
+        else:
+            clothes+=f'<path d="M350 385 Q400 365 450 385 L462 520 Q400 550 338 520Z" fill="{dress2}" stroke="{accent}" stroke-width="7"/><path d="M400 390 L400 530 M350 458 L450 458" stroke="{accent}" stroke-width="5"/>'
+    weapon=""
+    if slug=="sunshangxiang":
+        weapon=f'<g><path d="M612 465 L714 465 L744 500 L714 535 L612 535Z" fill="#66523e" stroke="{ink}" stroke-width="9"/><path d="M620 480 L704 480 L725 500 L704 520 L620 520Z" fill="#c5a66d" stroke="{ink}" stroke-width="6"/><path d="M640 465 Q680 410 724 465 M640 535 Q680 590 724 535" fill="none" stroke="#dce7e8" stroke-width="8"/><path d="M608 500 L745 500" stroke="#fff" stroke-width="5"/><path d="M690 452 L690 548" stroke="{accent}" stroke-width="6"/></g>'
+    elif slug=="wangyi":
+        weapon=f'<g stroke="{ink}" stroke-width="8"><path d="M270 590 L205 425 Q198 390 225 390 Q250 405 248 440 L295 550Z" fill="#d8e0df"/><path d="M550 590 L615 425 Q622 390 595 390 Q570 405 572 440 L525 550Z" fill="#d8e0df"/><path d="M245 545 L290 570 M555 570 L600 545" stroke="{accent}" stroke-width="11"/></g>'
+    elif slug=="mayunlu":
+        weapon=f'<g><path d="M680 940 L680 170" stroke="#4b3429" stroke-width="19"/><path d="M680 85 Q630 150 680 240 Q730 150 680 85Z" fill="#dce5e6" stroke="{ink}" stroke-width="9"/><path d="M680 110 L680 220" stroke="#fff" stroke-width="6"/><path d="M650 225 L710 225" stroke="{accent}" stroke-width="11"/></g>'
+    elif slug=="daqiao":
+        weapon=f'<g><path d="M610 620 Q555 500 635 380 Q755 510 610 620Z" fill="#e3e9df" stroke="{ink}" stroke-width="8"/><path d="M610 620 L635 380 M610 620 L690 430" stroke="{accent}" stroke-width="6"/><path d="M610 620 L622 760" stroke="#684b3c" stroke-width="14"/></g>'
+    elif slug=="xiaoqiao":
+        weapon=f'<g><path d="M285 610 Q220 500 300 385 Q410 505 285 610Z M600 610 Q535 500 615 385 Q725 505 600 610Z" fill="#dfb5a0" stroke="{ink}" stroke-width="8"/><path d="M285 610 L300 385 M600 610 L615 385" stroke="{accent}" stroke-width="7"/></g>'
+    elif slug=="zhenji":
+        weapon=f'<g fill="none" stroke="#b9dfe8" stroke-width="15" stroke-linecap="round"><path d="M600 520 Q760 400 720 260 Q700 210 755 165"/><path d="M610 560 Q745 520 775 410"/></g>'
+    elif slug=="huangyueying":
+        weapon=f'<g><circle cx="680" cy="510" r="62" fill="none" stroke="{accent}" stroke-width="13"/><circle cx="680" cy="510" r="25" fill="none" stroke="{ink}" stroke-width="8"/><path d="M680 430 L680 590 M600 510 L760 510 M625 455 L735 565 M735 455 L625 565" stroke="{accent}" stroke-width="8"/></g>'
+    else:
+        weapon=f'<g><path d="M630 650 Q540 500 630 370 Q730 500 630 650Z" fill="#e4d9bd" stroke="{ink}" stroke-width="8"/><path d="M630 650 L630 780" stroke="{accent}" stroke-width="9"/></g>'
+    hands=f'<path d="M303 505 Q280 515 281 548 Q290 568 314 559 L330 535Z M488 535 Q503 517 527 528 L540 551 Q530 575 505 565Z" fill="url(#skin)" stroke="#855746" stroke-width="7"/>'
+    legs=f'<path d="M350 910 L397 920 L381 970 L317 970Z M448 920 L497 910 L530 970 L467 970Z" fill="#252a2c" stroke="{ink}" stroke-width="9"/><path d="M315 966 L390 966 L395 995 L300 995Z M465 966 L540 966 L555 995 L455 995Z" fill="#1e2325" stroke="{accent}" stroke-width="7"/>'
+    accent_detail=f'<g fill="{accent}" stroke="{ink}" stroke-width="4"><circle cx="354" cy="425" r="6"/><circle cx="446" cy="425" r="6"/><path d="M400 420 L400 535" fill="none" stroke="#f4d9a4" stroke-width="4"/></g>'
+    crest=""
+    if slug=="sunshangxiang": crest=f'<path d="M420 95 Q430 20 470 15 Q490 70 458 122Z" fill="#a23b32" stroke="{accent}" stroke-width="8"/>'
+    elif slug=="mayunlu": crest=f'<path d="M420 95 Q430 20 470 15 Q490 70 458 122Z" fill="#a23b32" stroke="{accent}" stroke-width="8"/>'
+    elif slug=="wangyi": crest=f'<path d="M405 92 L440 50 L475 92 L455 130 L425 130Z" fill="#9b4f48" stroke="{accent}" stroke-width="7"/>'
+    elif slug=="huangyueying": crest=f'<circle cx="450" cy="88" r="26" fill="none" stroke="{accent}" stroke-width="7"/>'
+    elif slug=="zhenji": crest=f'<path d="M410 104 Q450 45 490 104" fill="none" stroke="#dff6fa" stroke-width="9"/>'
+    elif slug in ("daqiao","xiaoqiao"): crest=f'<g fill="{accent}" stroke="#705443" stroke-width="4"><circle cx="450" cy="92" r="12"/><circle cx="426" cy="82" r="7"/><circle cx="474" cy="82" r="7"/></g>'
+    else: crest=f'<path d="M414 100 Q450 68 486 100" fill="none" stroke="{accent}" stroke-width="8"/>'
+    sx,sy=float(p.get("widthScale",1)),float(p.get("heightScale",1))
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<title>{esc(h["name"])} · 2D 立绘</title>
+<desc>以貂蝉的精细线条和材质为基础，按角色身份单独设计服装、发式、武器和体态。</desc>
+<defs>
+<linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="{_light(armor,.34)}"/><stop offset=".38" stop-color="{armor}"/><stop offset="1" stop-color="{_dark(armor,.35)}"/></linearGradient>
+<linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="{_light(cloth,.38)}"/><stop offset=".55" stop-color="{cloth}"/><stop offset="1" stop-color="{_dark(cloth,.30)}"/></linearGradient>
+<linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#ffe0bd"/><stop offset=".42" stop-color="#f0c5ae"/><stop offset="1" stop-color="#8e5744"/></linearGradient>
+<linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf0"/><stop offset=".4" stop-color="#b8c7c9"/><stop offset="1" stop-color="#53656a"/></linearGradient>
+</defs>
+<ellipse cx="430" cy="960" rx="220" ry="24" fill="#0d1118" opacity=".22"/>
+{weapon}
+<path d="M350 370 Q275 392 238 555 L250 880 Q315 944 400 915 Q485 944 550 880 L566 555 Q520 392 450 370Z" fill="{_dark(cloth,.17)}" stroke="{ink}" stroke-width="12" opacity="{.9 if not fighter and not engineer else .30}"/>
+{clothes}
+{legs}
+<path d="M340 374 Q310 405 300 490 L280 570 Q300 590 330 570 L367 470 M460 374 Q500 400 520 490 L540 570 Q520 590 490 570 L453 470" fill="none" stroke="{ink}" stroke-width="28" stroke-linecap="round"/>
+<path d="M340 374 Q310 405 300 490 L280 570 Q300 590 330 570 L367 470 M460 374 Q500 400 520 490 L540 570 Q520 590 490 570 L453 470" fill="none" stroke="{_light(armor,.18)}" stroke-width="17" stroke-linecap="round"/>
+{hands}
+<path d="M360 330 L360 390 Q400 415 490 390 L490 330Z" fill="url(#skin)" stroke="#704936" stroke-width="7"/>
+{face}
+{hair_markup}
+{crest}
+{accent_detail}
+</svg>'''
+
 def body_svg(h, index):
     female=h["gender"]=="f"
+    if female and h["slug"]!="diaochan":
+        return female_hero_svg(h)
     if female:
         base_slug="diaochan"
     elif h.get("beard") in ("white","full","moustache","braid"):
