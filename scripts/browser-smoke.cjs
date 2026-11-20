@@ -41,7 +41,7 @@ const assert = require("node:assert/strict");
   const readFight = () => page.evaluate(() => eval("({round:fight.round,phase:fight.phase,enemyHp:fight.enemies[0].hp,actor:fight.actor,energy:fight.allies.map(x=>x.energy),shield:fight.allies.map(x=>x.shield),acted:fight.acted.length})"));
   const hpBefore = await page.evaluate(() => eval("fight.enemies[0].hp"));
   await page.locator('.warrior[data-side="enemy"][data-index="0"]').click();
-  assert.ok((await page.locator('.warrior[data-side="enemy"][data-index="0"]')).getAttribute("class").then(x=>x.includes("targeted")), "clicked enemy should become the selected target");
+  assert.ok((await page.locator('.warrior[data-side="enemy"][data-index="0"]').getAttribute("class")).includes("targeted"), "clicked enemy should become the selected target");
   await page.locator('button[onclick="basicAttack()"]').click();
   await page.waitForTimeout(900);
   const afterAttack = await readFight();
@@ -60,9 +60,10 @@ const assert = require("node:assert/strict");
   await page.locator('button[onclick="selectActor(2)"]').click();
   const shieldBefore = (await readFight()).shield[2];
   await page.locator('button[onclick="defendAction()"]').click();
+  const afterDefend = await readFight();
+  assert.ok(afterDefend.shield[2] > shieldBefore, "defend action must grant a shield");
   await page.waitForTimeout(4200);
   const afterEnemyTurn = await readFight();
-  assert.ok(afterEnemyTurn.shield[2] > shieldBefore, "defend action must grant a shield");
   assert.ok(afterEnemyTurn.round >= 2 || afterEnemyTurn.phase === "end", "enemy phase must resolve and advance the round or end the battle");
 
   // A battlefield command must apply once, then retreat and loss settlement must return to the campaign.
