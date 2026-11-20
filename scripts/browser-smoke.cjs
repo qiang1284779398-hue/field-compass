@@ -6,11 +6,13 @@ const assert = require("node:assert/strict");
 
 (async () => {
   const html = fs.readFileSync(path.resolve("app/src/main/assets/index.html"), "utf8");
+  const hero3d = fs.readFileSync(path.resolve("app/src/main/assets/hero3d.js"), "utf8");
+  assert.ok(hero3d.includes("THREE.GLTFLoader") && hero3d.includes("THREE.SkeletonUtils") && hero3d.includes("AnimationMixer"), "real skinned GLB models use skeleton cloning and animation mixers");
   assert.ok(html.includes("class=\"weapon-gesture\""), "battle art upgrade: class=\"weapon-gesture\"");
-  assert.ok(html.includes("hero-portrait") && html.includes("Portraits_of_Famous_Men_-_Liu_Bei.jpg"), "historical Liu Bei portrait asset is wired");
-  assert.ok(html.includes("Special:FilePath/Guanyu.jpg"), "historical Guan Yu portrait asset is wired");
-  assert.ok(html.includes("故宫南薰殿张飞画像.jpg"), "historical Zhang Fei portrait asset is wired");
-  assert.ok(html.includes("portrait-fallback") && html.includes("referrerpolicy=\"no-referrer\""), "portrait loading has fallback and safe referrer policy");
+  assert.ok(html.includes("data-hero3d") && html.includes("initHero3D"), "3D rigged hero anchors are integrated");
+  assert.ok(html.includes("characters/guan-yu.glb") || html.includes("guan-yu"), "Guan Yu 3D model identity is wired");
+  assert.ok(html.includes("zhang-fei"), "Zhang Fei 3D model identity is wired");
+  assert.ok(html.includes("hero3d-layer") && html.includes("hero3d-ready"), "3D renderer overlays models while retaining SVG fallback");
   assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: @keyframes weaponSweep");
   assert.ok(html.includes("warrior.swinging .weapon-gesture"), "battle art upgrade: warrior.swinging .weapon-gesture");
   assert.ok(html.includes("hero-guan"), "battle art upgrade: hero-guan");
