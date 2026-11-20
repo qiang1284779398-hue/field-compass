@@ -51,7 +51,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -60,8 +60,10 @@ assert.ok(elements.get("view").innerHTML.includes("天下舆图 · 行军探索"
 const foodBeforeExplore = game.state().food;
 game.inspectRegion(0);
 game.exploreRegion(0);
+assert.ok(elements.get("modal").innerHTML.includes("探索遭遇"), "exploration should open a narrative encounter");
+game.resolveRegionChoice(0);
 assert.ok(game.state().explored.includes(0), "region exploration should persist in save state");
-assert.equal(game.state().food, foodBeforeExplore - 45 + 150, "grain cache should reward its discovery after travel cost");
+assert.equal(game.state().food, foodBeforeExplore - 45 + 100, "rescuing villagers in a bandit encounter should reward grain after travel cost");
 assert.ok(elements.get("view").innerHTML.includes("已探索"), "explored regions should be marked on the map");
 game.inspectRegion(0);
 game.exploreRegion(0);
@@ -141,6 +143,6 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     heroes: game.state().heroes.length,
     battleWaves: 3,
     gameHtmlBytes: Buffer.byteLength(html),
-    tested: ["startup","city","daily missions","story","battle","skills","events","recruitment","equipment","forging","side quests","rewards"]
+    tested: ["startup","city","daily missions","story","battle","skills","events","region exploration and branching encounter","recruitment","equipment","forging","side quests","rewards"]
   });
 })().catch(error => { console.error(error); process.exitCode = 1; });
