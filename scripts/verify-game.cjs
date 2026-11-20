@@ -53,7 +53,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,factionForRegion,enemyCommander,siegeCost};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, {}, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -151,7 +151,10 @@ assert.ok(game.terrainAttackMultiplier("river") < game.terrainAttackMultiplier("
 game.prepareSiege(4);
 assert.equal(game.state().siegePlans[4], true, "siege preparation should consume resources and persist its plan");
 assert.ok(elements.get("modal").innerHTML.includes("攻城器械已备妥"), "prepared siege should be reflected in assault briefing");
+game.setBattleStance("defensive");
 game.beginTerritoryBattle(4, "cav");
+assert.equal(game.fight().stance, "defensive", "selected defensive formation should carry into the battle");
+assert.ok(game.fight().allies.every(a => a.def >= game.heroDef(game.state().heroes[a.sourceIndex]) * 1.2 - 1), "defensive formation should increase every deployed hero's defense");
 assert.equal(game.fight().mode, "territory", "territory assault should enter the playable battlefield mode");
 assert.equal(game.fight().waves, 3, "territory conquest should contain three battle waves");
 assert.ok(elements.get("view").innerHTML.includes("battle-shell"), "territory battle should render both battlefield formations");
