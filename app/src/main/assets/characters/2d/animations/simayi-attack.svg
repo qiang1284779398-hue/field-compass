@@ -1,30 +1,482 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>司马懿·普通攻击四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000"><title>司马懿 · 独立全身立绘</title><desc>统一厚涂质感线稿、完整双臂与双手结构、分层胸甲和专属武器。</desc><defs>
-<linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9a4c4"/><stop offset=".22" stop-color="#55445f"/><stop offset=".62" stop-color="#252336"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#252336"/><stop offset=".55" stop-color="#252336"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0c7"/><stop offset=".3" stop-color="#b9a4c4"/><stop offset=".7" stop-color="#8a653b"/><stop offset="1" stop-color="#30251c"/></linearGradient>
-<linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0c0"/><stop offset=".65" stop-color="#e5b18c"/><stop offset="1" stop-color="#a96e5a"/></linearGradient>
-<linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#51403a"/><stop offset=".45" stop-color="#211e20"/><stop offset="1" stop-color="#090e12"/></linearGradient>
-<linearGradient id="ink"><stop stop-color="#24201e"/><stop offset="1" stop-color="#0d1318"/></linearGradient><linearGradient id="accent"><stop stop-color="#b9a4c4"/><stop offset="1" stop-color="#5f472e"/></linearGradient>
-</defs><g stroke-linejoin="round" stroke-linecap="round"><ellipse cx="400" cy="984" rx="220" ry="15" fill="#101719" opacity=".18"/><g transform="translate(-160 0) scale(1.4 1)"><path d="M320 352 Q242 395 218 564 L251 788 Q300 747 345 696 L400 730 L455 696 Q500 747 549 788 L582 564 Q558 395 480 352 L445 407 L400 430 L355 407Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M246 548 Q282 570 318 545 M554 548 Q518 570 482 545" fill="none" stroke="#b9a4c4" stroke-width="8"/></g><g transform="translate(45 0)"><path d="M565 150 L558 865" stroke="#684a31" stroke-width="17" stroke-linecap="round"/><path d="M558 180 L564 760" stroke="#c69a58" stroke-width="4"/><path d="M536 154 Q565 116 594 154 L588 194 Q565 214 542 194Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="7"/><path d="M544 170 L586 170" stroke="#b9a4c4" stroke-width="7"/></g><g transform="translate(-160 0) scale(1.4 1)"><path d="M326 680 Q400 716 474 680 L458 878 L424 931 L362 931 L342 878Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M341 742 Q400 768 459 742 L450 828 Q400 852 350 828Z" fill="url(#cloth)" stroke="#b9a4c4" stroke-width="7"/><path d="M350 872 L422 872 L433 950 Q400 969 333 950Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M333 950 Q380 964 433 950 L445 982 Q380 1000 315 982Z" fill="#211f20" stroke="url(#ink)" stroke-width="8"/><path d="M314 345 Q400 308 486 345 L508 572 Q496 694 474 815 L326 815 Q304 694 292 572Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="12"/><path d="M335 355 Q400 322 465 355 L482 526 Q400 573 318 526Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M334 379 Q400 344 466 379 L478 500 Q400 543 322 500Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 397 L450 397 L465 466 L400 515 L335 466Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="7"/><path d="M355 420 L445 420 M342 463 L458 463 M400 397 L400 505" fill="none" stroke="url(#metal)" stroke-width="7"/><path d="M365 441 L435 481 M435 441 L365 481" fill="none" stroke="#b9a4c4" stroke-width="5"/><path d="M321 359 Q286 366 269 411 L241 485 Q236 516 263 535 L294 520 L318 448 L355 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M479 359 Q514 366 531 411 L559 485 Q564 516 537 535 L506 520 L482 448 L445 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M252 473 Q279 463 299 487 L290 532 L263 546 Q244 529 245 505Z M548 473 Q521 463 501 487 L510 532 L537 546 Q556 529 555 505Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M330 352 Q285 328 268 378 L304 446 L349 414Z M470 352 Q515 328 532 378 L496 446 L451 414Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M280 384 Q309 356 333 391 M520 384 Q491 356 467 391" fill="none" stroke="#b9a4c4" stroke-width="8"/><path d="M354 332 Q400 360 446 332 L438 382 Q400 415 362 382Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M342 414 Q400 431 458 414 L451 440 Q400 457 349 440Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M335 452 Q400 469 465 452 L458 478 Q400 495 342 478Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M327 490 Q400 507 473 490 L466 516 Q400 533 334 516Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M320 528 Q400 545 480 528 L473 554 Q400 571 327 554Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M400 405 L420 433 L400 462 L380 433Z" fill="#b9a4c4" stroke="url(#ink)" stroke-width="5"/><circle cx="400" cy="433" r="8" fill="url(#metal)"/><g fill="#f1d99a" stroke="url(#ink)" stroke-width="3"><circle cx="343" cy="446" r="6"/><circle cx="457" cy="446" r="6"/><circle cx="350" cy="489" r="5"/><circle cx="450" cy="489" r="5"/></g><path d="M326 548 Q400 579 474 548 L462 684 Q400 715 338 684Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="9"/><path d="M337 568 Q400 594 463 568 M341 605 Q400 629 459 605 M346 643 Q400 664 454 643" fill="none" stroke="#b9a4c4" stroke-width="7"/><path d="M342 176 Q329 243 350 287 L331 338 Q303 308 311 215 Q310 138 371 115Z M458 176 Q471 243 450 287 L469 338 Q497 308 489 215 Q490 138 429 115Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="9"/><path d="M356 153 Q400 110 444 153 L438 183 Q400 159 362 183Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="7"/><path d="M360 334 Q400 354 440 334" fill="none" stroke="#b9a4c4" stroke-width="8"/><path d="M350 166 Q350 112 400 108 Q450 112 450 166 L446 254 Q436 304 400 320 Q364 304 354 254Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="9"/><path d="M354 221 Q400 243 446 221" fill="none" stroke="#c88468" stroke-width="4" opacity=".65"/><path d="M368 206 Q385 190 395 205 M405 205 Q415 190 432 206" fill="none" stroke="#30201d" stroke-width="8" stroke-linecap="round"/><path d="M368 225 Q382 207 396 225 Q382 243 368 225Z M404 225 Q418 207 432 225 Q418 243 404 225Z" fill="#fff0df" stroke="#3b2928" stroke-width="5"/><g fill="#292126"><ellipse cx="382" cy="225" rx="5" ry="8"/><ellipse cx="418" cy="225" rx="5" ry="8"/></g><path d="M369 216 L362 210 M431 216 L438 210" fill="none" stroke="#332326" stroke-width="4"/><path d="M400 222 L390 257 Q400 266 410 257" fill="none" stroke="#a96f58" stroke-width="5"/><path d="M382 278 Q400 286 418 278" fill="none" stroke="#8d5145" stroke-width="5"/><path d="M338 198 Q326 225 348 244 M462 198 Q474 225 452 244" fill="none" stroke="url(#skin)" stroke-width="12"/><path d="M355 270 Q400 320 445 270 L442 398 Q400 466 358 398Z" fill="#211d1c" stroke="url(#ink)" stroke-width="7"/><path d="M324 190 Q306 74 400 65 Q494 74 476 190 L448 214 Q400 186 352 214Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M251 518 Q266 506 283 519 L299 541 Q302 557 288 568 L273 559 L261 570 Q246 565 242 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M549 518 Q534 506 517 519 L501 541 Q498 557 512 568 L527 559 L539 570 Q554 565 558 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M254 542 L270 557 M546 542 L530 557" stroke="#9a644d" stroke-width="4" fill="none"/></g><path d="M345 203 Q360 188 380 197 M420 197 Q440 188 455 203" fill="none" stroke="#171819" stroke-width="7"/></g></svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#b9a4c4" stroke-width="11" stroke-linecap="round" opacity="0.1"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.06999999999999999"/></g><g transform="translate(800 0)"><g transform="translate(-10 -8) rotate(-3 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000"><title>司马懿 · 独立全身立绘</title><desc>统一厚涂质感线稿、完整双臂与双手结构、分层胸甲和专属武器。</desc><defs>
-<linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9a4c4"/><stop offset=".22" stop-color="#55445f"/><stop offset=".62" stop-color="#252336"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#252336"/><stop offset=".55" stop-color="#252336"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0c7"/><stop offset=".3" stop-color="#b9a4c4"/><stop offset=".7" stop-color="#8a653b"/><stop offset="1" stop-color="#30251c"/></linearGradient>
-<linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0c0"/><stop offset=".65" stop-color="#e5b18c"/><stop offset="1" stop-color="#a96e5a"/></linearGradient>
-<linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#51403a"/><stop offset=".45" stop-color="#211e20"/><stop offset="1" stop-color="#090e12"/></linearGradient>
-<linearGradient id="ink"><stop stop-color="#24201e"/><stop offset="1" stop-color="#0d1318"/></linearGradient><linearGradient id="accent"><stop stop-color="#b9a4c4"/><stop offset="1" stop-color="#5f472e"/></linearGradient>
-</defs><g stroke-linejoin="round" stroke-linecap="round"><ellipse cx="400" cy="984" rx="220" ry="15" fill="#101719" opacity=".18"/><g transform="translate(-160 0) scale(1.4 1)"><path d="M320 352 Q242 395 218 564 L251 788 Q300 747 345 696 L400 730 L455 696 Q500 747 549 788 L582 564 Q558 395 480 352 L445 407 L400 430 L355 407Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M246 548 Q282 570 318 545 M554 548 Q518 570 482 545" fill="none" stroke="#b9a4c4" stroke-width="8"/></g><g transform="translate(45 0)"><path d="M565 150 L558 865" stroke="#684a31" stroke-width="17" stroke-linecap="round"/><path d="M558 180 L564 760" stroke="#c69a58" stroke-width="4"/><path d="M536 154 Q565 116 594 154 L588 194 Q565 214 542 194Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="7"/><path d="M544 170 L586 170" stroke="#b9a4c4" stroke-width="7"/></g><g transform="translate(-160 0) scale(1.4 1)"><path d="M326 680 Q400 716 474 680 L458 878 L424 931 L362 931 L342 878Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M341 742 Q400 768 459 742 L450 828 Q400 852 350 828Z" fill="url(#cloth)" stroke="#b9a4c4" stroke-width="7"/><path d="M350 872 L422 872 L433 950 Q400 969 333 950Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M333 950 Q380 964 433 950 L445 982 Q380 1000 315 982Z" fill="#211f20" stroke="url(#ink)" stroke-width="8"/><path d="M314 345 Q400 308 486 345 L508 572 Q496 694 474 815 L326 815 Q304 694 292 572Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="12"/><path d="M335 355 Q400 322 465 355 L482 526 Q400 573 318 526Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M334 379 Q400 344 466 379 L478 500 Q400 543 322 500Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 397 L450 397 L465 466 L400 515 L335 466Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="7"/><path d="M355 420 L445 420 M342 463 L458 463 M400 397 L400 505" fill="none" stroke="url(#metal)" stroke-width="7"/><path d="M365 441 L435 481 M435 441 L365 481" fill="none" stroke="#b9a4c4" stroke-width="5"/><path d="M321 359 Q286 366 269 411 L241 485 Q236 516 263 535 L294 520 L318 448 L355 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M479 359 Q514 366 531 411 L559 485 Q564 516 537 535 L506 520 L482 448 L445 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M252 473 Q279 463 299 487 L290 532 L263 546 Q244 529 245 505Z M548 473 Q521 463 501 487 L510 532 L537 546 Q556 529 555 505Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M330 352 Q285 328 268 378 L304 446 L349 414Z M470 352 Q515 328 532 378 L496 446 L451 414Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M280 384 Q309 356 333 391 M520 384 Q491 356 467 391" fill="none" stroke="#b9a4c4" stroke-width="8"/><path d="M354 332 Q400 360 446 332 L438 382 Q400 415 362 382Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M342 414 Q400 431 458 414 L451 440 Q400 457 349 440Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M335 452 Q400 469 465 452 L458 478 Q400 495 342 478Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M327 490 Q400 507 473 490 L466 516 Q400 533 334 516Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M320 528 Q400 545 480 528 L473 554 Q400 571 327 554Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M400 405 L420 433 L400 462 L380 433Z" fill="#b9a4c4" stroke="url(#ink)" stroke-width="5"/><circle cx="400" cy="433" r="8" fill="url(#metal)"/><g fill="#f1d99a" stroke="url(#ink)" stroke-width="3"><circle cx="343" cy="446" r="6"/><circle cx="457" cy="446" r="6"/><circle cx="350" cy="489" r="5"/><circle cx="450" cy="489" r="5"/></g><path d="M326 548 Q400 579 474 548 L462 684 Q400 715 338 684Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="9"/><path d="M337 568 Q400 594 463 568 M341 605 Q400 629 459 605 M346 643 Q400 664 454 643" fill="none" stroke="#b9a4c4" stroke-width="7"/><path d="M342 176 Q329 243 350 287 L331 338 Q303 308 311 215 Q310 138 371 115Z M458 176 Q471 243 450 287 L469 338 Q497 308 489 215 Q490 138 429 115Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="9"/><path d="M356 153 Q400 110 444 153 L438 183 Q400 159 362 183Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="7"/><path d="M360 334 Q400 354 440 334" fill="none" stroke="#b9a4c4" stroke-width="8"/><path d="M350 166 Q350 112 400 108 Q450 112 450 166 L446 254 Q436 304 400 320 Q364 304 354 254Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="9"/><path d="M354 221 Q400 243 446 221" fill="none" stroke="#c88468" stroke-width="4" opacity=".65"/><path d="M368 206 Q385 190 395 205 M405 205 Q415 190 432 206" fill="none" stroke="#30201d" stroke-width="8" stroke-linecap="round"/><path d="M368 225 Q382 207 396 225 Q382 243 368 225Z M404 225 Q418 207 432 225 Q418 243 404 225Z" fill="#fff0df" stroke="#3b2928" stroke-width="5"/><g fill="#292126"><ellipse cx="382" cy="225" rx="5" ry="8"/><ellipse cx="418" cy="225" rx="5" ry="8"/></g><path d="M369 216 L362 210 M431 216 L438 210" fill="none" stroke="#332326" stroke-width="4"/><path d="M400 222 L390 257 Q400 266 410 257" fill="none" stroke="#a96f58" stroke-width="5"/><path d="M382 278 Q400 286 418 278" fill="none" stroke="#8d5145" stroke-width="5"/><path d="M338 198 Q326 225 348 244 M462 198 Q474 225 452 244" fill="none" stroke="url(#skin)" stroke-width="12"/><path d="M355 270 Q400 320 445 270 L442 398 Q400 466 358 398Z" fill="#211d1c" stroke="url(#ink)" stroke-width="7"/><path d="M324 190 Q306 74 400 65 Q494 74 476 190 L448 214 Q400 186 352 214Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M251 518 Q266 506 283 519 L299 541 Q302 557 288 568 L273 559 L261 570 Q246 565 242 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M549 518 Q534 506 517 519 L501 541 Q498 557 512 568 L527 559 L539 570 Q554 565 558 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M254 542 L270 557 M546 542 L530 557" stroke="#9a644d" stroke-width="4" fill="none"/></g><path d="M345 203 Q360 188 380 197 M420 197 Q440 188 455 203" fill="none" stroke="#171819" stroke-width="7"/></g></svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#b9a4c4" stroke-width="11" stroke-linecap="round" opacity="0.55"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.385"/></g><g transform="translate(1600 0)"><g transform="translate(28 -16) rotate(7 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000"><title>司马懿 · 独立全身立绘</title><desc>统一厚涂质感线稿、完整双臂与双手结构、分层胸甲和专属武器。</desc><defs>
-<linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9a4c4"/><stop offset=".22" stop-color="#55445f"/><stop offset=".62" stop-color="#252336"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#252336"/><stop offset=".55" stop-color="#252336"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0c7"/><stop offset=".3" stop-color="#b9a4c4"/><stop offset=".7" stop-color="#8a653b"/><stop offset="1" stop-color="#30251c"/></linearGradient>
-<linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0c0"/><stop offset=".65" stop-color="#e5b18c"/><stop offset="1" stop-color="#a96e5a"/></linearGradient>
-<linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#51403a"/><stop offset=".45" stop-color="#211e20"/><stop offset="1" stop-color="#090e12"/></linearGradient>
-<linearGradient id="ink"><stop stop-color="#24201e"/><stop offset="1" stop-color="#0d1318"/></linearGradient><linearGradient id="accent"><stop stop-color="#b9a4c4"/><stop offset="1" stop-color="#5f472e"/></linearGradient>
-</defs><g stroke-linejoin="round" stroke-linecap="round"><ellipse cx="400" cy="984" rx="220" ry="15" fill="#101719" opacity=".18"/><g transform="translate(-160 0) scale(1.4 1)"><path d="M320 352 Q242 395 218 564 L251 788 Q300 747 345 696 L400 730 L455 696 Q500 747 549 788 L582 564 Q558 395 480 352 L445 407 L400 430 L355 407Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M246 548 Q282 570 318 545 M554 548 Q518 570 482 545" fill="none" stroke="#b9a4c4" stroke-width="8"/></g><g transform="translate(45 0)"><path d="M565 150 L558 865" stroke="#684a31" stroke-width="17" stroke-linecap="round"/><path d="M558 180 L564 760" stroke="#c69a58" stroke-width="4"/><path d="M536 154 Q565 116 594 154 L588 194 Q565 214 542 194Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="7"/><path d="M544 170 L586 170" stroke="#b9a4c4" stroke-width="7"/></g><g transform="translate(-160 0) scale(1.4 1)"><path d="M326 680 Q400 716 474 680 L458 878 L424 931 L362 931 L342 878Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M341 742 Q400 768 459 742 L450 828 Q400 852 350 828Z" fill="url(#cloth)" stroke="#b9a4c4" stroke-width="7"/><path d="M350 872 L422 872 L433 950 Q400 969 333 950Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M333 950 Q380 964 433 950 L445 982 Q380 1000 315 982Z" fill="#211f20" stroke="url(#ink)" stroke-width="8"/><path d="M314 345 Q400 308 486 345 L508 572 Q496 694 474 815 L326 815 Q304 694 292 572Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="12"/><path d="M335 355 Q400 322 465 355 L482 526 Q400 573 318 526Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M334 379 Q400 344 466 379 L478 500 Q400 543 322 500Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 397 L450 397 L465 466 L400 515 L335 466Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="7"/><path d="M355 420 L445 420 M342 463 L458 463 M400 397 L400 505" fill="none" stroke="url(#metal)" stroke-width="7"/><path d="M365 441 L435 481 M435 441 L365 481" fill="none" stroke="#b9a4c4" stroke-width="5"/><path d="M321 359 Q286 366 269 411 L241 485 Q236 516 263 535 L294 520 L318 448 L355 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M479 359 Q514 366 531 411 L559 485 Q564 516 537 535 L506 520 L482 448 L445 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M252 473 Q279 463 299 487 L290 532 L263 546 Q244 529 245 505Z M548 473 Q521 463 501 487 L510 532 L537 546 Q556 529 555 505Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M330 352 Q285 328 268 378 L304 446 L349 414Z M470 352 Q515 328 532 378 L496 446 L451 414Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M280 384 Q309 356 333 391 M520 384 Q491 356 467 391" fill="none" stroke="#b9a4c4" stroke-width="8"/><path d="M354 332 Q400 360 446 332 L438 382 Q400 415 362 382Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M342 414 Q400 431 458 414 L451 440 Q400 457 349 440Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M335 452 Q400 469 465 452 L458 478 Q400 495 342 478Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M327 490 Q400 507 473 490 L466 516 Q400 533 334 516Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M320 528 Q400 545 480 528 L473 554 Q400 571 327 554Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M400 405 L420 433 L400 462 L380 433Z" fill="#b9a4c4" stroke="url(#ink)" stroke-width="5"/><circle cx="400" cy="433" r="8" fill="url(#metal)"/><g fill="#f1d99a" stroke="url(#ink)" stroke-width="3"><circle cx="343" cy="446" r="6"/><circle cx="457" cy="446" r="6"/><circle cx="350" cy="489" r="5"/><circle cx="450" cy="489" r="5"/></g><path d="M326 548 Q400 579 474 548 L462 684 Q400 715 338 684Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="9"/><path d="M337 568 Q400 594 463 568 M341 605 Q400 629 459 605 M346 643 Q400 664 454 643" fill="none" stroke="#b9a4c4" stroke-width="7"/><path d="M342 176 Q329 243 350 287 L331 338 Q303 308 311 215 Q310 138 371 115Z M458 176 Q471 243 450 287 L469 338 Q497 308 489 215 Q490 138 429 115Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="9"/><path d="M356 153 Q400 110 444 153 L438 183 Q400 159 362 183Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="7"/><path d="M360 334 Q400 354 440 334" fill="none" stroke="#b9a4c4" stroke-width="8"/><path d="M350 166 Q350 112 400 108 Q450 112 450 166 L446 254 Q436 304 400 320 Q364 304 354 254Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="9"/><path d="M354 221 Q400 243 446 221" fill="none" stroke="#c88468" stroke-width="4" opacity=".65"/><path d="M368 206 Q385 190 395 205 M405 205 Q415 190 432 206" fill="none" stroke="#30201d" stroke-width="8" stroke-linecap="round"/><path d="M368 225 Q382 207 396 225 Q382 243 368 225Z M404 225 Q418 207 432 225 Q418 243 404 225Z" fill="#fff0df" stroke="#3b2928" stroke-width="5"/><g fill="#292126"><ellipse cx="382" cy="225" rx="5" ry="8"/><ellipse cx="418" cy="225" rx="5" ry="8"/></g><path d="M369 216 L362 210 M431 216 L438 210" fill="none" stroke="#332326" stroke-width="4"/><path d="M400 222 L390 257 Q400 266 410 257" fill="none" stroke="#a96f58" stroke-width="5"/><path d="M382 278 Q400 286 418 278" fill="none" stroke="#8d5145" stroke-width="5"/><path d="M338 198 Q326 225 348 244 M462 198 Q474 225 452 244" fill="none" stroke="url(#skin)" stroke-width="12"/><path d="M355 270 Q400 320 445 270 L442 398 Q400 466 358 398Z" fill="#211d1c" stroke="url(#ink)" stroke-width="7"/><path d="M324 190 Q306 74 400 65 Q494 74 476 190 L448 214 Q400 186 352 214Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M251 518 Q266 506 283 519 L299 541 Q302 557 288 568 L273 559 L261 570 Q246 565 242 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M549 518 Q534 506 517 519 L501 541 Q498 557 512 568 L527 559 L539 570 Q554 565 558 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M254 542 L270 557 M546 542 L530 557" stroke="#9a644d" stroke-width="4" fill="none"/></g><path d="M345 203 Q360 188 380 197 M420 197 Q440 188 455 203" fill="none" stroke="#171819" stroke-width="7"/></g></svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#b9a4c4" stroke-width="18" stroke-linecap="round" opacity="1"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.7"/></g><g transform="translate(2400 0)"><g transform="translate(-4 0) rotate(-1 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000"><title>司马懿 · 独立全身立绘</title><desc>统一厚涂质感线稿、完整双臂与双手结构、分层胸甲和专属武器。</desc><defs>
-<linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9a4c4"/><stop offset=".22" stop-color="#55445f"/><stop offset=".62" stop-color="#252336"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#252336"/><stop offset=".55" stop-color="#252336"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0c7"/><stop offset=".3" stop-color="#b9a4c4"/><stop offset=".7" stop-color="#8a653b"/><stop offset="1" stop-color="#30251c"/></linearGradient>
-<linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0c0"/><stop offset=".65" stop-color="#e5b18c"/><stop offset="1" stop-color="#a96e5a"/></linearGradient>
-<linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#51403a"/><stop offset=".45" stop-color="#211e20"/><stop offset="1" stop-color="#090e12"/></linearGradient>
-<linearGradient id="ink"><stop stop-color="#24201e"/><stop offset="1" stop-color="#0d1318"/></linearGradient><linearGradient id="accent"><stop stop-color="#b9a4c4"/><stop offset="1" stop-color="#5f472e"/></linearGradient>
-</defs><g stroke-linejoin="round" stroke-linecap="round"><ellipse cx="400" cy="984" rx="220" ry="15" fill="#101719" opacity=".18"/><g transform="translate(-160 0) scale(1.4 1)"><path d="M320 352 Q242 395 218 564 L251 788 Q300 747 345 696 L400 730 L455 696 Q500 747 549 788 L582 564 Q558 395 480 352 L445 407 L400 430 L355 407Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M246 548 Q282 570 318 545 M554 548 Q518 570 482 545" fill="none" stroke="#b9a4c4" stroke-width="8"/></g><g transform="translate(45 0)"><path d="M565 150 L558 865" stroke="#684a31" stroke-width="17" stroke-linecap="round"/><path d="M558 180 L564 760" stroke="#c69a58" stroke-width="4"/><path d="M536 154 Q565 116 594 154 L588 194 Q565 214 542 194Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="7"/><path d="M544 170 L586 170" stroke="#b9a4c4" stroke-width="7"/></g><g transform="translate(-160 0) scale(1.4 1)"><path d="M326 680 Q400 716 474 680 L458 878 L424 931 L362 931 L342 878Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M341 742 Q400 768 459 742 L450 828 Q400 852 350 828Z" fill="url(#cloth)" stroke="#b9a4c4" stroke-width="7"/><path d="M350 872 L422 872 L433 950 Q400 969 333 950Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M333 950 Q380 964 433 950 L445 982 Q380 1000 315 982Z" fill="#211f20" stroke="url(#ink)" stroke-width="8"/><path d="M314 345 Q400 308 486 345 L508 572 Q496 694 474 815 L326 815 Q304 694 292 572Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="12"/><path d="M335 355 Q400 322 465 355 L482 526 Q400 573 318 526Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M334 379 Q400 344 466 379 L478 500 Q400 543 322 500Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 397 L450 397 L465 466 L400 515 L335 466Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="7"/><path d="M355 420 L445 420 M342 463 L458 463 M400 397 L400 505" fill="none" stroke="url(#metal)" stroke-width="7"/><path d="M365 441 L435 481 M435 441 L365 481" fill="none" stroke="#b9a4c4" stroke-width="5"/><path d="M321 359 Q286 366 269 411 L241 485 Q236 516 263 535 L294 520 L318 448 L355 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M479 359 Q514 366 531 411 L559 485 Q564 516 537 535 L506 520 L482 448 L445 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M252 473 Q279 463 299 487 L290 532 L263 546 Q244 529 245 505Z M548 473 Q521 463 501 487 L510 532 L537 546 Q556 529 555 505Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M330 352 Q285 328 268 378 L304 446 L349 414Z M470 352 Q515 328 532 378 L496 446 L451 414Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M280 384 Q309 356 333 391 M520 384 Q491 356 467 391" fill="none" stroke="#b9a4c4" stroke-width="8"/><path d="M354 332 Q400 360 446 332 L438 382 Q400 415 362 382Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M342 414 Q400 431 458 414 L451 440 Q400 457 349 440Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M335 452 Q400 469 465 452 L458 478 Q400 495 342 478Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M327 490 Q400 507 473 490 L466 516 Q400 533 334 516Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M320 528 Q400 545 480 528 L473 554 Q400 571 327 554Z" fill="url(#armor)" stroke="#b9a4c4" stroke-width="5"/><path d="M400 405 L420 433 L400 462 L380 433Z" fill="#b9a4c4" stroke="url(#ink)" stroke-width="5"/><circle cx="400" cy="433" r="8" fill="url(#metal)"/><g fill="#f1d99a" stroke="url(#ink)" stroke-width="3"><circle cx="343" cy="446" r="6"/><circle cx="457" cy="446" r="6"/><circle cx="350" cy="489" r="5"/><circle cx="450" cy="489" r="5"/></g><path d="M326 548 Q400 579 474 548 L462 684 Q400 715 338 684Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="9"/><path d="M337 568 Q400 594 463 568 M341 605 Q400 629 459 605 M346 643 Q400 664 454 643" fill="none" stroke="#b9a4c4" stroke-width="7"/><path d="M342 176 Q329 243 350 287 L331 338 Q303 308 311 215 Q310 138 371 115Z M458 176 Q471 243 450 287 L469 338 Q497 308 489 215 Q490 138 429 115Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="9"/><path d="M356 153 Q400 110 444 153 L438 183 Q400 159 362 183Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="7"/><path d="M360 334 Q400 354 440 334" fill="none" stroke="#b9a4c4" stroke-width="8"/><path d="M350 166 Q350 112 400 108 Q450 112 450 166 L446 254 Q436 304 400 320 Q364 304 354 254Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="9"/><path d="M354 221 Q400 243 446 221" fill="none" stroke="#c88468" stroke-width="4" opacity=".65"/><path d="M368 206 Q385 190 395 205 M405 205 Q415 190 432 206" fill="none" stroke="#30201d" stroke-width="8" stroke-linecap="round"/><path d="M368 225 Q382 207 396 225 Q382 243 368 225Z M404 225 Q418 207 432 225 Q418 243 404 225Z" fill="#fff0df" stroke="#3b2928" stroke-width="5"/><g fill="#292126"><ellipse cx="382" cy="225" rx="5" ry="8"/><ellipse cx="418" cy="225" rx="5" ry="8"/></g><path d="M369 216 L362 210 M431 216 L438 210" fill="none" stroke="#332326" stroke-width="4"/><path d="M400 222 L390 257 Q400 266 410 257" fill="none" stroke="#a96f58" stroke-width="5"/><path d="M382 278 Q400 286 418 278" fill="none" stroke="#8d5145" stroke-width="5"/><path d="M338 198 Q326 225 348 244 M462 198 Q474 225 452 244" fill="none" stroke="url(#skin)" stroke-width="12"/><path d="M355 270 Q400 320 445 270 L442 398 Q400 466 358 398Z" fill="#211d1c" stroke="url(#ink)" stroke-width="7"/><path d="M324 190 Q306 74 400 65 Q494 74 476 190 L448 214 Q400 186 352 214Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M251 518 Q266 506 283 519 L299 541 Q302 557 288 568 L273 559 L261 570 Q246 565 242 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M549 518 Q534 506 517 519 L501 541 Q498 557 512 568 L527 559 L539 570 Q554 565 558 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M254 542 L270 557 M546 542 L530 557" stroke="#9a644d" stroke-width="4" fill="none"/></g><path d="M345 203 Q360 188 380 197 M420 197 Q440 188 455 203" fill="none" stroke="#171819" stroke-width="7"/></g></svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#b9a4c4" stroke-width="11" stroke-linecap="round" opacity="0.35"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.24499999999999997"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>司马懿·普通攻击四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>司马懿 · 2D 立绘</title>
+<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<defs>
+ <linearGradient id="jade" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#aa9a97"/><stop offset=".18" stop-color="#55445f"/><stop offset=".53" stop-color="#473b51"/><stop offset="1" stop-color="#212031"/></linearGradient>
+ <linearGradient id="jadeDark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#776675"/><stop offset=".38" stop-color="#41374b"/><stop offset="1" stop-color="#20202f"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#958589"/><stop offset=".25" stop-color="#55445f"/><stop offset=".7" stop-color="#43384d"/><stop offset="1" stop-color="#222132"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8d7cc"/><stop offset=".22" stop-color="#c5b1c6"/><stop offset=".55" stop-color="#9a8aa5"/><stop offset=".8" stop-color="#d1bec8"/><stop offset="1" stop-color="#756b80"/></linearGradient>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f4dc"/><stop offset=".22" stop-color="#c8d5c9"/><stop offset=".52" stop-color="#718b8c"/><stop offset=".76" stop-color="#e7e7d2"/><stop offset="1" stop-color="#435a5e"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#f3d0a8"/><stop offset=".42" stop-color="#d79c72"/><stop offset="1" stop-color="#8e503c"/></linearGradient>
+ <linearGradient id="beard" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#081918"/><stop offset=".3" stop-color="#203b35"/><stop offset=".56" stop-color="#0d211f"/><stop offset=".82" stop-color="#30483c"/><stop offset="1" stop-color="#071514"/></linearGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d46a4a"/><stop offset="1" stop-color="#6d2426"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+ <pattern id="scale" width="28" height="22" patternUnits="userSpaceOnUse"><path d="M1 2 Q14 17 27 2" fill="none" stroke="#d7bd79" stroke-width="2" opacity=".65"/></pattern>
+</defs>
+<!-- grounded cast shadow -->
+<ellipse cx="488" cy="954" rx="235" ry="28" fill="#071412" opacity=".22" filter="url(#shadow)"/>
+<g id="weapon">
+<path d="M696 925 L696 192" stroke="#191d1d" stroke-width="27"/><path d="M696 925 L696 192" stroke="#553a2b" stroke-width="16"/><path d="M696 108 Q650 161 696 222 Q742 161 696 108Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M696 125 L696 207" stroke="#fff4df" stroke-width="6"/><path d="M672 232 L720 232" stroke="url(#gold)" stroke-width="8"/>
+</g>
+<!-- rear cloak, wind-swept -->
+<path d="M361 374 Q263 393 223 514 Q177 653 239 827 Q278 902 357 929 Q392 873 411 808 L608 901 Q713 813 691 620 Q675 443 553 378Z" fill="url(#jadeDark)" stroke="#102622" stroke-width="15"/>
+<path d="M298 472 Q224 634 302 842 Q327 877 354 890 Q327 737 375 556Z" fill="#86a878" opacity=".38"/>
+<path d="M573 441 Q665 570 634 785 L592 846 Q616 659 529 508Z" fill="#071f20" opacity=".72"/>
+<path d="M251 665 Q270 800 350 870 M614 520 Q662 665 622 795" fill="none" stroke="#a7bd83" stroke-width="5" opacity=".32"/>
+<!-- boots and greaves -->
+<path d="M367 756 Q366 825 338 893 L320 936 Q368 969 438 944 L466 858 L456 776Z" fill="#243b35" stroke="#0d211f" stroke-width="12"/>
+<path d="M505 764 Q527 834 533 894 L520 941 Q576 971 647 940 L625 884 L604 774Z" fill="#1b332f" stroke="#0d211f" stroke-width="12"/>
+<path d="M340 834 Q391 854 458 831 L445 897 Q386 919 326 889Z" fill="url(#steel)" stroke="#8c713f" stroke-width="8"/>
+<path d="M522 835 Q565 856 620 830 L641 889 Q581 916 526 890Z" fill="url(#steel)" stroke="#8c713f" stroke-width="8"/>
+<path d="M320 916 Q371 897 438 923 L442 964 Q372 990 293 963Z" fill="#17211f" stroke="url(#gold)" stroke-width="8"/>
+<path d="M522 916 Q582 894 650 920 L670 960 Q590 990 513 965Z" fill="#17211f" stroke="url(#gold)" stroke-width="8"/>
+<path d="M330 937 Q382 927 428 945 M537 940 Q589 925 645 944" stroke="#a7a58a" stroke-width="4" opacity=".7"/>
+<!-- inner robe -->
+<path d="M360 371 Q420 333 533 363 Q632 404 655 548 L625 802 Q555 858 458 846 Q365 831 300 786 L306 545 Q310 420 360 371Z" fill="url(#cloth)" stroke="#102b27" stroke-width="15"/>
+<path d="M345 470 Q386 493 424 529 L400 797 L324 763Z" fill="#65976a" opacity=".78"/>
+<path d="M550 440 Q611 488 625 592 L592 793 L537 804 L556 563Z" fill="#123b32" stroke="#0b2725" stroke-width="7"/>
+<path d="M447 384 Q484 378 514 388 L553 817 Q500 844 432 818Z" fill="#173d34" stroke="#c49a50" stroke-width="8"/>
+<path d="M461 404 L490 410 L523 791" fill="none" stroke="#8fb17c" stroke-width="5" opacity=".6"/>
+<!-- embroidered robe borders -->
+<path d="M319 552 Q326 672 320 759 M610 554 Q618 667 588 780" fill="none" stroke="url(#gold)" stroke-width="9"/>
+<path d="M329 566 Q338 675 330 747 M600 565 Q604 666 580 766" fill="none" stroke="#d5bd7c" stroke-width="3"/>
+<!-- shoulder mantle -->
+<path d="M333 409 Q369 361 428 386 L460 448 Q424 491 357 467 Q322 448 333 409Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="10"/>
+<path d="M520 386 Q582 361 628 418 L619 475 Q558 500 512 450Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="10"/>
+<path d="M348 414 Q381 385 416 405 L438 447 Q390 464 349 439Z" fill="url(#scale)" opacity=".9"/>
+<path d="M535 410 Q579 384 610 431 L599 455 Q563 468 529 440Z" fill="url(#scale)" opacity=".9"/>
+<!-- upper arm sleeves -->
+<path d="M354 448 Q307 474 289 572 L318 651 Q349 664 380 632 L365 556 L416 505Z" fill="url(#jadeDark)" stroke="#102a26" stroke-width="12"/>
+<path d="M552 448 Q612 475 652 548 L628 635 Q598 656 568 624 L588 555 L539 507Z" fill="url(#jadeDark)" stroke="#102a26" stroke-width="12"/>
+<!-- forearms -->
+<path d="M295 575 Q276 604 296 650 L341 664 L371 628 L339 584Z" fill="url(#skin)" stroke="#714531" stroke-width="8"/>
+<path d="M619 589 Q656 600 672 638 L646 684 Q607 679 590 646Z" fill="url(#skin)" stroke="#714531" stroke-width="8"/>
+<!-- bracers -->
+<path d="M292 630 L354 643 L350 683 L303 671Z" fill="url(#gold)" stroke="#5b4023" stroke-width="7"/>
+<path d="M599 642 L658 652 L647 692 L598 677Z" fill="url(#gold)" stroke="#5b4023" stroke-width="7"/>
+<path d="M302 644 L347 654 M607 658 L650 667" stroke="#fff0b2" stroke-width="4"/>
+<!-- chest armor silhouette -->
+<path d="M382 435 Q474 397 566 440 L590 618 Q487 666 356 612Z" fill="#263f39" stroke="url(#gold)" stroke-width="12"/>
+<path d="M390 455 Q477 425 557 458 L570 597 Q481 634 374 595Z" fill="url(#jadeDark)"/>
+<path d="M390 455 Q477 425 557 458 L570 597 Q481 634 374 595Z" fill="url(#scale)" opacity=".75"/>
+<!-- rows of lamellar plates -->
+<g fill="#54765a" stroke="#d4b46c" stroke-width="4">
+ <path d="M391 470 L434 459 L442 491 L398 504Z"/><path d="M447 456 L491 451 L499 484 L453 491Z"/><path d="M505 458 L548 470 L541 502 L501 489Z"/>
+ <path d="M383 511 L433 505 L439 539 L388 546Z"/><path d="M445 502 L496 498 L501 534 L448 540Z"/><path d="M506 505 L557 516 L550 550 L504 540Z"/>
+ <path d="M378 554 L431 548 L432 582 L375 580Z"/><path d="M442 546 L499 544 L501 580 L440 584Z"/><path d="M506 551 L551 560 L543 592 L502 584Z"/>
+</g>
+<path d="M475 443 L485 607" stroke="#e9cf8d" stroke-width="8"/>
+<path d="M457 609 Q483 634 512 609 L531 655 L483 686 L440 651Z" fill="url(#gold)" stroke="#604421" stroke-width="8"/>
+<path d="M470 623 L484 641 L499 623 L510 651 L483 668 L457 648Z" fill="#6d3028" stroke="#e6c47a" stroke-width="4"/>
+<!-- belt and hanging ornaments -->
+<path d="M319 666 Q474 708 628 657 L638 714 Q479 768 314 715Z" fill="#152b27" stroke="url(#gold)" stroke-width="10"/>
+<path d="M462 687 L515 679 L530 726 L474 744Z" fill="url(#gold)" stroke="#62451f" stroke-width="7"/>
+<path d="M477 695 L505 691 L512 717 L482 727Z" fill="#8d3028" stroke="#f0d58b" stroke-width="4"/>
+<path d="M354 714 Q390 738 428 737 L409 826 Q369 796 339 779Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M557 713 Q590 706 614 689 L638 780 Q602 810 568 816Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M365 741 Q387 757 414 758 M573 744 Q596 740 619 723" stroke="#f1c979" stroke-width="4"/>
+<!-- neck -->
+<path d="M431 316 L430 389 Q478 420 529 382 L517 309Z" fill="url(#skin)" stroke="#754633" stroke-width="8"/>
+<!-- face silhouette, strong cheek and jaw -->
+<path d="M393 203 Q400 119 480 112 Q560 117 574 207 L559 292 Q542 340 484 355 Q428 344 402 296Z" fill="url(#skin)" stroke="#70432f" stroke-width="10"/>
+<path d="M402 244 Q410 292 446 319 Q480 340 520 315 Q548 294 561 244" fill="none" stroke="#f4d2aa" stroke-width="5" opacity=".55"/>
+<path d="M399 230 Q377 222 376 260 Q378 292 408 292 M564 229 Q591 218 588 258 Q583 289 557 291" fill="url(#skin)" stroke="#70432f" stroke-width="7"/>
+<!-- hair under the cap -->
+<path d="M388 224 Q367 139 420 94 Q480 49 547 91 Q605 127 579 234 L553 218 Q548 161 511 145 Q466 163 414 150 L409 236Z" fill="#121e1c" stroke="#071312" stroke-width="11"/>
+<!-- Guan Yu's distinctive green official-warrior headpiece -->
+<path d="M373 159 Q393 71 478 55 Q568 52 603 139 L578 177 Q527 137 476 145 Q423 136 393 188Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="11"/>
+<path d="M394 139 Q477 91 574 137" fill="none" stroke="#f2d990" stroke-width="8"/>
+<path d="M407 151 Q478 113 561 150" fill="none" stroke="#244b3b" stroke-width="6"/>
+<path d="M470 60 Q450 20 482 9 Q518 34 505 70Z" fill="#5c9362" stroke="url(#gold)" stroke-width="7"/>
+<path d="M393 181 Q480 154 580 184 L568 220 Q478 196 396 220Z" fill="#174535" stroke="#c99d50" stroke-width="8"/>
+<path d="M479 173 L501 198 L480 224 L458 198Z" fill="url(#gold)" stroke="#674723" stroke-width="5"/>
+<path d="M480 184 L490 198 L480 211 L469 198Z" fill="#8d3028"/>
+<!-- brows, eyes, nose, expression -->
+<path d="M414 230 Q440 208 466 229" fill="none" stroke="#302622" stroke-width="11" stroke-linecap="round"/>
+<path d="M498 228 Q527 207 550 228" fill="none" stroke="#302622" stroke-width="11" stroke-linecap="round"/>
+<path d="M419 248 Q443 259 465 246 Q444 235 419 248Z" fill="#f4e6cc" stroke="#332924" stroke-width="5"/>
+<path d="M500 246 Q526 259 547 246 Q525 235 500 246Z" fill="#f4e6cc" stroke="#332924" stroke-width="5"/>
+<ellipse cx="445" cy="247" rx="6" ry="9" fill="#241d19"/><ellipse cx="524" cy="247" rx="6" ry="9" fill="#241d19"/>
+<circle cx="447" cy="244" r="2.5" fill="#fff4dc"/><circle cx="526" cy="244" r="2.5" fill="#fff4dc"/>
+<path d="M482 247 L468 282 Q480 291 495 282" fill="none" stroke="#985b42" stroke-width="6" stroke-linecap="round"/>
+<path d="M464 300 Q482 307 501 297" fill="none" stroke="#6f382e" stroke-width="6" stroke-linecap="round"/>
+<!-- moustache and legendary long beard -->
+<path d="M416 287 Q433 278 456 292 Q478 307 486 296 Q503 281 530 286 Q546 290 554 278 Q548 316 515 326 Q489 334 477 319 Q455 332 433 315 Q420 306 416 287Z" fill="url(#beard)" stroke="#081816" stroke-width="7"/>
+<path d="M424 303 Q441 319 462 316 M495 316 Q522 316 544 296" fill="none" stroke="#71816b" stroke-width="4" opacity=".7"/>
+<path d="M432 316 Q420 378 450 440 Q464 469 482 491 Q504 467 522 427 Q548 370 539 311 Q518 340 492 337 Q461 345 432 316Z" fill="url(#beard)" stroke="#071614" stroke-width="10"/>
+<path d="M445 335 Q441 390 469 457 M466 339 Q463 405 483 477 M493 340 Q501 403 489 467 M518 331 Q527 392 501 448" fill="none" stroke="#526b5c" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+<path d="M453 351 Q454 410 477 455 M511 353 Q514 399 496 437" fill="none" stroke="#a0a184" stroke-width="2.5" opacity=".6"/>
+<!-- engraved armor trim and rivets -->
+<g fill="#f5d991" stroke="#684b27" stroke-width="3">
+ <circle cx="367" cy="429" r="6"/><circle cx="407" cy="412" r="6"/><circle cx="551" cy="414" r="6"/><circle cx="594" cy="438" r="6"/>
+ <circle cx="400" cy="480" r="5"/><circle cx="454" cy="470" r="5"/><circle cx="516" cy="472" r="5"/><circle cx="548" cy="489" r="5"/>
+ <circle cx="391" cy="524" r="5"/><circle cx="453" cy="518" r="5"/><circle cx="514" cy="520" r="5"/><circle cx="548" cy="535" r="5"/>
+</g>
+<!-- hand gripping the polearm, placed in front -->
+<path d="M627 633 Q650 621 669 642 L677 674 Q667 695 643 695 L622 676 Q612 652 627 633Z" fill="url(#skin)" stroke="#70432f" stroke-width="7"/>
+<path d="M633 646 Q653 656 668 649 M628 662 Q650 675 670 665" fill="none" stroke="#8e563f" stroke-width="4"/>
+<path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
+<!-- subtle facial highlights -->
+<path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#b9a4c4" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#b9a4c4" stroke-width="11" stroke-linecap="round" opacity="0.1"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.06999999999999999"/></g><g transform="translate(800 0)"><g transform="translate(-10 -8) rotate(-3 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>司马懿 · 2D 立绘</title>
+<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<defs>
+ <linearGradient id="jade" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#aa9a97"/><stop offset=".18" stop-color="#55445f"/><stop offset=".53" stop-color="#473b51"/><stop offset="1" stop-color="#212031"/></linearGradient>
+ <linearGradient id="jadeDark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#776675"/><stop offset=".38" stop-color="#41374b"/><stop offset="1" stop-color="#20202f"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#958589"/><stop offset=".25" stop-color="#55445f"/><stop offset=".7" stop-color="#43384d"/><stop offset="1" stop-color="#222132"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8d7cc"/><stop offset=".22" stop-color="#c5b1c6"/><stop offset=".55" stop-color="#9a8aa5"/><stop offset=".8" stop-color="#d1bec8"/><stop offset="1" stop-color="#756b80"/></linearGradient>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f4dc"/><stop offset=".22" stop-color="#c8d5c9"/><stop offset=".52" stop-color="#718b8c"/><stop offset=".76" stop-color="#e7e7d2"/><stop offset="1" stop-color="#435a5e"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#f3d0a8"/><stop offset=".42" stop-color="#d79c72"/><stop offset="1" stop-color="#8e503c"/></linearGradient>
+ <linearGradient id="beard" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#081918"/><stop offset=".3" stop-color="#203b35"/><stop offset=".56" stop-color="#0d211f"/><stop offset=".82" stop-color="#30483c"/><stop offset="1" stop-color="#071514"/></linearGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d46a4a"/><stop offset="1" stop-color="#6d2426"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+ <pattern id="scale" width="28" height="22" patternUnits="userSpaceOnUse"><path d="M1 2 Q14 17 27 2" fill="none" stroke="#d7bd79" stroke-width="2" opacity=".65"/></pattern>
+</defs>
+<!-- grounded cast shadow -->
+<ellipse cx="488" cy="954" rx="235" ry="28" fill="#071412" opacity=".22" filter="url(#shadow)"/>
+<g id="weapon">
+<path d="M696 925 L696 192" stroke="#191d1d" stroke-width="27"/><path d="M696 925 L696 192" stroke="#553a2b" stroke-width="16"/><path d="M696 108 Q650 161 696 222 Q742 161 696 108Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M696 125 L696 207" stroke="#fff4df" stroke-width="6"/><path d="M672 232 L720 232" stroke="url(#gold)" stroke-width="8"/>
+</g>
+<!-- rear cloak, wind-swept -->
+<path d="M361 374 Q263 393 223 514 Q177 653 239 827 Q278 902 357 929 Q392 873 411 808 L608 901 Q713 813 691 620 Q675 443 553 378Z" fill="url(#jadeDark)" stroke="#102622" stroke-width="15"/>
+<path d="M298 472 Q224 634 302 842 Q327 877 354 890 Q327 737 375 556Z" fill="#86a878" opacity=".38"/>
+<path d="M573 441 Q665 570 634 785 L592 846 Q616 659 529 508Z" fill="#071f20" opacity=".72"/>
+<path d="M251 665 Q270 800 350 870 M614 520 Q662 665 622 795" fill="none" stroke="#a7bd83" stroke-width="5" opacity=".32"/>
+<!-- boots and greaves -->
+<path d="M367 756 Q366 825 338 893 L320 936 Q368 969 438 944 L466 858 L456 776Z" fill="#243b35" stroke="#0d211f" stroke-width="12"/>
+<path d="M505 764 Q527 834 533 894 L520 941 Q576 971 647 940 L625 884 L604 774Z" fill="#1b332f" stroke="#0d211f" stroke-width="12"/>
+<path d="M340 834 Q391 854 458 831 L445 897 Q386 919 326 889Z" fill="url(#steel)" stroke="#8c713f" stroke-width="8"/>
+<path d="M522 835 Q565 856 620 830 L641 889 Q581 916 526 890Z" fill="url(#steel)" stroke="#8c713f" stroke-width="8"/>
+<path d="M320 916 Q371 897 438 923 L442 964 Q372 990 293 963Z" fill="#17211f" stroke="url(#gold)" stroke-width="8"/>
+<path d="M522 916 Q582 894 650 920 L670 960 Q590 990 513 965Z" fill="#17211f" stroke="url(#gold)" stroke-width="8"/>
+<path d="M330 937 Q382 927 428 945 M537 940 Q589 925 645 944" stroke="#a7a58a" stroke-width="4" opacity=".7"/>
+<!-- inner robe -->
+<path d="M360 371 Q420 333 533 363 Q632 404 655 548 L625 802 Q555 858 458 846 Q365 831 300 786 L306 545 Q310 420 360 371Z" fill="url(#cloth)" stroke="#102b27" stroke-width="15"/>
+<path d="M345 470 Q386 493 424 529 L400 797 L324 763Z" fill="#65976a" opacity=".78"/>
+<path d="M550 440 Q611 488 625 592 L592 793 L537 804 L556 563Z" fill="#123b32" stroke="#0b2725" stroke-width="7"/>
+<path d="M447 384 Q484 378 514 388 L553 817 Q500 844 432 818Z" fill="#173d34" stroke="#c49a50" stroke-width="8"/>
+<path d="M461 404 L490 410 L523 791" fill="none" stroke="#8fb17c" stroke-width="5" opacity=".6"/>
+<!-- embroidered robe borders -->
+<path d="M319 552 Q326 672 320 759 M610 554 Q618 667 588 780" fill="none" stroke="url(#gold)" stroke-width="9"/>
+<path d="M329 566 Q338 675 330 747 M600 565 Q604 666 580 766" fill="none" stroke="#d5bd7c" stroke-width="3"/>
+<!-- shoulder mantle -->
+<path d="M333 409 Q369 361 428 386 L460 448 Q424 491 357 467 Q322 448 333 409Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="10"/>
+<path d="M520 386 Q582 361 628 418 L619 475 Q558 500 512 450Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="10"/>
+<path d="M348 414 Q381 385 416 405 L438 447 Q390 464 349 439Z" fill="url(#scale)" opacity=".9"/>
+<path d="M535 410 Q579 384 610 431 L599 455 Q563 468 529 440Z" fill="url(#scale)" opacity=".9"/>
+<!-- upper arm sleeves -->
+<path d="M354 448 Q307 474 289 572 L318 651 Q349 664 380 632 L365 556 L416 505Z" fill="url(#jadeDark)" stroke="#102a26" stroke-width="12"/>
+<path d="M552 448 Q612 475 652 548 L628 635 Q598 656 568 624 L588 555 L539 507Z" fill="url(#jadeDark)" stroke="#102a26" stroke-width="12"/>
+<!-- forearms -->
+<path d="M295 575 Q276 604 296 650 L341 664 L371 628 L339 584Z" fill="url(#skin)" stroke="#714531" stroke-width="8"/>
+<path d="M619 589 Q656 600 672 638 L646 684 Q607 679 590 646Z" fill="url(#skin)" stroke="#714531" stroke-width="8"/>
+<!-- bracers -->
+<path d="M292 630 L354 643 L350 683 L303 671Z" fill="url(#gold)" stroke="#5b4023" stroke-width="7"/>
+<path d="M599 642 L658 652 L647 692 L598 677Z" fill="url(#gold)" stroke="#5b4023" stroke-width="7"/>
+<path d="M302 644 L347 654 M607 658 L650 667" stroke="#fff0b2" stroke-width="4"/>
+<!-- chest armor silhouette -->
+<path d="M382 435 Q474 397 566 440 L590 618 Q487 666 356 612Z" fill="#263f39" stroke="url(#gold)" stroke-width="12"/>
+<path d="M390 455 Q477 425 557 458 L570 597 Q481 634 374 595Z" fill="url(#jadeDark)"/>
+<path d="M390 455 Q477 425 557 458 L570 597 Q481 634 374 595Z" fill="url(#scale)" opacity=".75"/>
+<!-- rows of lamellar plates -->
+<g fill="#54765a" stroke="#d4b46c" stroke-width="4">
+ <path d="M391 470 L434 459 L442 491 L398 504Z"/><path d="M447 456 L491 451 L499 484 L453 491Z"/><path d="M505 458 L548 470 L541 502 L501 489Z"/>
+ <path d="M383 511 L433 505 L439 539 L388 546Z"/><path d="M445 502 L496 498 L501 534 L448 540Z"/><path d="M506 505 L557 516 L550 550 L504 540Z"/>
+ <path d="M378 554 L431 548 L432 582 L375 580Z"/><path d="M442 546 L499 544 L501 580 L440 584Z"/><path d="M506 551 L551 560 L543 592 L502 584Z"/>
+</g>
+<path d="M475 443 L485 607" stroke="#e9cf8d" stroke-width="8"/>
+<path d="M457 609 Q483 634 512 609 L531 655 L483 686 L440 651Z" fill="url(#gold)" stroke="#604421" stroke-width="8"/>
+<path d="M470 623 L484 641 L499 623 L510 651 L483 668 L457 648Z" fill="#6d3028" stroke="#e6c47a" stroke-width="4"/>
+<!-- belt and hanging ornaments -->
+<path d="M319 666 Q474 708 628 657 L638 714 Q479 768 314 715Z" fill="#152b27" stroke="url(#gold)" stroke-width="10"/>
+<path d="M462 687 L515 679 L530 726 L474 744Z" fill="url(#gold)" stroke="#62451f" stroke-width="7"/>
+<path d="M477 695 L505 691 L512 717 L482 727Z" fill="#8d3028" stroke="#f0d58b" stroke-width="4"/>
+<path d="M354 714 Q390 738 428 737 L409 826 Q369 796 339 779Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M557 713 Q590 706 614 689 L638 780 Q602 810 568 816Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M365 741 Q387 757 414 758 M573 744 Q596 740 619 723" stroke="#f1c979" stroke-width="4"/>
+<!-- neck -->
+<path d="M431 316 L430 389 Q478 420 529 382 L517 309Z" fill="url(#skin)" stroke="#754633" stroke-width="8"/>
+<!-- face silhouette, strong cheek and jaw -->
+<path d="M393 203 Q400 119 480 112 Q560 117 574 207 L559 292 Q542 340 484 355 Q428 344 402 296Z" fill="url(#skin)" stroke="#70432f" stroke-width="10"/>
+<path d="M402 244 Q410 292 446 319 Q480 340 520 315 Q548 294 561 244" fill="none" stroke="#f4d2aa" stroke-width="5" opacity=".55"/>
+<path d="M399 230 Q377 222 376 260 Q378 292 408 292 M564 229 Q591 218 588 258 Q583 289 557 291" fill="url(#skin)" stroke="#70432f" stroke-width="7"/>
+<!-- hair under the cap -->
+<path d="M388 224 Q367 139 420 94 Q480 49 547 91 Q605 127 579 234 L553 218 Q548 161 511 145 Q466 163 414 150 L409 236Z" fill="#121e1c" stroke="#071312" stroke-width="11"/>
+<!-- Guan Yu's distinctive green official-warrior headpiece -->
+<path d="M373 159 Q393 71 478 55 Q568 52 603 139 L578 177 Q527 137 476 145 Q423 136 393 188Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="11"/>
+<path d="M394 139 Q477 91 574 137" fill="none" stroke="#f2d990" stroke-width="8"/>
+<path d="M407 151 Q478 113 561 150" fill="none" stroke="#244b3b" stroke-width="6"/>
+<path d="M470 60 Q450 20 482 9 Q518 34 505 70Z" fill="#5c9362" stroke="url(#gold)" stroke-width="7"/>
+<path d="M393 181 Q480 154 580 184 L568 220 Q478 196 396 220Z" fill="#174535" stroke="#c99d50" stroke-width="8"/>
+<path d="M479 173 L501 198 L480 224 L458 198Z" fill="url(#gold)" stroke="#674723" stroke-width="5"/>
+<path d="M480 184 L490 198 L480 211 L469 198Z" fill="#8d3028"/>
+<!-- brows, eyes, nose, expression -->
+<path d="M414 230 Q440 208 466 229" fill="none" stroke="#302622" stroke-width="11" stroke-linecap="round"/>
+<path d="M498 228 Q527 207 550 228" fill="none" stroke="#302622" stroke-width="11" stroke-linecap="round"/>
+<path d="M419 248 Q443 259 465 246 Q444 235 419 248Z" fill="#f4e6cc" stroke="#332924" stroke-width="5"/>
+<path d="M500 246 Q526 259 547 246 Q525 235 500 246Z" fill="#f4e6cc" stroke="#332924" stroke-width="5"/>
+<ellipse cx="445" cy="247" rx="6" ry="9" fill="#241d19"/><ellipse cx="524" cy="247" rx="6" ry="9" fill="#241d19"/>
+<circle cx="447" cy="244" r="2.5" fill="#fff4dc"/><circle cx="526" cy="244" r="2.5" fill="#fff4dc"/>
+<path d="M482 247 L468 282 Q480 291 495 282" fill="none" stroke="#985b42" stroke-width="6" stroke-linecap="round"/>
+<path d="M464 300 Q482 307 501 297" fill="none" stroke="#6f382e" stroke-width="6" stroke-linecap="round"/>
+<!-- moustache and legendary long beard -->
+<path d="M416 287 Q433 278 456 292 Q478 307 486 296 Q503 281 530 286 Q546 290 554 278 Q548 316 515 326 Q489 334 477 319 Q455 332 433 315 Q420 306 416 287Z" fill="url(#beard)" stroke="#081816" stroke-width="7"/>
+<path d="M424 303 Q441 319 462 316 M495 316 Q522 316 544 296" fill="none" stroke="#71816b" stroke-width="4" opacity=".7"/>
+<path d="M432 316 Q420 378 450 440 Q464 469 482 491 Q504 467 522 427 Q548 370 539 311 Q518 340 492 337 Q461 345 432 316Z" fill="url(#beard)" stroke="#071614" stroke-width="10"/>
+<path d="M445 335 Q441 390 469 457 M466 339 Q463 405 483 477 M493 340 Q501 403 489 467 M518 331 Q527 392 501 448" fill="none" stroke="#526b5c" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+<path d="M453 351 Q454 410 477 455 M511 353 Q514 399 496 437" fill="none" stroke="#a0a184" stroke-width="2.5" opacity=".6"/>
+<!-- engraved armor trim and rivets -->
+<g fill="#f5d991" stroke="#684b27" stroke-width="3">
+ <circle cx="367" cy="429" r="6"/><circle cx="407" cy="412" r="6"/><circle cx="551" cy="414" r="6"/><circle cx="594" cy="438" r="6"/>
+ <circle cx="400" cy="480" r="5"/><circle cx="454" cy="470" r="5"/><circle cx="516" cy="472" r="5"/><circle cx="548" cy="489" r="5"/>
+ <circle cx="391" cy="524" r="5"/><circle cx="453" cy="518" r="5"/><circle cx="514" cy="520" r="5"/><circle cx="548" cy="535" r="5"/>
+</g>
+<!-- hand gripping the polearm, placed in front -->
+<path d="M627 633 Q650 621 669 642 L677 674 Q667 695 643 695 L622 676 Q612 652 627 633Z" fill="url(#skin)" stroke="#70432f" stroke-width="7"/>
+<path d="M633 646 Q653 656 668 649 M628 662 Q650 675 670 665" fill="none" stroke="#8e563f" stroke-width="4"/>
+<path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
+<!-- subtle facial highlights -->
+<path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#b9a4c4" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#b9a4c4" stroke-width="11" stroke-linecap="round" opacity="0.55"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.385"/></g><g transform="translate(1600 0)"><g transform="translate(28 -16) rotate(7 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>司马懿 · 2D 立绘</title>
+<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<defs>
+ <linearGradient id="jade" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#aa9a97"/><stop offset=".18" stop-color="#55445f"/><stop offset=".53" stop-color="#473b51"/><stop offset="1" stop-color="#212031"/></linearGradient>
+ <linearGradient id="jadeDark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#776675"/><stop offset=".38" stop-color="#41374b"/><stop offset="1" stop-color="#20202f"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#958589"/><stop offset=".25" stop-color="#55445f"/><stop offset=".7" stop-color="#43384d"/><stop offset="1" stop-color="#222132"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8d7cc"/><stop offset=".22" stop-color="#c5b1c6"/><stop offset=".55" stop-color="#9a8aa5"/><stop offset=".8" stop-color="#d1bec8"/><stop offset="1" stop-color="#756b80"/></linearGradient>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f4dc"/><stop offset=".22" stop-color="#c8d5c9"/><stop offset=".52" stop-color="#718b8c"/><stop offset=".76" stop-color="#e7e7d2"/><stop offset="1" stop-color="#435a5e"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#f3d0a8"/><stop offset=".42" stop-color="#d79c72"/><stop offset="1" stop-color="#8e503c"/></linearGradient>
+ <linearGradient id="beard" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#081918"/><stop offset=".3" stop-color="#203b35"/><stop offset=".56" stop-color="#0d211f"/><stop offset=".82" stop-color="#30483c"/><stop offset="1" stop-color="#071514"/></linearGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d46a4a"/><stop offset="1" stop-color="#6d2426"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+ <pattern id="scale" width="28" height="22" patternUnits="userSpaceOnUse"><path d="M1 2 Q14 17 27 2" fill="none" stroke="#d7bd79" stroke-width="2" opacity=".65"/></pattern>
+</defs>
+<!-- grounded cast shadow -->
+<ellipse cx="488" cy="954" rx="235" ry="28" fill="#071412" opacity=".22" filter="url(#shadow)"/>
+<g id="weapon">
+<path d="M696 925 L696 192" stroke="#191d1d" stroke-width="27"/><path d="M696 925 L696 192" stroke="#553a2b" stroke-width="16"/><path d="M696 108 Q650 161 696 222 Q742 161 696 108Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M696 125 L696 207" stroke="#fff4df" stroke-width="6"/><path d="M672 232 L720 232" stroke="url(#gold)" stroke-width="8"/>
+</g>
+<!-- rear cloak, wind-swept -->
+<path d="M361 374 Q263 393 223 514 Q177 653 239 827 Q278 902 357 929 Q392 873 411 808 L608 901 Q713 813 691 620 Q675 443 553 378Z" fill="url(#jadeDark)" stroke="#102622" stroke-width="15"/>
+<path d="M298 472 Q224 634 302 842 Q327 877 354 890 Q327 737 375 556Z" fill="#86a878" opacity=".38"/>
+<path d="M573 441 Q665 570 634 785 L592 846 Q616 659 529 508Z" fill="#071f20" opacity=".72"/>
+<path d="M251 665 Q270 800 350 870 M614 520 Q662 665 622 795" fill="none" stroke="#a7bd83" stroke-width="5" opacity=".32"/>
+<!-- boots and greaves -->
+<path d="M367 756 Q366 825 338 893 L320 936 Q368 969 438 944 L466 858 L456 776Z" fill="#243b35" stroke="#0d211f" stroke-width="12"/>
+<path d="M505 764 Q527 834 533 894 L520 941 Q576 971 647 940 L625 884 L604 774Z" fill="#1b332f" stroke="#0d211f" stroke-width="12"/>
+<path d="M340 834 Q391 854 458 831 L445 897 Q386 919 326 889Z" fill="url(#steel)" stroke="#8c713f" stroke-width="8"/>
+<path d="M522 835 Q565 856 620 830 L641 889 Q581 916 526 890Z" fill="url(#steel)" stroke="#8c713f" stroke-width="8"/>
+<path d="M320 916 Q371 897 438 923 L442 964 Q372 990 293 963Z" fill="#17211f" stroke="url(#gold)" stroke-width="8"/>
+<path d="M522 916 Q582 894 650 920 L670 960 Q590 990 513 965Z" fill="#17211f" stroke="url(#gold)" stroke-width="8"/>
+<path d="M330 937 Q382 927 428 945 M537 940 Q589 925 645 944" stroke="#a7a58a" stroke-width="4" opacity=".7"/>
+<!-- inner robe -->
+<path d="M360 371 Q420 333 533 363 Q632 404 655 548 L625 802 Q555 858 458 846 Q365 831 300 786 L306 545 Q310 420 360 371Z" fill="url(#cloth)" stroke="#102b27" stroke-width="15"/>
+<path d="M345 470 Q386 493 424 529 L400 797 L324 763Z" fill="#65976a" opacity=".78"/>
+<path d="M550 440 Q611 488 625 592 L592 793 L537 804 L556 563Z" fill="#123b32" stroke="#0b2725" stroke-width="7"/>
+<path d="M447 384 Q484 378 514 388 L553 817 Q500 844 432 818Z" fill="#173d34" stroke="#c49a50" stroke-width="8"/>
+<path d="M461 404 L490 410 L523 791" fill="none" stroke="#8fb17c" stroke-width="5" opacity=".6"/>
+<!-- embroidered robe borders -->
+<path d="M319 552 Q326 672 320 759 M610 554 Q618 667 588 780" fill="none" stroke="url(#gold)" stroke-width="9"/>
+<path d="M329 566 Q338 675 330 747 M600 565 Q604 666 580 766" fill="none" stroke="#d5bd7c" stroke-width="3"/>
+<!-- shoulder mantle -->
+<path d="M333 409 Q369 361 428 386 L460 448 Q424 491 357 467 Q322 448 333 409Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="10"/>
+<path d="M520 386 Q582 361 628 418 L619 475 Q558 500 512 450Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="10"/>
+<path d="M348 414 Q381 385 416 405 L438 447 Q390 464 349 439Z" fill="url(#scale)" opacity=".9"/>
+<path d="M535 410 Q579 384 610 431 L599 455 Q563 468 529 440Z" fill="url(#scale)" opacity=".9"/>
+<!-- upper arm sleeves -->
+<path d="M354 448 Q307 474 289 572 L318 651 Q349 664 380 632 L365 556 L416 505Z" fill="url(#jadeDark)" stroke="#102a26" stroke-width="12"/>
+<path d="M552 448 Q612 475 652 548 L628 635 Q598 656 568 624 L588 555 L539 507Z" fill="url(#jadeDark)" stroke="#102a26" stroke-width="12"/>
+<!-- forearms -->
+<path d="M295 575 Q276 604 296 650 L341 664 L371 628 L339 584Z" fill="url(#skin)" stroke="#714531" stroke-width="8"/>
+<path d="M619 589 Q656 600 672 638 L646 684 Q607 679 590 646Z" fill="url(#skin)" stroke="#714531" stroke-width="8"/>
+<!-- bracers -->
+<path d="M292 630 L354 643 L350 683 L303 671Z" fill="url(#gold)" stroke="#5b4023" stroke-width="7"/>
+<path d="M599 642 L658 652 L647 692 L598 677Z" fill="url(#gold)" stroke="#5b4023" stroke-width="7"/>
+<path d="M302 644 L347 654 M607 658 L650 667" stroke="#fff0b2" stroke-width="4"/>
+<!-- chest armor silhouette -->
+<path d="M382 435 Q474 397 566 440 L590 618 Q487 666 356 612Z" fill="#263f39" stroke="url(#gold)" stroke-width="12"/>
+<path d="M390 455 Q477 425 557 458 L570 597 Q481 634 374 595Z" fill="url(#jadeDark)"/>
+<path d="M390 455 Q477 425 557 458 L570 597 Q481 634 374 595Z" fill="url(#scale)" opacity=".75"/>
+<!-- rows of lamellar plates -->
+<g fill="#54765a" stroke="#d4b46c" stroke-width="4">
+ <path d="M391 470 L434 459 L442 491 L398 504Z"/><path d="M447 456 L491 451 L499 484 L453 491Z"/><path d="M505 458 L548 470 L541 502 L501 489Z"/>
+ <path d="M383 511 L433 505 L439 539 L388 546Z"/><path d="M445 502 L496 498 L501 534 L448 540Z"/><path d="M506 505 L557 516 L550 550 L504 540Z"/>
+ <path d="M378 554 L431 548 L432 582 L375 580Z"/><path d="M442 546 L499 544 L501 580 L440 584Z"/><path d="M506 551 L551 560 L543 592 L502 584Z"/>
+</g>
+<path d="M475 443 L485 607" stroke="#e9cf8d" stroke-width="8"/>
+<path d="M457 609 Q483 634 512 609 L531 655 L483 686 L440 651Z" fill="url(#gold)" stroke="#604421" stroke-width="8"/>
+<path d="M470 623 L484 641 L499 623 L510 651 L483 668 L457 648Z" fill="#6d3028" stroke="#e6c47a" stroke-width="4"/>
+<!-- belt and hanging ornaments -->
+<path d="M319 666 Q474 708 628 657 L638 714 Q479 768 314 715Z" fill="#152b27" stroke="url(#gold)" stroke-width="10"/>
+<path d="M462 687 L515 679 L530 726 L474 744Z" fill="url(#gold)" stroke="#62451f" stroke-width="7"/>
+<path d="M477 695 L505 691 L512 717 L482 727Z" fill="#8d3028" stroke="#f0d58b" stroke-width="4"/>
+<path d="M354 714 Q390 738 428 737 L409 826 Q369 796 339 779Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M557 713 Q590 706 614 689 L638 780 Q602 810 568 816Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M365 741 Q387 757 414 758 M573 744 Q596 740 619 723" stroke="#f1c979" stroke-width="4"/>
+<!-- neck -->
+<path d="M431 316 L430 389 Q478 420 529 382 L517 309Z" fill="url(#skin)" stroke="#754633" stroke-width="8"/>
+<!-- face silhouette, strong cheek and jaw -->
+<path d="M393 203 Q400 119 480 112 Q560 117 574 207 L559 292 Q542 340 484 355 Q428 344 402 296Z" fill="url(#skin)" stroke="#70432f" stroke-width="10"/>
+<path d="M402 244 Q410 292 446 319 Q480 340 520 315 Q548 294 561 244" fill="none" stroke="#f4d2aa" stroke-width="5" opacity=".55"/>
+<path d="M399 230 Q377 222 376 260 Q378 292 408 292 M564 229 Q591 218 588 258 Q583 289 557 291" fill="url(#skin)" stroke="#70432f" stroke-width="7"/>
+<!-- hair under the cap -->
+<path d="M388 224 Q367 139 420 94 Q480 49 547 91 Q605 127 579 234 L553 218 Q548 161 511 145 Q466 163 414 150 L409 236Z" fill="#121e1c" stroke="#071312" stroke-width="11"/>
+<!-- Guan Yu's distinctive green official-warrior headpiece -->
+<path d="M373 159 Q393 71 478 55 Q568 52 603 139 L578 177 Q527 137 476 145 Q423 136 393 188Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="11"/>
+<path d="M394 139 Q477 91 574 137" fill="none" stroke="#f2d990" stroke-width="8"/>
+<path d="M407 151 Q478 113 561 150" fill="none" stroke="#244b3b" stroke-width="6"/>
+<path d="M470 60 Q450 20 482 9 Q518 34 505 70Z" fill="#5c9362" stroke="url(#gold)" stroke-width="7"/>
+<path d="M393 181 Q480 154 580 184 L568 220 Q478 196 396 220Z" fill="#174535" stroke="#c99d50" stroke-width="8"/>
+<path d="M479 173 L501 198 L480 224 L458 198Z" fill="url(#gold)" stroke="#674723" stroke-width="5"/>
+<path d="M480 184 L490 198 L480 211 L469 198Z" fill="#8d3028"/>
+<!-- brows, eyes, nose, expression -->
+<path d="M414 230 Q440 208 466 229" fill="none" stroke="#302622" stroke-width="11" stroke-linecap="round"/>
+<path d="M498 228 Q527 207 550 228" fill="none" stroke="#302622" stroke-width="11" stroke-linecap="round"/>
+<path d="M419 248 Q443 259 465 246 Q444 235 419 248Z" fill="#f4e6cc" stroke="#332924" stroke-width="5"/>
+<path d="M500 246 Q526 259 547 246 Q525 235 500 246Z" fill="#f4e6cc" stroke="#332924" stroke-width="5"/>
+<ellipse cx="445" cy="247" rx="6" ry="9" fill="#241d19"/><ellipse cx="524" cy="247" rx="6" ry="9" fill="#241d19"/>
+<circle cx="447" cy="244" r="2.5" fill="#fff4dc"/><circle cx="526" cy="244" r="2.5" fill="#fff4dc"/>
+<path d="M482 247 L468 282 Q480 291 495 282" fill="none" stroke="#985b42" stroke-width="6" stroke-linecap="round"/>
+<path d="M464 300 Q482 307 501 297" fill="none" stroke="#6f382e" stroke-width="6" stroke-linecap="round"/>
+<!-- moustache and legendary long beard -->
+<path d="M416 287 Q433 278 456 292 Q478 307 486 296 Q503 281 530 286 Q546 290 554 278 Q548 316 515 326 Q489 334 477 319 Q455 332 433 315 Q420 306 416 287Z" fill="url(#beard)" stroke="#081816" stroke-width="7"/>
+<path d="M424 303 Q441 319 462 316 M495 316 Q522 316 544 296" fill="none" stroke="#71816b" stroke-width="4" opacity=".7"/>
+<path d="M432 316 Q420 378 450 440 Q464 469 482 491 Q504 467 522 427 Q548 370 539 311 Q518 340 492 337 Q461 345 432 316Z" fill="url(#beard)" stroke="#071614" stroke-width="10"/>
+<path d="M445 335 Q441 390 469 457 M466 339 Q463 405 483 477 M493 340 Q501 403 489 467 M518 331 Q527 392 501 448" fill="none" stroke="#526b5c" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+<path d="M453 351 Q454 410 477 455 M511 353 Q514 399 496 437" fill="none" stroke="#a0a184" stroke-width="2.5" opacity=".6"/>
+<!-- engraved armor trim and rivets -->
+<g fill="#f5d991" stroke="#684b27" stroke-width="3">
+ <circle cx="367" cy="429" r="6"/><circle cx="407" cy="412" r="6"/><circle cx="551" cy="414" r="6"/><circle cx="594" cy="438" r="6"/>
+ <circle cx="400" cy="480" r="5"/><circle cx="454" cy="470" r="5"/><circle cx="516" cy="472" r="5"/><circle cx="548" cy="489" r="5"/>
+ <circle cx="391" cy="524" r="5"/><circle cx="453" cy="518" r="5"/><circle cx="514" cy="520" r="5"/><circle cx="548" cy="535" r="5"/>
+</g>
+<!-- hand gripping the polearm, placed in front -->
+<path d="M627 633 Q650 621 669 642 L677 674 Q667 695 643 695 L622 676 Q612 652 627 633Z" fill="url(#skin)" stroke="#70432f" stroke-width="7"/>
+<path d="M633 646 Q653 656 668 649 M628 662 Q650 675 670 665" fill="none" stroke="#8e563f" stroke-width="4"/>
+<path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
+<!-- subtle facial highlights -->
+<path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#b9a4c4" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#b9a4c4" stroke-width="18" stroke-linecap="round" opacity="1"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.7"/></g><g transform="translate(2400 0)"><g transform="translate(-4 0) rotate(-1 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>司马懿 · 2D 立绘</title>
+<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<defs>
+ <linearGradient id="jade" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#aa9a97"/><stop offset=".18" stop-color="#55445f"/><stop offset=".53" stop-color="#473b51"/><stop offset="1" stop-color="#212031"/></linearGradient>
+ <linearGradient id="jadeDark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#776675"/><stop offset=".38" stop-color="#41374b"/><stop offset="1" stop-color="#20202f"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#958589"/><stop offset=".25" stop-color="#55445f"/><stop offset=".7" stop-color="#43384d"/><stop offset="1" stop-color="#222132"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8d7cc"/><stop offset=".22" stop-color="#c5b1c6"/><stop offset=".55" stop-color="#9a8aa5"/><stop offset=".8" stop-color="#d1bec8"/><stop offset="1" stop-color="#756b80"/></linearGradient>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f4dc"/><stop offset=".22" stop-color="#c8d5c9"/><stop offset=".52" stop-color="#718b8c"/><stop offset=".76" stop-color="#e7e7d2"/><stop offset="1" stop-color="#435a5e"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#f3d0a8"/><stop offset=".42" stop-color="#d79c72"/><stop offset="1" stop-color="#8e503c"/></linearGradient>
+ <linearGradient id="beard" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#081918"/><stop offset=".3" stop-color="#203b35"/><stop offset=".56" stop-color="#0d211f"/><stop offset=".82" stop-color="#30483c"/><stop offset="1" stop-color="#071514"/></linearGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d46a4a"/><stop offset="1" stop-color="#6d2426"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+ <pattern id="scale" width="28" height="22" patternUnits="userSpaceOnUse"><path d="M1 2 Q14 17 27 2" fill="none" stroke="#d7bd79" stroke-width="2" opacity=".65"/></pattern>
+</defs>
+<!-- grounded cast shadow -->
+<ellipse cx="488" cy="954" rx="235" ry="28" fill="#071412" opacity=".22" filter="url(#shadow)"/>
+<g id="weapon">
+<path d="M696 925 L696 192" stroke="#191d1d" stroke-width="27"/><path d="M696 925 L696 192" stroke="#553a2b" stroke-width="16"/><path d="M696 108 Q650 161 696 222 Q742 161 696 108Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M696 125 L696 207" stroke="#fff4df" stroke-width="6"/><path d="M672 232 L720 232" stroke="url(#gold)" stroke-width="8"/>
+</g>
+<!-- rear cloak, wind-swept -->
+<path d="M361 374 Q263 393 223 514 Q177 653 239 827 Q278 902 357 929 Q392 873 411 808 L608 901 Q713 813 691 620 Q675 443 553 378Z" fill="url(#jadeDark)" stroke="#102622" stroke-width="15"/>
+<path d="M298 472 Q224 634 302 842 Q327 877 354 890 Q327 737 375 556Z" fill="#86a878" opacity=".38"/>
+<path d="M573 441 Q665 570 634 785 L592 846 Q616 659 529 508Z" fill="#071f20" opacity=".72"/>
+<path d="M251 665 Q270 800 350 870 M614 520 Q662 665 622 795" fill="none" stroke="#a7bd83" stroke-width="5" opacity=".32"/>
+<!-- boots and greaves -->
+<path d="M367 756 Q366 825 338 893 L320 936 Q368 969 438 944 L466 858 L456 776Z" fill="#243b35" stroke="#0d211f" stroke-width="12"/>
+<path d="M505 764 Q527 834 533 894 L520 941 Q576 971 647 940 L625 884 L604 774Z" fill="#1b332f" stroke="#0d211f" stroke-width="12"/>
+<path d="M340 834 Q391 854 458 831 L445 897 Q386 919 326 889Z" fill="url(#steel)" stroke="#8c713f" stroke-width="8"/>
+<path d="M522 835 Q565 856 620 830 L641 889 Q581 916 526 890Z" fill="url(#steel)" stroke="#8c713f" stroke-width="8"/>
+<path d="M320 916 Q371 897 438 923 L442 964 Q372 990 293 963Z" fill="#17211f" stroke="url(#gold)" stroke-width="8"/>
+<path d="M522 916 Q582 894 650 920 L670 960 Q590 990 513 965Z" fill="#17211f" stroke="url(#gold)" stroke-width="8"/>
+<path d="M330 937 Q382 927 428 945 M537 940 Q589 925 645 944" stroke="#a7a58a" stroke-width="4" opacity=".7"/>
+<!-- inner robe -->
+<path d="M360 371 Q420 333 533 363 Q632 404 655 548 L625 802 Q555 858 458 846 Q365 831 300 786 L306 545 Q310 420 360 371Z" fill="url(#cloth)" stroke="#102b27" stroke-width="15"/>
+<path d="M345 470 Q386 493 424 529 L400 797 L324 763Z" fill="#65976a" opacity=".78"/>
+<path d="M550 440 Q611 488 625 592 L592 793 L537 804 L556 563Z" fill="#123b32" stroke="#0b2725" stroke-width="7"/>
+<path d="M447 384 Q484 378 514 388 L553 817 Q500 844 432 818Z" fill="#173d34" stroke="#c49a50" stroke-width="8"/>
+<path d="M461 404 L490 410 L523 791" fill="none" stroke="#8fb17c" stroke-width="5" opacity=".6"/>
+<!-- embroidered robe borders -->
+<path d="M319 552 Q326 672 320 759 M610 554 Q618 667 588 780" fill="none" stroke="url(#gold)" stroke-width="9"/>
+<path d="M329 566 Q338 675 330 747 M600 565 Q604 666 580 766" fill="none" stroke="#d5bd7c" stroke-width="3"/>
+<!-- shoulder mantle -->
+<path d="M333 409 Q369 361 428 386 L460 448 Q424 491 357 467 Q322 448 333 409Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="10"/>
+<path d="M520 386 Q582 361 628 418 L619 475 Q558 500 512 450Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="10"/>
+<path d="M348 414 Q381 385 416 405 L438 447 Q390 464 349 439Z" fill="url(#scale)" opacity=".9"/>
+<path d="M535 410 Q579 384 610 431 L599 455 Q563 468 529 440Z" fill="url(#scale)" opacity=".9"/>
+<!-- upper arm sleeves -->
+<path d="M354 448 Q307 474 289 572 L318 651 Q349 664 380 632 L365 556 L416 505Z" fill="url(#jadeDark)" stroke="#102a26" stroke-width="12"/>
+<path d="M552 448 Q612 475 652 548 L628 635 Q598 656 568 624 L588 555 L539 507Z" fill="url(#jadeDark)" stroke="#102a26" stroke-width="12"/>
+<!-- forearms -->
+<path d="M295 575 Q276 604 296 650 L341 664 L371 628 L339 584Z" fill="url(#skin)" stroke="#714531" stroke-width="8"/>
+<path d="M619 589 Q656 600 672 638 L646 684 Q607 679 590 646Z" fill="url(#skin)" stroke="#714531" stroke-width="8"/>
+<!-- bracers -->
+<path d="M292 630 L354 643 L350 683 L303 671Z" fill="url(#gold)" stroke="#5b4023" stroke-width="7"/>
+<path d="M599 642 L658 652 L647 692 L598 677Z" fill="url(#gold)" stroke="#5b4023" stroke-width="7"/>
+<path d="M302 644 L347 654 M607 658 L650 667" stroke="#fff0b2" stroke-width="4"/>
+<!-- chest armor silhouette -->
+<path d="M382 435 Q474 397 566 440 L590 618 Q487 666 356 612Z" fill="#263f39" stroke="url(#gold)" stroke-width="12"/>
+<path d="M390 455 Q477 425 557 458 L570 597 Q481 634 374 595Z" fill="url(#jadeDark)"/>
+<path d="M390 455 Q477 425 557 458 L570 597 Q481 634 374 595Z" fill="url(#scale)" opacity=".75"/>
+<!-- rows of lamellar plates -->
+<g fill="#54765a" stroke="#d4b46c" stroke-width="4">
+ <path d="M391 470 L434 459 L442 491 L398 504Z"/><path d="M447 456 L491 451 L499 484 L453 491Z"/><path d="M505 458 L548 470 L541 502 L501 489Z"/>
+ <path d="M383 511 L433 505 L439 539 L388 546Z"/><path d="M445 502 L496 498 L501 534 L448 540Z"/><path d="M506 505 L557 516 L550 550 L504 540Z"/>
+ <path d="M378 554 L431 548 L432 582 L375 580Z"/><path d="M442 546 L499 544 L501 580 L440 584Z"/><path d="M506 551 L551 560 L543 592 L502 584Z"/>
+</g>
+<path d="M475 443 L485 607" stroke="#e9cf8d" stroke-width="8"/>
+<path d="M457 609 Q483 634 512 609 L531 655 L483 686 L440 651Z" fill="url(#gold)" stroke="#604421" stroke-width="8"/>
+<path d="M470 623 L484 641 L499 623 L510 651 L483 668 L457 648Z" fill="#6d3028" stroke="#e6c47a" stroke-width="4"/>
+<!-- belt and hanging ornaments -->
+<path d="M319 666 Q474 708 628 657 L638 714 Q479 768 314 715Z" fill="#152b27" stroke="url(#gold)" stroke-width="10"/>
+<path d="M462 687 L515 679 L530 726 L474 744Z" fill="url(#gold)" stroke="#62451f" stroke-width="7"/>
+<path d="M477 695 L505 691 L512 717 L482 727Z" fill="#8d3028" stroke="#f0d58b" stroke-width="4"/>
+<path d="M354 714 Q390 738 428 737 L409 826 Q369 796 339 779Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M557 713 Q590 706 614 689 L638 780 Q602 810 568 816Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M365 741 Q387 757 414 758 M573 744 Q596 740 619 723" stroke="#f1c979" stroke-width="4"/>
+<!-- neck -->
+<path d="M431 316 L430 389 Q478 420 529 382 L517 309Z" fill="url(#skin)" stroke="#754633" stroke-width="8"/>
+<!-- face silhouette, strong cheek and jaw -->
+<path d="M393 203 Q400 119 480 112 Q560 117 574 207 L559 292 Q542 340 484 355 Q428 344 402 296Z" fill="url(#skin)" stroke="#70432f" stroke-width="10"/>
+<path d="M402 244 Q410 292 446 319 Q480 340 520 315 Q548 294 561 244" fill="none" stroke="#f4d2aa" stroke-width="5" opacity=".55"/>
+<path d="M399 230 Q377 222 376 260 Q378 292 408 292 M564 229 Q591 218 588 258 Q583 289 557 291" fill="url(#skin)" stroke="#70432f" stroke-width="7"/>
+<!-- hair under the cap -->
+<path d="M388 224 Q367 139 420 94 Q480 49 547 91 Q605 127 579 234 L553 218 Q548 161 511 145 Q466 163 414 150 L409 236Z" fill="#121e1c" stroke="#071312" stroke-width="11"/>
+<!-- Guan Yu's distinctive green official-warrior headpiece -->
+<path d="M373 159 Q393 71 478 55 Q568 52 603 139 L578 177 Q527 137 476 145 Q423 136 393 188Z" fill="url(#jade)" stroke="url(#gold)" stroke-width="11"/>
+<path d="M394 139 Q477 91 574 137" fill="none" stroke="#f2d990" stroke-width="8"/>
+<path d="M407 151 Q478 113 561 150" fill="none" stroke="#244b3b" stroke-width="6"/>
+<path d="M470 60 Q450 20 482 9 Q518 34 505 70Z" fill="#5c9362" stroke="url(#gold)" stroke-width="7"/>
+<path d="M393 181 Q480 154 580 184 L568 220 Q478 196 396 220Z" fill="#174535" stroke="#c99d50" stroke-width="8"/>
+<path d="M479 173 L501 198 L480 224 L458 198Z" fill="url(#gold)" stroke="#674723" stroke-width="5"/>
+<path d="M480 184 L490 198 L480 211 L469 198Z" fill="#8d3028"/>
+<!-- brows, eyes, nose, expression -->
+<path d="M414 230 Q440 208 466 229" fill="none" stroke="#302622" stroke-width="11" stroke-linecap="round"/>
+<path d="M498 228 Q527 207 550 228" fill="none" stroke="#302622" stroke-width="11" stroke-linecap="round"/>
+<path d="M419 248 Q443 259 465 246 Q444 235 419 248Z" fill="#f4e6cc" stroke="#332924" stroke-width="5"/>
+<path d="M500 246 Q526 259 547 246 Q525 235 500 246Z" fill="#f4e6cc" stroke="#332924" stroke-width="5"/>
+<ellipse cx="445" cy="247" rx="6" ry="9" fill="#241d19"/><ellipse cx="524" cy="247" rx="6" ry="9" fill="#241d19"/>
+<circle cx="447" cy="244" r="2.5" fill="#fff4dc"/><circle cx="526" cy="244" r="2.5" fill="#fff4dc"/>
+<path d="M482 247 L468 282 Q480 291 495 282" fill="none" stroke="#985b42" stroke-width="6" stroke-linecap="round"/>
+<path d="M464 300 Q482 307 501 297" fill="none" stroke="#6f382e" stroke-width="6" stroke-linecap="round"/>
+<!-- moustache and legendary long beard -->
+<path d="M416 287 Q433 278 456 292 Q478 307 486 296 Q503 281 530 286 Q546 290 554 278 Q548 316 515 326 Q489 334 477 319 Q455 332 433 315 Q420 306 416 287Z" fill="url(#beard)" stroke="#081816" stroke-width="7"/>
+<path d="M424 303 Q441 319 462 316 M495 316 Q522 316 544 296" fill="none" stroke="#71816b" stroke-width="4" opacity=".7"/>
+<path d="M432 316 Q420 378 450 440 Q464 469 482 491 Q504 467 522 427 Q548 370 539 311 Q518 340 492 337 Q461 345 432 316Z" fill="url(#beard)" stroke="#071614" stroke-width="10"/>
+<path d="M445 335 Q441 390 469 457 M466 339 Q463 405 483 477 M493 340 Q501 403 489 467 M518 331 Q527 392 501 448" fill="none" stroke="#526b5c" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+<path d="M453 351 Q454 410 477 455 M511 353 Q514 399 496 437" fill="none" stroke="#a0a184" stroke-width="2.5" opacity=".6"/>
+<!-- engraved armor trim and rivets -->
+<g fill="#f5d991" stroke="#684b27" stroke-width="3">
+ <circle cx="367" cy="429" r="6"/><circle cx="407" cy="412" r="6"/><circle cx="551" cy="414" r="6"/><circle cx="594" cy="438" r="6"/>
+ <circle cx="400" cy="480" r="5"/><circle cx="454" cy="470" r="5"/><circle cx="516" cy="472" r="5"/><circle cx="548" cy="489" r="5"/>
+ <circle cx="391" cy="524" r="5"/><circle cx="453" cy="518" r="5"/><circle cx="514" cy="520" r="5"/><circle cx="548" cy="535" r="5"/>
+</g>
+<!-- hand gripping the polearm, placed in front -->
+<path d="M627 633 Q650 621 669 642 L677 674 Q667 695 643 695 L622 676 Q612 652 627 633Z" fill="url(#skin)" stroke="#70432f" stroke-width="7"/>
+<path d="M633 646 Q653 656 668 649 M628 662 Q650 675 670 665" fill="none" stroke="#8e563f" stroke-width="4"/>
+<path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
+<!-- subtle facial highlights -->
+<path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#b9a4c4" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#b9a4c4" stroke-width="11" stroke-linecap="round" opacity="0.35"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.24499999999999997"/></g></svg>
