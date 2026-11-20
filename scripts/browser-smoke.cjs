@@ -176,16 +176,22 @@ const assert = require("node:assert/strict");
     const images = [...host.querySelectorAll("img.hero-portrait")];
     images.forEach(img => { img.loading = "eager"; });
     await Promise.all(images.map(img => img.decode().catch(() => null)));
+    const actors=[...host.querySelectorAll(".warrior")];
+    actors[0].classList.add("attack-right");
+    actors[1].classList.add("cast");
     const result = images.map(img => {
       const actor=img.closest(".warrior"),body=actor.querySelector(".body-art"),bodyStyle=getComputedStyle(body),imageStyle=getComputedStyle(img),rect=body.getBoundingClientRect();
-      return {id:img.getAttribute("src").split("/").pop().replace(".svg",""),loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight,bodyWidth:Math.round(rect.width),bodyHeight:Math.round(rect.height),backgroundImage:bodyStyle.backgroundImage,imageTransform:imageStyle.transform};
+      return {id:img.getAttribute("src").split("/").pop().replace(".svg",""),loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight,bodyWidth:Math.round(rect.width),bodyHeight:Math.round(rect.height),backgroundImage:bodyStyle.backgroundImage,imageTransform:imageStyle.transform,animationWrapper:!!actor.querySelector(".hero-sprite")};
     });
+    const attackBackground=getComputedStyle(actors[0].querySelector(".hero-sprite")).backgroundImage;
+    const skillBackground=getComputedStyle(actors[1].querySelector(".hero-sprite")).backgroundImage;
     host.remove();
-    return result;
+    return {sprites:result,attackBackground,skillBackground};
   });
-  assert.equal(allBattleSprites.length, 12, "all twelve generals must have battlefield sprite bindings");
-  assert.ok(allBattleSprites.every(x=>x.loaded&&x.width===800&&x.height===1000), "all twelve battle sprites must load at a common 4:5 frame: "+JSON.stringify(allBattleSprites));
-  assert.ok(allBattleSprites.every(x=>x.bodyWidth===88&&x.bodyHeight===104&&x.backgroundImage==="none"&&x.imageTransform==="none"), "all twelve battlefield heroes must share the same 88x104 anchor with no legacy pixel layer or per-hero perspective offset: "+JSON.stringify(allBattleSprites));
+  assert.equal(allBattleSprites.sprites.length, 50, "all fifty generals must have battlefield sprite bindings");
+  assert.ok(allBattleSprites.sprites.every(x=>x.loaded&&x.width===800&&x.height===1000), "all fifty battle sprites must load at a common 4:5 frame: "+JSON.stringify(allBattleSprites.sprites));
+  assert.ok(allBattleSprites.sprites.every(x=>x.bodyWidth===88&&x.bodyHeight===104&&x.backgroundImage==="none"&&x.imageTransform==="none"&&x.animationWrapper), "all fifty battlefield heroes must share the same 88x104 anchor and a clean 2D sprite layer: "+JSON.stringify(allBattleSprites.sprites));
+  assert.ok(allBattleSprites.attackBackground.includes("-attack.svg")&&allBattleSprites.skillBackground.includes("-skill.svg"), "weapon-specific attacks and unique skill sprite sheets must be wired into battlefield animation classes");
   assert.ok(html.includes("function troop(") && html.includes("for(let row=0;row<3;row++)"), "the 2.5D battlefield must retain its background miniature pixel troop formations");
 
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
