@@ -33,24 +33,19 @@ const assert = require("node:assert/strict");
   assert.ok(steps > 0, "first chapter should have playable dialogue");
   await page.locator('button[onclick="chapterChoice(0)"]').click();
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 15000 });
-  await page.locator("#battleScene .hero3d-layer").waitFor({ state: "attached", timeout: 15000 });
-
-  await page.waitForFunction(() => {
-    const status = window.__hero3dStatus?.() || [];
-    return ["liu-bei", "guan-yu", "zhang-fei"].every(id => status.some(item => item.id === id && item.ready));
-  }, { timeout: 120000 });
-
-  const status = await page.evaluate(() => window.__hero3dStatus());
-  for (const id of ["liu-bei", "guan-yu", "zhang-fei"]) {
-    const model = status.find(item => item.id === id);
-    assert.ok(model && model.ready, id + " GLB model must load in Android WebView");
-    assert.ok(model.skinnedMeshes > 0 && model.bones >= 20 && model.clips >= 3,
-      id + " must have a skinned mesh, humanoid skeleton and animation clips");
+  await page.waitForFunction(() => ["liu-bei","guan-yu","zhang-fei"].every(id => {
+    const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
+    return !!img && img.complete && img.naturalWidth > 0;
+  }), { timeout: 30000 });
+  const status = await page.evaluate(() => ["liu-bei","guan-yu","zhang-fei"].map(id => {
+    const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
+    return { id, loaded:!!img && img.complete && img.naturalWidth>0, width:img?.naturalWidth||0, height:img?.naturalHeight||0 };
+  }));
+  for (const sprite of status) {
+    assert.ok(sprite.loaded && sprite.width>=300 && sprite.height>=300, sprite.id+" 2D SVG must load in Android WebView");
   }
-  assert.equal(await page.locator("#battleScene canvas.hero3d-layer").count(), 1,
-    "Android WebView must attach the real WebGL hero layer");
-  assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count() >= 3,
-    "at least three battlefield units must be driven by loaded 3D models");
+  assert.ok(await page.locator("#battleScene .warrior[data-hero2d]").count() >= 3,
+    "Android WebView must render all three bespoke 2D generals");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() > 0, "friendly army must be visible");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() > 0, "enemy army must be visible");
   assert.match(await page.locator(".skill-panel").innerText(), /目标范围|消耗/,
@@ -59,9 +54,9 @@ const assert = require("node:assert/strict");
 
   fs.mkdirSync("artifacts", { recursive: true });
   await page.screenshot({ path: path.join("artifacts", "android-webview-battle.png"), fullPage: false });
-  fs.writeFileSync(path.join("artifacts", "android-webview-model-status.json"),
-    JSON.stringify({ url: page.url(), models: status, visible3DUnits: await page.locator("#battleScene .warrior.hero3d-ready").count(), pageErrors: errors }, null, 2));
-  console.log("ANDROID_WEBVIEW_BATTLE_TEST_PASSED");
+  fs.writeFileSync(path.join("artifacts", "android-webview-2d-sprite-status.json"),
+    JSON.stringify({ url: page.url(), models: status, visible2DUnits: await page.locator("#battleScene .warrior[data-hero2d]").count(), pageErrors: errors }, null, 2));
+  console.log("ANDROID_WEBVIEW_2D_BATTLE_TEST_PASSED");
   console.log(JSON.stringify(status, null, 2));
   await browser.close();
 })().catch(error => {
