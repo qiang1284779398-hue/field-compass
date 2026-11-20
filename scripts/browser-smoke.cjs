@@ -78,6 +78,7 @@ const assert = require("node:assert/strict");
   await page.locator('button[onclick="chapterChoice(0)"]').click();
   assert.equal(await page.evaluate(() => s.factionRelations.yellow), Math.min(50, relationBeforeChoice + 3), "humanitarian choice should improve the local faction relation");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
+  assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
   const vectorModels = await page.locator("#battleScene .warrior .unit-figure").evaluateAll(nodes => nodes.map(n => ({ width: n.getBoundingClientRect().width, height: n.getBoundingClientRect().height, paths: n.querySelectorAll("path").length })));
