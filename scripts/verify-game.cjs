@@ -38,7 +38,7 @@ assert.ok(source.includes("function tickUnitStatuses"), "status turn resolution 
 for (const effect of ["burn","poison","bleed","armorBreak","slow","disarm","stun"]) assert.ok(source.includes('"'+effect+'"'), "missing status effect: "+effect);
 assert.ok(source.includes("function statusText"), "unit status feedback missing");
 assert.ok(source.includes("步阵协同") && source.includes("骑兵协同") && source.includes("远程协同"), "troop formation synergy missing");
-assert.ok(source.includes("识破破绽，追击重伤目标") && source.includes("掩护远程部队"), "enemy tactical behavior missing");
+assert.ok(source.includes("识破破绽，追击重伤目标") && source.includes("掩护己方远程部队"), "enemy tactical behavior missing");
 assert.ok(source.includes('name==="青龙偃月"') && source.includes('name==="麒麟奇谋"'), "signature hero skills missing");
 assert.ok(source.includes("skillCostReduction"), "strategist skill cost synergy missing");
 assert.ok(source.includes("terrain-2:before") && source.includes("terrain-3:before"), "terrain battlefield visuals missing");
