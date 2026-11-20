@@ -53,7 +53,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,factionForRegion,enemyCommander,siegeCost};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, {}, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -320,6 +320,18 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
   game.resolvePendingSiege("defend");assert.ok(game.state().territories["1"],"successful defense should retain the outpost");
   game.state().gold=500;game.state().iron=100;game.state().food=300;game.state().fieldPlans={};game.prepareFieldTactic(1,"sabotage");
   assert.equal(game.state().fieldPlans["1"],"sabotage","sabotage should be stored for the next battle");
+  game.state().gold=500;game.state().food=500;game.state().explored=[3];game.state().regionControl[3]="enemy";game.state().day=10;game.state().spyCooldowns={};game.state().spyReports={};
+  game.ensureSpyNetwork();const enemyBeforeScout=Object.assign({},game.state().enemyGarrisons[3]);
+  game.scoutEnemyRegion(3);assert.ok(game.state().spyReports[3],"scouting should save an enemy force report");
+  assert.equal(game.state().spyReports[3].inf,enemyBeforeScout.inf,"scouting report should record the enemy infantry count");
+  assert.equal(game.state().intel,Math.min(20,(game.state().intel||0)+2),"scouting should increase strategic intel");
+  const goldAfterScout=game.state().gold;game.sabotageEnemySupply(3);
+  const enemyAfterSabotage=game.state().enemyGarrisons[3];
+  assert.ok(enemyAfterSabotage.inf+enemyAfterSabotage.cav+enemyAfterSabotage.arch<enemyBeforeScout.inf+enemyBeforeScout.cav+enemyBeforeScout.arch,"sabotage should permanently reduce enemy garrison strength");
+  assert.equal(game.state().spyCooldowns[3],game.state().day+3,"sabotage should impose a three-day cooldown");
+  const troopsAfterSabotage=enemyAfterSabotage.inf+enemyAfterSabotage.cav+enemyAfterSabotage.arch;
+  game.sabotageEnemySupply(3);assert.equal(enemyAfterSabotage.inf+enemyAfterSabotage.cav+enemyAfterSabotage.arch,troopsAfterSabotage,"cooldown should prevent repeated sabotage");
+  game.inspectRegion(3);assert.ok(elements.get("modal").innerHTML.includes("斥候情报"),"region detail should show spy intelligence");
   game.state().publicOrder=40; game.state().peopleMorale=38; game.state().gold=500; game.state().food=500; game.state().wood=100;
   game.cityGovernance();
   assert.ok(elements.get("modal").innerHTML.includes("治安"), "city governance should display public order");
