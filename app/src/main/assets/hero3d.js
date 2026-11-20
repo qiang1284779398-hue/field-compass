@@ -34,7 +34,7 @@ function init(){
  const camera=new THREE.OrthographicCamera(-2,2,2,-2,.1,100);camera.position.set(0,0,30);camera.lookAt(0,0,0);
  const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:"high-performance"});
  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.6));
- renderer.outputColorSpace=THREE.SRGBColorSpace||THREE.LinearSRGBColorSpace;
+ renderer.outputEncoding=THREE.sRGBEncoding;
  renderer.setClearColor(0x000000,0);
  scene.add(new THREE.HemisphereLight(0xe9f1ff,0x463a2c,2.0));
  const key=new THREE.DirectionalLight(0xffe2b5,2.1);key.position.set(-3,6,8);scene.add(key);
