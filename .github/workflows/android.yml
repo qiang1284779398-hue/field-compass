@@ -101,6 +101,55 @@ jobs:
           name: huanxiang-sanguo-apk
           path: app/build/outputs/apk/debug/app-debug.apk
 
+
+  remote-phone-connection-test:
+    name: Verify remote Android phone MCP connection
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check phone tunnel and authenticate to MCP
+        env:
+          ANDROID_MCP_URL: ${{ secrets.ANDROID_MCP_URL }}
+          ANDROID_MCP_TOKEN: ${{ secrets.ANDROID_MCP_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${ANDROID_MCP_URL:-}" ] || [ -z "${ANDROID_MCP_TOKEN:-}" ]; then
+            echo "::error::Missing ANDROID_MCP_URL or ANDROID_MCP_TOKEN repository secret."
+            exit 1
+          fi
+          case "$ANDROID_MCP_URL" in
+            https://*) ;;
+            *) echo "::error::ANDROID_MCP_URL must be a public HTTPS tunnel URL, not localhost."; exit 1 ;;
+          esac
+          MCP_URL="$ANDROID_MCP_URL"
+          MCP_URL="${MCP_URL%/}"
+          case "$MCP_URL" in */mcp) ;; *) MCP_URL="$MCP_URL/mcp" ;; esac
+
+          echo "Checking MCP tools endpoint (secret values are never printed)..."
+          TOOLS_RESPONSE="$(curl --fail --silent --show-error --max-time 25 \
+            -X POST "$MCP_URL" \
+            -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json, text/event-stream" \
+            --data '{"jsonrpc":"2.0","id":1,"method":"tools/list"}')"
+          printf '%s' "$TOOLS_RESPONSE" | grep -q 'android_get_screen_state' || {
+            echo "::error::MCP responded, but android_get_screen_state was not listed. Check app server and tool permissions."
+            exit 1
+          }
+
+          echo "Calling phone screen-state tool..."
+          SCREEN_RESPONSE="$(curl --fail --silent --show-error --max-time 25 \
+            -X POST "$MCP_URL" \
+            -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json, text/event-stream" \
+            --data '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{}}}')"
+          printf '%s' "$SCREEN_RESPONSE" | grep -q '"result"' || {
+            echo "::error::Phone MCP call did not return a result."
+            exit 1
+          }
+          echo "REMOTE_ANDROID_MCP_CONNECTION_PASSED"
+
   android-device-test:
     # Apple Silicon + ARM64 Android image avoids the slow/stalled Intel x86_64 path.
     runs-on: macos-15
