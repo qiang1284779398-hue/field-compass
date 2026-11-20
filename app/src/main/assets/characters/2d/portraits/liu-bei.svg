@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>Liu Bei portrait</title><defs><radialGradient id="bg"><stop stop-color="#795447"/><stop offset="1" stop-color="#201a1b"/></radialGradient><linearGradient id="red" x2="1" y2="1"><stop stop-color="#e4a17a"/><stop offset=".45" stop-color="#9b4035"/><stop offset="1" stop-color="#411e22"/></linearGradient><linearGradient id="gold" x2="1" y2="1"><stop stop-color="#fff0b5"/><stop offset=".5" stop-color="#bd8c45"/><stop offset="1" stop-color="#60401e"/></linearGradient><linearGradient id="skin" x2="1" y2="1"><stop stop-color="#f4d0a8"/><stop offset="1" stop-color="#98553e"/></linearGradient></defs>
+<circle cx="256" cy="256" r="246" fill="url(#bg)" stroke="url(#gold)" stroke-width="12"/><circle cx="256" cy="256" r="223" fill="none" stroke="#e7ca8b" opacity=".5" stroke-width="2"/>
+<path d="M89 468 Q98 363 170 333 L344 333 Q420 366 426 468Z" fill="url(#red)" stroke="#321b1c" stroke-width="9"/><path d="M125 397 Q256 351 387 397 L399 466 L113 466Z" fill="#594037" stroke="url(#gold)" stroke-width="8"/>
+<path d="M171 390 Q256 368 341 390 L356 458 L156 458Z" fill="#83513c"/><path d="M171 390 Q256 368 341 390 L356 458 L156 458Z" fill="url(#unused)" opacity="0"/>
+<path d="M204 328 L202 375 Q256 404 309 375 L303 328Z" fill="url(#skin)" stroke="#734731" stroke-width="6"/>
+<path d="M168 171 Q175 91 256 85 Q337 91 345 172 L331 265 Q310 321 256 339 Q198 322 181 265Z" fill="url(#skin)" stroke="#70432f" stroke-width="8"/>
+<path d="M180 210 Q151 195 150 233 Q154 265 184 271 M332 210 Q361 195 362 233 Q357 265 327 271Z" fill="url(#skin)" stroke="#70432f" stroke-width="6"/>
+<path d="M161 190 Q147 115 202 77 Q260 38 316 77 Q369 115 351 195 L326 184 Q324 128 289 119 Q248 140 193 130 L186 198Z" fill="#151c1a" stroke="#080e0d" stroke-width="8"/>
+<path d="M147 127 Q164 52 254 43 Q348 44 376 130 L351 161 Q305 127 254 137 Q199 129 166 168Z" fill="url(#gold)" stroke="#614421" stroke-width="8"/>
+<path d="M171 123 Q256 79 354 123" fill="none" stroke="#fff0b7" stroke-width="6"/>
+<path d="M190 151 Q256 132 326 153 L319 187 Q252 170 195 188Z" fill="#85352e" stroke="#e4bd78" stroke-width="6"/>
+<path d="M256 140 L275 162 L256 185 L237 162Z" fill="#26746c" stroke="url(#gold)" stroke-width="5"/>
+<path d="M188 217 Q211 199 235 217 M277 217 Q301 198 324 218" fill="none" stroke="#352721" stroke-width="8" stroke-linecap="round"/>
+<path d="M191 237 Q213 249 237 236 Q214 225 191 237Z M277 236 Q300 249 322 237 Q299 225 277 236Z" fill="#f5e8d1" stroke="#362721" stroke-width="4"/>
+<ellipse cx="214" cy="237" rx="5" ry="8" fill="#201a17"/><ellipse cx="300" cy="237" rx="5" ry="8" fill="#201a17"/>
+<path d="M257 241 L246 272 Q257 280 270 273" fill="none" stroke="#98583e" stroke-width="5"/>
+<path d="M198 289 Q218 274 238 291 Q255 306 274 290 Q295 274 316 290 Q306 310 280 312 Q261 308 256 304 Q239 316 216 309Z" fill="#26302b" stroke="#111815" stroke-width="5"/>
+<path d="M219 307 Q224 337 256 347 Q285 336 293 307 Q289 354 256 371 Q227 356 219 307Z" fill="#18221f" stroke="#0d1412" stroke-width="6"/>
+<path d="M234 324 Q242 347 257 359 M278 324 Q271 348 258 359" fill="none" stroke="#77806e" stroke-width="4"/>
+</svg>
