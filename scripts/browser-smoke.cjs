@@ -37,10 +37,45 @@ const assert = require("node:assert/strict");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
 
-  // A basic attack must resolve and leave the battle UI responsive.
+  // Verify real combat outcomes, not just that the buttons can be clicked.
+  const readFight = () => page.evaluate(() => eval("({round:fight.round,phase:fight.phase,enemyHp:fight.enemies[0].hp,actor:fight.actor,energy:fight.allies.map(x=>x.energy),shield:fight.allies.map(x=>x.shield),acted:fight.acted.length})"));
+  const hpBefore = await page.evaluate(() => eval("fight.enemies[0].hp"));
+  await page.locator('.warrior[data-side="enemy"][data-index="0"]').click();
+  assert.ok((await page.locator('.warrior[data-side="enemy"][data-index="0"]')).getAttribute("class").then(x=>x.includes("targeted")), "clicked enemy should become the selected target");
   await page.locator('button[onclick="basicAttack()"]').click();
-  await page.waitForTimeout(1800);
-  assert.ok((await page.locator("#view").innerText()).includes("战"), "battle view should remain rendered after an action");
+  await page.waitForTimeout(900);
+  const afterAttack = await readFight();
+  assert.ok(afterAttack.enemyHp < hpBefore, "basic attack must reduce the selected enemy HP");
+
+  // A distinct hero skill must spend energy and produce a combat effect.
+  await page.locator('button[onclick="selectActor(1)"]').click();
+  const skillBefore = await readFight();
+  await page.locator('button[onclick="useHeroSkill()"]').click();
+  await page.waitForTimeout(1500);
+  const afterSkill = await readFight();
+  assert.ok(afterSkill.energy[1] < skillBefore.energy[1], "hero skill must consume energy");
+  assert.ok(afterSkill.enemyHp < skillBefore.enemyHp, "hero skill must damage or otherwise affect its target");
+
+  // Defensive action must create a shield; completing all three actions must trigger enemy AI.
+  await page.locator('button[onclick="selectActor(2)"]').click();
+  const shieldBefore = (await readFight()).shield[2];
+  await page.locator('button[onclick="defendAction()"]').click();
+  await page.waitForTimeout(4200);
+  const afterEnemyTurn = await readFight();
+  assert.ok(afterEnemyTurn.shield[2] > shieldBefore, "defend action must grant a shield");
+  assert.ok(afterEnemyTurn.round >= 2 || afterEnemyTurn.phase === "end", "enemy phase must resolve and advance the round or end the battle");
+
+  // A battlefield command must apply once, then retreat and loss settlement must return to the campaign.
+  if (afterEnemyTurn.phase === "player") {
+    await page.locator('button[onclick="tacticAction()"]').click();
+    await page.locator('button[onclick="useTactic(1)"]').click();
+    assert.equal(await page.evaluate(() => eval("fight.tacticUsed")), true, "battle command should be consumed");
+    await page.locator('button[onclick="retreatBattle()"]').click();
+  }
+  if (await page.locator('button[onclick="finishBattle()"]').count()) {
+    await page.locator('button[onclick="finishBattle()"]').click();
+    assert.ok((await page.locator("#heading").innerText()).includes("山河志"), "battle settlement should return to the campaign");
+  }
 
   // The local save should be written and survive a browser reload.
   const saved = await page.evaluate(() => localStorage.getItem("hxsg_save_v4"));
