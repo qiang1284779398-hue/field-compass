@@ -1,4 +1,4 @@
-name: Install and test game on real Android phone
+name: Confirm APK download on real Android phone
 on:
   push:
     branches: [ main ]
@@ -7,24 +7,11 @@ on:
 permissions:
   contents: write
 jobs:
-  install-game:
+  confirm-download:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
     steps:
-      - name: Download the successful game APK and publish a temporary download
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          mkdir -p dist
-          gh run download 44750679190 --repo "$GITHUB_REPOSITORY" --name huanxiang-sanguo-apk --dir dist
-          APK="$(find dist -type f -name '*.apk' | head -n1)"
-          test -n "$APK"
-          TAG="phone-test-20261120"
-          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "Temporary real-phone test APK" --notes "Temporary APK for installation and device verification."
-          gh release upload "$TAG" "$APK" --repo "$GITHUB_REPOSITORY" --clobber
-          echo "APK_URL=https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/$(basename "$APK")" >> "$GITHUB_ENV"
-      - name: Open APK download on the connected real Android phone
+      - name: Open the published APK and inspect installer prompt
         env:
           ANDROID_MCP_URL: ${{ secrets.ANDROID_MCP_URL }}
           ANDROID_MCP_TOKEN: ${{ secrets.ANDROID_MCP_TOKEN }}
@@ -34,27 +21,20 @@ jobs:
           case "$MCP_URL" in */mcp) ;; *) MCP_URL="$MCP_URL/mcp" ;; esac
           call_mcp() {
             curl --http1.1 --fail --silent --show-error --max-time 45 --retry 4 --retry-all-errors --retry-delay 3 \
-              -X POST "$MCP_URL" \
-              -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
-              -H "Content-Type: application/json" \
-              -H "Accept: application/json, text/event-stream" \
-              --data "$1"
+              -X POST "$MCP_URL" -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
+              -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" --data "$1"
           }
-          python3 - "$APK_URL" <<'PY'
-          import json,sys
-          open('/tmp/open-url.json','w').write(json.dumps({"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_open_uri","arguments":{"uri":sys.argv[1]}}}))
-          PY
-          call_mcp "$(cat /tmp/open-url.json)" > /tmp/open-url-response.json
+          call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_click_node","arguments":{"by":"text","value":"仍然下载","exact_match":true}}}' > /tmp/click.json
           python3 - <<'PY'
           import json
-          raw=open('/tmp/open-url-response.json').read()
+          raw=open('/tmp/click.json').read()
           for line in raw.splitlines():
               if line.startswith('data:'): raw=line[5:].strip()
           obj=json.loads(raw)
-          print('APK_DOWNLOAD_OPEN:',json.dumps(obj.get('result',obj.get('error')),ensure_ascii=False)[:5000])
-          if obj.get('error') or obj.get('result',{}).get('isError'): raise SystemExit('OPEN_APK_URL_FAILED')
+          print('CONFIRM_DOWNLOAD:',json.dumps(obj.get('result',obj.get('error')),ensure_ascii=False)[:3000])
+          if obj.get('error') or obj.get('result',{}).get('isError'): raise SystemExit('DOWNLOAD_CONFIRM_FAILED')
           PY
-          sleep 15
+          sleep 12
           call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/screen.json
           python3 - <<'PY'
           import json
@@ -62,8 +42,7 @@ jobs:
           for line in raw.splitlines():
               if line.startswith('data:'): raw=line[5:].strip()
           obj=json.loads(raw)
-          result=obj.get('result',{})
-          print('PHONE_INSTALL_SCREEN:',json.dumps(result,ensure_ascii=False)[:12000])
-          if obj.get('error') or result.get('isError'): raise SystemExit('SCREEN_READ_FAILED')
+          for item in obj.get('result',{}).get('content',[]):
+              if item.get('type')=='text': print('INSTALLER_SCREEN:',item.get('text','')[:10000])
+          if obj.get('error') or obj.get('result',{}).get('isError'): raise SystemExit('SCREEN_READ_FAILED')
           PY
-          echo "APK_DOWNLOAD_OPENED_ON_REAL_PHONE"
