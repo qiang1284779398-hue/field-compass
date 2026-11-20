@@ -53,7 +53,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -125,6 +125,9 @@ game.state().wood = 500;
 game.state().iron = 500;
 game.state().gold = 500;
 game.state().food = 500;
+assert.equal(game.regionTerrain(4), "pass", "虎牢关 should use pass terrain");
+assert.ok(game.terrainDefenseMultiplier("pass") > game.terrainDefenseMultiplier("plain"), "passes should improve defender terrain protection");
+assert.ok(game.terrainAttackMultiplier("river") < game.terrainAttackMultiplier("plain"), "river crossings should reduce attacker effectiveness");
 game.prepareSiege(4);
 assert.equal(game.state().siegePlans[4], true, "siege preparation should consume resources and persist its plan");
 assert.ok(elements.get("modal").innerHTML.includes("攻城器械已备妥"), "prepared siege should be reflected in assault briefing");
@@ -132,6 +135,8 @@ game.beginTerritoryBattle(4, "cav");
 assert.equal(game.fight().mode, "territory", "territory assault should enter the playable battlefield mode");
 assert.equal(game.fight().waves, 3, "territory conquest should contain three battle waves");
 assert.ok(elements.get("view").innerHTML.includes("battle-shell"), "territory battle should render both battlefield formations");
+assert.ok(elements.get("view").innerHTML.includes("terrain-3"), "mountain passes should choose the matching battlefield backdrop");
+assert.ok(game.fight().logs.some(x => x.includes("关隘")), "battle report should describe the regional terrain modifier");
 assert.ok(game.fight().enemies.length >= 3, "frontier vanguard should contain multiple enemy unit types");
 assert.equal(game.state().siegePlans[4], false, "siege plan should be consumed when the battle begins");
 game.fight().enemies.forEach(x => { x.alive = false; x.hp = 0; });
