@@ -32,7 +32,7 @@ const assert = require("node:assert/strict");
     fs.createReadStream(file).pipe(res);
   });
   await new Promise(resolve => server.listen(4173, "127.0.0.1", resolve));
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: true, args: ["--enable-webgl", "--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
