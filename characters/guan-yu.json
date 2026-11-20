@@ -1,65 +1,63 @@
 {
-  "$schema": "https://ara3dgen.com/schemas/character.v1.json",
-  "kind": "ara-character",
-  "version": 1,
-  "preset": "The Soldier",
-  "params": {
-    "name": "guan-yu",
-    "ageYears": 42,
-    "gender": 1,
-    "muscle": 0.78,
-    "weight": 0.58,
-    "height": 0.62,
-    "proportions": 0.76,
-    "african": 0.02,
-    "asian": 0.95,
-    "caucasian": 0.03,
-    "eyes": "blackbrown",
-    "hair": "short02",
-    "hairColor": "#11100e",
-    "facialHair": "full_beard",
-    "beardColor": "#203b2a",
-    "outfit": "none",
-    "top": "long_tunic",
-    "jacket": "tactical_vest",
-    "bottom": "trousers",
-    "shoes": "combat_boots",
-    "hat": "none",
-    "accessories": [
-      "belt",
-      "arm_wraps"
-    ],
-    "garmentStyles": {
-      "long_tunic": {
-        "pattern": "solid",
-        "color": "#176044",
-        "color2": "#c4a25d"
-      },
-      "tactical_vest": {
-        "pattern": "leather",
-        "color": "#244d3d",
-        "color2": "#c2a45f"
-      },
-      "trousers": {
-        "pattern": "solid",
-        "color": "#253d32"
-      },
-      "belt": {
-        "pattern": "leather",
-        "color": "#38251c"
-      },
-      "arm_wraps": {
-        "pattern": "solid",
-        "color": "#176044"
-      }
+  "name": "guan-yu",
+  "seed": 202,
+  "gender": 1,
+  "age": 0.63,
+  "muscle": 0.78,
+  "weight": 0.58,
+  "height": 0.62,
+  "proportions": 0.76,
+  "african": 0.02,
+  "asian": 0.95,
+  "caucasian": 0.03,
+  "eyes": "blackbrown",
+  "hair": "short02",
+  "hairColor": "#11100e",
+  "facialHair": "full_beard",
+  "beardColor": "#203b2a",
+  "outfit": "none",
+  "top": "long_tunic",
+  "jacket": "none",
+  "bottom": "trousers",
+  "underwear": true,
+  "shoes": "combat_boots",
+  "hat": "none",
+  "accessories": [
+    "leather_armor",
+    "belt",
+    "arm_wraps"
+  ],
+  "garmentStyles": {
+    "long_tunic": {
+      "pattern": "solid",
+      "color": "#176044",
+      "color2": "#c4a25d"
     },
-    "rig": "game",
-    "faceBones": true,
-    "restPose": "A",
-    "animations": true,
-    "weapon": "sword",
-    "expression": "determined",
-    "faceShapes": true,
-    "speechShapes": true
-  }
+    "leather_armor": {
+      "pattern": "leather",
+      "color": "#244d3d",
+      "color2": "#c2a45f"
+    },
+    "trousers": {
+      "pattern": "solid",
+      "color": "#253d32"
+    },
+    "belt": {
+      "pattern": "leather",
+      "color": "#38251c"
+    },
+    "arm_wraps": {
+      "pattern": "solid",
+      "color": "#176044"
+    }
+  },
+  "detail": "medium",
+  "rig": "game",
+  "faceBones": true,
+  "restPose": "A",
+  "animations": true,
+  "weapon": "none",
+  "expression": "determined",
+  "faceShapes": true,
+  "speechShapes": true
 }
