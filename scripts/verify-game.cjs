@@ -38,7 +38,10 @@ assert.ok(source.includes("function beginTerritoryBattle"), "frontier conquests 
 assert.ok(source.includes("function makeTerritoryWave"), "frontier battles should generate staged enemy formations");
 assert.ok(source.includes("doctrine=factionDoctrine(f)") && source.includes("((doctrine[d.key]||1)-1)*.18") && source.includes("((doctrine[d.key]||1)-1)*.10"), "faction doctrine must modify actual enemy troop attack and defense in regional battles");
 assert.ok(source.includes('施展"+doctrine.name+"：'), "regional battle logs should identify the enemy faction doctrine");
-assert.ok(source.includes("suppressed=(troop.includes(\"弓\")||troop.includes(\"弩\"))&&Math.random()<.24"), "archers should have a chance to suppress hero energy");
+assert.ok(source.includes("function applyFactionBattleTactic"), "six faction battlefield tactic resolver missing");
+assert.ok(source.includes("doctrineChargeRound===fight.round") && source.includes("doctrineVolleyRound===fight.round"), "cavalry charge and crossbow suppression must affect actual enemy attacks");
+assert.ok(source.includes("doctrine-chip") && source.includes("doctrine-jingwu") && source.includes("doctrine-xiliang"), "faction tactics need visible battlefield feedback");
+assert.ok(source.includes("suppressed=(troop.includes(\"弓\")||troop.includes(\"弩\"))&&(fight.doctrineVolleyRound===fight.round||Math.random()<.24)"), "Jingwu doctrine should guarantee ranged suppression on its volley round");
 assert.ok(source.includes("enemyFaction")||source.includes("factionForRegion"), "enemy faction data should exist");
 assert.ok(source.includes("campRecovery=Math.min(s.wounded||0,4+Math.floor((s.morale||0)/25))"), "daily camp recovery should heal wounded troops based on morale");
 assert.ok(source.includes("function battlefieldAttackMultiplier"), "weather and terrain combat modifier engine missing");
@@ -111,7 +114,7 @@ const storage = {
 };
 const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle,applyFactionBattleTactic};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -367,6 +370,25 @@ game.storyNext();
 game.storyNext();
 game.chapterChoice(0);
 assert.ok(game.fight(), "chapter choice should start combat");
+const doctrineFight=game.fight();
+const savedDoctrineState={enemies:doctrineFight.enemies,enemyFactionId:doctrineFight.enemyFactionId,enemyMorale:doctrineFight.enemyMorale,round:doctrineFight.round,doctrineRound:doctrineFight.doctrineRound,doctrineFx:doctrineFight.doctrineFx};
+function testFactionTactic(id,round,troop,check){
+  doctrineFight.enemyFactionId=id;doctrineFight.round=round;doctrineFight.doctrineRound=null;doctrineFight.doctrineFx=null;doctrineFight.enemyMorale=40;
+  doctrineFight.enemies=[{name:"QA兵",troop,hp:100,max:100,alive:true,shield:0}];
+  const beforeMorale=doctrineFight.enemyMorale;const msg=game.applyFactionBattleTactic();
+  assert.ok(msg.includes(id==="yellow"?"黄巾":id==="xiliang"?"西凉":id==="yuan"?"河北":id==="cao"?"魏武":id==="shu"?"巴蜀":"荆吴"),id+" should announce its own tactic");
+  check(doctrineFight,beforeMorale);
+  const shield=doctrineFight.enemies[0].shield;game.applyFactionBattleTactic();
+  assert.equal(doctrineFight.enemies[0].shield,shield,id+" tactic must not stack twice in one round");
+}
+testFactionTactic("yellow",3,"步兵",f=>assert.equal(f.enemies[0].shield,24,"Yellow Turban rally should add temporary shield"));
+testFactionTactic("xiliang",2,"骑兵",f=>assert.equal(f.doctrineChargeRound,2,"Xiliang cavalry charge should be armed for this round"));
+testFactionTactic("yuan",3,"步兵",f=>assert.equal(f.enemies[0].shield,42,"Yuan heavy infantry should form a shield wall"));
+testFactionTactic("cao",2,"步兵",(f,before)=>assert.equal(f.enemyMorale,before+6,"Cao Wei coordinated command should restore morale"));
+testFactionTactic("shu",2,"步兵",f=>assert.equal(f.enemies[0].shield,30,"Shu defensive doctrine should add a protective shield"));
+testFactionTactic("jingwu",2,"弩兵",f=>assert.equal(f.doctrineVolleyRound,2,"Jingwu crossbow volley should guarantee suppression"));
+Object.assign(doctrineFight,savedDoctrineState);
+
 assert.equal(game.fight().waves, 3, "chapter combat should have three waves");
 assert.ok(elements.get("view").innerHTML.includes("class=\"body-art\""), "battle should render sprite-based combatants");
 assert.ok(elements.get("view").innerHTML.includes("onclick=\"selectTarget("), "enemy units should expose selectable targets");
