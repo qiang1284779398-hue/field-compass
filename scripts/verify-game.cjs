@@ -28,6 +28,8 @@ assert.ok(source.includes("function playBossFx"), "boss skill animation missing"
 assert.ok(source.includes("function startMusic"), "offline soundtrack controller missing");
 assert.ok(source.includes("function toggleMusic"), "music toggle control missing");
 assert.ok(source.includes("function playSfx"), "combat sound effect controller missing");
+assert.ok(source.includes("function beginTerritoryBattle"), "frontier conquests should use the playable battle engine");
+assert.ok(source.includes("function makeTerritoryWave"), "frontier battles should generate staged enemy formations");
 for (const track of ["theme_plain.ogg", "theme_lost_village.ogg", "theme_dream.ogg", "theme_swamp.ogg", "swing.ogg", "hit.ogg", "critical.ogg"]) assert.ok(html.includes(track), "missing audio asset reference: " + track);
 
 const makeElement = () => ({
@@ -51,7 +53,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,unitEffectiveness,isRegionAdjacent};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -126,8 +128,26 @@ game.state().food = 500;
 game.prepareSiege(4);
 assert.equal(game.state().siegePlans[4], true, "siege preparation should consume resources and persist its plan");
 assert.ok(elements.get("modal").innerHTML.includes("攻城器械已备妥"), "prepared siege should be reflected in assault briefing");
-game.resolveTerritoryAssault(4, "cav");
-assert.equal(game.state().siegePlans[4], false, "siege plan should be consumed after the assault");
+game.beginTerritoryBattle(4, "cav");
+assert.equal(game.fight().mode, "territory", "territory assault should enter the playable battlefield mode");
+assert.equal(game.fight().waves, 3, "territory conquest should contain three battle waves");
+assert.ok(elements.get("view").innerHTML.includes("battle-shell"), "territory battle should render both battlefield formations");
+assert.ok(game.fight().enemies.length >= 3, "frontier vanguard should contain multiple enemy unit types");
+assert.equal(game.state().siegePlans[4], false, "siege plan should be consumed when the battle begins");
+game.fight().enemies.forEach(x => { x.alive = false; x.hp = 0; });
+game.checkBattleEnd();
+assert.equal(game.fight().wave, 2, "clearing the vanguard should deploy the enemy main force");
+game.fight().enemies.forEach(x => { x.alive = false; x.hp = 0; });
+game.checkBattleEnd();
+assert.equal(game.fight().wave, 3, "clearing the main force should trigger the commander wave");
+assert.ok(game.fight().enemies.some(x => x.boss), "the final frontier wave should contain an enemy commander");
+game.fight().enemies.forEach(x => { x.alive = false; x.hp = 0; });
+game.checkBattleEnd();
+assert.equal(game.fight().phase, "end", "clearing the commander wave should complete the battle");
+assert.equal(game.fight().win, true, "winning all three waves should win the territory battle");
+game.finishBattle();
+assert.equal(game.state().regionControl[4], "player", "territory victory should capture the target region");
+assert.equal(game.state().story, 2, "optional territory battles must not skip main story chapters");
 game.state().territories[1] = true;
 game.state().army.inf = 300;
 game.state().food = 500;
