@@ -101,7 +101,11 @@ const assert = require("node:assert/strict");
   assert.ok(afterEnemyTurn.round >= 2 || afterEnemyTurn.phase === "end", "enemy phase must resolve and advance the round or end the battle");
   const markedEnemyTarget = await page.locator(".warrior.ai-targeted").count();
   assert.ok(markedEnemyTarget >= 1 || afterEnemyTurn.phase === "end", "enemy AI should visibly mark the ally it has selected as its target");
-  if (markedEnemyTarget) assert.ok(await page.locator(".warrior.ai-targeted:before").count() >= 0, "target telegraph should be present without breaking battle rendering");
+  if (markedEnemyTarget) {
+    const telegraph = await page.locator(".warrior.ai-targeted").first().evaluate(el => ({ content: getComputedStyle(el, "::before").content, animation: getComputedStyle(el, "::before").animationName }));
+    assert.notEqual(telegraph.content, "none", "enemy target should render a visible telegraph ring");
+    assert.equal(telegraph.animation, "enemyLockRing", "enemy target ring should use its dedicated animation");
+  }
 
   // A battlefield command must apply once, then retreat and loss settlement must return to the campaign.
   if (afterEnemyTurn.phase === "player") {
