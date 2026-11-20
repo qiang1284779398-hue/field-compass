@@ -103,7 +103,7 @@ jobs:
 
   android-device-test:
     needs: build-apk
-    runs-on: ubuntu-latest
+    runs-on: macos-15-intel
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
@@ -119,14 +119,12 @@ jobs:
           path: apk
       - name: Boot Android emulator, install APK and test real WebView battle
         uses: reactivecircus/android-emulator-runner@v2
-        env:
-          ANDROID_I_WANT_MY_TCG: "yes"
         with:
           api-level: 30
           target: default
           arch: x86_64
           profile: pixel_2
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-snapshot -wipe-data -memory 2048 -cores 2
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-snapshot -wipe-data -memory 4096 -cores 4
           disable-animations: true
           emulator-boot-timeout: 900
           script: |
