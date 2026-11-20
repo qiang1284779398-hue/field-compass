@@ -78,8 +78,8 @@ const assert = require("node:assert/strict");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
-  const spriteStyles = await page.locator("#battleScene .warrior").evaluateAll(nodes => nodes.map(n => getComputedStyle(n.querySelector(".body-art")).backgroundImage));
-  assert.ok(spriteStyles.length >= 2 && spriteStyles.every(v => v.includes("data:image/png;base64")), "both sides must display their embedded character sprite models");
+  const vectorModels = await page.locator("#battleScene .warrior .unit-figure").evaluateAll(nodes => nodes.map(n => ({ width: n.getBoundingClientRect().width, height: n.getBoundingClientRect().height, paths: n.querySelectorAll("path").length })));
+  assert.ok(vectorModels.length >= 2 && vectorModels.every(v => v.width >= 35 && v.height >= 55 && v.paths >= 8), "both armies must display visible full-body vector character models, not blank sprite placeholders");
   // A dead middle slot must not corrupt actor indices or strand the player turn.
   await page.evaluate(() => { fight.allies[1].alive = false; fight.allies[1].hp = 0; fight.acted = [0]; fight.actor = 0; continueTurn(); });
   assert.equal(await page.evaluate(() => fight.actor), 2, "turn selection must skip a dead ally using original formation indices");
