@@ -63,28 +63,48 @@ function makeActor(id,key){
   root.position.y-=box.min.y;
   const height=Math.max(.1,size.y);
   root.userData.modelHeight=height;
-  let headBone=null;root.traverse(o=>{if(!headBone&&o.isBone&&/head$/i.test(o.name))headBone=o});
+  let headBone=null,bones={};root.traverse(o=>{if(o.isBone){bones[o.name.toLowerCase()]=o;if(!headBone&&/head$/i.test(o.name))headBone=o}});
   if(headBone){
-   const palette=id==="guan-yu"?{metal:0x24513c,trim:0xd1ae65}:id==="zhang-fei"?{metal:0x252a33,trim:0xaaaeb4}:{metal:0x8d3028,trim:0xd8b66c};
-   const cap=new THREE.Group();
-   const dome=new THREE.Mesh(new THREE.SphereGeometry(.235,18,10,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:palette.metal,metalness:.42,roughness:.55}));
-   dome.scale.set(1,.62,.88);dome.position.y=.12;cap.add(dome);
-   const band=new THREE.Mesh(new THREE.TorusGeometry(.222,.025,8,24),new THREE.MeshStandardMaterial({color:palette.trim,metalness:.7,roughness:.3}));
-   band.position.y=.10;band.rotation.x=Math.PI/2;cap.add(band);
-   const crest=new THREE.Mesh(new THREE.BoxGeometry(.045,.24,.06),new THREE.MeshStandardMaterial({color:palette.trim,metalness:.65}));
-   crest.position.set(0,.28,0);cap.add(crest);
-   headBone.add(cap);
+   const mat=(color,metalness=.15,roughness=.72)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
+   const gold=mat(0xd3ad62,.72,.3),green=mat(0x174b38,.25,.62),black=mat(0x171719,.12,.82),red=mat(0x842d27,.2,.7);
+   // Character-specific head silhouettes: not a shared generic helmet.
    if(id==="guan-yu"){
-    const beardShape=new THREE.Shape();beardShape.moveTo(-.16,-.02);beardShape.quadraticCurveTo(-.23,-.28,-.12,-.55);beardShape.quadraticCurveTo(-.08,-.72,0,-.82);beardShape.quadraticCurveTo(.12,-.65,.13,-.48);beardShape.quadraticCurveTo(.22,-.24,.16,-.02);beardShape.quadraticCurveTo(0,-.10,-.16,-.02);
-    const beard=new THREE.Mesh(new THREE.ExtrudeGeometry(beardShape,{depth:.045,bevelEnabled:true,bevelSegments:2,steps:1,bevelSize:.012,bevelThickness:.012}),new THREE.MeshStandardMaterial({color:0x203b2a,roughness:.92}));
-    beard.position.set(0,-.10,.18);headBone.add(beard);
+    const guan=new THREE.Group();
+    const crown=new THREE.Mesh(new THREE.CylinderGeometry(.22,.29,.20,12),green);crown.position.y=.13;guan.add(crown);
+    const brim=new THREE.Mesh(new THREE.CylinderGeometry(.37,.37,.055,16),gold);brim.position.y=.02;guan.add(brim);
+    const crest=new THREE.Mesh(new THREE.BoxGeometry(.12,.42,.12),gold);crest.position.set(0,.42,0);guan.add(crest);
+    const sideL=new THREE.Mesh(new THREE.BoxGeometry(.12,.34,.12),green);sideL.position.set(-.31,.12,0);guan.add(sideL);
+    const sideR=sideL.clone();sideR.position.x=.31;guan.add(sideR);headBone.add(guan);
+   }else if(id==="zhang-fei"){
+    const band=new THREE.Mesh(new THREE.TorusGeometry(.245,.065,8,24),black);band.position.y=.08;band.rotation.x=Math.PI/2;headBone.add(band);
+    const knot=new THREE.Mesh(new THREE.SphereGeometry(.10,12,8),red);knot.position.set(0,.24,-.02);headBone.add(knot);
+    const plume=new THREE.Mesh(new THREE.ConeGeometry(.09,.38,8),black);plume.position.set(0,.47,0);headBone.add(plume);
+   }else{
+    const crown=new THREE.Group();
+    const base=new THREE.Mesh(new THREE.BoxGeometry(.43,.12,.34),red);base.position.y=.08;crown.add(base);
+    const front=new THREE.Mesh(new THREE.BoxGeometry(.28,.22,.07),gold);front.position.set(0,.22,.16);crown.add(front);
+    const jewel=new THREE.Mesh(new THREE.SphereGeometry(.075,12,8),mat(0x9b3030,.45,.3));jewel.position.set(0,.36,.16);crown.add(jewel);
+    const wing=new THREE.Mesh(new THREE.BoxGeometry(.52,.055,.12),gold);wing.position.y=.12;crown.add(wing);headBone.add(crown);
+   }
+   const addBeard=(color,style)=>{
+    const shape=new THREE.Shape();
+    if(style==="long"){shape.moveTo(-.17,-.02);shape.quadraticCurveTo(-.25,-.30,-.13,-.58);shape.quadraticCurveTo(-.07,-.82,0,-.94);shape.quadraticCurveTo(.12,-.73,.14,-.48);shape.quadraticCurveTo(.23,-.22,.17,-.02);shape.quadraticCurveTo(0,-.10,-.17,-.02)}
+    else {shape.moveTo(-.20,-.02);shape.quadraticCurveTo(-.28,-.28,-.19,-.47);shape.quadraticCurveTo(-.08,-.62,0,-.55);shape.quadraticCurveTo(.10,-.66,.20,-.43);shape.quadraticCurveTo(.28,-.20,.20,-.02);shape.quadraticCurveTo(0,-.10,-.20,-.02)}
+    const beard=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:.055,bevelEnabled:true,bevelSegments:3,steps:1,bevelSize:.018,bevelThickness:.018}),mat(color,.02,.95));
+    beard.position.set(0,-.12,.18);headBone.add(beard);
+   };
+   if(id==="guan-yu")addBeard(0x241f1a,"long");
+   if(id==="zhang-fei")addBeard(0x171513,"full");
+   if(id==="liu-bei"){
+    const moustacheMat=mat(0x241b16,.02,.95);
+    [-1,1].forEach(side=>{const curve=new THREE.QuadraticBezierCurve3(new THREE.Vector3(0,-.10,.20),new THREE.Vector3(side*.12,-.13,.24),new THREE.Vector3(side*.23,-.04,.20));const moustache=new THREE.Mesh(new THREE.TubeGeometry(curve,10,.035,7,false),moustacheMat);headBone.add(moustache)});
    }
   }
-  const socket=root.getObjectByName("WeaponR");
+  const socket=root.getObjectByName("WeaponR")||Object.values(bones).find(b=>/right.*(hand|wrist)|hand.*right/i.test(b.name));
   if(socket&&specs[id].weapon!=="none"){
    const weapon=makeWeapon(specs[id].weapon);
-   weapon.rotation.set(0,0,0);
-   weapon.scale.setScalar(id==="guan-yu"?1.05:1);
+   weapon.rotation.set(specs[id].weapon==="guandao"?-.22:0,0,specs[id].weapon==="spear"?-.16:0);
+   weapon.scale.setScalar(id==="guan-yu"?1.25:id==="zhang-fei"?1.18:1);
    socket.add(weapon);
   }
   rec.root=root;rec.skinnedMeshes=skinnedMeshes;rec.boneCount=boneCount;rec.weaponSocket=!!socket;rec.mixer=new THREE.AnimationMixer(root);
