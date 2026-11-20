@@ -170,6 +170,7 @@ game.upgradeBuilding("farm");
 assert.equal(game.state().daily.progress.upgrade, 1, "building upgrade should progress daily command");
 
 game.state().story = 0;
+const battleProgressBeforeStory = game.state().daily.progress.battle || 0;
 game.startChapter(0);
 game.storyNext();
 game.storyNext();
@@ -193,7 +194,7 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
   game.fight().win = true;
   game.finishBattle();
   assert.equal(game.state().story, 1, "victory should unlock next chapter");
-  assert.equal(game.state().daily.progress.battle, 1, "victory should progress daily command");
+  assert.equal(game.state().daily.progress.battle, battleProgressBeforeStory + 1, "chapter victory should progress the daily battle command");
 
   game.go("home");
   game.randomEvent();
