@@ -53,7 +53,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,factionForRegion,enemyCommander,siegeCost};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, {}, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -195,6 +195,19 @@ game.state().day = game.state().edict.untilDay + 1;
 game.setCityEdict("通商");
 assert.equal(game.state().edict.id, "通商", "expired edict should be replaceable");
 
+game.appointCityOfficer("governor", "liu");
+game.appointCityOfficer("quartermaster", "guan");
+game.appointCityOfficer("drillmaster", "zhang");
+assert.deepEqual(game.state().cityPosts, {governor:"liu",quartermaster:"guan",drillmaster:"zhang"}, "three city offices should persist their appointed officers");
+const officerEffects = game.cityOfficerEffects();
+assert.equal(officerEffects.gold, 17, "governor should add daily tax based on level and rarity");
+assert.equal(officerEffects.food, 21, "quartermaster should add daily grain based on level and rarity");
+assert.equal(officerEffects.morale, 2, "drillmaster should improve daily morale");
+assert.equal(officerEffects.heal, 1, "drillmaster should heal one wounded soldier each day");
+game.appointCityOfficer("governor", "guan");
+assert.equal(game.state().cityPosts.governor, "liu", "a hero already appointed elsewhere cannot hold a second office");
+game.dismissCityOfficer("drillmaster");
+assert.equal(game.state().cityPosts.drillmaster, null, "city office can be vacated");
 game.state().wood = 10000;
 game.state().iron = 10000;
 game.state().food = 10000;
