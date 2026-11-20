@@ -12,7 +12,7 @@ const assert = require("node:assert/strict");
     assert.ok(html.includes('characters/2d/\'+artId+\'.svg'), id+" must use the shared local full-body sprite path");
     assert.ok(html.includes('"'+id+'"'), id+" must have a dedicated character identity mapping");
   }
-  assert.ok(html.includes("data-hero2d") && html.includes("class=\\"hero-portrait\\""), "battle actors must expose integrated 2D hero image anchors");
+  assert.ok(html.includes("data-hero2d") && html.includes('class="hero-portrait"'), "battle actors must expose integrated 2D hero image anchors");
   assert.ok(html.includes("function generalPortrait") && html.includes("characters/2d/portraits/"), "general roster must use bespoke 2D portraits");
   assert.ok(!html.includes("initHero3D(") && !html.includes("vendor/three.min.js"), "2D build must not require the old 3D runtime");
   assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: weapon sweep animation");
