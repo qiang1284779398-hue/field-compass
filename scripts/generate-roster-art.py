@@ -345,7 +345,31 @@ def apply_character_identity(source,h,base_slug):
         marks+='<path d="M380 218 L430 207 M450 207 L500 218" fill="none" stroke="#342422" stroke-width="7"/><path d="M385 246 Q405 232 430 244 M450 244 Q475 232 495 246" fill="none" stroke="#382321" stroke-width="5"/>'
     elif slug=="pangtong":
         marks+='<path d="M361 235 Q396 221 425 238 M455 238 Q485 221 518 235" fill="none" stroke="#261e19" stroke-width="9"/>'
-    face=f'<g transform="translate({dx} 0)">{brow_paths.get(brow,brow_paths["平直略收"])}{eye_marks.get(eyes,"")}{marks}</g>'
+    if brow not in brow_paths:
+        if any(k in brow for k in ("浓","粗","厚","灰白")) and any(k in brow for k in ("挑","斜","上扬","外挑")):
+            brow_paths[brow]=brow_paths["浓而斜"]
+        elif any(k in brow for k in ("细","修长","长直","弯","舒展")):
+            brow_paths[brow]=brow_paths["细长舒展"]
+        elif any(k in brow for k in ("挑","上扬","外挑","高挑")):
+            brow_paths[brow]=brow_paths["剑眉"]
+        elif any(k in brow for k in ("浓","粗","厚","灰白")):
+            brow_paths[brow]=brow_paths["短粗眉"]
+        else:
+            brow_paths[brow]=brow_paths["平直略收"]
+    if eyes not in eye_marks:
+        if any(k in eyes for k in ("圆睁","怒目","凶悍","勇猛","憨直")):
+            eye_marks[eyes]=eye_marks["圆睁怒目"]
+        elif any(k in eyes for k in ("鹰","锐利","冷峻","警觉","多疑","逼人","外放")):
+            eye_marks[eyes]=eye_marks["鹰视、眼窝深"]
+        elif any(k in eyes for k in ("温婉","温和","慈爱","柔媚","清亮","灵动","含蓄")):
+            eye_marks[eyes]=eye_marks["柔媚但有决断"]
+        else:
+            eye_marks[eyes]=eye_marks["冷峻审视"]
+    if any(k in p.get("faceShape","") for k in ("长脸","长方","长椭圆","窄长","清瘦","修长")):
+        marks+='<path d="M370 255 Q376 290 402 306 M508 255 Q502 290 478 306" fill="none" stroke="#8d5a47" stroke-width="4" opacity=".42"/>'
+    if any(k in p.get("faceShape","") for k in ("老年","苍老")) or slug in ("huang-zhong","huanggai","simayi"):
+        marks+='<path d="M384 199 Q406 190 426 199 M454 199 Q475 190 495 199 M382 265 Q388 276 395 280 M502 265 Q496 276 489 280" fill="none" stroke="#8c6858" stroke-width="4" opacity=".65"/>'
+    face=f'<g transform="translate({dx} 0)">{brow_paths[brow]}{eye_marks[eyes]}{marks}</g>'
     hstyle=p.get("headStyle","")
     crests={
         "凤翅紫金冠":'<path d="M402 113 Q384 61 350 45 Q355 102 397 142 M480 142 Q528 98 550 43 Q551 107 493 132" fill="#9d332f" stroke="#dfb56e" stroke-width="8"/><path d="M440 62 L456 20 L472 62" fill="none" stroke="#e8c579" stroke-width="9"/>',
@@ -364,6 +388,31 @@ def apply_character_identity(source,h,base_slug):
         "洛水珠冠":'<path d="M401 105 Q442 63 483 105" fill="none" stroke="#b7d8e5" stroke-width="9"/><g fill="#d7eef4"><circle cx="440" cy="75" r="8"/><circle cx="420" cy="86" r="6"/><circle cx="460" cy="86" r="6"/></g>',
         "机关师发冠与护目饰":'<path d="M395 111 L409 72 L441 87 L475 72 L489 111Z" fill="#74866c" stroke="#d1bb81" stroke-width="7"/><circle cx="442" cy="90" r="12" fill="none" stroke="#d9bc70" stroke-width="5"/>'
     }
+    crests.update({
+        "双戟护额铁盔":'<path d="M402 126 Q350 70 322 32 Q337 116 398 155 M480 155 Q542 84 568 35 Q565 122 490 148" fill="#343333" stroke="#c3a46c" stroke-width="9"/><path d="M422 100 L440 54 L458 100Z" fill="#8b473b" stroke="#171b1c" stroke-width="6"/>',
+        "老将铁盔":'<path d="M383 131 Q390 64 444 60 Q500 64 510 131 L488 149 L405 149Z" fill="#8a9391" stroke="#393d3a" stroke-width="8"/><path d="M415 70 Q440 38 465 70" fill="none" stroke="#e4e3d9" stroke-width="11"/>',
+        "蜀汉银青头盔":'<path d="M390 130 L405 60 L445 83 L483 60 L498 130Z" fill="#667f86" stroke="#d4c39b" stroke-width="8"/><path d="M444 83 Q465 20 500 14 Q505 73 459 117Z" fill="#d7ded9" stroke="#56656b" stroke-width="6"/>',
+        "黑铁狼纹盔":'<path d="M385 132 Q396 63 445 65 Q496 63 507 132Z" fill="#252d32" stroke="#9d875f" stroke-width="8"/><path d="M400 109 L445 73 L490 109 L445 135Z" fill="#4a5254" stroke="#161c20" stroke-width="6"/><path d="M420 105 L445 85 L470 105" fill="none" stroke="#c6a768" stroke-width="5"/>',
+        "略旧的谋士巾冠":'<path d="M390 125 Q405 86 445 88 Q480 87 494 125 L480 141 L405 141Z" fill="#625c4d" stroke="#b79c6d" stroke-width="6"/><path d="M398 121 L484 121" stroke="#3c3b35" stroke-width="5"/>',
+        "低调文士冠":'<path d="M397 127 Q408 82 445 85 Q481 82 492 127 L480 138 L408 138Z" fill="#3c4d47" stroke="#c8ad76" stroke-width="6"/>',
+        "简式头巾":'<path d="M390 132 Q406 88 445 93 Q484 88 500 132" fill="none" stroke="#54534b" stroke-width="13"/><path d="M405 115 L483 115" stroke="#b79f6d" stroke-width="4"/>',
+        "青龙纹青年盔":'<path d="M390 129 L405 68 L445 83 L485 68 L500 129Z" fill="#3d725d" stroke="#d2b66e" stroke-width="8"/><path d="M445 96 Q475 45 510 59 Q493 107 456 125Z" fill="#77a98b" stroke="#d2b66e" stroke-width="5"/>',
+        "青色羽翎盔":'<path d="M390 128 L408 69 L445 85 L482 69 L500 128Z" fill="#3c6b69" stroke="#c9ad6d" stroke-width="8"/><path d="M450 100 Q465 36 505 27 Q506 92 464 127Z" fill="#7aaeb2" stroke="#d7c18d" stroke-width="5"/>',
+        "虎纹重盔":'<path d="M385 130 Q398 58 445 61 Q495 58 508 130Z" fill="#34383b" stroke="#c29a5a" stroke-width="9"/><path d="M400 78 L420 112 L445 82 L470 112 L491 78" fill="none" stroke="#c49a5e" stroke-width="7"/>',
+        "魏军双翎盔":'<path d="M395 130 Q405 63 445 67 Q490 63 500 130Z" fill="#383b43" stroke="#b99b67" stroke-width="8"/><path d="M410 100 Q360 44 350 22 Q395 43 433 111 M460 111 Q514 43 542 24 Q531 87 480 129" fill="#4b5966" stroke="#c6ad77" stroke-width="7"/>',
+        "华丽羽翎盔":'<path d="M390 130 Q402 62 445 68 Q490 62 500 130Z" fill="#4a5b63" stroke="#c6a66d" stroke-width="8"/><path d="M445 111 Q440 35 485 12 Q510 72 461 130Z" fill="#a4c0c0" stroke="#d4bd86" stroke-width="6"/>',
+        "朴实重甲盔":'<path d="M386 130 Q398 62 445 65 Q492 62 505 130Z" fill="#4f5958" stroke="#a98e62" stroke-width="8"/><path d="M400 115 L490 115 M445 68 L445 133" stroke="#d0b175" stroke-width="6"/>',
+        "重型铁盔":'<path d="M378 137 Q390 47 445 52 Q500 47 512 137 L490 157 L400 157Z" fill="#343a3b" stroke="#ad956b" stroke-width="10"/><path d="M400 80 L490 80 M445 54 L445 158" stroke="#d0b47a" stroke-width="7"/>',
+        "深蓝重盔":'<path d="M380 132 Q394 57 445 61 Q497 57 510 132Z" fill="#26384a" stroke="#c5a56c" stroke-width="8"/><path d="M410 94 L445 67 L480 94" fill="none" stroke="#9cb3bb" stroke-width="7"/>',
+        "轻骑弓盔":'<path d="M395 130 Q405 69 445 77 Q485 69 495 130Z" fill="#65746d" stroke="#c6a86d" stroke-width="7"/><path d="M445 90 L475 34 L488 92Z" fill="#c7d0c7" stroke="#5b6b67" stroke-width="5"/>',
+        "轻便文士冠":'<path d="M394 126 Q406 88 445 89 Q484 88 496 126 L483 140 L407 140Z" fill="#686e68" stroke="#d0bb8c" stroke-width="6"/>',
+        "魏国文臣冠":'<path d="M394 125 Q407 82 445 84 Q483 82 496 125 L482 140 L408 140Z" fill="#4d5259" stroke="#d1b77b" stroke-width="6"/><path d="M408 113 L482 113" stroke="#b99a62" stroke-width="5"/>',
+        "魏军重盔":'<path d="M380 135 Q393 54 445 58 Q497 54 510 135Z" fill="#3d4147" stroke="#b79a68" stroke-width="9"/><path d="M397 115 L493 115" stroke="#b99a68" stroke-width="7"/>',
+        "江东小霸王羽冠":'<path d="M393 126 Q406 76 445 80 Q485 76 498 126Z" fill="#8e4540" stroke="#d8b778" stroke-width="7"/><path d="M446 100 Q465 35 510 30 Q500 92 457 128Z" fill="#d5b66e" stroke="#6f4235" stroke-width="5"/>',
+        "吴军轻甲盔":'<path d="M393 130 Q405 72 445 79 Q485 72 497 130Z" fill="#48695f" stroke="#d3b878" stroke-width="7"/>',
+        "东莱武将盔":'<path d="M385 132 Q398 55 445 60 Q495 55 508 132Z" fill="#3a4b51" stroke="#c3a06c" stroke-width="8"/><path d="M405 110 L445 73 L485 110" fill="none" stroke="#d1b77c" stroke-width="6"/>',
+        "江东文臣冠":'<path d="M395 125 Q405 84 445 85 Q485 84 495 125Z" fill="#48675e" stroke="#d2bb83" stroke-width="6"/>'
+    })
     head=f'<g transform="translate({dx} 0)">{crests.get(hstyle,"")}</g>'
     outfit=""
     if slug=="sunshangxiang":
