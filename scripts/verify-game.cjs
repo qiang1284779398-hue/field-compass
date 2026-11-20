@@ -444,6 +444,8 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
 
   console.log("Game QA passed:", {
     chapters: chapters.length,
+    chapterFlowsTested,
+    randomEventBranches: eventBranchesTested,
     randomEvents: events.length,
     randomEventBranches: eventBranchesTested,
     inlineButtonHandlers: new Set(inlineHandlerNames).size,
