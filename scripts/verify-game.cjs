@@ -58,7 +58,9 @@ assert.ok(source.includes("function spyMission"), "persistent spy operations mis
 assert.ok(source.includes("function recruitSpy") && source.includes("function trainSpy"), "spy recruitment and training missing");
 assert.ok(source.includes("function recoverSpyAgents"), "captured agents must recover through daily turns");
 assert.ok(source.includes("function storyEcho") && source.includes("function campaignLegacy"), "campaign choices must feed back into later narrative and battle rules");
-assert.ok(source.includes("fight.enemyTargetHeroId=target.id||target.name") && html.includes(".warrior.ai-targeted"),"enemy target selection should visibly mark the threatened allied unit");
+assert.ok(source.includes("fight.enemyTargetHeroId=target.id||target.name") && html.includes(".warrior.ai-targeted") && html.includes("@keyframes enemyLockRing"),"enemy target selection should visibly mark the threatened allied unit with a telegraph ring");
+assert.ok(source.includes("localRelation=s.factionRelations[factionForRegion(i).id]||-20") && source.includes("Math.floor(localRelation/10)"),"friendly diplomacy should reduce enemy morale in campaign battles");
+assert.ok(source.includes('playSfx(id==="xiliang"?"swing":id==="yuan"?"hit":"critical")'),"faction tactics should use distinct existing sound cues");
 assert.ok(source.includes("campaignLegacy:legacy") && source.includes("legacy.humanity*.025") && source.includes("legacy.strategy*3"), "accumulated story choices must modify allied defense and enemy morale in combat");
 assert.ok(source.includes("applyChapterChoiceOutcome(i,n)"), "chapter decisions must alter persistent world state");
 assert.ok(source.includes("low.loyalty=Math.min(100,(low.loyalty||75)+2)") && source.includes("lead.loyalty=Math.min(100,(lead.loyalty||75)+2)"), "humanity and strategy choices should have distinct persistent hero loyalty consequences");
@@ -161,7 +163,8 @@ assert.ok(doctrines.every(d=>d.siege>0&&d.inf>0&&d.cav>0&&d.arch>0&&d.desc),"eve
   game.setFight({factionFocusHeroId:null});
   assert.equal(game.factionTargetPlan("yellow","步兵",allies,backline,frontline).target.id,"wounded","Yellow Turban AI should swarm the weakest unit");
   assert.equal(game.factionTargetPlan("xiliang","骑兵",allies,backline,frontline).target.id,"archer","Xiliang cavalry should flank the weakest backline defense");
-  assert.equal(game.factionTargetPlan("yuan","步兵",allies,backline,frontline).target.id,"tank","Yuan heavy infantry should pressure the frontline");
+  assert.equal(game.factionTargetPlan("xiliang","骑兵",allies,[],frontline).target.id,"wounded","Xiliang cavalry should adapt by striking the weakest-defense unit when no backline exists");
+  assert.equal(game.factionTargetPlan("yuan","步兵",allies,backline,frontline).target.id,"wounded","Yuan heavy infantry should breach the weakest-defense frontline unit");
   const caoFirst=game.factionTargetPlan("cao","步兵",allies,backline,frontline).target;
   assert.equal(game.factionTargetPlan("cao","骑兵",allies,backline,frontline).target.id,caoFirst.id,"Cao Wei should maintain coordinated focus fire");
   assert.equal(game.factionTargetPlan("shu","步兵",allies,backline,frontline).target.id,"threat","Shu defenders should prioritize the highest attack threat");
