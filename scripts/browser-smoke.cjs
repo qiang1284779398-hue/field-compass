@@ -50,6 +50,18 @@ const assert = require("node:assert/strict");
   await page.evaluate(() => closeModal());
   await page.locator("#backdrop").waitFor({ state: "hidden" });
 
+  // Recruitment must consume a recruitment token; gold alone must never recruit.
+  await page.evaluate(() => { s.gold = 100000; s.recruitTokens = 0; save(); tavern(); });
+  const recruitButton = page.locator('button[onclick="recruitHero()"]');
+  assert.equal(await recruitButton.isDisabled(), true, "recruitment must be disabled without a recruitment token even with abundant gold");
+  const heroesBeforeBlockedRecruit = await page.evaluate(() => s.heroes.length);
+  await page.evaluate(() => recruitHero());
+  assert.equal(await page.evaluate(() => s.heroes.length), heroesBeforeBlockedRecruit, "a tokenless recruitment attempt must not add a hero");
+  await page.evaluate(() => { s.recruitTokens = 1; save(); tavern(); });
+  await page.locator('button[onclick="recruitHero()"]').click();
+  assert.equal(await page.evaluate(() => s.heroes.length), heroesBeforeBlockedRecruit + 1, "one recruitment token should recruit exactly one hero");
+  assert.equal(await page.evaluate(() => s.recruitTokens), 0, "successful recruitment must consume exactly one token");
+
   // Enter the first story chapter, advance all dialogue, make a choice, and enter battle.
   await page.locator('button[data-p="campaign"]').click();
   await page.locator('button[onclick="startChapter(0)"]').click();
@@ -66,6 +78,14 @@ const assert = require("node:assert/strict");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
+  const spriteStyles = await page.locator("#battleScene .warrior").evaluateAll(nodes => nodes.map(n => getComputedStyle(n.querySelector(".body-art")).backgroundImage));
+  assert.ok(spriteStyles.length >= 2 && spriteStyles.every(v => v.includes("data:image/png;base64")), "both sides must display their embedded character sprite models");
+  // A dead middle slot must not corrupt actor indices or strand the player turn.
+  await page.evaluate(() => { fight.allies[1].alive = false; fight.allies[1].hp = 0; fight.acted = [0]; fight.actor = 0; continueTurn(); });
+  assert.equal(await page.evaluate(() => fight.actor), 2, "turn selection must skip a dead ally using original formation indices");
+  assert.equal(await page.evaluate(() => fight.phase), "player", "remaining allies must retain control after a middle ally falls");
+  await page.evaluate(() => { fight.allies[1].alive = true; fight.allies[1].hp = Math.max(1, Math.floor(fight.allies[1].max * .8)); fight.acted = []; fight.actor = 0; drawBattle(); });
+
   assert.match(await page.locator(".battle-top").innerText(), /晴朗|暴雨|浓雾|烈风/, "battle HUD should display current weather");
   await page.evaluate(() => { fight.wave = 3; makeWave(); drawBattle(); startMusic(); });
   await page.locator("#battleScene.boss-arrival .boss-title").waitFor({ state: "visible", timeout: 3000 });
@@ -77,15 +97,19 @@ const assert = require("node:assert/strict");
   await page.locator('.warrior[data-side="enemy"][data-index="0"]').click();
   assert.ok((await page.locator('.warrior[data-side="enemy"][data-index="0"]').getAttribute("class")).includes("targeted"), "clicked enemy should become the selected target");
   await page.locator('button[onclick="basicAttack()"]').click();
+  await page.locator(".impact-burst").waitFor({state:"visible",timeout:2000});
   await page.waitForTimeout(900);
   const afterAttack = await readFight();
   assert.ok(afterAttack.enemyHp < hpBefore, "basic attack must reduce the selected enemy HP");
 
   // A distinct hero skill must spend energy and produce a combat effect.
   await page.locator('button[onclick="selectActor(1)"]').click();
+  await page.evaluate(() => { fight.allies[1].skill = "麒麟奇谋"; fight.allies[1].energy = 5; drawBattle(); });
   const skillBefore = await readFight();
   await page.locator('button[onclick="useHeroSkill()"]').click();
-  await page.waitForTimeout(1500);
+  await page.locator(".skill-aura").waitFor({state:"visible",timeout:2000});
+  await page.waitForTimeout(900);
+  assert.match(await page.locator(".combat-log").innerText(), /麒麟奇谋/, "skill execution must be written to the combat log");
   const afterSkill = await readFight();
   assert.ok(afterSkill.energy[1] < skillBefore.energy[1], "hero skill must consume energy");
   assert.ok(afterSkill.enemyHp < skillBefore.enemyHp, "hero skill must damage or otherwise affect its target");
