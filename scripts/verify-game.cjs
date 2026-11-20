@@ -53,7 +53,7 @@ assert.ok(source.includes("function spawnImpact") && source.includes('spawnImpac
 for (const animation of ["chargeRight", "chargeLeft", "castHero", "bodyHit", "slash", "auraBurst", "bossWave", "damageUp"]) {
   assert.ok(html.includes("@keyframes " + animation), "missing combat animation: " + animation);
 }
-assert.ok(source.includes("function renderWarrior") && source.includes("class=\"unit-figure\"") && html.includes(".unit-figure{display:block"), "battlefield must render visible vector character models without relying on a bitmap sprite sheet");
+assert.ok(source.includes("function renderWarrior") && source.includes("data-hero3d") && html.includes("hero3d-layer") && !source.includes("class=\\\"unit-figure\\\""), "battlefield must use the rigged 3D actor layer; legacy SVG paper-doll fallback must remain removed");
 assert.ok(source.includes("function animateHit"), "player attack animation missing");
 assert.ok(source.includes("function animateEnemyHit"), "enemy attack animation missing");
 assert.ok(source.includes("function playBossFx"), "boss skill animation missing");
