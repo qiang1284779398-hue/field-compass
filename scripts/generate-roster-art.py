@@ -453,18 +453,12 @@ def body_svg(h, index):
     if not female and h.get("beard") in ("clean","none"):
         source=re.sub(r'<!--\s*(?:neat moustache and short beard|moustache and legendary long beard|huge moustache and forked beard)\s*-->.*?(?=<!--|</svg>)',
                       "",source,count=1,flags=re.S|re.I)
-    # An individual insignia is placed into the chest plate; silhouette and gold lamellar detail stay intact.
+    # Each hero gets a chest insignia tied to their own skill silhouette, not a shared diamond badge.
     fx=h.get("fx","")
-    if fx in ("fire","phoenix","flame"):
-        sigil=f'<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="{accent}" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/>'
-    elif fx in ("heal","shield"):
-        sigil=f'<path d="M440 505 L473 540 L440 575 L407 540Z" fill="{accent}" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/>'
-    elif fx in ("dragon","tiger","wind","storm","lightning","ironstorm","water"):
-        sigil=f'<path d="M410 532 Q432 505 459 527 Q477 548 448 563 Q425 574 416 551 Q430 543 443 552 Q454 550 449 539" fill="none" stroke="{accent}" stroke-width="10" stroke-linecap="round"/><circle cx="460" cy="526" r="5" fill="#fff0c8"/>'
-    elif fx in ("charm","ice"):
-        sigil=f'<path d="M440 505 Q455 528 477 540 Q455 552 440 575 Q425 552 403 540 Q425 528 440 505Z" fill="{accent}" stroke="#30241d" stroke-width="6"/><circle cx="440" cy="540" r="8" fill="#fff0c8"/>'
+    if fx in SPECIAL_SKILL_PATHS:
+        sigil=f'<g transform="translate(400 540) scale(.13) translate(-400 -500)" fill="none" stroke="{accent}" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"><path d="{SPECIAL_SKILL_PATHS[fx]}"/><circle cx="400" cy="500" r="70" stroke="#fff0c8" stroke-width="25" opacity=".75"/></g>'
     else:
-        sigil=f'<path d="M440 506 L474 540 L440 574 L406 540Z" fill="{accent}" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/>'
+        sigil=f'<path d="M440 506 L474 540 L440 574 L406 540Z" fill="{accent}" stroke="#30241d" stroke-width="6"/>'
     if female:
         accessory=h.get("head","")
         if accessory in ("flower","hairpin"):
