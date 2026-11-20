@@ -17,10 +17,20 @@ jobs:
         run: node scripts/verify-game.cjs
       - name: Install Chromium for browser playability test
         run: |
-          npm install --no-save --package-lock=false playwright
+          npm install --no-save --package-lock=false playwright three@0.149.0
           npx playwright install --with-deps chromium
       - name: Run browser playability test
         run: node scripts/browser-smoke.cjs
+      - name: Build rigged Three Kingdoms heroes
+        run: |
+          mkdir -p app/src/main/assets/characters app/src/main/assets/vendor
+          cp node_modules/three/build/three.min.js app/src/main/assets/vendor/three.min.js
+          cp node_modules/three/examples/js/loaders/GLTFLoader.js app/src/main/assets/vendor/GLTFLoader.js
+          npx -y ara3d@0.9.0 export --params characters/liu-bei.json --params characters/guan-yu.json --params characters/zhang-fei.json --detail medium --animations idle,walk,run,combat --out app/src/main/assets/characters
+          test -s app/src/main/assets/characters/liu-bei.glb
+          test -s app/src/main/assets/characters/guan-yu.glb
+          test -s app/src/main/assets/characters/zhang-fei.glb
+          du -h app/src/main/assets/characters/*.glb
       - name: Download CC0 soundtrack for offline play
         run: |
           mkdir -p app/src/main/assets/audio
