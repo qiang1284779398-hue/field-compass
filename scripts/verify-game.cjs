@@ -53,7 +53,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,factionForRegion,enemyCommander,siegeCost};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -178,6 +178,23 @@ game.state().army.inf = 300;
 game.state().food = 500;
 game.reinforceOutpost(1, "inf");
 assert.equal(game.state().outpostGarrisons[1].inf, 25, "outpost reinforcement should persist the assigned infantry");
+game.state().gold = 10000;
+game.state().wood = 10000;
+game.state().iron = 10000;
+game.state().food = 10000;
+const facilityFoodBefore = game.state().food;
+game.upgradeOutpost(1, "granary");
+assert.equal(game.state().outpostFacilities[1].granary, 1, "granary upgrade should persist at the outpost");
+game.nextDay();
+assert.equal(game.state().food, facilityFoodBefore + 8 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - 15, "granary should add eight daily food before army and outpost upkeep");
+game.upgradeOutpost(1, "wall");
+assert.equal(game.state().outpostFacilities[1].wall, 1, "defensive wall upgrade should persist");
+game.upgradeOutpost(1, "beacon");
+assert.equal(game.state().outpostFacilities[1].beacon, 1, "beacon upgrade should persist");
+game.state().day = 2;
+const intelBeforeBeacon = game.state().intel;
+game.nextDay();
+assert.ok(game.state().intel > intelBeforeBeacon, "beacon should produce intelligence on every third day");
 
 assert.equal(game.costText({ wood: 100, gold: 70 }), "木100 / 金70", "building costs must render correctly");
 game.go("daily");
