@@ -104,6 +104,8 @@ const assert = require("node:assert/strict");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
   await page.locator("#battleScene .hero3d-layer").waitFor({ state: "attached", timeout: 5000 });
   await page.waitForFunction(() => document.querySelectorAll("#battleScene .warrior.hero3d-ready").length >= 1, { timeout: 15000 });
+  const rigStatus = await page.evaluate(() => window.__hero3dStatus ? window.__hero3dStatus() : []);
+  assert.ok(rigStatus.some(x => x.ready && x.skinnedMeshes > 0 && x.bones >= 20 && x.clips >= 3), "loaded heroes must contain real skinned meshes, a humanoid skeleton and multiple animation clips");
   assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count()>=1, "at least one actual skinned GLB hero should load and replace its SVG fallback");
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
