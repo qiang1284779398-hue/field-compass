@@ -19,8 +19,6 @@ jobs:
         run: |
           npm install --no-save --package-lock=false playwright three@0.149.0
           npx playwright install --with-deps chromium
-      - name: Run browser playability test
-        run: node scripts/browser-smoke.cjs
       - name: Build rigged Three Kingdoms heroes
         run: |
           mkdir -p app/src/main/assets/characters app/src/main/assets/vendor
@@ -34,6 +32,8 @@ jobs:
           test -s app/src/main/assets/characters/guan-yu.glb
           test -s app/src/main/assets/characters/zhang-fei.glb
           du -h app/src/main/assets/characters/*.glb
+      - name: Run browser playability test
+        run: node scripts/browser-smoke.cjs
       - name: Download CC0 soundtrack for offline play
         run: |
           mkdir -p app/src/main/assets/audio
