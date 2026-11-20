@@ -33,7 +33,7 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-</svg></g><g opacity="0.18" fill="none" stroke="#e7c6df" stroke-width="12"><circle cx="400" cy="500" r="160"/><path d="M400 300 Q540 500 400 700 Q260 500 400 300Z"/></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g><g opacity="0.18" fill="none" stroke="#e7c6df" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path d="M560 280 C390 240 250 370 270 530 C290 690 460 760 590 640 C450 680 350 590 360 470 C365 365 450 310 560 280Z"/><circle cx="400" cy="500" r="85" stroke="#e7c6df" stroke-width="5" opacity=".3"/></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>貂蝉 — 闭月 original 2D full-body sprite</title>
 <desc>Original hand-drawn vector character: 绛紫霓裳·月影双刃. Unique costume silhouette, weapon, materials, insignia and facial features. Transparent background.</desc>
 <defs>
@@ -67,7 +67,7 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-</svg></g><g opacity="0.52" fill="none" stroke="#e7c6df" stroke-width="12"><circle cx="400" cy="500" r="160"/><path d="M400 300 Q540 500 400 700 Q260 500 400 300Z"/></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g><g opacity="0.52" fill="none" stroke="#e7c6df" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M560 280 C390 240 250 370 270 530 C290 690 460 760 590 640 C450 680 350 590 360 470 C365 365 450 310 560 280Z"/><circle cx="400" cy="500" r="107" stroke="#e7c6df" stroke-width="5" opacity=".3"/></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>貂蝉 — 闭月 original 2D full-body sprite</title>
 <desc>Original hand-drawn vector character: 绛紫霓裳·月影双刃. Unique costume silhouette, weapon, materials, insignia and facial features. Transparent background.</desc>
 <defs>
@@ -101,7 +101,7 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-</svg></g><g opacity="1" fill="none" stroke="#e7c6df" stroke-width="12"><circle cx="400" cy="500" r="160"/><path d="M400 300 Q540 500 400 700 Q260 500 400 300Z"/></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g><g opacity="1" fill="none" stroke="#e7c6df" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"><path d="M560 280 C390 240 250 370 270 530 C290 690 460 760 590 640 C450 680 350 590 360 470 C365 365 450 310 560 280Z"/><circle cx="400" cy="500" r="129" stroke="#e7c6df" stroke-width="5" opacity=".3"/></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>貂蝉 — 闭月 original 2D full-body sprite</title>
 <desc>Original hand-drawn vector character: 绛紫霓裳·月影双刃. Unique costume silhouette, weapon, materials, insignia and facial features. Transparent background.</desc>
 <defs>
@@ -135,4 +135,4 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-</svg></g><g opacity="0.42" fill="none" stroke="#e7c6df" stroke-width="12"><circle cx="400" cy="500" r="160"/><path d="M400 300 Q540 500 400 700 Q260 500 400 300Z"/></g></g></svg>
+</svg></g><g opacity="0.42" fill="none" stroke="#e7c6df" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M560 280 C390 240 250 370 270 530 C290 690 460 760 590 640 C450 680 350 590 360 470 C365 365 450 310 560 280Z"/><circle cx="400" cy="500" r="151" stroke="#e7c6df" stroke-width="5" opacity=".3"/></g></g></svg>
