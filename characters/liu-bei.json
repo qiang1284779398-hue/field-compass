@@ -1,0 +1,65 @@
+{
+  "$schema": "https://ara3dgen.com/schemas/character.v1.json",
+  "kind": "ara-character",
+  "version": 1,
+  "preset": "The Soldier",
+  "params": {
+    "name": "liu-bei",
+    "ageYears": 48,
+    "gender": 1,
+    "muscle": 0.52,
+    "weight": 0.48,
+    "height": 0.56,
+    "proportions": 0.72,
+    "african": 0.02,
+    "asian": 0.94,
+    "caucasian": 0.04,
+    "eyes": "blackbrown",
+    "hair": "short02",
+    "hairColor": "#17120f",
+    "facialHair": "mustache_stubble",
+    "beardColor": "#241b16",
+    "outfit": "none",
+    "top": "long_tunic",
+    "jacket": "tactical_vest",
+    "bottom": "trousers",
+    "shoes": "combat_boots",
+    "hat": "none",
+    "accessories": [
+      "belt",
+      "arm_wraps"
+    ],
+    "garmentStyles": {
+      "long_tunic": {
+        "pattern": "solid",
+        "color": "#8a3028",
+        "color2": "#d2b16b"
+      },
+      "tactical_vest": {
+        "pattern": "leather",
+        "color": "#6b3928",
+        "color2": "#b48b50"
+      },
+      "trousers": {
+        "pattern": "solid",
+        "color": "#43372c"
+      },
+      "belt": {
+        "pattern": "leather",
+        "color": "#38251c"
+      },
+      "arm_wraps": {
+        "pattern": "solid",
+        "color": "#8a3028"
+      }
+    },
+    "rig": "game",
+    "faceBones": true,
+    "restPose": "A",
+    "animations": true,
+    "weapon": "sword",
+    "expression": "determined",
+    "faceShapes": true,
+    "speechShapes": true
+  }
+}
