@@ -7,6 +7,28 @@ assert.ok(scriptMatch, "game script block missing");
 const source = scriptMatch[1];
 new Function(source);
 
+// Non-regression contract: established systems must remain present on every pass.
+const preservationContracts = [
+  ["30-chapter campaign", "const CHAPTERS="],
+  ["story choice application", "function applyChapterChoiceOutcome"],
+  ["story progression", "function storyNext()"],
+  ["three-wave battle start", "waves:3"],
+  ["enemy battle phase", "async function enemyPhase()"],
+  ["battle completion", "function checkBattleEnd"],
+  ["troop counter resolution", "function typeMultiplier"],
+  ["status application", "function applyStatus"],
+  ["status turn resolution", "function tickUnitStatuses"],
+  ["six faction doctrine", "function factionDoctrine"],
+  ["spy missions", "function spyMission"],
+  ["diplomatic relations", "function factionRelationTier"],
+  ["local save writer", "function save(){localStorage.setItem(KEY,JSON.stringify(s))"],
+  ["current save key", 'const KEY="hxsg_save_v4"'],
+  ["legacy v3 save migration", 'localStorage.getItem("hxsg_save_v3")']
+];
+for (const [label, marker] of preservationContracts) {
+  assert.ok(source.includes(marker), "non-regression contract failed: " + label + " was removed or renamed without updating the migration/tests");
+}
+
 const chapterMatch = source.match(/const CHAPTERS=(\[[\s\S]*?\n\]);\nconst EVENTS=/);
 assert.ok(chapterMatch, "chapter data missing");
 const chapters = new Function("return " + chapterMatch[1])();
