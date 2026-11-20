@@ -50,6 +50,7 @@ const assert = require("node:assert/strict");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
+  assert.match(await page.locator(".battle-top").innerText(), /晴朗|暴雨|浓雾|烈风/, "battle HUD should display current weather");
 
   // Verify real combat outcomes, not just that the buttons can be clicked.
   const readFight = () => page.evaluate(() => eval("({round:fight.round,phase:fight.phase,enemyHp:fight.enemies[0].hp,actor:fight.actor,energy:fight.allies.map(x=>x.energy),shield:fight.allies.map(x=>x.shield),acted:fight.acted.length})"));
@@ -143,7 +144,7 @@ const assert = require("node:assert/strict");
   assert.ok(restored.heading && restored.view && restored.view.trim().length > 20, "game should recover after reload");
   assert.deepEqual(pageErrors, [], "browser runtime must not throw uncaught JavaScript errors");
 
-  console.log(JSON.stringify({ result: "PASS", navigationTabs: 6, storyDialogueSteps: dialogueSteps, homeServicesTested: 7, randomEventChoice: "PASS", mobileLayout: "PASS", battle: "entered; both sides rendered; basic attack clicked", saveReload: "PASS", pageErrors }, null, 2));
+  console.log(JSON.stringify({ result: "PASS", navigationTabs: 6, storyDialogueSteps: dialogueSteps, homeServicesTested: 8, randomEventChoice: "PASS", mobileLayout: "PASS", battle: { bothSidesRendered: true, targetSelection: "PASS", basicAttackDamage: hpBefore - afterAttack.enemyHp, skillEnergySpent: skillBefore.energy[1] - afterSkill.energy[1], defendShieldAdded: afterDefend.shield[2] - shieldBefore, enemyTurn: afterEnemyTurn.phase === "end" ? "battle-ended" : "round-" + afterEnemyTurn.round }, saveReload: "PASS", pageErrors }, null, 2));
   await browser.close();
   await new Promise(resolve => server.close(resolve));
 })().catch(error => { console.error(error); process.exit(1); });
