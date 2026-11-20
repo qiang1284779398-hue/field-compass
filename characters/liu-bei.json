@@ -2,11 +2,11 @@
   "name": "liu-bei",
   "seed": 101,
   "gender": 1,
-  "age": 0.68,
-  "muscle": 0.52,
-  "weight": 0.48,
-  "height": 0.56,
-  "proportions": 0.72,
+  "age": 0.78,
+  "muscle": 0.48,
+  "weight": 0.5,
+  "height": 0.55,
+  "proportions": 0.66,
   "african": 0.02,
   "asian": 0.94,
   "caucasian": 0.04,
@@ -30,13 +30,13 @@
   "garmentStyles": {
     "long_tunic": {
       "pattern": "solid",
-      "color": "#8a3028",
-      "color2": "#d2b16b"
+      "color": "#8e2925",
+      "color2": "#dfc17b"
     },
     "leather_armor": {
       "pattern": "leather",
-      "color": "#6b3928",
-      "color2": "#b48b50"
+      "color": "#713b2c",
+      "color2": "#d1ad65"
     },
     "trousers": {
       "pattern": "solid",
@@ -48,10 +48,19 @@
     },
     "arm_wraps": {
       "pattern": "solid",
-      "color": "#8a3028"
+      "color": "#8e2925"
     }
   },
-  "detail": "medium",
+  "modifiers": {
+    "head/head-oval": 0.42,
+    "head/head-age-decr|incr": 0.28,
+    "chin/chin-height-decr|incr": 0.16,
+    "chin/chin-prominent-decr|incr": 0.12,
+    "nose/nose-width1-decr|incr": -0.12,
+    "cheek/l-cheek-bones-decr|incr": 0.1,
+    "cheek/r-cheek-bones-decr|incr": 0.1
+  },
+  "detail": "high",
   "rig": "game",
   "faceBones": true,
   "restPose": "A",
