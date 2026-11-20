@@ -53,7 +53,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,factionForRegion,enemyCommander,siegeCost};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, {}, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -302,6 +302,24 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
   game.claimDaily("side", 150);
   assert.ok(game.state().daily.claimed.includes("side"), "daily reward should be claimable once");
 
+  game.ensureHeroPolitics();
+  assert.ok(game.state().heroes.every(h=>h.loyalty===75),"legacy heroes should receive default loyalty");
+  const firstHero=game.state().heroes[0],secondHero=game.state().heroes[1];game.state().gold=1000;
+  const beforeRelation=game.heroRelationScore(firstHero.id,secondHero.id);game.improveHeroRelation(firstHero.id,secondHero.id);
+  assert.equal(game.heroRelationScore(firstHero.id,secondHero.id),beforeRelation+12,"bonding should improve pair relation");
+  const beforeLoyalty=firstHero.loyalty;game.rewardHeroLoyalty(0);
+  assert.equal(firstHero.loyalty,beforeLoyalty+10,"stipend should raise loyalty");
+  game.state().territories={"1":true};game.state().regionControl["1"]="player";game.state().outpostGarrisons={"1":{inf:50,cav:20,arch:20}};
+  game.state().day=4;game.state().enemyLastActionDay=0;game.state().enemyGarrisons["0"]={inf:160,cav:70,arch:70,fort:2};
+  const siegeReport=game.resolveEnemyWorldTurn(false);assert.ok(siegeReport.includes("围攻"),"enemy attack should create a siege decision");
+  assert.ok(game.state().pendingSiege,"enemy attack should persist pending siege data");game.resolvePendingSiege("retreat");
+  assert.equal(!!game.state().territories["1"],false,"retreat decision should relinquish the outpost");
+  assert.ok(game.state().army.inf>=100,"retreat should return garrison troops to the army");
+  game.state().territories={"1":true};game.state().regionControl["1"]="player";game.state().outpostGarrisons={"1":{inf:80,cav:30,arch:30}};
+  game.state().pendingSiege={target:1,attackerIndex:0,factionId:"yellow",threat:10,defense:100,region:"测试关",day:game.state().day};
+  game.resolvePendingSiege("defend");assert.ok(game.state().territories["1"],"successful defense should retain the outpost");
+  game.state().gold=500;game.state().iron=100;game.state().food=300;game.state().fieldPlans={};game.prepareFieldTactic(1,"sabotage");
+  assert.equal(game.state().fieldPlans["1"],"sabotage","sabotage should be stored for the next battle");
   game.state().publicOrder=40; game.state().peopleMorale=38; game.state().gold=500; game.state().food=500; game.state().wood=100;
   game.cityGovernance();
   assert.ok(elements.get("modal").innerHTML.includes("治安"), "city governance should display public order");
