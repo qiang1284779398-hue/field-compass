@@ -105,7 +105,7 @@
       "art": "machao",
       "gender": "m",
       "weapon": "spear",
-      "skillFx": "wind"
+      "skillFx": "xiliang-charge"
     },
     {
       "id": "weiyan",
@@ -113,7 +113,7 @@
       "art": "weiyan",
       "gender": "m",
       "weapon": "saber",
-      "skillFx": "blood"
+      "skillFx": "blood-maw"
     },
     {
       "id": "pangtong",
@@ -121,7 +121,7 @@
       "art": "pangtong",
       "gender": "m",
       "weapon": "fan",
-      "skillFx": "phoenix"
+      "skillFx": "phoenix-rebirth"
     },
     {
       "id": "fazheng",
@@ -129,7 +129,7 @@
       "art": "fazheng",
       "gender": "m",
       "weapon": "scroll",
-      "skillFx": "thunder"
+      "skillFx": "weakpoint-mark"
     },
     {
       "id": "xushu",
@@ -137,7 +137,7 @@
       "art": "xushu",
       "gender": "m",
       "weapon": "sword",
-      "skillFx": "wind"
+      "skillFx": "sword-rift"
     },
     {
       "id": "madai",
@@ -145,7 +145,7 @@
       "art": "madai",
       "gender": "m",
       "weapon": "spear",
-      "skillFx": "wind"
+      "skillFx": "rear-hunt"
     },
     {
       "id": "guanping",
@@ -153,7 +153,7 @@
       "art": "guanping",
       "gender": "m",
       "weapon": "saber",
-      "skillFx": "water"
+      "skillFx": "river-break"
     },
     {
       "id": "guanxing",
@@ -161,7 +161,7 @@
       "art": "guanxing",
       "gender": "m",
       "weapon": "guandao",
-      "skillFx": "dragon"
+      "skillFx": "dragon-inherit"
     },
     {
       "id": "zhangbao",
@@ -169,7 +169,7 @@
       "art": "zhangbao",
       "gender": "m",
       "weapon": "spear",
-      "skillFx": "roar"
+      "skillFx": "snake-spear"
     },
     {
       "id": "zhangliao",
@@ -177,7 +177,7 @@
       "art": "zhangliao",
       "gender": "m",
       "weapon": "spear",
-      "skillFx": "storm"
+      "skillFx": "swift-cavalry"
     },
     {
       "id": "zhanghe",
@@ -185,7 +185,7 @@
       "art": "zhanghe",
       "gender": "m",
       "weapon": "spear",
-      "skillFx": "wind"
+      "skillFx": "feint-step"
     },
     {
       "id": "xuhuang",
@@ -193,7 +193,7 @@
       "art": "xuhuang",
       "gender": "m",
       "weapon": "axe",
-      "skillFx": "earth"
+      "skillFx": "siege-axe"
     },
     {
       "id": "xuchu",
@@ -201,7 +201,7 @@
       "art": "xuchu",
       "gender": "m",
       "weapon": "hammer",
-      "skillFx": "roar"
+      "skillFx": "tiger-earthquake"
     },
     {
       "id": "xiahou-dun",
@@ -209,7 +209,7 @@
       "art": "xiahou-dun",
       "gender": "m",
       "weapon": "saber",
-      "skillFx": "blood"
+      "skillFx": "one-eye-reckoning"
     },
     {
       "id": "xiahou-yuan",
@@ -217,7 +217,7 @@
       "art": "xiahou-yuan",
       "gender": "m",
       "weapon": "bow",
-      "skillFx": "arrow"
+      "skillFx": "triple-arrow"
     },
     {
       "id": "guojia",
@@ -225,7 +225,7 @@
       "art": "guojia",
       "gender": "m",
       "weapon": "fan",
-      "skillFx": "formation"
+      "skillFx": "fate-ambush"
     },
     {
       "id": "xunyu",
@@ -233,7 +233,7 @@
       "art": "xunyu",
       "gender": "m",
       "weapon": "scroll",
-      "skillFx": "heal"
+      "skillFx": "kingmaker-aegis"
     },
     {
       "id": "simayi",
@@ -241,7 +241,7 @@
       "art": "simayi",
       "gender": "m",
       "weapon": "staff",
-      "skillFx": "shadow"
+      "skillFx": "wolf-shadow"
     },
     {
       "id": "caoren",
@@ -249,7 +249,7 @@
       "art": "caoren",
       "gender": "m",
       "weapon": "shield",
-      "skillFx": "shield"
+      "skillFx": "iron-wall"
     },
     {
       "id": "caopi",
@@ -257,7 +257,7 @@
       "art": "caopi",
       "gender": "m",
       "weapon": "sword",
-      "skillFx": "thunder"
+      "skillFx": "imperial-edict"
     },
     {
       "id": "yuejin",
@@ -265,7 +265,7 @@
       "art": "yuejin",
       "gender": "m",
       "weapon": "saber",
-      "skillFx": "flame"
+      "skillFx": "first-breach"
     },
     {
       "id": "yujin",
@@ -273,7 +273,7 @@
       "art": "yujin",
       "gender": "m",
       "weapon": "shield",
-      "skillFx": "shield"
+      "skillFx": "formation-lock"
     },
     {
       "id": "sunce",
@@ -281,7 +281,7 @@
       "art": "sunce",
       "gender": "m",
       "weapon": "saber",
-      "skillFx": "lightning"
+      "skillFx": "overlord"
     },
     {
       "id": "sunquan",
@@ -289,7 +289,7 @@
       "art": "sunquan",
       "gender": "m",
       "weapon": "sword",
-      "skillFx": "shield"
+      "skillFx": "jiangdong-command"
     },
     {
       "id": "luxun",
@@ -297,7 +297,7 @@
       "art": "luxun",
       "gender": "m",
       "weapon": "fan",
-      "skillFx": "fire"
+      "skillFx": "burning-camp"
     },
     {
       "id": "lvmeng",
@@ -305,7 +305,7 @@
       "art": "lvmeng",
       "gender": "m",
       "weapon": "sword",
-      "skillFx": "shadow"
+      "skillFx": "white-cloak"
     },
     {
       "id": "ganning",
@@ -313,7 +313,7 @@
       "art": "ganning",
       "gender": "m",
       "weapon": "dual-blade",
-      "skillFx": "thunder"
+      "skillFx": "night-raid"
     },
     {
       "id": "taishici",
@@ -321,7 +321,7 @@
       "art": "taishici",
       "gender": "m",
       "weapon": "bow",
-      "skillFx": "arrow"
+      "skillFx": "shen-ting"
     },
     {
       "id": "huanggai",
@@ -329,7 +329,7 @@
       "art": "huanggai",
       "gender": "m",
       "weapon": "hammer",
-      "skillFx": "fire"
+      "skillFx": "fire-vessel"
     },
     {
       "id": "lusu",
@@ -337,7 +337,7 @@
       "art": "lusu",
       "gender": "m",
       "weapon": "scroll",
-      "skillFx": "shield"
+      "skillFx": "taying-plan"
     },
     {
       "id": "sunshangxiang",
@@ -345,7 +345,7 @@
       "art": "sunshangxiang",
       "gender": "f",
       "weapon": "bow",
-      "skillFx": "arrow"
+      "skillFx": "crossbow-volley"
     },
     {
       "id": "daqiao",
@@ -353,7 +353,7 @@
       "art": "daqiao",
       "gender": "f",
       "weapon": "fan",
-      "skillFx": "charm"
+      "skillFx": "flower-recovery"
     },
     {
       "id": "xiaoqiao",
@@ -361,7 +361,7 @@
       "art": "xiaoqiao",
       "gender": "f",
       "weapon": "fan",
-      "skillFx": "fire"
+      "skillFx": "twin-fan"
     },
     {
       "id": "zhenji",
@@ -369,7 +369,7 @@
       "art": "zhenji",
       "gender": "f",
       "weapon": "ribbon",
-      "skillFx": "ice"
+      "skillFx": "luoshui-freeze"
     },
     {
       "id": "huangyueying",
@@ -377,7 +377,7 @@
       "art": "huangyueying",
       "gender": "f",
       "weapon": "mechanism",
-      "skillFx": "shield"
+      "skillFx": "wooden-cattle"
     },
     {
       "id": "wangyi",
@@ -385,7 +385,7 @@
       "art": "wangyi",
       "gender": "f",
       "weapon": "dual-blade",
-      "skillFx": "blood"
+      "skillFx": "vengeful-blade"
     },
     {
       "id": "mayunlu",
@@ -393,7 +393,7 @@
       "art": "mayunlu",
       "gender": "f",
       "weapon": "spear",
-      "skillFx": "dragon"
+      "skillFx": "silver-moon"
     },
     {
       "id": "ganfuren",
@@ -401,7 +401,7 @@
       "art": "ganfuren",
       "gender": "f",
       "weapon": "fan",
-      "skillFx": "heal"
+      "skillFx": "maternal-aegis"
     }
   ]
 }
