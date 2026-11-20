@@ -43,6 +43,14 @@ assert.ok(source.includes("function applyStatus"), "battle status engine missing
 assert.ok(source.includes("function tickUnitStatuses"), "status turn resolution missing");
 for (const effect of ["burn","poison","bleed","armorBreak","slow","disarm","stun"]) assert.ok(source.includes('"'+effect+'"'), "missing status effect: "+effect);
 assert.ok(source.includes("function statusText"), "unit status feedback missing");
+assert.ok(source.includes("function spyMission"), "persistent spy operations missing");
+assert.ok(source.includes("function recruitSpy") && source.includes("function trainSpy"), "spy recruitment and training missing");
+assert.ok(source.includes("function recoverSpyAgents"), "captured agents must recover through daily turns");
+assert.ok(source.includes("function storyEcho"), "campaign choices must feed back into later narrative");
+assert.ok(source.includes("choiceHistory[i]={choice:n,day:s.day,title:c.title}"), "chapter choice history must persist");
+assert.ok(source.includes("Visual direction pass") && html.includes(".spy-agent"), "visual presentation pass missing");
+assert.ok(source.includes("page]||0"), "music should react to the current game scene");
+assert.equal((source.match(/function ensureSpyNetwork\(/g)||[]).length,1,"spy state initializer must not be duplicated");
 assert.ok(source.includes("步阵协同") && source.includes("骑兵协同") && source.includes("远程协同"), "troop formation synergy missing");
 assert.ok(source.includes("识破破绽，追击重伤目标") && source.includes("掩护己方远程部队"), "enemy tactical behavior missing");
 assert.ok(source.includes('name==="青龙偃月"') && source.includes('name==="麒麟奇谋"'), "signature hero skills missing");
@@ -87,10 +95,20 @@ const storage = {
 };
 const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,factionForRegion,enemyCommander,siegeCost};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
+game.go("home");
+assert.ok(elements.get("view").innerHTML.includes("密探机关"), "home page should expose the intelligence bureau");
+game.recruitSpy();
+assert.equal(game.state().spyAgents.length,1,"recruiting a spy should add one persistent agent");
+const recruitedSpy=game.state().spyAgents[0];
+game.trainSpy();
+assert.equal(recruitedSpy.skill,2,"spy training should improve the least experienced agent");
+game.spyMission(recruitedSpy.id,"counter");
+assert.ok(game.state().counterIntelUntil>=game.state().day+4,"counter-intelligence should remain active for four days");
+assert.ok(game.state().spyLog.length>=2,"spy operations should be written to the intelligence log");
 game.go("world");
 assert.ok(elements.get("view").innerHTML.includes("天下舆图 · 群雄割据"), "world map should show the exploration layer");
 assert.ok(elements.get("view").innerHTML.includes("六方割据"), "world map should show all six rival factions");
