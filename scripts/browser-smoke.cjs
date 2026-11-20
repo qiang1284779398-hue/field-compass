@@ -108,7 +108,7 @@ const assert = require("node:assert/strict");
   await page.locator('button[onclick="selectActor(1)"]').click();
   await page.evaluate(() => { fight.allies[1].skill = "麒麟奇谋"; fight.allies[1].energy = 5; drawBattle(); });
   const skillBefore = await readFight();
-  await page.evaluate(() => { window.__qaSkillRun = useHeroSkill(); return fight.actionRunning; });
+  await page.evaluate(() => { fight.phase = "player"; fight.actor = 1; fight.acted = fight.acted.filter(i => i !== 1); fight.allies[1].energy = 5; window.__qaSkillRun = useHeroSkill(); return fight.actionRunning; });
   assert.equal(await page.evaluate(() => fight.actionRunning), true, "skill execution must hold the action lock during its animation");
   await page.evaluate(() => selectActor(2));
   assert.equal(await page.evaluate(() => fight.actor), 1, "actor switching must be locked while a skill animation is running");
