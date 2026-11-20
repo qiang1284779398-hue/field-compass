@@ -513,9 +513,11 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     assert.equal(game.fight().enemyMorale,58,"strategy legacy should reduce the chapter-choice enemy morale by six points");
     assert.ok(game.fight().allies[0].def>=Math.round(game.heroDef(st.heroes[0])*1.05),"humanity legacy should improve allied defense");
     assert.equal(game.fight().waves,3,"chapter battle should contain three waves: "+chapters[i].title);
-    game.fight().wave=3;game.makeWave();game.drawBattle();
+    game.fight().wave=3;game.makeWave();
     assert.ok(game.fight().bossIntro && game.fight().enemies.some(x=>x.boss),"third wave should spawn a boss unit");
+    game.drawBattle();
     assert.match(elements.get("view").innerHTML,/boss-arrival[\s\S]*boss-title/,"boss wave should render the animated entrance treatment");
+    assert.equal(game.fight().bossIntro,false,"boss entrance should play once rather than replay on every UI redraw");
     game.fight().phase="end";game.fight().win=true;
     game.finishBattle();
     assert.equal(game.state().story,i+1,"victory should unlock next chapter: "+chapters[i].title);
