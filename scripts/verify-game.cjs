@@ -50,6 +50,7 @@ assert.ok(source.includes("function storyEcho"), "campaign choices must feed bac
 assert.ok(source.includes("choiceHistory[i]={choice:n,day:s.day,title:c.title}"), "chapter choice history must persist");
 assert.ok(source.includes("Visual direction pass") && html.includes(".spy-agent"), "visual presentation pass missing");
 assert.ok(source.includes("page]||0"), "music should react to the current game scene");
+assert.ok(source.includes('page="battle";drawBattle();startMusic()'), "battle scene should start its own soundtrack");
 assert.equal((source.match(/function ensureSpyNetwork\(/g)||[]).length,1,"spy state initializer must not be duplicated");
 assert.ok(source.includes("步阵协同") && source.includes("骑兵协同") && source.includes("远程协同"), "troop formation synergy missing");
 assert.ok(source.includes("识破破绽，追击重伤目标") && source.includes("掩护己方远程部队"), "enemy tactical behavior missing");
@@ -472,6 +473,7 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     }
     assert.ok(steps>=3,"chapter should present at least three dialogue advances: "+chapters[i].title);
     game.chapterChoice(0);
+    assert.equal(game.state().choiceHistory[i].choice,0,"chapter choice history should persist: "+chapters[i].title);
     assert.ok(game.fight(),"chapter branch should start battle: "+chapters[i].title);
     assert.equal(game.fight().waves,3,"chapter battle should contain three waves: "+chapters[i].title);
     game.fight().phase="end";game.fight().win=true;
