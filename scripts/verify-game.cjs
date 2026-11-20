@@ -34,7 +34,7 @@ assert.ok(source.includes("suppressed=(troop.includes(\"弓\")||troop.includes(\
 assert.ok(source.includes("enemyFaction")||source.includes("factionForRegion"), "enemy faction data should exist");
 assert.ok(source.includes("campRecovery=Math.min(s.wounded||0,4+Math.floor((s.morale||0)/25))"), "daily camp recovery should heal wounded troops based on morale");
 assert.ok(source.includes("function battlefieldAttackMultiplier"), "weather and terrain combat modifier engine missing");
-assert.ok(source.includes("weather.arch") && source.includes('w.id==="rain"') && source.includes('w.id==="fog"'), "weather should change ranged and cavalry combat");
+assert.ok(source.includes("w.arch") && source.includes('w.id==="rain"') && source.includes('w.id==="fog"'), "weather should change ranged and cavalry combat");
 assert.ok(source.includes("if(focus===key)m*=1.12"), "selected territory assault troop should gain its focus bonus");
 assert.ok(source.includes('["mountain","pass","forest"].includes(terrain)'), "cavalry should be penalized in difficult terrain");
 assert.ok(source.includes("function applyStatus"), "battle status engine missing");
