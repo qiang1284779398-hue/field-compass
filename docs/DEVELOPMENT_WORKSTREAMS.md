@@ -4,11 +4,11 @@
 
 | Workstream | Current implementation in this pass | Verification |
 |---|---|---|
-| Story depth | Persist chapter choice history and show a cumulative narrative echo based on humanity/strategy decisions. | Source assertions; full 30-chapter flow regression remains in verify-game. |
+| Story depth | Persist chapter choice history and show a cumulative narrative echo based on humanity/strategy decisions; accumulated choices now also influence daily morale and intelligence. | Source assertions; full 30-chapter flow regression remains in verify-game. |
 | Visual art direction | Improve banner hierarchy, cards, tactile controls, readability and battlefield contrast. Existing character/environment art remains in use. | CSS/source assertions and browser smoke test. |
 | Music and sound | Route the existing offline soundtrack by current screen as well as battle chapter; preserve music toggle and existing combat SFX. | Source assertions and browser smoke test. |
 | Battle animation | Improve battlefield depth, target highlighting, damage popups and slash impact feedback while respecting reduced-motion settings. | Existing animation assertions and browser smoke test. |
-| New gameplay | Add persistent spy agents with recruitment, training, intel gathering, supply sabotage, rumor operations, counter-intelligence, fatigue, capture and recovery. | Deterministic recruit/train/counter-intel regression checks; probabilistic field missions need manual play testing. |
+| New gameplay | Add persistent spy agents with recruitment, training, three-day enemy-city infiltration, intel gathering, supply sabotage, rumor operations, counter-intelligence, fatigue, capture and recovery. Sabotage/rumors feed into regional battle morale. | Deterministic recruit/train/infiltration/counter-intel runtime checks; probabilistic field missions still need manual play testing. |
 | QA and integration | Extend source/runtime checks; retain full campaign and random-event branch checks, then run browser and Android workflows. | GitHub Actions. |
 
 ## Existing systems not duplicated
