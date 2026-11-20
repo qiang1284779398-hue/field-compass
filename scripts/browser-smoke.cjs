@@ -7,6 +7,8 @@ const assert = require("node:assert/strict");
 (async () => {
   const html = fs.readFileSync(path.resolve("app/src/main/assets/index.html"), "utf8");
   const hero3d = fs.readFileSync(path.resolve("app/src/main/assets/hero3d.js"), "utf8");
+  for (const f of ["liu-bei.glb","guan-yu.glb","zhang-fei.glb"]) assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters",f)), "generated rigged model must exist: "+f);
+  for (const f of ["three.min.js","GLTFLoader.js","SkeletonUtils.js"]) assert.ok(fs.existsSync(path.resolve("app/src/main/assets/vendor",f)), "offline 3D runtime must be bundled: "+f);
   assert.ok(hero3d.includes("THREE.GLTFLoader") && hero3d.includes("THREE.SkeletonUtils") && hero3d.includes("AnimationMixer"), "real skinned GLB models use skeleton cloning and animation mixers");
   assert.ok(html.includes("class=\"weapon-gesture\""), "battle art upgrade: class=\"weapon-gesture\"");
   assert.ok(html.includes("data-hero3d") && html.includes("initHero3D"), "3D rigged hero anchors are integrated");
@@ -18,7 +20,17 @@ const assert = require("node:assert/strict");
   assert.ok(html.includes("hero-guan"), "battle art upgrade: hero-guan");
   assert.ok(html.includes("hero-zhang"), "battle art upgrade: hero-zhang");
   assert.ok(html.includes("hero-liu"), "battle art upgrade: hero-liu");
-  const server = http.createServer((req, res) => { res.writeHead(200, { "content-type": "text/html; charset=utf-8" }); res.end(html); });
+  const assetRoot = path.resolve("app/src/main/assets");
+  const mime = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".glb":"model/gltf-binary", ".ogg":"audio/ogg" };
+  const server = http.createServer((req, res) => {
+    const pathname = decodeURIComponent(new URL(req.url, "http://127.0.0.1").pathname);
+    const target = path.resolve(assetRoot, "." + pathname);
+    if (!target.startsWith(assetRoot)) { res.writeHead(403); return res.end(); }
+    const file = target === assetRoot + path.sep ? path.join(assetRoot, "index.html") : target;
+    if (!fs.existsSync(file) || !fs.statSync(file).isFile()) { res.writeHead(404); return res.end("not found"); }
+    res.writeHead(200, { "content-type": mime[path.extname(file)] || "application/octet-stream" });
+    fs.createReadStream(file).pipe(res);
+  });
   await new Promise(resolve => server.listen(4173, "127.0.0.1", resolve));
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
@@ -90,6 +102,9 @@ const assert = require("node:assert/strict");
   await page.locator('button[onclick="chapterChoice(0)"]').click();
   assert.equal(await page.evaluate(() => s.factionRelations.yellow), Math.min(50, relationBeforeChoice + 3), "humanitarian choice should improve the local faction relation");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
+  await page.waitForTimeout(3500);
+  assert.ok(await page.locator("#battleScene .hero3d-layer").count()===1, "shared WebGL layer should be attached to the active battle scene");
+  assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count()>=1, "at least one actual skinned GLB hero should load and replace its SVG fallback");
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
