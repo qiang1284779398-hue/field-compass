@@ -8,7 +8,7 @@ const assert = require("node:assert/strict");
   const html = fs.readFileSync(path.resolve("app/src/main/assets/index.html"), "utf8");
   assert.ok(html.includes("class=\"weapon-gesture\""), "battle art upgrade: class=\"weapon-gesture\"");
   assert.ok(html.includes("hero-portrait") && html.includes("Portraits_of_Famous_Men_-_Liu_Bei.jpg"), "historical Liu Bei portrait asset is wired");
-  assert.ok(html.includes("高其佩画关羽像轴.png"), "historical Guan Yu portrait asset is wired");
+  assert.ok(html.includes("Special:FilePath/Guanyu.jpg"), "historical Guan Yu portrait asset is wired");
   assert.ok(html.includes("故宫南薰殿张飞画像.jpg"), "historical Zhang Fei portrait asset is wired");
   assert.ok(html.includes("portrait-fallback") && html.includes("referrerpolicy=\"no-referrer\""), "portrait loading has fallback and safe referrer policy");
   assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: @keyframes weaponSweep");
