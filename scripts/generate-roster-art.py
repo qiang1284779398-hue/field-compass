@@ -322,12 +322,17 @@ def main():
         meta[h["id"]]=dict(art=slug,weapon=h["weapon"],skillFx=h["fx"],female=h["gender"]=="f")
         if h in EXTRAS:
             extra_ids[h["id"]]=slug
+            hero_entry=dict(id=h["id"],name=h["name"],title=h["title"],rarity=h["rarity"],role=h["role"],troop=h["troop"],
+                            atk=h["atk"],hp=h["hp"],energy=h["energy"],skill=h["skill"],desc=h["desc"],
+                            face=h["face"],bio=h["bio"],weapon=h["weapon"],skillFx=h["fx"])
+            hero_entry["def"]=h["defense"]
+            extras_js.append(hero_entry)
             extras_js.append(dict(id=h["id"],name=h["name"],title=h["title"],rarity=h["rarity"],role=h["role"],troop=h["troop"],
                                   atk=h["atk"],def=h["defense"],hp=h["hp"],energy=h["energy"],skill=h["skill"],desc=h["desc"],
                                   face=h["face"],bio=h["bio"],weapon=h["weapon"],skillFx=h["fx"]))
     js="window.EXTRA_HEROES="+json.dumps(extras_js,ensure_ascii=False,separators=(",",":"))+";\n"
-    js+="window.EXTRA_HERO_ART_IDS="+json.dumps(extra_ids,ensure_ascii=False,separators=(",",":"))+";\\n"
-    js+="window.HERO_ANIM_META="+json.dumps(meta,ensure_ascii=False,separators=(",",":"))+";\\n"
+    js+="window.EXTRA_HERO_ART_IDS="+json.dumps(extra_ids,ensure_ascii=False,separators=(",",":"))+";\n"
+    js+="window.HERO_ANIM_META="+json.dumps(meta,ensure_ascii=False,separators=(",",":"))+";\n"
     write(ART/"roster-extra.js",js)
     manifest=dict(total=len(ALL_ART),male=sum(h["gender"]=="m" for h in ALL_ART),female=sum(h["gender"]=="f" for h in ALL_ART),
                   heroes=[dict(id=h["id"],name=h["name"],art=h["slug"],gender=h["gender"],weapon=h["weapon"],skillFx=h["fx"]) for h in ALL_ART])
