@@ -79,7 +79,7 @@ function makeActor(id,key){
 }
 function findAction(rec,kind){
  const keys=Object.keys(rec.actions);
- let key=keys.find(k=>kind==="idle"?/idle|stand|breath/.test(k):kind==="attack"?/sword|slash|attack|combat|melee/.test(k):/death|die|fall/.test(k));
+ let key=keys.find(k=>kind==="idle"?/idle|stand|breath/.test(k):kind==="attack"?/sword.*(slash|combo|thrust)|slash|attack|combat|melee/.test(k):/death|die|fall/.test(k));
  if(!key&&kind==="idle")key=keys[0];
  if(!key&&kind==="attack")key=keys.find(k=>/hit|punch|fight/.test(k));
  return key?rec.actions[key]:null;
