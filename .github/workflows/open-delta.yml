@@ -1,0 +1,44 @@
+name: Open Delta Force on remote Android phone
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - .github/workflows/open-delta.yml
+permissions:
+  contents: read
+jobs:
+  open-delta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Launch Delta Force on the connected phone
+        env:
+          ANDROID_MCP_URL: ${{ secrets.ANDROID_MCP_URL }}
+          ANDROID_MCP_TOKEN: ${{ secrets.ANDROID_MCP_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "${ANDROID_MCP_URL:-}"
+          test -n "${ANDROID_MCP_TOKEN:-}"
+          MCP_URL="${ANDROID_MCP_URL%/}"
+          case "$MCP_URL" in */mcp) ;; *) MCP_URL="$MCP_URL/mcp" ;; esac
+          call_mcp() {
+            curl --http1.1 --fail --silent --show-error --max-time 35 \
+              -X POST "$MCP_URL" \
+              -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
+              -H "Content-Type: application/json" \
+              -H "Accept: application/json" \
+              --data "$1"
+          }
+          echo "Requesting Delta Force launch on the connected Android phone..."
+          OPEN_RESPONSE="$(call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_open_app","arguments":{"package_id":"com.tencent.tmgp.dfm"}}}')"
+          if printf '%s' "$OPEN_RESPONSE" | grep -q '"isError"[[:space:]]*:[[:space:]]*true'; then
+            echo "::error::The phone MCP returned an error while opening Delta Force. The app may not be installed or its package ID may differ."
+            exit 1
+          fi
+          sleep 12
+          SCREEN_RESPONSE="$(call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{}}}')"
+          if printf '%s' "$SCREEN_RESPONSE" | grep -q '"isError"[[:space:]]*:[[:space:]]*true'; then
+            echo "::error::The app launch request returned, but screen verification failed."
+            exit 1
+          fi
+          echo "DELTA_FORCE_LAUNCH_REQUEST_SENT_AND_SCREEN_STATE_READ"
