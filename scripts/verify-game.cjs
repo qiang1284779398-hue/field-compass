@@ -302,6 +302,10 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
   game.claimDaily("side", 150);
   assert.ok(game.state().daily.claimed.includes("side"), "daily reward should be claimable once");
 
+  game.go("home");
+  assert.ok(elements.get("view").innerHTML.includes("颁布政令"), "home screen should expose the city edict system");
+  assert.ok(elements.get("view").innerHTML.includes("内政任命"), "home screen should expose city officer appointments");
+
   console.log("Game QA passed:", {
     chapters: chapters.length,
     randomEvents: events.length,
