@@ -60,7 +60,9 @@ const assert = require("node:assert/strict");
   await page.evaluate(() => { s.recruitTokens = 1; save(); tavern(); });
   await page.locator('button[onclick="recruitHero()"]').click();
   assert.equal(await page.evaluate(() => s.heroes.length), heroesBeforeBlockedRecruit + 1, "one recruitment token should recruit exactly one hero");
-  assert.equal(await page.evaluate(() => s.recruitTokens), 0, "successful recruitment must consume exactly one token");\n  await page.evaluate(() => recruitHero());\n  assert.equal(await page.evaluate(() => s.heroes.length), heroesBeforeBlockedRecruit + 1, "a repeated tokenless call must not recruit another hero");
+  assert.equal(await page.evaluate(() => s.recruitTokens), 0, "successful recruitment must consume exactly one token");
+  await page.evaluate(() => recruitHero());
+  assert.equal(await page.evaluate(() => s.heroes.length), heroesBeforeBlockedRecruit + 1, "a repeated tokenless call must not recruit another hero");
 
   // Enter the first story chapter, advance all dialogue, make a choice, and enter battle.
   await page.locator('button[data-p="campaign"]').click();
@@ -122,7 +124,8 @@ const assert = require("node:assert/strict");
   assert.ok(afterDefend.shield[2] > shieldBefore, "defend action must grant a shield");
   await page.waitForTimeout(4200);
   const afterEnemyTurn = await readFight();
-  assert.ok(afterEnemyTurn.round >= 2 || afterEnemyTurn.phase === "end", "enemy phase must resolve and advance the round or end the battle");\n  assert.ok(await page.evaluate(() => fight.logs.some(x => /攻击|强攻|破阵杀招/.test(x))) || afterEnemyTurn.phase === "end", "when all player action points are spent, enemy AI must actually attack or the battle must end");
+  assert.ok(afterEnemyTurn.round >= 2 || afterEnemyTurn.phase === "end", "enemy phase must resolve and advance the round or end the battle");
+  assert.ok(await page.evaluate(() => fight.logs.some(x => /攻击|强攻|破阵杀招/.test(x))) || afterEnemyTurn.phase === "end", "when all player action points are spent, enemy AI must actually attack or the battle must end");
   const markedEnemyTarget = await page.locator(".warrior.ai-targeted").count();
   assert.ok(markedEnemyTarget >= 1 || afterEnemyTurn.phase === "end", "enemy AI should visibly mark the ally it has selected as its target");
   if (markedEnemyTarget) {
