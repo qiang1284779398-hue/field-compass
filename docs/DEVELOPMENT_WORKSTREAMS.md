@@ -5,7 +5,7 @@
 | Workstream | Current implementation in this pass | Verification |
 |---|---|---|
 | Story depth | Persist chapter choice history and show a cumulative narrative echo based on humanity/strategy decisions; accumulated choices now also influence daily morale and intelligence. | Source assertions; full 30-chapter flow regression remains in verify-game. |
-| Visual art direction | Improve banner hierarchy, cards, tactile controls, readability and battlefield contrast. Existing character/environment art remains in use. | CSS/source assertions and browser smoke test. |
+| Visual art direction | Improve banner hierarchy, cards, tactile controls, readability and battlefield contrast; render moving rain, fog and wind layers in matching battles. Existing character/environment art remains in use. | CSS/source assertions plus a live mocked battle render confirming the correct weather layer is mounted. |
 | Music and sound | Route the existing offline soundtrack by current screen as well as battle chapter; preserve music toggle and existing combat SFX. | Source assertions and browser smoke test. |
 | Battle animation | Improve battlefield depth, target highlighting, damage popups and slash impact feedback while respecting reduced-motion settings. | Existing animation assertions and browser smoke test. |
 | New gameplay | Add persistent spy agents with recruitment, training, three-day enemy-city infiltration, intel gathering, supply sabotage, rumor operations, counter-intelligence, fatigue, capture and recovery. Sabotage/rumors feed into regional battle morale. | Deterministic recruit/train/infiltration/counter-intel runtime checks; probabilistic field missions still need manual play testing. |
