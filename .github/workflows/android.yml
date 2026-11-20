@@ -119,6 +119,8 @@ jobs:
           path: apk
       - name: Boot Android emulator, install APK and test real WebView battle
         uses: reactivecircus/android-emulator-runner@v2
+        env:
+          ANDROID_I_WANT_MY_TCG: "yes"
         with:
           api-level: 34
           target: google_apis
@@ -127,8 +129,6 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           emulator-boot-timeout: 900
-          env:
-            ANDROID_I_WANT_MY_TCG: "yes"
           script: |
             set -e
             mkdir -p artifacts
