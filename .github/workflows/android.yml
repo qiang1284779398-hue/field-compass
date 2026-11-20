@@ -23,6 +23,11 @@ jobs:
           curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_dream.ogg -o app/src/main/assets/audio/theme_dream.ogg
           curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_swamp.ogg -o app/src/main/assets/audio/theme_swamp.ogg
           test $(find app/src/main/assets/audio -name '*.ogg' | wc -l) -eq 4
+          mkdir -p app/src/main/assets/audio/sfx
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/GeorgeQLe/assets-sfx-combat/main/assets/kenney/rpg-audio/Audio/drawKnife1.ogg -o app/src/main/assets/audio/sfx/swing.ogg
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/GeorgeQLe/assets-sfx-combat/main/assets/kenney/rpg-audio/Audio/chop.ogg -o app/src/main/assets/audio/sfx/hit.ogg
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/GeorgeQLe/assets-sfx-combat/main/assets/kenney/impact-sounds/Audio/impactMetal_heavy_000.ogg -o app/src/main/assets/audio/sfx/critical.ogg
+          test $(find app/src/main/assets/audio/sfx -name '*.ogg' | wc -l) -eq 3
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
