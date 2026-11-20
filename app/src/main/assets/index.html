@@ -307,7 +307,7 @@ function fresh(){return {v:4,regionControl:{"0":"player"},enemyGarrisons:{},outp
 function cloneHero(id){let h=HEROES.find(x=>x.id===id);return Object.assign({},h,{lv:1,xp:0,hpNow:h.hp,energyNow:h.energy,gear:{weapon:null,armor:null,accessory:null},skillLv:1,wounds:0,loyalty:75})}
 function makeItem(name,type,power){return {id:"it"+Math.random().toString(36).slice(2,9),name:name,type:type,power:power,quality:power>=35?"史诗":power>=20?"精良":"普通",desc:"战场与工坊所得的装备。",equippedBy:null}}
 let s;try{s=JSON.parse(localStorage.getItem(KEY));if(!s||s.v!==4)throw 0}catch(e){try{let prev=JSON.parse(localStorage.getItem("hxsg_save_v3"));s=fresh();if(prev){s.gold=Math.max(300,prev.gold||800);s.food=Math.max(700,prev.food||1200);s.wood=prev.wood||500;s.iron=prev.iron||180;s.fame=prev.fame||0;s.day=prev.day||1;s.lv=prev.lv||1;s.story=Math.min(5,prev.story||0);if(Array.isArray(prev.heroes)&&prev.heroes.length){s.heroes=prev.heroes.map(x=>Object.assign(cloneHero(x.id)||{},x,{gear:x.gear||{weapon:null,armor:null,accessory:null}}));s.owned=s.heroes.map(x=>x.id);if(!s.heroes.some(x=>x.id==="guan")){s.heroes.push(cloneHero("guan"));s.owned.push("guan")}}if(Array.isArray(prev.items))s.items=prev.items.map(x=>Object.assign(makeItem(x.name,x.type,x.atk||10),x))}}catch(x){s=fresh()}}
-if(!s.recruitGrant999){s.recruitTokens=999;s.recruitGrant999=true;save()}
+if(!s.recruitGrant999){s.recruitTokens=999;s.recruitGrant999=true;localStorage.setItem(KEY,JSON.stringify(s))}
 let page="home",fight=null,toastTimer=null,storyContext=null,musicEnabled=localStorage.getItem("hxsg_music_enabled")!=="0",musicTrack=-1;
 const $=id=>document.getElementById(id);
 function fmt(n){return Math.floor(n||0).toLocaleString("zh-CN")}
