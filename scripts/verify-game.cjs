@@ -149,6 +149,7 @@ game.buildings();
 game.upgradeBuilding("farm");
 assert.equal(game.state().daily.progress.upgrade, 1, "building upgrade should progress daily command");
 
+game.state().story = 0;
 game.startChapter(0);
 game.storyNext();
 game.storyNext();
