@@ -195,7 +195,7 @@ function sync(sceneEl){
   rec.root.position.x=(cx-w/2)/100;
   rec.root.position.y=(h/2-base)/100;
   const desiredH=a.height/100;const actual=rec.root.userData.modelHeight||1.8;
-  const scale=desiredH/actual;rec.root.scale.setScalar(scale);
+  const scale=desiredH/actual*1.28;rec.root.scale.setScalar(scale);
   rec.root.rotation.y=el.classList.contains("enemy")?Math.PI:0;
   const swinging=el.classList.contains("swinging"),dead=el.classList.contains("dead");
   if(dead&&!rec.lastDead)play(rec,"death");else if(swinging&&!rec.lastSwing)play(rec,"attack");else if(!dead&&!swinging&&rec.current!=="idle")play(rec,"idle");
