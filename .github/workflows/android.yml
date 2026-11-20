@@ -6,6 +6,9 @@ on:
 permissions:
   contents: read
   actions: read
+concurrency:
+  group: android-build-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -16,6 +19,8 @@ jobs:
           node-version: '20'
       - name: Verify game logic and content
         run: node scripts/verify-game.cjs
+      - name: Validate 3D renderer JavaScript syntax
+        run: node --check app/src/main/assets/hero3d.js
       - name: Build rigged Three Kingdoms heroes and vendor runtime
         run: |
           npm install --no-save --package-lock=false three@0.128.0
@@ -103,6 +108,7 @@ jobs:
 
 
   remote-phone-connection-test:
+    if: false # Real-phone testing is paused at the user's request.
     name: Verify remote Android phone MCP connection
     runs-on: ubuntu-latest
     timeout-minutes: 3
@@ -151,6 +157,7 @@ jobs:
           echo "REMOTE_ANDROID_MCP_CONNECTION_PASSED"
 
   android-device-test:
+    if: false # Emulator testing is paused at the user's request.
     # Apple Silicon + ARM64 Android image avoids the slow/stalled Intel x86_64 path.
     runs-on: macos-15
     timeout-minutes: 45
