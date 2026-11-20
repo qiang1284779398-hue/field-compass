@@ -42,6 +42,12 @@ assert.ok(source.includes("识破破绽，追击重伤目标") && source.include
 assert.ok(source.includes('name==="青龙偃月"') && source.includes('name==="麒麟奇谋"'), "signature hero skills missing");
 assert.ok(source.includes("skillCostReduction"), "strategist skill cost synergy missing");
 assert.ok(source.includes("terrain-2:before") && source.includes("terrain-3:before"), "terrain battlefield visuals missing");
+assert.ok(source.includes("突袭我军弓弩手"), "enemy cavalry should flank the backline");
+assert.ok(source.includes("军心崩溃，弃械溃逃"), "enemy morale collapse and rout missing");
+assert.ok(source.includes("异常状态已消退"), "status expiration feedback missing");
+assert.ok(source.includes("掩护己方远程部队"), "enemy guard unit protection tactic missing");
+assert.ok(source.includes("护盾抵消"), "shield damage feedback missing");
+
 
 for (const track of ["theme_plain.ogg", "theme_lost_village.ogg", "theme_dream.ogg", "theme_swamp.ogg", "swing.ogg", "hit.ogg", "critical.ogg"]) assert.ok(html.includes(track), "missing audio asset reference: " + track);
 
