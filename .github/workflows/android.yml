@@ -19,31 +19,15 @@ jobs:
           node-version: '20'
       - name: Verify game logic and content
         run: node scripts/verify-game.cjs
-      - name: Validate 3D renderer JavaScript syntax
-        run: node --check app/src/main/assets/hero3d.js
-      - name: Build rigged Three Kingdoms heroes and vendor runtime
+      - name: Verify original 2D Three Kingdoms hero artwork
         run: |
-          npm install --no-save --package-lock=false three@0.128.0
-          mkdir -p app/src/main/assets/characters app/src/main/assets/vendor
-          cp node_modules/three/build/three.min.js app/src/main/assets/vendor/three.min.js
-          cp node_modules/three/examples/js/loaders/GLTFLoader.js app/src/main/assets/vendor/GLTFLoader.js
-          cp node_modules/three/examples/js/utils/SkeletonUtils.js app/src/main/assets/vendor/SkeletonUtils.js
-          # Download three distinct high-detail, CC0 rigged GLB assets; do not use the rejected procedural Ara3D placeholders.
-          curl -fL --retry 3 --retry-delay 2 --silent --show-error https://grab3d.com/dl/leather-armor-warrior-rigged/leather-armor-warrior-rigged.glb -o app/src/main/assets/characters/liu-bei.glb
-          curl -fL --retry 3 --retry-delay 2 --silent --show-error https://grab3d.com/dl/samurai-rigged/samurai-rigged.glb -o app/src/main/assets/characters/guan-yu.glb
-          curl -fL --retry 3 --retry-delay 2 --silent --show-error https://grab3d.com/dl/viking-rigged/viking-rigged.glb -o app/src/main/assets/characters/zhang-fei.glb
-          cat > app/src/main/assets/characters/ASSET_LICENSES.md <<'EOF'
-          # Third-party 3D character assets
-          All three files are downloaded from Grab3D and published as CC0 1.0 (public domain dedication; no attribution required):
-          - Liu Bei slot: Leather Armor Warrior, https://grab3d.com/models/characters/leather-armor-warrior/
-          - Guan Yu slot: Samurai, https://grab3d.com/models/characters/samurai/
-          - Zhang Fei slot: Viking, https://grab3d.com/models/characters/viking/
-          These are high-detail fantasy/historical base models adapted for this game's character slots; they are not original Three Kingdoms-specific sculpts. Grab3D discloses that its organic high-detail models are AI-assisted base meshes subsequently cleaned and reworked in Blender.
-          EOF
-          test -s app/src/main/assets/characters/liu-bei.glb
-          test -s app/src/main/assets/characters/guan-yu.glb
-          test -s app/src/main/assets/characters/zhang-fei.glb
-          node scripts/inspect-glb.cjs
+          set -euo pipefail
+          for id in liu-bei guan-yu zhang-fei; do
+            test -s "app/src/main/assets/characters/2d/$id.svg"
+            test -s "app/src/main/assets/characters/2d/portraits/$id.svg"
+          done
+          ! grep -q 'vendor/three.min.js' app/src/main/assets/index.html
+          ! grep -q 'initHero3D(' app/src/main/assets/index.html
       - name: Download CC0 soundtrack for offline play
         run: |
           mkdir -p app/src/main/assets/audio
@@ -166,7 +150,6 @@ jobs:
           echo "REMOTE_ANDROID_MCP_CONNECTION_PASSED"
 
   android-device-test:
-    if: false # Emulator testing is paused at the user's request.
     # Apple Silicon + ARM64 Android image avoids the slow/stalled Intel x86_64 path.
     runs-on: macos-15
     timeout-minutes: 45
