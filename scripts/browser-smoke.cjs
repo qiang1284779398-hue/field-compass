@@ -109,7 +109,8 @@ const assert = require("node:assert/strict");
   // Save visual evidence while the first battle is actually on screen.
   const evidenceDir = path.resolve("artifacts");
   fs.mkdirSync(evidenceDir, { recursive: true });
-  await page.waitForTimeout(1800);
+  await page.waitForFunction(() => { const a=window.__hero3dStatus?.()||[]; return ["liu-bei","guan-yu","zhang-fei"].every(id=>a.some(x=>x.id===id&&x.ready)); }, { timeout: 30000 });
+  await page.waitForTimeout(1200);
   await page.locator("#battleScene").screenshot({ path: path.join(evidenceDir, "battle-scene.png") });
   await page.locator("#battleScene .hero3d-layer").screenshot({ path: path.join(evidenceDir, "battle-3d-layer.png") });
   fs.writeFileSync(path.join(evidenceDir, "battle-model-status.json"), JSON.stringify({
@@ -117,8 +118,11 @@ const assert = require("node:assert/strict");
     scene: await page.locator("#battleScene").evaluate(el => ({ width: el.clientWidth, height: el.clientHeight })),
     models: rigStatus,
     visibleReadyWarriors: await page.locator("#battleScene .warrior.hero3d-ready").count(),
-    hero3dCanvas: await page.locator("#battleScene .hero3d-layer canvas").count()
+    hero3dCanvas: await page.locator("#battleScene canvas.hero3d-layer").count(),
+    hero3dCanvasSize: await page.locator("#battleScene canvas.hero3d-layer").evaluate(el => ({width:el.width,height:el.height,webgl:!!(el.getContext("webgl")||el.getContext("webgl2"))}))
   }, null, 2));
+  assert.ok(await page.locator("#battleScene canvas.hero3d-layer").count() === 1, "actual WebGL hero canvas must be attached to the battle scene");
+  assert.ok(rigStatus.length >= 3 && ["liu-bei","guan-yu","zhang-fei"].every(id => rigStatus.some(x => x.id === id && x.ready && x.skinnedMeshes > 0 && x.bones >= 20 && x.clips >= 3)), "Liu Bei, Guan Yu and Zhang Fei must all finish loading their rigged models");
   assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count() >= 3, "at least three battlefield warriors must be marked as using loaded 3D models");
   assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count()>=1, "at least one actual skinned GLB hero should load and replace its SVG fallback");
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
