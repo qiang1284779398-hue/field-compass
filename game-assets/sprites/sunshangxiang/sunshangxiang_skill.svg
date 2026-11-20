@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>孙尚香·专属战技四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>孙尚香 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cf9088"/><stop offset=".18" stop-color="#ad4b54"/><stop offset=".55" stop-color="#873e46"/><stop offset="1" stop-color="#512b3c"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a2807e"/><stop offset=".28" stop-color="#603044"/><stop offset=".72" stop-color="#873e46"/><stop offset="1" stop-color="#512b3c"/></linearGradient>
@@ -13,9 +13,9 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#cf9088" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 0.9300) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
-<g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#c57c79" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#ad4b54" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#c77f7b" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#8c656b" stroke-width="7"/></g><g id="weapon">
+<g id="weapon">
 <path d="M704 136 Q826 473 704 850" fill="none" stroke="#30271f" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="#553a2b" stroke-width="15"/><path d="M704 136 L704 850" stroke="url(#blade)" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="#30271f" stroke-width="13"/><path d="M674 503 L785 467" stroke="url(#blade)" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="url(#blade)" stroke="#30271f" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="url(#metal)" stroke-width="9"/>
 </g>
 <path d="M350 394 Q250 390 194 547 Q163 714 245 920 Q327 963 402 904 Q490 973 574 902 Q655 715 612 518 Q567 393 464 392Z" fill="url(#cape)" stroke="#502b3b" stroke-width="12"/><path d="M240 510 Q182 713 300 881 Q337 916 375 914 Q290 742 353 497Z" fill="url(#brocade)" opacity=".72"/><path d="M521 478 Q630 673 551 889 L506 918 Q563 680 470 515Z" fill="#452736" opacity=".65"/>
@@ -35,9 +35,18 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#edc6a0" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M440 506 L474 540 L440 574 L406 540Z" fill="#edc6a0" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.18" stroke="#edc6a0" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#edc6a0"/></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#edc6a0" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M440 506 L474 540 L440 574 L406 540Z" fill="#edc6a0" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M380 218 L430 207 M450 207 L500 218" fill="none" stroke="#342422" stroke-width="7"/><path d="M385 246 Q405 232 430 244 M450 244 Q475 232 495 246" fill="none" stroke="#382321" stroke-width="5"/></g><g transform="translate(15 0)"></g><g id="sunshangxiang-practical-archer" stroke-linejoin="round" stroke-linecap="round">
+<path d="M333 637 Q391 654 439 637 L424 905 L388 959 L334 931Z M442 637 Q493 652 528 635 L467 931 L432 960 L421 904Z" fill="#29353b" stroke="#151b20" stroke-width="11"/>
+<path d="M334 671 Q383 692 429 669 L414 733 Q376 748 343 724Z M444 669 Q488 692 526 668 L503 725 Q465 750 431 733Z" fill="#48575d" stroke="#bd9d65" stroke-width="8"/>
+<path d="M328 374 Q398 349 469 374 L484 503 Q400 537 315 503Z" fill="#6b4841" stroke="#1d2325" stroke-width="12"/><path d="M344 390 Q400 367 456 390 L462 477 Q400 502 338 477Z" fill="#9a4946" stroke="#dfbd83" stroke-width="8"/><path d="M400 380 L400 498 M344 435 L456 435" stroke="#dfbd83" stroke-width="7"/>
+<path d="M300 381 Q326 350 354 377 L366 451 L334 478 L298 439Z M446 377 Q474 350 501 381 L503 439 L467 478 L434 451Z" fill="#56666b" stroke="#1b2528" stroke-width="10"/>
+<path d="M270 470 Q292 452 315 472 L300 550 L276 553Z M525 470 Q548 452 570 472 L564 553 L540 550Z" fill="#9d774d" stroke="#1a2226" stroke-width="9"/><path d="M278 490 L306 494 M544 490 L565 494" stroke="#ead19a" stroke-width="7"/>
+<path d="M322 535 Q400 560 478 535 L470 607 Q400 635 330 607Z" fill="#4a3431" stroke="#1b2226" stroke-width="9"/><path d="M335 557 Q400 578 465 557 L458 591 Q400 611 342 591Z" fill="#b08b54" stroke="#2b2520" stroke-width="6"/>
+<path d="M340 905 L390 920 L374 981 L316 976Z M432 920 L482 905 L508 976 L449 981Z" fill="#252a2c" stroke="#111719" stroke-width="10"/>
+<path d="M318 971 L380 971 L385 995 L305 995Z M445 971 L509 971 L522 995 L438 995Z" fill="#1c2022" stroke="#8a6c43" stroke-width="8"/>
+</g></g></svg></g><g opacity="0.18" stroke="#edc6a0" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#edc6a0"/></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>孙尚香 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cf9088"/><stop offset=".18" stop-color="#ad4b54"/><stop offset=".55" stop-color="#873e46"/><stop offset="1" stop-color="#512b3c"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a2807e"/><stop offset=".28" stop-color="#603044"/><stop offset=".72" stop-color="#873e46"/><stop offset="1" stop-color="#512b3c"/></linearGradient>
@@ -49,9 +58,9 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#cf9088" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 0.9300) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
-<g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#c57c79" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#ad4b54" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#c77f7b" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#8c656b" stroke-width="7"/></g><g id="weapon">
+<g id="weapon">
 <path d="M704 136 Q826 473 704 850" fill="none" stroke="#30271f" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="#553a2b" stroke-width="15"/><path d="M704 136 L704 850" stroke="url(#blade)" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="#30271f" stroke-width="13"/><path d="M674 503 L785 467" stroke="url(#blade)" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="url(#blade)" stroke="#30271f" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="url(#metal)" stroke-width="9"/>
 </g>
 <path d="M350 394 Q250 390 194 547 Q163 714 245 920 Q327 963 402 904 Q490 973 574 902 Q655 715 612 518 Q567 393 464 392Z" fill="url(#cape)" stroke="#502b3b" stroke-width="12"/><path d="M240 510 Q182 713 300 881 Q337 916 375 914 Q290 742 353 497Z" fill="url(#brocade)" opacity=".72"/><path d="M521 478 Q630 673 551 889 L506 918 Q563 680 470 515Z" fill="#452736" opacity=".65"/>
@@ -71,9 +80,18 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#edc6a0" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M440 506 L474 540 L440 574 L406 540Z" fill="#edc6a0" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.52" stroke="#edc6a0" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#edc6a0"/></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#edc6a0" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M440 506 L474 540 L440 574 L406 540Z" fill="#edc6a0" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M380 218 L430 207 M450 207 L500 218" fill="none" stroke="#342422" stroke-width="7"/><path d="M385 246 Q405 232 430 244 M450 244 Q475 232 495 246" fill="none" stroke="#382321" stroke-width="5"/></g><g transform="translate(15 0)"></g><g id="sunshangxiang-practical-archer" stroke-linejoin="round" stroke-linecap="round">
+<path d="M333 637 Q391 654 439 637 L424 905 L388 959 L334 931Z M442 637 Q493 652 528 635 L467 931 L432 960 L421 904Z" fill="#29353b" stroke="#151b20" stroke-width="11"/>
+<path d="M334 671 Q383 692 429 669 L414 733 Q376 748 343 724Z M444 669 Q488 692 526 668 L503 725 Q465 750 431 733Z" fill="#48575d" stroke="#bd9d65" stroke-width="8"/>
+<path d="M328 374 Q398 349 469 374 L484 503 Q400 537 315 503Z" fill="#6b4841" stroke="#1d2325" stroke-width="12"/><path d="M344 390 Q400 367 456 390 L462 477 Q400 502 338 477Z" fill="#9a4946" stroke="#dfbd83" stroke-width="8"/><path d="M400 380 L400 498 M344 435 L456 435" stroke="#dfbd83" stroke-width="7"/>
+<path d="M300 381 Q326 350 354 377 L366 451 L334 478 L298 439Z M446 377 Q474 350 501 381 L503 439 L467 478 L434 451Z" fill="#56666b" stroke="#1b2528" stroke-width="10"/>
+<path d="M270 470 Q292 452 315 472 L300 550 L276 553Z M525 470 Q548 452 570 472 L564 553 L540 550Z" fill="#9d774d" stroke="#1a2226" stroke-width="9"/><path d="M278 490 L306 494 M544 490 L565 494" stroke="#ead19a" stroke-width="7"/>
+<path d="M322 535 Q400 560 478 535 L470 607 Q400 635 330 607Z" fill="#4a3431" stroke="#1b2226" stroke-width="9"/><path d="M335 557 Q400 578 465 557 L458 591 Q400 611 342 591Z" fill="#b08b54" stroke="#2b2520" stroke-width="6"/>
+<path d="M340 905 L390 920 L374 981 L316 976Z M432 920 L482 905 L508 976 L449 981Z" fill="#252a2c" stroke="#111719" stroke-width="10"/>
+<path d="M318 971 L380 971 L385 995 L305 995Z M445 971 L509 971 L522 995 L438 995Z" fill="#1c2022" stroke="#8a6c43" stroke-width="8"/>
+</g></g></svg></g><g opacity="0.52" stroke="#edc6a0" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#edc6a0"/></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>孙尚香 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cf9088"/><stop offset=".18" stop-color="#ad4b54"/><stop offset=".55" stop-color="#873e46"/><stop offset="1" stop-color="#512b3c"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a2807e"/><stop offset=".28" stop-color="#603044"/><stop offset=".72" stop-color="#873e46"/><stop offset="1" stop-color="#512b3c"/></linearGradient>
@@ -85,9 +103,9 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#cf9088" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 0.9300) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
-<g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#c57c79" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#ad4b54" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#c77f7b" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#8c656b" stroke-width="7"/></g><g id="weapon">
+<g id="weapon">
 <path d="M704 136 Q826 473 704 850" fill="none" stroke="#30271f" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="#553a2b" stroke-width="15"/><path d="M704 136 L704 850" stroke="url(#blade)" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="#30271f" stroke-width="13"/><path d="M674 503 L785 467" stroke="url(#blade)" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="url(#blade)" stroke="#30271f" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="url(#metal)" stroke-width="9"/>
 </g>
 <path d="M350 394 Q250 390 194 547 Q163 714 245 920 Q327 963 402 904 Q490 973 574 902 Q655 715 612 518 Q567 393 464 392Z" fill="url(#cape)" stroke="#502b3b" stroke-width="12"/><path d="M240 510 Q182 713 300 881 Q337 916 375 914 Q290 742 353 497Z" fill="url(#brocade)" opacity=".72"/><path d="M521 478 Q630 673 551 889 L506 918 Q563 680 470 515Z" fill="#452736" opacity=".65"/>
@@ -107,9 +125,18 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#edc6a0" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M440 506 L474 540 L440 574 L406 540Z" fill="#edc6a0" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="1" stroke="#edc6a0" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#edc6a0"/></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#edc6a0" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M440 506 L474 540 L440 574 L406 540Z" fill="#edc6a0" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M380 218 L430 207 M450 207 L500 218" fill="none" stroke="#342422" stroke-width="7"/><path d="M385 246 Q405 232 430 244 M450 244 Q475 232 495 246" fill="none" stroke="#382321" stroke-width="5"/></g><g transform="translate(15 0)"></g><g id="sunshangxiang-practical-archer" stroke-linejoin="round" stroke-linecap="round">
+<path d="M333 637 Q391 654 439 637 L424 905 L388 959 L334 931Z M442 637 Q493 652 528 635 L467 931 L432 960 L421 904Z" fill="#29353b" stroke="#151b20" stroke-width="11"/>
+<path d="M334 671 Q383 692 429 669 L414 733 Q376 748 343 724Z M444 669 Q488 692 526 668 L503 725 Q465 750 431 733Z" fill="#48575d" stroke="#bd9d65" stroke-width="8"/>
+<path d="M328 374 Q398 349 469 374 L484 503 Q400 537 315 503Z" fill="#6b4841" stroke="#1d2325" stroke-width="12"/><path d="M344 390 Q400 367 456 390 L462 477 Q400 502 338 477Z" fill="#9a4946" stroke="#dfbd83" stroke-width="8"/><path d="M400 380 L400 498 M344 435 L456 435" stroke="#dfbd83" stroke-width="7"/>
+<path d="M300 381 Q326 350 354 377 L366 451 L334 478 L298 439Z M446 377 Q474 350 501 381 L503 439 L467 478 L434 451Z" fill="#56666b" stroke="#1b2528" stroke-width="10"/>
+<path d="M270 470 Q292 452 315 472 L300 550 L276 553Z M525 470 Q548 452 570 472 L564 553 L540 550Z" fill="#9d774d" stroke="#1a2226" stroke-width="9"/><path d="M278 490 L306 494 M544 490 L565 494" stroke="#ead19a" stroke-width="7"/>
+<path d="M322 535 Q400 560 478 535 L470 607 Q400 635 330 607Z" fill="#4a3431" stroke="#1b2226" stroke-width="9"/><path d="M335 557 Q400 578 465 557 L458 591 Q400 611 342 591Z" fill="#b08b54" stroke="#2b2520" stroke-width="6"/>
+<path d="M340 905 L390 920 L374 981 L316 976Z M432 920 L482 905 L508 976 L449 981Z" fill="#252a2c" stroke="#111719" stroke-width="10"/>
+<path d="M318 971 L380 971 L385 995 L305 995Z M445 971 L509 971 L522 995 L438 995Z" fill="#1c2022" stroke="#8a6c43" stroke-width="8"/>
+</g></g></svg></g><g opacity="1" stroke="#edc6a0" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#edc6a0"/></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>孙尚香 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cf9088"/><stop offset=".18" stop-color="#ad4b54"/><stop offset=".55" stop-color="#873e46"/><stop offset="1" stop-color="#512b3c"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a2807e"/><stop offset=".28" stop-color="#603044"/><stop offset=".72" stop-color="#873e46"/><stop offset="1" stop-color="#512b3c"/></linearGradient>
@@ -121,9 +148,9 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#cf9088" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 0.9300) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
-<g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#c57c79" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#ad4b54" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#c77f7b" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#8c656b" stroke-width="7"/></g><g id="weapon">
+<g id="weapon">
 <path d="M704 136 Q826 473 704 850" fill="none" stroke="#30271f" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="#553a2b" stroke-width="15"/><path d="M704 136 L704 850" stroke="url(#blade)" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="#30271f" stroke-width="13"/><path d="M674 503 L785 467" stroke="url(#blade)" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="url(#blade)" stroke="#30271f" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="url(#metal)" stroke-width="9"/>
 </g>
 <path d="M350 394 Q250 390 194 547 Q163 714 245 920 Q327 963 402 904 Q490 973 574 902 Q655 715 612 518 Q567 393 464 392Z" fill="url(#cape)" stroke="#502b3b" stroke-width="12"/><path d="M240 510 Q182 713 300 881 Q337 916 375 914 Q290 742 353 497Z" fill="url(#brocade)" opacity=".72"/><path d="M521 478 Q630 673 551 889 L506 918 Q563 680 470 515Z" fill="#452736" opacity=".65"/>
@@ -143,4 +170,13 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#edc6a0" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M440 506 L474 540 L440 574 L406 540Z" fill="#edc6a0" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.42" stroke="#edc6a0" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#edc6a0"/></g></g></svg>
+<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#edc6a0" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M440 506 L474 540 L440 574 L406 540Z" fill="#edc6a0" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M380 218 L430 207 M450 207 L500 218" fill="none" stroke="#342422" stroke-width="7"/><path d="M385 246 Q405 232 430 244 M450 244 Q475 232 495 246" fill="none" stroke="#382321" stroke-width="5"/></g><g transform="translate(15 0)"></g><g id="sunshangxiang-practical-archer" stroke-linejoin="round" stroke-linecap="round">
+<path d="M333 637 Q391 654 439 637 L424 905 L388 959 L334 931Z M442 637 Q493 652 528 635 L467 931 L432 960 L421 904Z" fill="#29353b" stroke="#151b20" stroke-width="11"/>
+<path d="M334 671 Q383 692 429 669 L414 733 Q376 748 343 724Z M444 669 Q488 692 526 668 L503 725 Q465 750 431 733Z" fill="#48575d" stroke="#bd9d65" stroke-width="8"/>
+<path d="M328 374 Q398 349 469 374 L484 503 Q400 537 315 503Z" fill="#6b4841" stroke="#1d2325" stroke-width="12"/><path d="M344 390 Q400 367 456 390 L462 477 Q400 502 338 477Z" fill="#9a4946" stroke="#dfbd83" stroke-width="8"/><path d="M400 380 L400 498 M344 435 L456 435" stroke="#dfbd83" stroke-width="7"/>
+<path d="M300 381 Q326 350 354 377 L366 451 L334 478 L298 439Z M446 377 Q474 350 501 381 L503 439 L467 478 L434 451Z" fill="#56666b" stroke="#1b2528" stroke-width="10"/>
+<path d="M270 470 Q292 452 315 472 L300 550 L276 553Z M525 470 Q548 452 570 472 L564 553 L540 550Z" fill="#9d774d" stroke="#1a2226" stroke-width="9"/><path d="M278 490 L306 494 M544 490 L565 494" stroke="#ead19a" stroke-width="7"/>
+<path d="M322 535 Q400 560 478 535 L470 607 Q400 635 330 607Z" fill="#4a3431" stroke="#1b2226" stroke-width="9"/><path d="M335 557 Q400 578 465 557 L458 591 Q400 611 342 591Z" fill="#b08b54" stroke="#2b2520" stroke-width="6"/>
+<path d="M340 905 L390 920 L374 981 L316 976Z M432 920 L482 905 L508 976 L449 981Z" fill="#252a2c" stroke="#111719" stroke-width="10"/>
+<path d="M318 971 L380 971 L385 995 L305 995Z M445 971 L509 971 L522 995 L438 995Z" fill="#1c2022" stroke="#8a6c43" stroke-width="8"/>
+</g></g></svg></g><g opacity="0.42" stroke="#edc6a0" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#edc6a0"/></g></g></svg>

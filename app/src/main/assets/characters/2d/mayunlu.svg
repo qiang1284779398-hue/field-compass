@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
 <title>马云禄 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a9b6ab"/><stop offset=".18" stop-color="#6c8c91"/><stop offset=".55" stop-color="#566f74"/><stop offset="1" stop-color="#2d414d"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#89908a"/><stop offset=".28" stop-color="#344b59"/><stop offset=".72" stop-color="#566f74"/><stop offset="1" stop-color="#2d414d"/></linearGradient>
@@ -13,7 +13,7 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#a9b6ab" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 1.0000) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
 <g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#98aaa3" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#6c8c91" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#9baca5" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#6c797a" stroke-width="7"/></g><g id="weapon">
 <path d="M696 924 L696 160" stroke="#30271f" stroke-width="29" stroke-linecap="round"/><path d="M696 924 L696 160" stroke="#553a2b" stroke-width="17" stroke-linecap="round"/><path d="M691 888 L691 270" stroke="url(#metal)" stroke-width="5" opacity=".75"/>
@@ -36,4 +36,4 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#e0c49a" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M410 532 Q432 505 459 527 Q477 548 448 563 Q425 574 416 551 Q430 543 443 552 Q454 550 449 539" fill="none" stroke="#e0c49a" stroke-width="10" stroke-linecap="round"/><circle cx="460" cy="526" r="5" fill="#fff0c8"/></svg>
+<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="#e0c49a" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/><path d="M410 532 Q432 505 459 527 Q477 548 448 563 Q425 574 416 551 Q430 543 443 552 Q454 550 449 539" fill="none" stroke="#e0c49a" stroke-width="10" stroke-linecap="round"/><circle cx="460" cy="526" r="5" fill="#fff0c8"/><g transform="translate(15 0)"><path d="M372 218 L426 205 L433 218 M452 218 L507 205 L512 218" fill="none" stroke="#2b211d" stroke-width="8" stroke-linecap="round"/></g><g transform="translate(15 0)"></g></g></svg>

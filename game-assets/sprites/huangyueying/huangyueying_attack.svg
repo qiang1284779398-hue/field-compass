@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>黄月英·普通攻击四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>黄月英 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ccccb1"/><stop offset=".18" stop-color="#a8b39b"/><stop offset=".55" stop-color="#838d7c"/><stop offset="1" stop-color="#465b51"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9aa28d"/><stop offset=".28" stop-color="#526b5e"/><stop offset=".72" stop-color="#838d7c"/><stop offset="1" stop-color="#465b51"/></linearGradient>
@@ -13,7 +13,7 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#ccccb1" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 0.9600) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
 <g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#c2c5aa" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#a8b39b" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#c3c6ab" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#82907d" stroke-width="7"/></g><g id="weapon">
 <path d="M696 925 L696 210" stroke="#30271f" stroke-width="24"/><path d="M696 925 L696 210" stroke="#553a2b" stroke-width="14"/><path d="M620 220 L696 172 L773 220 L696 268Z" fill="url(#blade)" stroke="#30271f" stroke-width="9"/><circle cx="696" cy="220" r="27" fill="none" stroke="url(#metal)" stroke-width="10"/><circle cx="696" cy="220" r="8" fill="#e0c89a"/><path d="M696 183 L696 257 M658 220 L734 220" stroke="url(#metal)" stroke-width="6"/>
@@ -35,9 +35,9 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="#e0c89a" stroke="#30241f" stroke-width="6"/><path d="M440 505 L473 540 L440 575 L407 540Z" fill="#e0c89a" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M300 560 Q480 300 690 430" fill="none" stroke="#e0c89a" stroke-width="11" stroke-linecap="round" opacity="0.1"/><path d="M300 560 Q480 300 690 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.06999999999999999"/></g><g transform="translate(800 0)"><g transform="translate(-10 -8) rotate(-3 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="#e0c89a" stroke="#30241f" stroke-width="6"/><path d="M440 505 L473 540 L440 575 L407 540Z" fill="#e0c89a" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(15 0)"><path d="M395 111 L409 72 L441 87 L475 72 L489 111Z" fill="#74866c" stroke="#d1bb81" stroke-width="7"/><circle cx="442" cy="90" r="12" fill="none" stroke="#d9bc70" stroke-width="5"/></g></g></svg></g><path d="M300 560 Q480 300 690 430" fill="none" stroke="#e0c89a" stroke-width="11" stroke-linecap="round" opacity="0.1"/><path d="M300 560 Q480 300 690 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.06999999999999999"/></g><g transform="translate(800 0)"><g transform="translate(-10 -8) rotate(-3 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>黄月英 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ccccb1"/><stop offset=".18" stop-color="#a8b39b"/><stop offset=".55" stop-color="#838d7c"/><stop offset="1" stop-color="#465b51"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9aa28d"/><stop offset=".28" stop-color="#526b5e"/><stop offset=".72" stop-color="#838d7c"/><stop offset="1" stop-color="#465b51"/></linearGradient>
@@ -49,7 +49,7 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#ccccb1" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 0.9600) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
 <g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#c2c5aa" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#a8b39b" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#c3c6ab" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#82907d" stroke-width="7"/></g><g id="weapon">
 <path d="M696 925 L696 210" stroke="#30271f" stroke-width="24"/><path d="M696 925 L696 210" stroke="#553a2b" stroke-width="14"/><path d="M620 220 L696 172 L773 220 L696 268Z" fill="url(#blade)" stroke="#30271f" stroke-width="9"/><circle cx="696" cy="220" r="27" fill="none" stroke="url(#metal)" stroke-width="10"/><circle cx="696" cy="220" r="8" fill="#e0c89a"/><path d="M696 183 L696 257 M658 220 L734 220" stroke="url(#metal)" stroke-width="6"/>
@@ -71,9 +71,9 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="#e0c89a" stroke="#30241f" stroke-width="6"/><path d="M440 505 L473 540 L440 575 L407 540Z" fill="#e0c89a" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M300 560 Q480 300 690 430" fill="none" stroke="#e0c89a" stroke-width="11" stroke-linecap="round" opacity="0.55"/><path d="M300 560 Q480 300 690 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.385"/></g><g transform="translate(1600 0)"><g transform="translate(28 -16) rotate(7 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="#e0c89a" stroke="#30241f" stroke-width="6"/><path d="M440 505 L473 540 L440 575 L407 540Z" fill="#e0c89a" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(15 0)"><path d="M395 111 L409 72 L441 87 L475 72 L489 111Z" fill="#74866c" stroke="#d1bb81" stroke-width="7"/><circle cx="442" cy="90" r="12" fill="none" stroke="#d9bc70" stroke-width="5"/></g></g></svg></g><path d="M300 560 Q480 300 690 430" fill="none" stroke="#e0c89a" stroke-width="11" stroke-linecap="round" opacity="0.55"/><path d="M300 560 Q480 300 690 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.385"/></g><g transform="translate(1600 0)"><g transform="translate(28 -16) rotate(7 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>黄月英 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ccccb1"/><stop offset=".18" stop-color="#a8b39b"/><stop offset=".55" stop-color="#838d7c"/><stop offset="1" stop-color="#465b51"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9aa28d"/><stop offset=".28" stop-color="#526b5e"/><stop offset=".72" stop-color="#838d7c"/><stop offset="1" stop-color="#465b51"/></linearGradient>
@@ -85,7 +85,7 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#ccccb1" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 0.9600) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
 <g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#c2c5aa" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#a8b39b" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#c3c6ab" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#82907d" stroke-width="7"/></g><g id="weapon">
 <path d="M696 925 L696 210" stroke="#30271f" stroke-width="24"/><path d="M696 925 L696 210" stroke="#553a2b" stroke-width="14"/><path d="M620 220 L696 172 L773 220 L696 268Z" fill="url(#blade)" stroke="#30271f" stroke-width="9"/><circle cx="696" cy="220" r="27" fill="none" stroke="url(#metal)" stroke-width="10"/><circle cx="696" cy="220" r="8" fill="#e0c89a"/><path d="M696 183 L696 257 M658 220 L734 220" stroke="url(#metal)" stroke-width="6"/>
@@ -107,9 +107,9 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="#e0c89a" stroke="#30241f" stroke-width="6"/><path d="M440 505 L473 540 L440 575 L407 540Z" fill="#e0c89a" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M300 560 Q480 300 690 430" fill="none" stroke="#e0c89a" stroke-width="18" stroke-linecap="round" opacity="1"/><path d="M300 560 Q480 300 690 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.7"/></g><g transform="translate(2400 0)"><g transform="translate(-4 0) rotate(-1 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="#e0c89a" stroke="#30241f" stroke-width="6"/><path d="M440 505 L473 540 L440 575 L407 540Z" fill="#e0c89a" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(15 0)"><path d="M395 111 L409 72 L441 87 L475 72 L489 111Z" fill="#74866c" stroke="#d1bb81" stroke-width="7"/><circle cx="442" cy="90" r="12" fill="none" stroke="#d9bc70" stroke-width="5"/></g></g></svg></g><path d="M300 560 Q480 300 690 430" fill="none" stroke="#e0c89a" stroke-width="18" stroke-linecap="round" opacity="1"/><path d="M300 560 Q480 300 690 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.7"/></g><g transform="translate(2400 0)"><g transform="translate(-4 0) rotate(-1 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>黄月英 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ccccb1"/><stop offset=".18" stop-color="#a8b39b"/><stop offset=".55" stop-color="#838d7c"/><stop offset="1" stop-color="#465b51"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9aa28d"/><stop offset=".28" stop-color="#526b5e"/><stop offset=".72" stop-color="#838d7c"/><stop offset="1" stop-color="#465b51"/></linearGradient>
@@ -121,7 +121,7 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#ccccb1" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.9800 0.9600) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
 <g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#c2c5aa" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#a8b39b" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#c3c6ab" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#82907d" stroke-width="7"/></g><g id="weapon">
 <path d="M696 925 L696 210" stroke="#30271f" stroke-width="24"/><path d="M696 925 L696 210" stroke="#553a2b" stroke-width="14"/><path d="M620 220 L696 172 L773 220 L696 268Z" fill="url(#blade)" stroke="#30271f" stroke-width="9"/><circle cx="696" cy="220" r="27" fill="none" stroke="url(#metal)" stroke-width="10"/><circle cx="696" cy="220" r="8" fill="#e0c89a"/><path d="M696 183 L696 257 M658 220 L734 220" stroke="url(#metal)" stroke-width="6"/>
@@ -143,4 +143,4 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="#e0c89a" stroke="#30241f" stroke-width="6"/><path d="M440 505 L473 540 L440 575 L407 540Z" fill="#e0c89a" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M300 560 Q480 300 690 430" fill="none" stroke="#e0c89a" stroke-width="11" stroke-linecap="round" opacity="0.35"/><path d="M300 560 Q480 300 690 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.24499999999999997"/></g></svg>
+<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="#e0c89a" stroke="#30241f" stroke-width="6"/><path d="M440 505 L473 540 L440 575 L407 540Z" fill="#e0c89a" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(15 0)"><path d="M395 111 L409 72 L441 87 L475 72 L489 111Z" fill="#74866c" stroke="#d1bb81" stroke-width="7"/><circle cx="442" cy="90" r="12" fill="none" stroke="#d9bc70" stroke-width="5"/></g></g></svg></g><path d="M300 560 Q480 300 690 430" fill="none" stroke="#e0c89a" stroke-width="11" stroke-linecap="round" opacity="0.35"/><path d="M300 560 Q480 300 690 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.24499999999999997"/></g></svg>

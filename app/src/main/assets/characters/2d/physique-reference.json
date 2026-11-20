@@ -1,0 +1,1025 @@
+{
+  "schemaVersion": 1,
+  "description": "Actor measurements are visual stand-ins, not historical measurements. Unknown measurements remain null.",
+  "characters": {
+    "liu-bei": {
+      "actor": "于和伟",
+      "actorHeightCm": 179,
+      "actorWeightKg": 70,
+      "basis": "新三国演员参照",
+      "heightScale": 1,
+      "widthScale": 1,
+      "build": "中等身材、肩背匀称",
+      "faceShape": "长椭圆",
+      "eyes": "沉稳含蓄",
+      "brows": "平直略收",
+      "jaw": "端正下颌",
+      "beard": "短髭短须",
+      "headStyle": "文武帝冠",
+      "distinctive": "温厚、坚忍、眉眼有仁主气度",
+      "note": "正史记身长七尺五寸；现代比例采用于和伟公开资料作视觉参照。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://m.1905.com/m/star/info/2339/",
+        "https://piaofang.maoyan.com/celebrity-share?id=412308&type=1"
+      ]
+    },
+    "guan-yu": {
+      "actor": "于荣光",
+      "actorHeightCm": 181,
+      "actorWeightKg": 76,
+      "basis": "新三国演员参照＋关羽传统形象",
+      "heightScale": 1.035,
+      "widthScale": 1.04,
+      "build": "高大、肩宽、挺拔而结实",
+      "faceShape": "长方",
+      "eyes": "丹凤眼、眼尾上挑",
+      "brows": "长而压眼",
+      "jaw": "长颌",
+      "beard": "长髯",
+      "headStyle": "绿袍武圣冠",
+      "distinctive": "丹凤眼、卧蚕眉、长髯、青龙偃月刀",
+      "note": "于荣光在2010年采访称本人181 cm；造型需强化传统关羽丹凤眼与长髯。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://ent.sina.com.cn/v/m/2010-05-11/06532953827.shtml",
+        "https://ent.sina.com.cn/s/2009-03-11/17312413726.shtml?from=wap"
+      ]
+    },
+    "zhang-fei": {
+      "actor": "康凯",
+      "actorHeightCm": 184,
+      "actorWeightKg": 118,
+      "basis": "新三国演员参照",
+      "heightScale": 1.035,
+      "widthScale": 1.34,
+      "build": "极其魁梧、宽肩厚胸、粗壮前臂",
+      "faceShape": "宽方脸",
+      "eyes": "圆睁怒目",
+      "brows": "浓密倒八字",
+      "jaw": "宽阔方下颌",
+      "beard": "浓密虬髯",
+      "headStyle": "黑铁双翎盔",
+      "distinctive": "豹头环眼、燕颔虎须、宽厚躯干",
+      "note": "康凯公开资料列184 cm、118 kg；直接作为张飞宽厚体格的演员参照。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://wapbaike.baidu.com/item/%E5%BA%B7%E5%87%AF/3938850"
+      ]
+    },
+    "zhao-yun": {
+      "actor": "聂远",
+      "actorHeightCm": 178,
+      "actorWeightKg": 65,
+      "basis": "新三国演员参照＋赵云传统形象",
+      "heightScale": 1,
+      "widthScale": 0.88,
+      "build": "修长、精瘦、肩线利落、长肢",
+      "faceShape": "清俊长椭圆",
+      "eyes": "清亮专注",
+      "brows": "剑眉",
+      "jaw": "收窄下颌",
+      "beard": "无须或淡短髭",
+      "headStyle": "银盔白翎",
+      "distinctive": "俊朗青年将领、银甲白袍、长枪",
+      "note": "正史《云别传》称身长八尺；演员聂远公开资料约178 cm、65 kg，采用清瘦敏捷的视觉体态。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://www.tvmao.com/star/MVYf"
+      ]
+    },
+    "zhuge-liang": {
+      "actor": "陆毅",
+      "actorHeightCm": 182,
+      "actorWeightKg": null,
+      "basis": "新三国演员参照＋史料形象",
+      "heightScale": 1.045,
+      "widthScale": 0.88,
+      "build": "高挑清瘦、肩窄、长颈",
+      "faceShape": "修长清癯",
+      "eyes": "沉静深远",
+      "brows": "细长舒展",
+      "jaw": "窄长下颌",
+      "beard": "三绺长须",
+      "headStyle": "纶巾",
+      "distinctive": "八尺身长的儒雅军师、纶巾羽扇、长须",
+      "note": "《三国志》记诸葛亮身长八尺；演员陆毅公开身高约182 cm，体重未采用无可靠出处的数据。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://www.1905.com/mdb/star/262/details/"
+      ]
+    },
+    "huang-zhong": {
+      "actor": "宋乘道",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋黄忠老将形象",
+      "heightScale": 0.94,
+      "widthScale": 1.04,
+      "build": "年长、骨架结实、肩背略厚",
+      "faceShape": "苍老方圆脸",
+      "eyes": "锐利老鹰眼",
+      "brows": "灰白浓眉",
+      "jaw": "厚实下颌",
+      "beard": "白髯",
+      "headStyle": "老将铁盔",
+      "distinctive": "白发白须、额纹深、神射手的沉稳目光",
+      "note": "演员表确认宋乘道饰黄忠，但未找到可靠身高体重；不填虚构数值。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "diaochan": {
+      "actor": "陈好",
+      "actorHeightCm": 166,
+      "actorWeightKg": 50,
+      "basis": "新三国演员参照",
+      "heightScale": 0.92,
+      "widthScale": 0.9,
+      "build": "匀称纤细、柔韧优雅",
+      "faceShape": "鹅蛋脸",
+      "eyes": "柔媚但有决断",
+      "brows": "弯而细长",
+      "jaw": "圆润小下颌",
+      "beard": "无",
+      "headStyle": "凤钗高髻",
+      "distinctive": "闭月之姿、精致五官、凤钗与飘带",
+      "note": "陈好公开资料约166 cm、50 kg；作为女性角色美术基准，不复制真人脸。",
+      "source": [
+        "https://www.lyjxwl.com/actor/xinsanguoyanyi/",
+        "https://bgm.tv/person/16782"
+      ]
+    },
+    "cao-cao": {
+      "actor": "陈建斌",
+      "actorHeightCm": 178,
+      "actorWeightKg": 74,
+      "basis": "新三国演员参照",
+      "heightScale": 0.99,
+      "widthScale": 1.04,
+      "build": "中等偏厚、肩背沉稳、颈项略厚",
+      "faceShape": "宽额长方脸",
+      "eyes": "鹰视、眼窝深",
+      "brows": "浓而紧蹙",
+      "jaw": "宽下颌",
+      "beard": "短髭",
+      "headStyle": "魏王冠",
+      "distinctive": "深目、短髭、成熟枭雄气质、暗色魏甲",
+      "note": "陈建斌公开资料178 cm、74 kg；外貌重点做深目、宽额与短髭。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://bgm.tv/person/17820"
+      ]
+    },
+    "zhou-yu": {
+      "actor": "黄维德",
+      "actorHeightCm": 180,
+      "actorWeightKg": 70,
+      "basis": "新三国演员参照",
+      "heightScale": 1.015,
+      "widthScale": 0.93,
+      "build": "高挑匀称、挺拔儒将",
+      "faceShape": "俊秀窄长脸",
+      "eyes": "明亮自信",
+      "brows": "修长上扬",
+      "jaw": "利落下颌",
+      "beard": "干净或极淡短须",
+      "headStyle": "江东儒将冠、红色羽饰",
+      "distinctive": "英俊儒雅、赤色披风、火攻统帅",
+      "note": "黄维德公开资料180 cm、70 kg；画成修长挺拔的年轻儒将。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://piaofang.maoyan.com/i/celebrity/5872/intro"
+      ]
+    },
+    "lv-bu": {
+      "actor": "何润东",
+      "actorHeightCm": 185,
+      "actorWeightKg": 69,
+      "basis": "新三国演员参照＋吕布战神形象",
+      "heightScale": 1.06,
+      "widthScale": 0.97,
+      "build": "高挑、长肢、肩宽但肌肉线条紧实",
+      "faceShape": "英武长方脸",
+      "eyes": "锐利逼人",
+      "brows": "浓而斜",
+      "jaw": "硬朗下颌",
+      "beard": "短髭",
+      "headStyle": "凤翅紫金冠",
+      "distinctive": "高大压迫感、方天画戟、赤色战袍、凤翅冠",
+      "note": "何润东公开资料约185 cm、69 kg；以高挑、长肢、精悍而非臃肿来呈现吕布。",
+      "source": [
+        "https://www.lyjxwl.com/actor/xinsanguoyanyi/",
+        "https://piaofang.maoyan.com/i/celebrity/3147/intro"
+      ]
+    },
+    "dian-wei": {
+      "actor": "未找到2010版对应演员",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "正史体貌描述",
+      "heightScale": 1.04,
+      "widthScale": 1.34,
+      "build": "高大魁梧、肩宽胸厚、前臂异常粗壮",
+      "faceShape": "粗犷宽方脸",
+      "eyes": "凶悍圆睁",
+      "brows": "极浓粗眉",
+      "jaw": "宽厚方颌",
+      "beard": "浓密短虬髯",
+      "headStyle": "双戟护额铁盔",
+      "distinctive": "《三国志》称其形貌魁梧、膂力过人；双戟、重甲、厚颈",
+      "note": "正史无可靠身高体重数字；不借用演员公斤数，按史书体貌描述塑造。",
+      "source": [
+        "https://zh.wikipedia.org/wiki/%E5%85%B8%E9%9F%8B"
+      ]
+    },
+    "jiang-wei": {
+      "actor": "叶鹏",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋历史文学形象",
+      "heightScale": 1.03,
+      "widthScale": 0.91,
+      "build": "青年修长、轻甲、四肢匀称",
+      "faceShape": "清俊偏长脸",
+      "eyes": "机敏沉毅",
+      "brows": "剑眉",
+      "jaw": "利落窄颌",
+      "beard": "短须或无须",
+      "headStyle": "蜀汉银青头盔",
+      "distinctive": "青年儒将、麒麟纹、枪剑兼备、沉稳机敏",
+      "note": "演员表确认叶鹏饰姜维；未找到可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "machao": {
+      "actor": "陈奕霖",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋马超锦马超形象",
+      "heightScale": 1.04,
+      "widthScale": 0.98,
+      "build": "高挑健壮、骑兵肌肉线条",
+      "faceShape": "英挺长方脸",
+      "eyes": "锐利外放",
+      "brows": "剑眉浓挑",
+      "jaw": "硬朗下颌",
+      "beard": "短髭",
+      "headStyle": "西凉银盔红缨",
+      "distinctive": "锦马超、银白西凉甲、红缨、长枪、年轻英武",
+      "note": "演员表确认陈奕霖饰马超，未找到可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "weiyan": {
+      "actor": "王新军",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋魏延历史形象",
+      "heightScale": 1,
+      "widthScale": 1.12,
+      "build": "肩宽、壮实、轮廓有棱角",
+      "faceShape": "棱角方脸",
+      "eyes": "锐利多疑",
+      "brows": "粗眉外挑",
+      "jaw": "宽下颌",
+      "beard": "短而浓密",
+      "headStyle": "黑铁狼纹盔",
+      "distinctive": "高颧骨、偏锋锐神态、汉中重甲、大刀",
+      "note": "演员表确认王新军饰魏延；没有可靠体重数字，不编数值。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "pangtong": {
+      "actor": "杜旭",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋《三国演义》人物描述",
+      "heightScale": 0.9,
+      "widthScale": 1.18,
+      "build": "身形紧凑、面部较宽、肩颈略厚",
+      "faceShape": "短宽脸",
+      "eyes": "聪敏而深藏锋芒",
+      "brows": "杂乱浓眉",
+      "jaw": "短宽下颌",
+      "beard": "短髯",
+      "headStyle": "略旧的谋士巾冠",
+      "distinctive": "凤雏、形貌不修边幅、宽面、羽扇与火凤纹",
+      "note": "外貌按小说中庞统形貌不扬、浓眉掀鼻的文学形象；演员无可靠身高体重数据。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "fazheng": {
+      "actor": "张新华",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋法正谋臣形象",
+      "heightScale": 0.97,
+      "widthScale": 0.91,
+      "build": "偏瘦、中等身高、肩线窄",
+      "faceShape": "瘦长脸",
+      "eyes": "精明、眼尾略垂",
+      "brows": "细密微蹙",
+      "jaw": "窄尖下颌",
+      "beard": "短须",
+      "headStyle": "低调文士冠",
+      "distinctive": "眼神算计感、微蹙眉、蜀汉谋臣文袍",
+      "note": "演员表确认张新华饰法正；未找到可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "xushu": {
+      "actor": "姚岗",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋徐庶游侠形象",
+      "heightScale": 1.01,
+      "widthScale": 0.92,
+      "build": "匀称精瘦、行动敏捷",
+      "faceShape": "清瘦长脸",
+      "eyes": "正直警觉",
+      "brows": "直眉",
+      "jaw": "窄而坚毅",
+      "beard": "短须",
+      "headStyle": "简式头巾",
+      "distinctive": "剑客转谋士、朴素头巾、佩剑、克制气质",
+      "note": "演员表确认姚岗饰徐庶；无可靠身高体重数字。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "madai": {
+      "actor": "夏天",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋西凉骑将形象",
+      "heightScale": 0.98,
+      "widthScale": 0.9,
+      "build": "轻捷、精瘦、骑射型",
+      "faceShape": "窄椭圆脸",
+      "eyes": "沉着警觉",
+      "brows": "略弯短眉",
+      "jaw": "收窄下颌",
+      "beard": "短须",
+      "headStyle": "西凉轻骑盔",
+      "distinctive": "轻骑侧翼、短披风、弯弓与短枪",
+      "note": "演员表确认夏天饰马岱；未找到可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "guanping": {
+      "actor": "范近轮",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋关平青年副将形象",
+      "heightScale": 1,
+      "widthScale": 1.02,
+      "build": "青年结实、肩胸匀称",
+      "faceShape": "年轻方圆脸",
+      "eyes": "忠诚坚定",
+      "brows": "浓直眉",
+      "jaw": "方而不过宽",
+      "beard": "无须或淡短须",
+      "headStyle": "青龙纹青年盔",
+      "distinctive": "年轻关氏将领、青锋刀、青绿色甲",
+      "note": "演员表确认范近轮饰关平；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "guanxing": {
+      "actor": "魏智",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋关兴青年将领形象",
+      "heightScale": 1,
+      "widthScale": 0.92,
+      "build": "青年偏瘦、灵活",
+      "faceShape": "俊秀窄脸",
+      "eyes": "锐利而年轻",
+      "brows": "剑眉",
+      "jaw": "清晰窄颌",
+      "beard": "无须",
+      "headStyle": "青色羽翎盔",
+      "distinctive": "年轻英气、继承关羽青龙纹、偃月刀",
+      "note": "演员表确认魏智饰关兴；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "zhangbao": {
+      "actor": "柴进",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋张飞之子形象",
+      "heightScale": 1.02,
+      "widthScale": 1.18,
+      "build": "壮硕青年、肩宽臂粗",
+      "faceShape": "方脸",
+      "eyes": "勇猛外露",
+      "brows": "浓眉",
+      "jaw": "方颌",
+      "beard": "短浓髯",
+      "headStyle": "虎纹重盔",
+      "distinctive": "虎头纹、丈八蛇矛、虎将后裔的厚实体格",
+      "note": "演员表确认柴进饰张苞；无可靠身高体重数据。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "zhangliao": {
+      "actor": "程相银",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋张辽威震逍遥津形象",
+      "heightScale": 1.02,
+      "widthScale": 1.05,
+      "build": "高大结实、骑将肩背",
+      "faceShape": "长方脸",
+      "eyes": "冷峻沉稳",
+      "brows": "平直浓眉",
+      "jaw": "坚实下颌",
+      "beard": "短髭",
+      "headStyle": "魏军双翎盔",
+      "distinctive": "威严、利落魏甲、骑枪、战场统帅姿态",
+      "note": "演员表确认程相银饰张辽；无可靠身高体重数据。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "zhanghe": {
+      "actor": "谭建昌",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋张郃儒雅善变形象",
+      "heightScale": 1.02,
+      "widthScale": 0.9,
+      "build": "修长、轻甲、身形灵活",
+      "faceShape": "俊长脸",
+      "eyes": "精细敏锐",
+      "brows": "细长挑眉",
+      "jaw": "尖窄下颌",
+      "beard": "修整短髭",
+      "headStyle": "华丽羽翎盔",
+      "distinctive": "衣甲精致、动作优雅多变、长枪",
+      "note": "演员表确认谭建昌饰张郃；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "xuhuang": {
+      "actor": "陈威",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋徐晃重将形象",
+      "heightScale": 1,
+      "widthScale": 1.15,
+      "build": "厚实强壮、肩臂发达",
+      "faceShape": "宽额方脸",
+      "eyes": "坚定沉着",
+      "brows": "厚直眉",
+      "jaw": "宽颌",
+      "beard": "短髯",
+      "headStyle": "朴实重甲盔",
+      "distinctive": "沉稳重将、大斧、厚实胸甲与护臂",
+      "note": "演员表确认陈威饰徐晃；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "xuchu": {
+      "actor": "郭涛",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋正史体貌描述",
+      "heightScale": 1.02,
+      "widthScale": 1.34,
+      "build": "极为壮实、圆厚肩背、粗壮颈项",
+      "faceShape": "宽圆方脸",
+      "eyes": "憨直凶悍",
+      "brows": "浓厚眉",
+      "jaw": "宽方下颌",
+      "beard": "短浓须",
+      "headStyle": "重型铁盔",
+      "distinctive": "虎痴、腰宽肩厚、重锤、厚重护肩",
+      "note": "演员表确认郭涛饰许褚；正史称长八尺余、腰大十围、容貌雄毅，不把腰围误作体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://zh.wikipedia.org/wiki/%E8%A8%B1%E8%A4%9A"
+      ]
+    },
+    "xiahou-dun": {
+      "actor": "演员体态资料未核实",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "历史与演义人物特征",
+      "heightScale": 1.02,
+      "widthScale": 1.14,
+      "build": "高大强健、单眼受伤后更显凶悍",
+      "faceShape": "硬朗方脸",
+      "eyes": "一目有神、一侧眼罩与伤痕",
+      "brows": "粗重眉",
+      "jaw": "宽下颌",
+      "beard": "短须",
+      "headStyle": "深蓝重盔",
+      "distinctive": "独眼、眼罩、拔矢伤痕、深蓝重甲、长刀",
+      "note": "重点通过独眼与战伤造型区分，不虚构身高体重。",
+      "source": [
+        "https://www.lyjxwl.com/actor/xinsanguoyanyi/"
+      ]
+    },
+    "xiahou-yuan": {
+      "actor": "李奇龙",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋夏侯渊神速骑将形象",
+      "heightScale": 1.02,
+      "widthScale": 0.95,
+      "build": "轻快、精瘦、弓臂有力",
+      "faceShape": "窄长脸",
+      "eyes": "专注远视",
+      "brows": "短而上挑",
+      "jaw": "利落下颌",
+      "beard": "短须",
+      "headStyle": "轻骑弓盔",
+      "distinctive": "快骑神射、弓与箭囊、轻甲",
+      "note": "演员表确认李奇龙饰夏侯渊；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "guojia": {
+      "actor": "王今心",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋郭嘉少年谋士形象",
+      "heightScale": 0.98,
+      "widthScale": 0.86,
+      "build": "纤细、肩窄、文弱但挺拔",
+      "faceShape": "清瘦尖长脸",
+      "eyes": "洒脱敏锐",
+      "brows": "细挑眉",
+      "jaw": "尖窄下颌",
+      "beard": "淡短髭",
+      "headStyle": "轻便文士冠",
+      "distinctive": "病弱俊秀、轻袍、羽扇、放达不羁",
+      "note": "演员表确认王今心饰郭嘉；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "xunyu": {
+      "actor": "李建新",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋王佐之才形象",
+      "heightScale": 1,
+      "widthScale": 0.91,
+      "build": "清瘦端正、肩窄而仪态端庄",
+      "faceShape": "窄长文士脸",
+      "eyes": "温和审慎",
+      "brows": "长直眉",
+      "jaw": "细长下颌",
+      "beard": "短整髭",
+      "headStyle": "魏国文臣冠",
+      "distinctive": "端雅持重、素净文官服、竹简与玉带",
+      "note": "演员表确认李建新饰荀彧；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "simayi": {
+      "actor": "倪大红",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋司马懿老谋深算形象",
+      "heightScale": 0.99,
+      "widthScale": 0.94,
+      "build": "中等偏瘦、年长、肩背内收",
+      "faceShape": "狭长老年脸",
+      "eyes": "眼窝深、鹰视狼顾",
+      "brows": "稀疏细长眉",
+      "jaw": "窄长下颌",
+      "beard": "长而稀疏的灰须",
+      "headStyle": "深色高冠或兜帽",
+      "distinctive": "深陷双眼、灰长须、阴沉谋士气质",
+      "note": "演员表确认倪大红饰司马懿；未找到可信身高体重数字。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "caoren": {
+      "actor": "杨光",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋曹仁守城形象",
+      "heightScale": 1,
+      "widthScale": 1.12,
+      "build": "厚实、防守型、肩背宽",
+      "faceShape": "方正宽脸",
+      "eyes": "坚毅",
+      "brows": "浓直眉",
+      "jaw": "方颌",
+      "beard": "短须",
+      "headStyle": "魏军重盔",
+      "distinctive": "盾牌、护心重甲、沉稳防守姿态",
+      "note": "演员表确认杨光饰曹仁；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "caopi": {
+      "actor": "于滨",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋曹丕帝王形象",
+      "heightScale": 1.01,
+      "widthScale": 0.92,
+      "build": "清瘦挺拔、贵气而克制",
+      "faceShape": "窄长脸",
+      "eyes": "冷峻审视",
+      "brows": "细长高挑",
+      "jaw": "利落尖颌",
+      "beard": "短髭",
+      "headStyle": "魏文帝冠",
+      "distinctive": "年轻帝王、冷峻眼神、黑银礼甲",
+      "note": "演员表确认于滨饰曹丕；无可靠身高体重数据。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "yuejin": {
+      "actor": "未找到可靠演员对应资料",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "《三国志》人物体貌描述",
+      "heightScale": 0.88,
+      "widthScale": 1.02,
+      "build": "身材短小、紧凑精干、胸背结实",
+      "faceShape": "短方脸",
+      "eyes": "果敢",
+      "brows": "浓短眉",
+      "jaw": "结实方颌",
+      "beard": "短须",
+      "headStyle": "先登铁盔",
+      "distinctive": "身量短小、先登陷阵、短兵器与强劲腿部",
+      "note": "《三国志》称乐进容貌短小，故立绘在同队中明显偏矮但结实。",
+      "source": [
+        "https://zh.wikipedia.org/wiki/%E6%A8%82%E9%80%B2"
+      ]
+    },
+    "yujin": {
+      "actor": "吴克刚",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋于禁持军形象",
+      "heightScale": 1,
+      "widthScale": 1.07,
+      "build": "结实匀称、站姿严整",
+      "faceShape": "矩形脸",
+      "eyes": "严厉克制",
+      "brows": "平直浓眉",
+      "jaw": "宽下颌",
+      "beard": "修整短须",
+      "headStyle": "魏军制式盔",
+      "distinctive": "纪律严明、板甲齐整、持盾或长戟",
+      "note": "演员表确认吴克刚饰于禁；无可靠身高体重资料。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "sunce": {
+      "actor": "沙溢",
+      "actorHeightCm": 178,
+      "actorWeightKg": 70,
+      "basis": "新三国演员参照",
+      "heightScale": 1,
+      "widthScale": 1,
+      "build": "匀称健壮、灵活、肩胸有力",
+      "faceShape": "年轻方圆脸",
+      "eyes": "明亮豪迈",
+      "brows": "浓而舒展",
+      "jaw": "年轻方下颌",
+      "beard": "短髭",
+      "headStyle": "江东小霸王羽冠",
+      "distinctive": "少年英气、赤色披风、霸王刀、冲锋姿态",
+      "note": "沙溢公开资料178 cm、70 kg；以年轻、矫健、爆发型体态表现孙策。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://ent.sina.com.cn/s/2007-01-07/14471400077.html"
+      ]
+    },
+    "sunquan": {
+      "actor": "张博",
+      "actorHeightCm": 183,
+      "actorWeightKg": 67,
+      "basis": "新三国演员参照",
+      "heightScale": 1.04,
+      "widthScale": 0.95,
+      "build": "高挑偏瘦、仪态端正",
+      "faceShape": "长脸",
+      "eyes": "审慎沉着",
+      "brows": "浓长眉",
+      "jaw": "清晰下颌",
+      "beard": "短髭",
+      "headStyle": "吴王冠",
+      "distinctive": "江东君主、青绿礼甲、沉着统帅风格",
+      "note": "张博公开资料183 cm、67 kg；采用高挑而不魁梧的体态。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://bkso.baidu.com/item/%E5%BC%A0%E5%8D%9A/9426"
+      ]
+    },
+    "luxun": {
+      "actor": "邵峰",
+      "actorHeightCm": 182,
+      "actorWeightKg": 72,
+      "basis": "新三国演员参照",
+      "heightScale": 1.035,
+      "widthScale": 0.96,
+      "build": "修长匀称、年轻儒将",
+      "faceShape": "俊秀长脸",
+      "eyes": "专注清澈",
+      "brows": "修长直眉",
+      "jaw": "利落下颌",
+      "beard": "无须或淡短须",
+      "headStyle": "江东儒将冠",
+      "distinctive": "年轻俊秀、白袍青甲、火攻羽扇",
+      "note": "演员表确认邵峰饰陆逊；同名演员身高体重资料须与演员身份交叉核对，因此仅作中等置信度参照。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://piaofang.maoyan.com/celebrity/2830703"
+      ]
+    },
+    "lvmeng": {
+      "actor": "常铖",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋吕蒙白衣渡江形象",
+      "heightScale": 1,
+      "widthScale": 0.98,
+      "build": "精干结实、训练有素",
+      "faceShape": "方圆脸",
+      "eyes": "敏锐果断",
+      "brows": "平直眉",
+      "jaw": "坚实下颌",
+      "beard": "短须",
+      "headStyle": "吴军轻甲盔",
+      "distinctive": "文武兼备、白衣战袍与短刀、突袭姿态",
+      "note": "演员表确认常铖饰吕蒙；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "ganning": {
+      "actor": "夏小龙",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋甘宁锦帆贼形象",
+      "heightScale": 1,
+      "widthScale": 0.97,
+      "build": "精壮、灵活、肌肉线条清楚",
+      "faceShape": "棱角脸",
+      "eyes": "狂放锐利",
+      "brows": "浓眉",
+      "jaw": "硬朗下颌",
+      "beard": "辫须或短须",
+      "headStyle": "锦帆头巾与铃饰",
+      "distinctive": "锦帆、铃铛、双刀、海盗式轻甲",
+      "note": "演员表确认夏小龙饰甘宁；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "taishici": {
+      "actor": "未查到2010版确定演员",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "史传与武将形象",
+      "heightScale": 1.03,
+      "widthScale": 1.08,
+      "build": "高大强壮、肩臂有力",
+      "faceShape": "宽长脸",
+      "eyes": "刚毅",
+      "brows": "浓直眉",
+      "jaw": "宽颌",
+      "beard": "浓短髯",
+      "headStyle": "东莱武将盔",
+      "distinctive": "长弓、双戟或长枪、神亭酣战的沉毅武将",
+      "note": "没有可确认的演员身高体重资料；按强弓武将的结实体态设计。",
+      "source": [
+        "https://zh.wikipedia.org/wiki/%E5%A4%AA%E5%8F%B2%E6%85%88"
+      ]
+    },
+    "huanggai": {
+      "actor": "刘魁",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋黄盖老将形象",
+      "heightScale": 0.93,
+      "widthScale": 1.1,
+      "build": "年长结实、胸背厚实、肩部略沉",
+      "faceShape": "老年方脸",
+      "eyes": "沉稳坚毅",
+      "brows": "灰白浓眉",
+      "jaw": "宽颌",
+      "beard": "灰白长须",
+      "headStyle": "老将铁盔",
+      "distinctive": "白发苍髯、苦肉计、火攻铁链与战损甲",
+      "note": "演员表确认刘魁饰黄盖；无可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "lusu": {
+      "actor": "霍青",
+      "actorHeightCm": 180,
+      "actorWeightKg": 70,
+      "basis": "新三国演员参照＋正史体貌",
+      "heightScale": 1.025,
+      "widthScale": 1.08,
+      "build": "高大魁奇、骨架宽、身形厚实",
+      "faceShape": "宽厚长脸",
+      "eyes": "宽厚而深思",
+      "brows": "浓直眉",
+      "jaw": "宽下颌",
+      "beard": "整齐短须",
+      "headStyle": "江东文臣冠",
+      "distinctive": "体貌魁奇、温厚儒雅、宽肩长袍与卷轴",
+      "note": "霍青公开资料180 cm、70 kg；《三国志》记鲁肃体貌魁奇，综合作宽肩高大造型。",
+      "source": [
+        "https://ent.sina.com.cn/v/2010-08-18/12073056017.shtml",
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    },
+    "sunshangxiang": {
+      "actor": "林心如",
+      "actorHeightCm": 167,
+      "actorWeightKg": 46,
+      "basis": "新三国演员参照＋孙尚香弓腰姬形象",
+      "heightScale": 0.93,
+      "widthScale": 0.98,
+      "build": "纤长但运动型、核心与肩臂有力量感",
+      "faceShape": "英气鹅蛋脸",
+      "eyes": "警觉明亮",
+      "brows": "剑眉略弯",
+      "jaw": "清晰下颌",
+      "beard": "无",
+      "headStyle": "束发凤翎、无长飘带",
+      "distinctive": "弓腰姬、束袖短甲、护臂、腰带、长裤、马靴、连弩；胸甲平直实用，不做露胸或长裙造型",
+      "note": "演员林心如公开资料167 cm、46 kg；游戏造型依据孙尚香女将/弓腰姬身份改为实战骑射装备，避免过度女性化装饰。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://www.viu.com/ott/celebrity/13405/%E6%9E%97%E5%BF%83%E5%A6%82"
+      ]
+    },
+    "daqiao": {
+      "actor": "刘竞",
+      "actorHeightCm": 166,
+      "actorWeightKg": 40,
+      "basis": "新三国演员参照（拍摄期采访）",
+      "heightScale": 0.92,
+      "widthScale": 0.78,
+      "build": "非常纤细、小骨架、轻盈",
+      "faceShape": "柔和椭圆脸",
+      "eyes": "温婉清亮",
+      "brows": "细弯眉",
+      "jaw": "小巧下颌",
+      "beard": "无",
+      "headStyle": "花钿与简洁高髻",
+      "distinctive": "温婉端庄、轻柔水袖、江东花纹",
+      "note": "2010年定妆活动刘竞自述80斤（40 kg）；公开资料身高166 cm。拍摄期体重并非永久固定值。",
+      "source": [
+        "https://ent.sina.com.cn/v/2008-09-28/19072188549.shtml?opsubject_id=ent-threekingdoms",
+        "https://wapbaike.baidu.com/item/%E5%88%98%E7%AB%9E/10064626?fromModule=tashuo-article_bottom-lemma"
+      ]
+    },
+    "xiaoqiao": {
+      "actor": "赵柯",
+      "actorHeightCm": 167,
+      "actorWeightKg": 49,
+      "basis": "新三国演员参照",
+      "heightScale": 0.93,
+      "widthScale": 0.87,
+      "build": "纤细、轻巧、运动协调",
+      "faceShape": "小鹅蛋脸",
+      "eyes": "灵动明亮",
+      "brows": "弧形细眉",
+      "jaw": "小巧下颌",
+      "beard": "无",
+      "headStyle": "双扇花饰与束发",
+      "distinctive": "灵动、双扇、轻甲与飘带，姿态轻捷",
+      "note": "赵柯公开资料167 cm、49 kg，并有艺术体操背景；呈现轻捷而非柔弱。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html",
+        "https://www.iq.com/actor-info/%E8%B5%B5%E6%9F%AF-kerr-214660605?lang=zh_cn"
+      ]
+    },
+    "zhenji": {
+      "actor": "未找到2010版对应演员",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "历史人物＋文学形象",
+      "heightScale": 0.94,
+      "widthScale": 0.86,
+      "build": "修长纤细、姿态端正",
+      "faceShape": "端丽鹅蛋脸",
+      "eyes": "清冷沉静",
+      "brows": "细长舒展",
+      "jaw": "圆润窄颌",
+      "beard": "无",
+      "headStyle": "洛水珠冠",
+      "distinctive": "洛水女神意象、珠冠、冰蓝披帛与端庄仪态",
+      "note": "不以不相干演员数据代替甄宓身材；没有可靠体重数字。",
+      "source": [
+        "https://zh.wikipedia.org/wiki/%E7%94%84%E5%AE%93"
+      ]
+    },
+    "huangyueying": {
+      "actor": "未找到2010版对应演员",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "历史与民间文学形象",
+      "heightScale": 0.96,
+      "widthScale": 0.98,
+      "build": "中等身形、实用型、肩臂灵活",
+      "faceShape": "略宽椭圆脸",
+      "eyes": "聪慧专注",
+      "brows": "自然直眉",
+      "jaw": "稳健下颌",
+      "beard": "无",
+      "headStyle": "机关师发冠与护目饰",
+      "distinctive": "机关术、工具腰带、木牛流马、功能性短袍",
+      "note": "缺少可靠生平身高体重记载；造型强调机关术士的实用穿着。",
+      "source": [
+        "https://zh.wikipedia.org/wiki/%E9%BB%84%E6%9C%88%E8%8B%B1"
+      ]
+    },
+    "wangyi": {
+      "actor": "未找到2010版对应演员",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "历史人物形象",
+      "heightScale": 0.97,
+      "widthScale": 0.96,
+      "build": "精悍结实、手臂有力量、行动利落",
+      "faceShape": "棱角椭圆脸",
+      "eyes": "坚毅冷静",
+      "brows": "上挑剑眉",
+      "jaw": "紧致下颌",
+      "beard": "无",
+      "headStyle": "低束发与轻盔",
+      "distinctive": "女将、双刃、深色轻甲、护臂和战靴",
+      "note": "历史人物缺乏身高体重可靠数字；按女将的战斗功能设计。",
+      "source": [
+        "https://zh.wikipedia.org/wiki/%E7%8E%8B%E7%95%B0_(%E4%B8%89%E5%9C%8B)"
+      ]
+    },
+    "mayunlu": {
+      "actor": "未找到2010版对应演员",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "《三国演义》衍生人物形象",
+      "heightScale": 1,
+      "widthScale": 0.98,
+      "build": "骑射运动型、腰腿有力、肩背挺拔",
+      "faceShape": "英气长椭圆脸",
+      "eyes": "锐利自信",
+      "brows": "剑眉",
+      "jaw": "利落下颌",
+      "beard": "无",
+      "headStyle": "西凉女骑将羽盔",
+      "distinctive": "西凉女将、银枪、骑射轻甲、长裤和护胫",
+      "note": "马云禄主要见于演义衍生叙事，非正史可核身高人物；按女骑将功能塑造。",
+      "source": [
+        "https://zh.wikipedia.org/wiki/%E9%A6%AC%E9%9B%B2%E7%A6%84"
+      ]
+    },
+    "ganfuren": {
+      "actor": "唐姊娣",
+      "actorHeightCm": null,
+      "actorWeightKg": null,
+      "basis": "新三国演员对应＋甘夫人形象",
+      "heightScale": 0.94,
+      "widthScale": 0.88,
+      "build": "纤细端庄、姿态柔和",
+      "faceShape": "温婉圆椭圆脸",
+      "eyes": "温和慈爱",
+      "brows": "柔和弯眉",
+      "jaw": "柔润小下颌",
+      "beard": "无",
+      "headStyle": "简洁夫人发髻",
+      "distinctive": "素雅汉服、低调纹样、温柔而坚韧",
+      "note": "演员表确认唐姊娣饰甘夫人；未找到可靠身高体重。",
+      "source": [
+        "https://blog.sina.com.cn/s/blog_4bb1e39e0100itvo.html"
+      ]
+    }
+  }
+}

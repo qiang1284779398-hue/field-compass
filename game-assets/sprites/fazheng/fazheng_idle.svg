@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
-<title>法正 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<title>法正 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b0b49f"/><stop offset=".2" stop-color="#687d72"/><stop offset=".58" stop-color="#53645d"/><stop offset="1" stop-color="#223331"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -10,7 +10,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#899686"/><stop offset=".45" stop-color="#687d72"/><stop offset="1" stop-color="#213230"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#cab07c" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9100 0.9700) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M686 648 Q594 500 640 378 Q687 416 704 451 Q728 379 757 364 Q791 494 686 648Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M686 648 L640 378 M686 648 L704 451 M686 648 L757 364 M686 648 L782 448" fill="none" stroke="url(#gold)" stroke-width="7"/><path d="M686 648 L694 754" stroke="#553a2b" stroke-width="16" stroke-linecap="round"/><path d="M673 648 Q687 663 702 648" fill="none" stroke="#c1a46d" stroke-width="8"/>
@@ -78,4 +78,4 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#566860" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#687d72" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#d6be8f" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#c1a46d" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#c1a46d" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"></g></g></svg>

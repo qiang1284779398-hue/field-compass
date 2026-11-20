@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>黄忠·专属战技四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>黄忠 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<title>黄忠 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d1b077"/><stop offset=".2" stop-color="#b68a42"/><stop offset=".58" stop-color="#906f39"/><stop offset="1" stop-color="#344532"/></linearGradient>
  <linearGradient id="black" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a8803e"/><stop offset=".4" stop-color="#374a34"/><stop offset="1" stop-color="#2e3d2e"/></linearGradient>
@@ -11,7 +11,7 @@
  <linearGradient id="beard" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#090d10"/><stop offset=".42" stop-color="#344044"/><stop offset=".7" stop-color="#30402f"/><stop offset="1" stop-color="#080d10"/></linearGradient>
  <pattern id="stripes" width="34" height="28" patternUnits="userSpaceOnUse"><path d="M-4 26 Q8 8 20 0 M12 31 Q23 14 38 5" fill="none" stroke="#d0b374" stroke-width="6" opacity=".55"/></pattern>
  <pattern id="scales" width="28" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q14 14 27 1" fill="none" stroke="#b1b6a9" stroke-width="2" opacity=".46"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(1.0400 0.9400) translate(-400 -1000)">
 <ellipse cx="402" cy="958" rx="272" ry="27" fill="#07100e" opacity=".34"/>
 <g id="weapon">
 <path d="M704 136 Q826 473 704 850" fill="none" stroke="#191d1d" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="#553a2b" stroke-width="15"/><path d="M704 136 L704 850" stroke="url(#steel)" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="#191d1d" stroke-width="13"/><path d="M674 503 L785 467" stroke="url(#steel)" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="url(#steel)" stroke="#191d1d" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="url(#gold)" stroke-width="9"/>
@@ -82,8 +82,8 @@
 <path d="M275 718 Q331 752 388 739 L360 838 Q302 805 260 779Z M520 718 Q573 716 612 693 L641 780 Q589 815 540 821Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
 <!-- rivets -->
 <g fill="#e5c986" stroke="#514020" stroke-width="3"><circle cx="286" cy="427" r="6"/><circle cx="355" cy="415" r="6"/><circle cx="529" cy="415" r="6"/><circle cx="591" cy="438" r="6"/><circle cx="363" cy="485" r="5"/><circle cx="437" cy="473" r="5"/><circle cx="510" cy="485" r="5"/></g>
-<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#e1c17c" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.18" stroke="#e1c17c" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#e1c17c"/></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>黄忠 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#e1c17c" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M393 193 Q410 185 427 193 M453 193 Q471 185 488 193" fill="none" stroke="#936c56" stroke-width="3" opacity=".65"/></g><g transform="translate(0 0)"></g></g></svg></g><g opacity="0.18" stroke="#e1c17c" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#e1c17c"/></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>黄忠 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d1b077"/><stop offset=".2" stop-color="#b68a42"/><stop offset=".58" stop-color="#906f39"/><stop offset="1" stop-color="#344532"/></linearGradient>
  <linearGradient id="black" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a8803e"/><stop offset=".4" stop-color="#374a34"/><stop offset="1" stop-color="#2e3d2e"/></linearGradient>
@@ -94,7 +94,7 @@
  <linearGradient id="beard" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#090d10"/><stop offset=".42" stop-color="#344044"/><stop offset=".7" stop-color="#30402f"/><stop offset="1" stop-color="#080d10"/></linearGradient>
  <pattern id="stripes" width="34" height="28" patternUnits="userSpaceOnUse"><path d="M-4 26 Q8 8 20 0 M12 31 Q23 14 38 5" fill="none" stroke="#d0b374" stroke-width="6" opacity=".55"/></pattern>
  <pattern id="scales" width="28" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q14 14 27 1" fill="none" stroke="#b1b6a9" stroke-width="2" opacity=".46"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(1.0400 0.9400) translate(-400 -1000)">
 <ellipse cx="402" cy="958" rx="272" ry="27" fill="#07100e" opacity=".34"/>
 <g id="weapon">
 <path d="M704 136 Q826 473 704 850" fill="none" stroke="#191d1d" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="#553a2b" stroke-width="15"/><path d="M704 136 L704 850" stroke="url(#steel)" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="#191d1d" stroke-width="13"/><path d="M674 503 L785 467" stroke="url(#steel)" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="url(#steel)" stroke="#191d1d" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="url(#gold)" stroke-width="9"/>
@@ -165,8 +165,8 @@
 <path d="M275 718 Q331 752 388 739 L360 838 Q302 805 260 779Z M520 718 Q573 716 612 693 L641 780 Q589 815 540 821Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
 <!-- rivets -->
 <g fill="#e5c986" stroke="#514020" stroke-width="3"><circle cx="286" cy="427" r="6"/><circle cx="355" cy="415" r="6"/><circle cx="529" cy="415" r="6"/><circle cx="591" cy="438" r="6"/><circle cx="363" cy="485" r="5"/><circle cx="437" cy="473" r="5"/><circle cx="510" cy="485" r="5"/></g>
-<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#e1c17c" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.52" stroke="#e1c17c" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#e1c17c"/></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>黄忠 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#e1c17c" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M393 193 Q410 185 427 193 M453 193 Q471 185 488 193" fill="none" stroke="#936c56" stroke-width="3" opacity=".65"/></g><g transform="translate(0 0)"></g></g></svg></g><g opacity="0.52" stroke="#e1c17c" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#e1c17c"/></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>黄忠 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d1b077"/><stop offset=".2" stop-color="#b68a42"/><stop offset=".58" stop-color="#906f39"/><stop offset="1" stop-color="#344532"/></linearGradient>
  <linearGradient id="black" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a8803e"/><stop offset=".4" stop-color="#374a34"/><stop offset="1" stop-color="#2e3d2e"/></linearGradient>
@@ -177,7 +177,7 @@
  <linearGradient id="beard" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#090d10"/><stop offset=".42" stop-color="#344044"/><stop offset=".7" stop-color="#30402f"/><stop offset="1" stop-color="#080d10"/></linearGradient>
  <pattern id="stripes" width="34" height="28" patternUnits="userSpaceOnUse"><path d="M-4 26 Q8 8 20 0 M12 31 Q23 14 38 5" fill="none" stroke="#d0b374" stroke-width="6" opacity=".55"/></pattern>
  <pattern id="scales" width="28" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q14 14 27 1" fill="none" stroke="#b1b6a9" stroke-width="2" opacity=".46"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(1.0400 0.9400) translate(-400 -1000)">
 <ellipse cx="402" cy="958" rx="272" ry="27" fill="#07100e" opacity=".34"/>
 <g id="weapon">
 <path d="M704 136 Q826 473 704 850" fill="none" stroke="#191d1d" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="#553a2b" stroke-width="15"/><path d="M704 136 L704 850" stroke="url(#steel)" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="#191d1d" stroke-width="13"/><path d="M674 503 L785 467" stroke="url(#steel)" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="url(#steel)" stroke="#191d1d" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="url(#gold)" stroke-width="9"/>
@@ -248,8 +248,8 @@
 <path d="M275 718 Q331 752 388 739 L360 838 Q302 805 260 779Z M520 718 Q573 716 612 693 L641 780 Q589 815 540 821Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
 <!-- rivets -->
 <g fill="#e5c986" stroke="#514020" stroke-width="3"><circle cx="286" cy="427" r="6"/><circle cx="355" cy="415" r="6"/><circle cx="529" cy="415" r="6"/><circle cx="591" cy="438" r="6"/><circle cx="363" cy="485" r="5"/><circle cx="437" cy="473" r="5"/><circle cx="510" cy="485" r="5"/></g>
-<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#e1c17c" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="1" stroke="#e1c17c" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#e1c17c"/></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>黄忠 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#e1c17c" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M393 193 Q410 185 427 193 M453 193 Q471 185 488 193" fill="none" stroke="#936c56" stroke-width="3" opacity=".65"/></g><g transform="translate(0 0)"></g></g></svg></g><g opacity="1" stroke="#e1c17c" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#e1c17c"/></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>黄忠 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d1b077"/><stop offset=".2" stop-color="#b68a42"/><stop offset=".58" stop-color="#906f39"/><stop offset="1" stop-color="#344532"/></linearGradient>
  <linearGradient id="black" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a8803e"/><stop offset=".4" stop-color="#374a34"/><stop offset="1" stop-color="#2e3d2e"/></linearGradient>
@@ -260,7 +260,7 @@
  <linearGradient id="beard" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#090d10"/><stop offset=".42" stop-color="#344044"/><stop offset=".7" stop-color="#30402f"/><stop offset="1" stop-color="#080d10"/></linearGradient>
  <pattern id="stripes" width="34" height="28" patternUnits="userSpaceOnUse"><path d="M-4 26 Q8 8 20 0 M12 31 Q23 14 38 5" fill="none" stroke="#d0b374" stroke-width="6" opacity=".55"/></pattern>
  <pattern id="scales" width="28" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q14 14 27 1" fill="none" stroke="#b1b6a9" stroke-width="2" opacity=".46"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(1.0400 0.9400) translate(-400 -1000)">
 <ellipse cx="402" cy="958" rx="272" ry="27" fill="#07100e" opacity=".34"/>
 <g id="weapon">
 <path d="M704 136 Q826 473 704 850" fill="none" stroke="#191d1d" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="#553a2b" stroke-width="15"/><path d="M704 136 L704 850" stroke="url(#steel)" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="#191d1d" stroke-width="13"/><path d="M674 503 L785 467" stroke="url(#steel)" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="url(#steel)" stroke="#191d1d" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="url(#gold)" stroke-width="9"/>
@@ -331,4 +331,4 @@
 <path d="M275 718 Q331 752 388 739 L360 838 Q302 805 260 779Z M520 718 Q573 716 612 693 L641 780 Q589 815 540 821Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
 <!-- rivets -->
 <g fill="#e5c986" stroke="#514020" stroke-width="3"><circle cx="286" cy="427" r="6"/><circle cx="355" cy="415" r="6"/><circle cx="529" cy="415" r="6"/><circle cx="591" cy="438" r="6"/><circle cx="363" cy="485" r="5"/><circle cx="437" cy="473" r="5"/><circle cx="510" cy="485" r="5"/></g>
-<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#e1c17c" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.42" stroke="#e1c17c" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#e1c17c"/></g></g></svg>
+<path d="M440 506 L474 540 L440 574 L406 540Z" fill="#e1c17c" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M393 193 Q410 185 427 193 M453 193 Q471 185 488 193" fill="none" stroke="#936c56" stroke-width="3" opacity=".65"/></g><g transform="translate(0 0)"></g></g></svg></g><g opacity="0.42" stroke="#e1c17c" fill="none" stroke-width="13"><path d="M190 630 L700 380 M280 690 L730 470 M320 510 L670 250"/><path d="M680 370 L740 360 L710 415Z" fill="#e1c17c"/></g></g></svg>

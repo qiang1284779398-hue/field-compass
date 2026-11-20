@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
 <title>小乔 · 2D 立绘</title>
-<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eab4ab"/><stop offset=".18" stop-color="#dc8a91"/><stop offset=".55" stop-color="#ab6e74"/><stop offset="1" stop-color="#623757"/></linearGradient>
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ae8991"/><stop offset=".28" stop-color="#743f65"/><stop offset=".72" stop-color="#ab6e74"/><stop offset="1" stop-color="#623757"/></linearGradient>
@@ -13,7 +13,7 @@
  <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
  <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#eab4ab" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
- </defs>
+ </defs><g transform="translate(400 1000) scale(0.8700 0.9300) translate(-400 -1000)">
 <ellipse cx="445" cy="960" rx="235" ry="25" fill="#0d1118" opacity=".25" filter="url(#shadow)"/>
 <g fill="none" stroke-linecap="round"><path d="M607 536 Q756 432 722 298 Q696 208 763 136" stroke="#e6a8a3" stroke-width="16"/><path d="M620 555 Q766 515 760 393 Q757 321 789 275" stroke="#dc8a91" stroke-width="10"/><path d="M239 584 Q97 501 104 390 Q114 303 53 238" stroke="#e7aaa5" stroke-width="13"/><path d="M245 611 Q109 576 87 487" stroke="#9a7082" stroke-width="7"/></g><g id="weapon">
 <path d="M686 648 Q594 500 640 378 Q687 416 704 451 Q728 379 757 364 Q791 494 686 648Z" fill="url(#blade)" stroke="#30271f" stroke-width="9"/><path d="M686 648 L640 378 M686 648 L704 451 M686 648 L757 364 M686 648 L782 448" fill="none" stroke="url(#metal)" stroke-width="7"/><path d="M686 648 L694 754" stroke="#553a2b" stroke-width="16" stroke-linecap="round"/><path d="M673 648 Q687 663 702 648" fill="none" stroke="#f2c6a4" stroke-width="8"/>
@@ -35,4 +35,4 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-<path d="M520 165 Q600 130 620 205 Q580 197 550 225" fill="none" stroke="#f2c6a4" stroke-width="12" stroke-linecap="round"/><path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#f2c6a4" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg>
+<path d="M520 165 Q600 130 620 205 Q580 197 550 225" fill="none" stroke="#f2c6a4" stroke-width="12" stroke-linecap="round"/><path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#f2c6a4" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(15 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(15 0)"><path d="M455 98 Q500 38 525 69 Q503 108 469 124Z" fill="#d08f9b" stroke="#77536a" stroke-width="6"/></g></g></svg>

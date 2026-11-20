@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>周瑜·专属战技四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>周瑜 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<title>周瑜 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d2987f"/><stop offset=".2" stop-color="#a94736"/><stop offset=".58" stop-color="#843b2f"/><stop offset="1" stop-color="#40252c"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -10,7 +10,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bb6c57"/><stop offset=".45" stop-color="#a94736"/><stop offset="1" stop-color="#3e252b"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e6c785" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9300 1.0150) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M696 610 L696 200" stroke="#191d1d" stroke-width="25" stroke-linecap="round"/><path d="M696 590 L696 206 Q665 154 684 83 Q701 145 724 188 L707 590Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M694 120 L700 550" stroke="#fff4df" stroke-width="7" opacity=".85"/><path d="M650 590 Q696 568 742 590 L734 615 Q696 642 658 615Z" fill="url(#gold)" stroke="#191d1d" stroke-width="8"/><path d="M680 625 L711 625 L711 754 L680 754Z" fill="#553a2b" stroke="#191d1d" stroke-width="7"/><path d="M680 651 L711 678 M680 690 L711 717" stroke="#e2c077" stroke-width="7"/><path d="M696 752 L696 782" stroke="url(#gold)" stroke-width="9"/>
@@ -74,8 +74,8 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8a3d30" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#a94736" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#ecd096" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#e2c077" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.18" fill="none" stroke="#ff8d4d" stroke-width="16" stroke-linecap="round"><path d="M260 660 Q220 520 320 430 Q290 540 390 550 Q420 440 505 360 Q485 560 620 620"/><path d="M330 700 Q400 610 470 700"/></g><circle cx="400" cy="500" r="190" fill="none" stroke="#e2c077" stroke-width="7" opacity="0.18"/></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>周瑜 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#e2c077" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"></g></g></svg></g><g opacity="0.18" fill="none" stroke="#ff8d4d" stroke-width="16" stroke-linecap="round"><path d="M260 660 Q220 520 320 430 Q290 540 390 550 Q420 440 505 360 Q485 560 620 620"/><path d="M330 700 Q400 610 470 700"/></g><circle cx="400" cy="500" r="190" fill="none" stroke="#e2c077" stroke-width="7" opacity="0.18"/></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>周瑜 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d2987f"/><stop offset=".2" stop-color="#a94736"/><stop offset=".58" stop-color="#843b2f"/><stop offset="1" stop-color="#40252c"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -85,7 +85,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bb6c57"/><stop offset=".45" stop-color="#a94736"/><stop offset="1" stop-color="#3e252b"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e6c785" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9300 1.0150) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M696 610 L696 200" stroke="#191d1d" stroke-width="25" stroke-linecap="round"/><path d="M696 590 L696 206 Q665 154 684 83 Q701 145 724 188 L707 590Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M694 120 L700 550" stroke="#fff4df" stroke-width="7" opacity=".85"/><path d="M650 590 Q696 568 742 590 L734 615 Q696 642 658 615Z" fill="url(#gold)" stroke="#191d1d" stroke-width="8"/><path d="M680 625 L711 625 L711 754 L680 754Z" fill="#553a2b" stroke="#191d1d" stroke-width="7"/><path d="M680 651 L711 678 M680 690 L711 717" stroke="#e2c077" stroke-width="7"/><path d="M696 752 L696 782" stroke="url(#gold)" stroke-width="9"/>
@@ -149,8 +149,8 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8a3d30" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#a94736" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#ecd096" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#e2c077" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.52" fill="none" stroke="#ff8d4d" stroke-width="16" stroke-linecap="round"><path d="M260 660 Q220 520 320 430 Q290 540 390 550 Q420 440 505 360 Q485 560 620 620"/><path d="M330 700 Q400 610 470 700"/></g><circle cx="400" cy="500" r="190" fill="none" stroke="#e2c077" stroke-width="7" opacity="0.52"/></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>周瑜 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#e2c077" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"></g></g></svg></g><g opacity="0.52" fill="none" stroke="#ff8d4d" stroke-width="16" stroke-linecap="round"><path d="M260 660 Q220 520 320 430 Q290 540 390 550 Q420 440 505 360 Q485 560 620 620"/><path d="M330 700 Q400 610 470 700"/></g><circle cx="400" cy="500" r="190" fill="none" stroke="#e2c077" stroke-width="7" opacity="0.52"/></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>周瑜 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d2987f"/><stop offset=".2" stop-color="#a94736"/><stop offset=".58" stop-color="#843b2f"/><stop offset="1" stop-color="#40252c"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -160,7 +160,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bb6c57"/><stop offset=".45" stop-color="#a94736"/><stop offset="1" stop-color="#3e252b"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e6c785" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9300 1.0150) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M696 610 L696 200" stroke="#191d1d" stroke-width="25" stroke-linecap="round"/><path d="M696 590 L696 206 Q665 154 684 83 Q701 145 724 188 L707 590Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M694 120 L700 550" stroke="#fff4df" stroke-width="7" opacity=".85"/><path d="M650 590 Q696 568 742 590 L734 615 Q696 642 658 615Z" fill="url(#gold)" stroke="#191d1d" stroke-width="8"/><path d="M680 625 L711 625 L711 754 L680 754Z" fill="#553a2b" stroke="#191d1d" stroke-width="7"/><path d="M680 651 L711 678 M680 690 L711 717" stroke="#e2c077" stroke-width="7"/><path d="M696 752 L696 782" stroke="url(#gold)" stroke-width="9"/>
@@ -224,8 +224,8 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8a3d30" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#a94736" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#ecd096" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#e2c077" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="1" fill="none" stroke="#ff8d4d" stroke-width="16" stroke-linecap="round"><path d="M260 660 Q220 520 320 430 Q290 540 390 550 Q420 440 505 360 Q485 560 620 620"/><path d="M330 700 Q400 610 470 700"/></g><circle cx="400" cy="500" r="190" fill="none" stroke="#e2c077" stroke-width="7" opacity="1"/></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>周瑜 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#e2c077" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"></g></g></svg></g><g opacity="1" fill="none" stroke="#ff8d4d" stroke-width="16" stroke-linecap="round"><path d="M260 660 Q220 520 320 430 Q290 540 390 550 Q420 440 505 360 Q485 560 620 620"/><path d="M330 700 Q400 610 470 700"/></g><circle cx="400" cy="500" r="190" fill="none" stroke="#e2c077" stroke-width="7" opacity="1"/></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>周瑜 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d2987f"/><stop offset=".2" stop-color="#a94736"/><stop offset=".58" stop-color="#843b2f"/><stop offset="1" stop-color="#40252c"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -235,7 +235,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bb6c57"/><stop offset=".45" stop-color="#a94736"/><stop offset="1" stop-color="#3e252b"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e6c785" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9300 1.0150) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M696 610 L696 200" stroke="#191d1d" stroke-width="25" stroke-linecap="round"/><path d="M696 590 L696 206 Q665 154 684 83 Q701 145 724 188 L707 590Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M694 120 L700 550" stroke="#fff4df" stroke-width="7" opacity=".85"/><path d="M650 590 Q696 568 742 590 L734 615 Q696 642 658 615Z" fill="url(#gold)" stroke="#191d1d" stroke-width="8"/><path d="M680 625 L711 625 L711 754 L680 754Z" fill="#553a2b" stroke="#191d1d" stroke-width="7"/><path d="M680 651 L711 678 M680 690 L711 717" stroke="#e2c077" stroke-width="7"/><path d="M696 752 L696 782" stroke="url(#gold)" stroke-width="9"/>
@@ -299,4 +299,4 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8a3d30" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#a94736" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#ecd096" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#e2c077" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg></g><g opacity="0.42" fill="none" stroke="#ff8d4d" stroke-width="16" stroke-linecap="round"><path d="M260 660 Q220 520 320 430 Q290 540 390 550 Q420 440 505 360 Q485 560 620 620"/><path d="M330 700 Q400 610 470 700"/></g><circle cx="400" cy="500" r="190" fill="none" stroke="#e2c077" stroke-width="7" opacity="0.42"/></g></svg>
+<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#e2c077" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"></g></g></svg></g><g opacity="0.42" fill="none" stroke="#ff8d4d" stroke-width="16" stroke-linecap="round"><path d="M260 660 Q220 520 320 430 Q290 540 390 550 Q420 440 505 360 Q485 560 620 620"/><path d="M330 700 Q400 610 470 700"/></g><circle cx="400" cy="500" r="190" fill="none" stroke="#e2c077" stroke-width="7" opacity="0.42"/></g></svg>

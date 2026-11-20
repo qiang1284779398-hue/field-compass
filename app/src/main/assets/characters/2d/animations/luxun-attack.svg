@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>陆逊·普通攻击四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>陆逊 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<title>陆逊 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b5bca7"/><stop offset=".2" stop-color="#718c83"/><stop offset=".58" stop-color="#596f6a"/><stop offset="1" stop-color="#2d403e"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -10,7 +10,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#90a293"/><stop offset=".45" stop-color="#718c83"/><stop offset="1" stop-color="#2c3e3c"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e4c887" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9600 1.0350) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M686 648 Q594 500 640 378 Q687 416 704 451 Q728 379 757 364 Q791 494 686 648Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M686 648 L640 378 M686 648 L704 451 M686 648 L757 364 M686 648 L782 448" fill="none" stroke="url(#gold)" stroke-width="7"/><path d="M686 648 L694 754" stroke="#553a2b" stroke-width="16" stroke-linecap="round"/><path d="M673 648 Q687 663 702 648" fill="none" stroke="#dfc17a" stroke-width="8"/>
@@ -78,8 +78,8 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#5d746e" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#718c83" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#ead198" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#dfc17a" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#dfc17a" stroke-width="11" stroke-linecap="round" opacity="0.1"/><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.06999999999999999"/></g><g transform="translate(800 0)"><g transform="translate(-10 -8) rotate(-3 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>陆逊 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#dfc17a" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"><path d="M392 120 Q400 71 441 75 Q482 71 490 120 Q441 136 392 120Z" fill="#9d7960" stroke="#dfc185" stroke-width="7"/></g></g></svg></g><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#dfc17a" stroke-width="11" stroke-linecap="round" opacity="0.1"/><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.06999999999999999"/></g><g transform="translate(800 0)"><g transform="translate(-10 -8) rotate(-3 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>陆逊 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b5bca7"/><stop offset=".2" stop-color="#718c83"/><stop offset=".58" stop-color="#596f6a"/><stop offset="1" stop-color="#2d403e"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -89,7 +89,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#90a293"/><stop offset=".45" stop-color="#718c83"/><stop offset="1" stop-color="#2c3e3c"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e4c887" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9600 1.0350) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M686 648 Q594 500 640 378 Q687 416 704 451 Q728 379 757 364 Q791 494 686 648Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M686 648 L640 378 M686 648 L704 451 M686 648 L757 364 M686 648 L782 448" fill="none" stroke="url(#gold)" stroke-width="7"/><path d="M686 648 L694 754" stroke="#553a2b" stroke-width="16" stroke-linecap="round"/><path d="M673 648 Q687 663 702 648" fill="none" stroke="#dfc17a" stroke-width="8"/>
@@ -157,8 +157,8 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#5d746e" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#718c83" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#ead198" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#dfc17a" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#dfc17a" stroke-width="11" stroke-linecap="round" opacity="0.55"/><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.385"/></g><g transform="translate(1600 0)"><g transform="translate(28 -16) rotate(7 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>陆逊 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#dfc17a" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"><path d="M392 120 Q400 71 441 75 Q482 71 490 120 Q441 136 392 120Z" fill="#9d7960" stroke="#dfc185" stroke-width="7"/></g></g></svg></g><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#dfc17a" stroke-width="11" stroke-linecap="round" opacity="0.55"/><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.385"/></g><g transform="translate(1600 0)"><g transform="translate(28 -16) rotate(7 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>陆逊 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b5bca7"/><stop offset=".2" stop-color="#718c83"/><stop offset=".58" stop-color="#596f6a"/><stop offset="1" stop-color="#2d403e"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -168,7 +168,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#90a293"/><stop offset=".45" stop-color="#718c83"/><stop offset="1" stop-color="#2c3e3c"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e4c887" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9600 1.0350) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M686 648 Q594 500 640 378 Q687 416 704 451 Q728 379 757 364 Q791 494 686 648Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M686 648 L640 378 M686 648 L704 451 M686 648 L757 364 M686 648 L782 448" fill="none" stroke="url(#gold)" stroke-width="7"/><path d="M686 648 L694 754" stroke="#553a2b" stroke-width="16" stroke-linecap="round"/><path d="M673 648 Q687 663 702 648" fill="none" stroke="#dfc17a" stroke-width="8"/>
@@ -236,8 +236,8 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#5d746e" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#718c83" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#ead198" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#dfc17a" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#dfc17a" stroke-width="18" stroke-linecap="round" opacity="1"/><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.7"/></g><g transform="translate(2400 0)"><g transform="translate(-4 0) rotate(-1 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
-<title>陆逊 · 2D 立绘</title><desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>
+<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#dfc17a" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"><path d="M392 120 Q400 71 441 75 Q482 71 490 120 Q441 136 392 120Z" fill="#9d7960" stroke="#dfc185" stroke-width="7"/></g></g></svg></g><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#dfc17a" stroke-width="18" stroke-linecap="round" opacity="1"/><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.7"/></g><g transform="translate(2400 0)"><g transform="translate(-4 0) rotate(-1 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>陆逊 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b5bca7"/><stop offset=".2" stop-color="#718c83"/><stop offset=".58" stop-color="#596f6a"/><stop offset="1" stop-color="#2d403e"/></linearGradient>
  <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
@@ -247,7 +247,7 @@
  <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#90a293"/><stop offset=".45" stop-color="#718c83"/><stop offset="1" stop-color="#2c3e3c"/></linearGradient>
  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
  <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e4c887" stroke-width="2" opacity=".72"/></pattern>
-</defs>
+</defs><g transform="translate(400 1000) scale(0.9600 1.0350) translate(-400 -1000)">
 <ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
 <g id="weapon">
 <path d="M686 648 Q594 500 640 378 Q687 416 704 451 Q728 379 757 364 Q791 494 686 648Z" fill="url(#steel)" stroke="#191d1d" stroke-width="9"/><path d="M686 648 L640 378 M686 648 L704 451 M686 648 L757 364 M686 648 L782 448" fill="none" stroke="url(#gold)" stroke-width="7"/><path d="M686 648 L694 754" stroke="#553a2b" stroke-width="16" stroke-linecap="round"/><path d="M673 648 Q687 663 702 648" fill="none" stroke="#dfc17a" stroke-width="8"/>
@@ -315,4 +315,4 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#5d746e" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#718c83" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#ead198" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#dfc17a" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/></svg></g><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#dfc17a" stroke-width="11" stroke-linecap="round" opacity="0.35"/><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.24499999999999997"/></g></svg>
+<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="#dfc17a" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(0 0)"><path d="M392 120 Q400 71 441 75 Q482 71 490 120 Q441 136 392 120Z" fill="#9d7960" stroke="#dfc185" stroke-width="7"/></g></g></svg></g><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#dfc17a" stroke-width="11" stroke-linecap="round" opacity="0.35"/><path d="M530 530 Q680 360 725 485 M540 535 Q650 420 680 560" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.24499999999999997"/></g></svg>
