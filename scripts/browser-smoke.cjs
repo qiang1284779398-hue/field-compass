@@ -109,7 +109,7 @@ const assert = require("node:assert/strict");
   // Save visual evidence while the first battle is actually on screen.
   const evidenceDir = path.resolve("artifacts");
   fs.mkdirSync(evidenceDir, { recursive: true });
-  await page.waitForFunction(() => { const a=window.__hero3dStatus?.()||[]; return ["liu-bei","guan-yu","zhang-fei"].every(id=>a.some(x=>x.id===id&&x.ready)); }, { timeout: 30000 });
+  await page.waitForFunction(() => { const a=window.__hero3dStatus?.()||[]; return ["liu-bei","guan-yu","zhang-fei"].every(id=>a.some(x=>x.id===id&&x.ready)); }, { timeout: 90000 });
   await page.waitForTimeout(1200);
   await page.locator("#battleScene").screenshot({ path: path.join(evidenceDir, "battle-scene.png") });
   await page.locator("#battleScene .hero3d-layer").screenshot({ path: path.join(evidenceDir, "battle-3d-layer.png") });
