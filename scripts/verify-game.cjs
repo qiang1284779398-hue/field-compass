@@ -7,17 +7,13 @@ assert.ok(scriptMatch, "game script block missing");
 const source = scriptMatch[1];
 new Function(source);
 
-const chapterMatch = source.match(/const CHAPTERS=(\[[\s\S]*?
-\]);
-const EVENTS=/);
+const chapterMatch = source.match(/const CHAPTERS=(\[[\s\S]*?\n\]);\nconst EVENTS=/);
 assert.ok(chapterMatch, "chapter data missing");
 const chapters = new Function("return " + chapterMatch[1])();
 assert.equal(chapters.length, 30, "campaign must contain 30 chapters");
 assert.ok(chapters.every(c => c.title && c.intro && c.dialog.length >= 3 && c.boss && c.sideText), "each chapter needs complete story, dialogue, boss and side quest");
 
-const eventMatch = source.match(/const EVENTS=(\[[\s\S]*?
-\]);
-function fresh/);
+const eventMatch = source.match(/const EVENTS=(\[[\s\S]*?\n\]);\nfunction fresh/);
 assert.ok(eventMatch, "random event data missing");
 const events = new Function("return " + eventMatch[1])();
 assert.ok(events.length >= 20, "at least 20 distinct random events required");
