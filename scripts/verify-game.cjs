@@ -54,7 +54,7 @@ const storage = {
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
   source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,factionForRegion,enemyCommander,siegeCost};"
-)(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
+)(documentMock, storage, {}, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
 game.go("world");
@@ -186,7 +186,10 @@ const facilityFoodBefore = game.state().food;
 game.upgradeOutpost(1, "granary");
 assert.equal(game.state().outpostFacilities[1].granary, 1, "granary upgrade should persist at the outpost");
 game.nextDay();
-assert.equal(game.state().food, facilityFoodBefore + 8 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - 15, "granary should add eight daily food before army and outpost upkeep");
+const facilityOutposts = Object.keys(game.state().territories).filter(k => game.state().territories[k]).length;
+const facilityRoutes = game.state().supplyRoutes.filter(r => game.state().territories[r[0]] && game.state().territories[r[1]]).length;
+const expectedFacilityFood = facilityFoodBefore + game.state().build.farm * 65 + facilityRoutes * 8 + 8 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - Math.max(0, facilityOutposts * 15 - facilityRoutes * 5);
+assert.equal(game.state().food, expectedFacilityFood, "granary should add eight daily food alongside farm income and upkeep");
 game.upgradeOutpost(1, "wall");
 assert.equal(game.state().outpostFacilities[1].wall, 1, "defensive wall upgrade should persist");
 game.upgradeOutpost(1, "beacon");
