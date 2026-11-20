@@ -34,6 +34,8 @@ assert.ok(source.includes("suppressed=(troop.includes(\"弓\")||troop.includes(\
 assert.ok(source.includes("enemyFaction")||source.includes("factionForRegion"), "enemy faction data should exist");
 assert.ok(source.includes("campRecovery=Math.min(s.wounded||0,4+Math.floor((s.morale||0)/25))"), "daily camp recovery should heal wounded troops based on morale");
 assert.ok(source.includes("function battlefieldAttackMultiplier"), "weather and terrain combat modifier engine missing");
+assert.ok(source.includes("function battlefieldDefenseMultiplier"), "weather and garrison terrain defense engine missing");
+assert.ok(source.includes("terrainDefenseMultiplier(terrain)"), "territory garrisons should receive terrain defense bonuses");
 assert.ok(source.includes("w.arch") && source.includes('w.id==="rain"') && source.includes('w.id==="fog"'), "weather should change ranged and cavalry combat");
 assert.ok(source.includes("if(focus===key)m*=1.12"), "selected territory assault troop should gain its focus bonus");
 assert.ok(source.includes('["mountain","pass","forest"].includes(terrain)'), "cavalry should be penalized in difficult terrain");
@@ -85,7 +87,7 @@ const storage = {
 };
 const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,factionForRegion,enemyCommander,siegeCost};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -197,6 +199,11 @@ const cavalryProbe={troop:"骑兵"},archerProbe={troop:"弓兵"};
 game.fight().allies.push(cavalryProbe,archerProbe);
 assert.ok(Math.abs(game.battlefieldAttackMultiplier(archerProbe,{})-.88)<.001, "rain should reduce archer attack by twelve percent");
 assert.ok(Math.abs(game.battlefieldAttackMultiplier(cavalryProbe,{})-(1.12*.92*.88))<.001, "rain and pass terrain should offset cavalry focus bonus");
+const enemyProbe={troop:"步兵"};
+game.fight().enemies.push(enemyProbe);
+const expectedDefense=1.04*game.terrainDefenseMultiplier(game.regionTerrain(game.fight().territoryIndex));
+assert.ok(Math.abs(game.battlefieldDefenseMultiplier(enemyProbe)-expectedDefense)<.001, "rain and defending terrain should strengthen garrison defense");
+game.fight().enemies.pop();
 game.fight().allies.pop();game.fight().allies.pop();
 game.fight().weather=weatherBefore;
 assert.equal(game.fight().waves, 3, "territory conquest should contain three battle waves");
