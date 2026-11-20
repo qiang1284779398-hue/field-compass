@@ -327,7 +327,8 @@ cuIAAAAASUVORK5CYII=
 <nav class="nav">
  <button data-p="home" onclick="go('home')"><span>🏯</span>主城</button><button data-p="campaign" onclick="go('campaign')"><span>🗺️</span>剧情</button><button data-p="heroes" onclick="go('heroes')"><span>🧑‍✈️</span>武将</button><button data-p="army" onclick="go('army')"><span>🛡️</span>军团</button><button data-p="world" onclick="go('world')"><span>🌏</span>天下</button><button data-p="bag" onclick="go('bag')"><span>🎒</span>府库</button>
 </nav>
-<audio id="bgm0" src="audio/theme_plain.ogg" loop preload="none"></audio><audio id="bgm1" src="audio/theme_lost_village.ogg" loop preload="none"></audio><audio id="bgm2" src="audio/theme_dream.ogg" loop preload="none"></audio><audio id="bgm3" src="audio/theme_swamp.ogg" loop preload="none"></audio>\n<div class="backdrop" id="backdrop" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+<audio id="bgm0" src="audio/theme_plain.ogg" loop preload="none"></audio><audio id="bgm1" src="audio/theme_lost_village.ogg" loop preload="none"></audio><audio id="bgm2" src="audio/theme_dream.ogg" loop preload="none"></audio><audio id="bgm3" src="audio/theme_swamp.ogg" loop preload="none"></audio>
+<div class="backdrop" id="backdrop" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
 <script>
 "use strict";
 const KEY="hxsg_save_v4";
@@ -424,7 +425,9 @@ let page="home",fight=null,toastTimer=null,storyContext=null,musicEnabled=localS
 const $=id=>document.getElementById(id);
 function fmt(n){return Math.floor(n||0).toLocaleString("zh-CN")}
 function topUI(){["gold","food","wood","iron","jade","fame"].forEach(k=>$(k).textContent=fmt(s[k]));let year=184+Math.floor((s.day-1)/90);let season=["春","夏","秋","冬"][Math.floor(((s.day-1)%90)/23)%4];$("date").textContent=year+"年·"+season;$("level").textContent="主公 Lv."+s.lv+" · "+s.exp+"经验";let m=$("musicToggle");if(m)m.textContent=musicEnabled?"♫ 音乐：开":"♫ 音乐：关"}
-function save(){localStorage.setItem(KEY,JSON.stringify(s));topUI()}\nfunction startMusic(){if(!musicEnabled)return;let idx=(fight?fight.chapter:s.story)%4;if(musicTrack===idx){let same=$("bgm"+idx);if(same&&typeof same.play==="function"&&same.paused)same.play().catch(()=>{});return}for(let i=0;i<4;i++){let a=$("bgm"+i);if(a&&typeof a.pause==="function")a.pause()}let a=$("bgm"+idx);if(!a||typeof a.play!=="function")return;musicTrack=idx;a.volume=.28;a.play().catch(()=>{})}\nfunction toggleMusic(){musicEnabled=!musicEnabled;localStorage.setItem("hxsg_music_enabled",musicEnabled?"1":"0");if(musicEnabled){musicTrack=-1;startMusic();toast("背景音乐已开启")}else{for(let i=0;i<4;i++){let a=$("bgm"+i);if(a&&typeof a.pause==="function")a.pause()}toast("背景音乐已关闭")}topUI()}
+function save(){localStorage.setItem(KEY,JSON.stringify(s));topUI()}
+function startMusic(){if(!musicEnabled)return;let idx=(fight?fight.chapter:s.story)%4;if(musicTrack===idx){let same=$("bgm"+idx);if(same&&typeof same.play==="function"&&same.paused)same.play().catch(()=>{});return}for(let i=0;i<4;i++){let a=$("bgm"+i);if(a&&typeof a.pause==="function")a.pause()}let a=$("bgm"+idx);if(!a||typeof a.play!=="function")return;musicTrack=idx;a.volume=.28;a.play().catch(()=>{})}
+function toggleMusic(){musicEnabled=!musicEnabled;localStorage.setItem("hxsg_music_enabled",musicEnabled?"1":"0");if(musicEnabled){musicTrack=-1;startMusic();toast("背景音乐已开启")}else{for(let i=0;i<4;i++){let a=$("bgm"+i);if(a&&typeof a.pause==="function")a.pause()}toast("背景音乐已关闭")}topUI()}
 function toast(t){let old=$("toast");if(old)old.remove();let n=document.createElement("div");n.id="toast";n.className="toast";n.setAttribute("role","status");n.setAttribute("aria-live","polite");n.textContent=t;document.body.appendChild(n);clearTimeout(toastTimer);toastTimer=setTimeout(()=>n.remove(),2600)}
 function log(t){s.logs.unshift("第"+s.day+"日："+t);s.logs=s.logs.slice(0,30)}
 function go(p){page=p;render();startMusic()}
