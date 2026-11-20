@@ -1,13 +1,13 @@
-name: Build Android APK
-# Browser smoke is mandatory; the Android device workflow validates the packaged APK.
+name: Build Android APK and parallel QA
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
-  build:
+  prepare:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,12 +16,9 @@ jobs:
           node-version: '20'
       - name: Verify game logic and content
         run: node scripts/verify-game.cjs
-      - name: Install Chromium for browser playability test
+      - name: Build rigged Three Kingdoms heroes and vendor runtime
         run: |
-          npm install --no-save --package-lock=false playwright three@0.128.0
-          npx playwright install --with-deps chromium
-      - name: Build rigged Three Kingdoms heroes
-        run: |
+          npm install --no-save --package-lock=false three@0.128.0
           mkdir -p app/src/main/assets/characters app/src/main/assets/vendor
           cp node_modules/three/build/three.min.js app/src/main/assets/vendor/three.min.js
           cp node_modules/three/examples/js/loaders/GLTFLoader.js app/src/main/assets/vendor/GLTFLoader.js
@@ -32,17 +29,7 @@ jobs:
           test -s app/src/main/assets/characters/liu-bei.glb
           test -s app/src/main/assets/characters/guan-yu.glb
           test -s app/src/main/assets/characters/zhang-fei.glb
-          du -h app/src/main/assets/characters/*.glb
           node scripts/inspect-glb.cjs
-      - name: Run browser playability test (required)
-        run: node scripts/browser-smoke.cjs
-      - name: Upload battle screenshot and 3D model evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: browser-battle-visual-evidence
-          path: artifacts/
-          if-no-files-found: warn
       - name: Download CC0 soundtrack for offline play
         run: |
           mkdir -p app/src/main/assets/audio
@@ -50,12 +37,56 @@ jobs:
           curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_lost_village.ogg -o app/src/main/assets/audio/theme_lost_village.ogg
           curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_dream.ogg -o app/src/main/assets/audio/theme_dream.ogg
           curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_swamp.ogg -o app/src/main/assets/audio/theme_swamp.ogg
-          test $(find app/src/main/assets/audio -name '*.ogg' | wc -l) -eq 4
+          test $(find app/src/main/assets/audio -maxdepth 1 -name '*.ogg' | wc -l) -eq 4
           mkdir -p app/src/main/assets/audio/sfx
           curl -L --fail --silent --show-error https://raw.githubusercontent.com/GeorgeQLe/assets-sfx-combat/main/assets/kenney/rpg-audio/Audio/drawKnife1.ogg -o app/src/main/assets/audio/sfx/swing.ogg
           curl -L --fail --silent --show-error https://raw.githubusercontent.com/GeorgeQLe/assets-sfx-combat/main/assets/kenney/rpg-audio/Audio/chop.ogg -o app/src/main/assets/audio/sfx/hit.ogg
           curl -L --fail --silent --show-error https://raw.githubusercontent.com/GeorgeQLe/assets-sfx-combat/main/assets/kenney/impact-sounds/Audio/impactMetal_heavy_000.ogg -o app/src/main/assets/audio/sfx/critical.ogg
           test $(find app/src/main/assets/audio/sfx -name '*.ogg' | wc -l) -eq 3
+      - name: Upload prepared game assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: prepared-game-assets
+          path: app/src/main/assets/**
+          if-no-files-found: error
+
+  browser-test:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Restore prepared game assets
+        uses: actions/download-artifact@v4
+        with:
+          name: prepared-game-assets
+          path: app/src/main/assets
+      - name: Install Chromium for browser playability test
+        run: |
+          npm install --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium
+      - name: Run browser playability test (required)
+        run: node scripts/browser-smoke.cjs
+      - name: Upload browser battle screenshot and 3D model evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-battle-visual-evidence
+          path: artifacts/
+          if-no-files-found: warn
+
+  build-apk:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore prepared game assets
+        uses: actions/download-artifact@v4
+        with:
+          name: prepared-game-assets
+          path: app/src/main/assets
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -63,8 +94,63 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-      - run: gradle --no-daemon assembleDebug
+      - name: Build debug APK
+        run: gradle --no-daemon assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: huanxiang-sanguo-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+
+  android-device-test:
+    needs: build-apk
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright CDP client
+        run: npm install --no-save --package-lock=false playwright
+      - name: Download APK from this workflow run
+        uses: actions/download-artifact@v4
+        with:
+          name: huanxiang-sanguo-apk
+          path: apk
+      - name: Boot Android emulator, install APK and test real WebView battle
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: |
+            set -e
+            mkdir -p artifacts
+            APK="$(find apk -name '*.apk' -print -quit)"
+            test -n "$APK"
+            adb install -r "$APK"
+            adb shell am force-stop com.hxsg.game || true
+            adb shell monkey -p com.hxsg.game 1
+            sleep 12
+            adb shell dumpsys activity activities | grep -q 'com.hxsg.game'
+            PID="$(adb shell pidof -s com.hxsg.game | tr -d '\r')"
+            test -n "$PID"
+            adb forward tcp:9222 localabstract:webview_devtools_remote_$PID
+            for i in $(seq 1 40); do
+              if curl -fsS http://127.0.0.1:9222/json/version >/dev/null; then break; fi
+              sleep 2
+            done
+            curl -fsS http://127.0.0.1:9222/json/version
+            node scripts/android-webview-smoke.cjs
+            adb logcat -d -s AndroidRuntime:E HuanxiangWebView:D > artifacts/android-logcat.txt
+            adb exec-out screencap -p > artifacts/android-final-screen.png
+      - name: Upload Android emulator battle evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-emulator-evidence
+          path: artifacts/
+          if-no-files-found: warn
