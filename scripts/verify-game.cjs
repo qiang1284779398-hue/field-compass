@@ -140,8 +140,9 @@ assert.ok(game.state().explored.includes(0), "region exploration should persist 
 assert.equal(game.state().food, foodBeforeExplore - 45 + 100, "rescuing villagers in a bandit encounter should reward grain after travel cost");
 assert.ok(elements.get("view").innerHTML.includes("已探索"), "explored regions should be marked on the map");
 game.inspectRegion(0);
+const exploredBeforeRepeat=game.state().explored.length;
 game.exploreRegion(0);
-assert.equal(game.state().explored.length, 1, "a region must not grant its discovery reward twice");
+assert.equal(game.state().explored.length, exploredBeforeRepeat, "a region must not grant its discovery reward twice");
 const woodBeforeOutpost = game.state().wood;
 const infantryBeforeOutpost = game.state().army.inf;
 game.establishOutpost(0);
