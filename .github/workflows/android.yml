@@ -35,6 +35,13 @@ jobs:
           node scripts/inspect-glb.cjs
       - name: Run browser playability test
         run: node scripts/browser-smoke.cjs
+      - name: Upload battle screenshot and 3D model evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-battle-visual-evidence
+          path: artifacts/
+          if-no-files-found: warn
       - name: Download CC0 soundtrack for offline play
         run: |
           mkdir -p app/src/main/assets/audio
