@@ -56,7 +56,7 @@ const game = new Function("document", "localStorage", "window", "setTimeout", "c
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
 game.go("world");
-assert.ok(elements.get("view").innerHTML.includes("天下舆图 · 行军探索"), "world map should show the exploration layer");
+assert.ok(elements.get("view").innerHTML.includes("天下舆图 · 郡县经营"), "world map should show the exploration layer");
 const foodBeforeExplore = game.state().food;
 game.inspectRegion(0);
 game.exploreRegion(0);
