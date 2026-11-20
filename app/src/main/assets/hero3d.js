@@ -161,6 +161,7 @@ function makeActor(id,key){
   }
   rec.root=root;rec.skinnedMeshes=skinnedMeshes;rec.boneCount=boneCount;rec.weaponSocket=!!socket;rec.mixer=new THREE.AnimationMixer(root);
   (gltf.animations||[]).forEach(clip=>{rec.actions[clip.name.toLowerCase()]=rec.mixer.clipAction(clip)});
+  rec.mixer.addEventListener("finished",event=>{if(event.action===rec.active){rec.active=null;rec.current="idle";}});
   app.scene.add(root);rec.ready=true;
   play(rec,"idle");
  }).catch(()=>{});
@@ -168,17 +169,23 @@ function makeActor(id,key){
 }
 function findAction(rec,kind){
  const keys=Object.keys(rec.actions);
- let key=keys.find(k=>kind==="idle"?/idle|stand|breath/.test(k):kind==="attack"?/sword.*(slash|combo|thrust)|slash|attack|combat|melee/.test(k):/death|die|fall|shot.*head|shot.*chest|knockdown/.test(k));
- if(!key&&kind==="idle")key=keys[0];
- if(!key&&kind==="attack")key=keys.find(k=>/hit|punch|fight|combo/.test(k));
- if(!key&&kind==="death")key=keys.find(k=>/shot|hit|fall|knockdown|dead/.test(k));
+ let key=keys.find(k=>kind==="idle"?/idle|stand|breath/.test(k):kind==="attack"?/slash|attack|combat|melee|hit|fight|combo/.test(k):/death|die|fall|knockdown|dead/.test(k));
+ // The sourced CC0 rigs ship with walk/run only. Keep idle in its authored A-pose and
+ // use a one-shot run clip as a temporary attack motion until combat-specific clips exist.
+ if(!key&&kind==="attack")key=keys.find(k=>/run|walk/.test(k));
+ if(!key&&kind==="death")key=keys.find(k=>/run|walk/.test(k));
  return key?rec.actions[key]:null;
 }
 function play(rec,kind){
  if(!rec.mixer||rec.current===kind)return;
- const next=findAction(rec,kind);if(!next)return;
+ const next=findAction(rec,kind);
+ if(!next){if(kind==="idle")rec.current="idle";return;}
  if(rec.active)rec.active.fadeOut(.12);
- next.reset();if(kind==="death"){next.setLoop(THREE.LoopOnce,1);next.clampWhenFinished=true;}else{next.setLoop(THREE.LoopRepeat,Infinity);next.clampWhenFinished=false;}next.fadeIn(.12).play();rec.active=next;rec.current=kind;
+ next.reset();
+ const once=kind==="death"||kind==="attack";
+ if(once){next.setLoop(THREE.LoopOnce,1);next.clampWhenFinished=kind==="death";}
+ else{next.setLoop(THREE.LoopRepeat,Infinity);next.clampWhenFinished=false;}
+ next.fadeIn(.12).play();rec.active=next;rec.current=kind;
 }
 function sync(sceneEl){
  if(!app||!sceneEl)return;
