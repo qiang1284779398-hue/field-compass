@@ -30,6 +30,8 @@ assert.ok(source.includes("function toggleMusic"), "music toggle control missing
 assert.ok(source.includes("function playSfx"), "combat sound effect controller missing");
 assert.ok(source.includes("function beginTerritoryBattle"), "frontier conquests should use the playable battle engine");
 assert.ok(source.includes("function makeTerritoryWave"), "frontier battles should generate staged enemy formations");
+assert.ok(source.includes("suppressed=(troop.includes(\"弓\")||troop.includes(\"弩\"))&&Math.random()<.24"), "archers should have a chance to suppress hero energy");
+assert.ok(source.includes("enemyFaction")||source.includes("factionForRegion"), "enemy faction data should exist");
 for (const track of ["theme_plain.ogg", "theme_lost_village.ogg", "theme_dream.ogg", "theme_swamp.ogg", "swing.ogg", "hit.ogg", "critical.ogg"]) assert.ok(html.includes(track), "missing audio asset reference: " + track);
 
 const makeElement = () => ({
