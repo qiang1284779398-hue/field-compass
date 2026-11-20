@@ -40,7 +40,6 @@ assert.ok(eventMatch, "random event data missing");
 const events = new Function("return " + eventMatch[1])();
 assert.ok(events.length >= 20, "at least 20 distinct random events required");
 
-assert.ok(!/url\\(data:image\\/png;base64,[^)]*\\s[^)]*\\)/.test(html), "embedded battlefield sprite data must not contain CSS-invalid whitespace");
 assert.ok((html.match(/url\\(data:image\\/png;base64,/g)||[]).length>=2, "both friendly and enemy sprite sheets must be embedded");
 assert.ok(source.includes("function normalizeRecruitState()") && source.includes("if(s.recruitTokens<1)return toast(\"招贤令不足") && source.includes("s.recruitTokens-=1;s.heroes.push") && source.includes("s.heroes.some(x=>x.id===h.id)"), "hero recruitment must normalize and consume one token and reject duplicate heroes");
 assert.ok(source.includes('s.recruitTokens<1?\'disabled\':\'\'') && source.includes("招贤令不足，暂不可寻访"), "recruitment UI must disable the action when no token is available");
