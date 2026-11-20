@@ -1,17 +1,30 @@
-name: Launch game on real Android phone
+name: Install and test game on real Android phone
 on:
   push:
     branches: [ main ]
     paths:
       - .github/workflows/open-delta.yml
 permissions:
-  contents: read
+  contents: write
 jobs:
-  launch-game:
+  install-game:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 10
     steps:
-      - name: Check installed game and launch it on the real phone
+      - name: Download the successful game APK and publish a temporary download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          gh run download 44750679190 --repo "$GITHUB_REPOSITORY" --name huanxiang-sanguo-apk --dir dist
+          APK="$(find dist -type f -name '*.apk' | head -n1)"
+          test -n "$APK"
+          TAG="phone-test-20261120"
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "Temporary real-phone test APK" --notes "Temporary APK for installation and device verification."
+          gh release upload "$TAG" "$APK" --repo "$GITHUB_REPOSITORY" --clobber
+          echo "APK_URL=https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/$(basename "$APK")" >> "$GITHUB_ENV"
+      - name: Open APK download on the connected real Android phone
         env:
           ANDROID_MCP_URL: ${{ secrets.ANDROID_MCP_URL }}
           ANDROID_MCP_TOKEN: ${{ secrets.ANDROID_MCP_TOKEN }}
@@ -20,36 +33,29 @@ jobs:
           MCP_URL="${ANDROID_MCP_URL%/}"
           case "$MCP_URL" in */mcp) ;; *) MCP_URL="$MCP_URL/mcp" ;; esac
           call_mcp() {
-            curl --http1.1 --fail --silent --show-error --max-time 35 --retry 4 --retry-all-errors --retry-delay 3 \
+            curl --http1.1 --fail --silent --show-error --max-time 45 --retry 4 --retry-all-errors --retry-delay 3 \
               -X POST "$MCP_URL" \
               -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
               -H "Content-Type: application/json" \
               -H "Accept: application/json, text/event-stream" \
               --data "$1"
           }
-          call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_list_apps","arguments":{"filter":"user","name_query":"幻想"}}}' > /tmp/apps.json
+          python3 - "$APK_URL" <<'PY'
+          import json,sys
+          open('/tmp/open-url.json','w').write(json.dumps({"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_open_uri","arguments":{"uri":sys.argv[1]}}}))
+          PY
+          call_mcp "$(cat /tmp/open-url.json)" > /tmp/open-url-response.json
           python3 - <<'PY'
           import json
-          raw=open('/tmp/apps.json').read()
+          raw=open('/tmp/open-url-response.json').read()
           for line in raw.splitlines():
               if line.startswith('data:'): raw=line[5:].strip()
           obj=json.loads(raw)
-          print('INSTALLED_APP_LOOKUP:',json.dumps(obj.get('result',{}),ensure_ascii=False)[:6000])
+          print('APK_DOWNLOAD_OPEN:',json.dumps(obj.get('result',obj.get('error')),ensure_ascii=False)[:5000])
+          if obj.get('error') or obj.get('result',{}).get('isError'): raise SystemExit('OPEN_APK_URL_FAILED')
           PY
-          OPEN_RESPONSE="$(call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_open_app","arguments":{"package_id":"com.hxsg.game"}}}')"
-          printf '%s\n' "$OPEN_RESPONSE" > /tmp/open.json
-          python3 - <<'PY'
-          import json
-          raw=open('/tmp/open.json').read()
-          for line in raw.splitlines():
-              if line.startswith('data:'): raw=line[5:].strip()
-          obj=json.loads(raw)
-          print('GAME_LAUNCH_RESPONSE:',json.dumps(obj.get('result',obj.get('error')),ensure_ascii=False)[:5000])
-          if obj.get('error') or obj.get('result',{}).get('isError'): raise SystemExit('GAME_LAUNCH_FAILED')
-          PY
-          sleep 10
-          SCREEN_RESPONSE="$(call_mcp '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}')"
-          printf '%s\n' "$SCREEN_RESPONSE" > /tmp/screen.json
+          sleep 15
+          call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/screen.json
           python3 - <<'PY'
           import json
           raw=open('/tmp/screen.json').read()
@@ -57,7 +63,7 @@ jobs:
               if line.startswith('data:'): raw=line[5:].strip()
           obj=json.loads(raw)
           result=obj.get('result',{})
-          print('SCREEN_VERIFICATION:',json.dumps(result,ensure_ascii=False)[:10000])
+          print('PHONE_INSTALL_SCREEN:',json.dumps(result,ensure_ascii=False)[:12000])
           if obj.get('error') or result.get('isError'): raise SystemExit('SCREEN_READ_FAILED')
           PY
-          echo "REAL_PHONE_GAME_LAUNCH_CHECK_COMPLETE"
+          echo "APK_DOWNLOAD_OPENED_ON_REAL_PHONE"
