@@ -114,7 +114,7 @@ const storage = {
 };
 const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,applyFactionBattleTactic,setFight:v=>{fight=v},factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle,applyFactionBattleTactic};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,applyFactionBattleTactic,factionTargetPlan,setFight:v=>{fight=v},factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle,applyFactionBattleTactic};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -143,6 +143,21 @@ assert.ok(doctrines.every(d=>d.siege>0&&d.inf>0&&d.cav>0&&d.arch>0&&d.desc),"eve
     if(c.shield)assert.ok(enemy.shield>=c.shield,"faction tactic should grant its shield effect: "+c.id);
     if(c.field)assert.equal(active[c.field],c.round,"faction tactic should set its combat effect marker: "+c.id);
   }
+}
+{
+  const wounded={id:"wounded",name:"重伤武将",hp:10,max:100,atk:10,def:20,energy:1,troop:"步兵"};
+  const archer={id:"archer",name:"弓手",hp:70,max:100,atk:30,def:5,energy:3,troop:"弓兵"};
+  const tank={id:"tank",name:"重甲将",hp:80,max:100,atk:20,def:50,energy:2,troop:"步兵"};
+  const threat={id:"threat",name:"高攻将",hp:60,max:100,atk:70,def:10,energy:4,troop:"步兵"};
+  const allies=[wounded,archer,tank,threat],backline=[archer],frontline=[wounded,tank,threat];
+  game.setFight({factionFocusHeroId:null});
+  assert.equal(game.factionTargetPlan("yellow","步兵",allies,backline,frontline).target.id,"wounded","Yellow Turban AI should swarm the weakest unit");
+  assert.equal(game.factionTargetPlan("xiliang","骑兵",allies,backline,frontline).target.id,"archer","Xiliang cavalry should flank the weakest backline defense");
+  assert.equal(game.factionTargetPlan("yuan","步兵",allies,backline,frontline).target.id,"tank","Yuan heavy infantry should pressure the frontline");
+  const caoFirst=game.factionTargetPlan("cao","步兵",allies,backline,frontline).target;
+  assert.equal(game.factionTargetPlan("cao","骑兵",allies,backline,frontline).target.id,caoFirst.id,"Cao Wei should maintain coordinated focus fire");
+  assert.equal(game.factionTargetPlan("shu","步兵",allies,backline,frontline).target.id,"threat","Shu defenders should prioritize the highest attack threat");
+  assert.equal(game.factionTargetPlan("jingwu","弓兵",allies,backline,frontline).target.id,"threat","Jing-Wu crossbows should lock onto the highest-energy target");
 }
 
 assert.ok(game.factionDoctrine("xiliang").cav>game.factionDoctrine("xiliang").arch,"Xiliang doctrine should prioritize cavalry");
