@@ -73,7 +73,7 @@ game.storyNext();
 game.chapterChoice(0);
 assert.ok(game.fight(), "chapter choice should start combat");
 assert.equal(game.fight().waves, 3, "chapter combat should have three waves");
-assert.ok(elements.get("view").innerHTML.includes("<svg"), "battle should render vector combatants");
+assert.ok(elements.get("view").innerHTML.includes("class=\"body-art\""), "battle should render sprite-based combatants");
 
 (async () => {
   await game.basicAttack();
