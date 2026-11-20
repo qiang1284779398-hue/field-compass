@@ -104,12 +104,14 @@ const assert = require("node:assert/strict");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
   await page.locator("#battleScene .hero3d-layer").waitFor({ state: "attached", timeout: 5000 });
   await page.waitForFunction(() => document.querySelectorAll("#battleScene .warrior.hero3d-ready").length >= 1, { timeout: 15000 });
-  const rigStatus = await page.evaluate(() => window.__hero3dStatus ? window.__hero3dStatus() : []);
+  let rigStatus = await page.evaluate(() => window.__hero3dStatus ? window.__hero3dStatus() : []);
   assert.ok(rigStatus.some(x => x.ready && x.skinnedMeshes > 0 && x.bones >= 20 && x.clips >= 3), "loaded heroes must contain real skinned meshes, a humanoid skeleton and multiple animation clips");
   // Save visual evidence while the first battle is actually on screen.
   const evidenceDir = path.resolve("artifacts");
   fs.mkdirSync(evidenceDir, { recursive: true });
   await page.waitForFunction(() => { const a=window.__hero3dStatus?.()||[]; return ["liu-bei","guan-yu","zhang-fei"].every(id=>a.some(x=>x.id===id&&x.ready)); }, { timeout: 90000 });
+  // Refresh the status snapshot after the async GLB loads; the earlier snapshot may be stale.
+  rigStatus = await page.evaluate(() => window.__hero3dStatus ? window.__hero3dStatus() : []);
   await page.waitForTimeout(1200);
   await page.locator("#battleScene").screenshot({ path: path.join(evidenceDir, "battle-scene.png") });
   await page.locator("#battleScene .hero3d-layer").screenshot({ path: path.join(evidenceDir, "battle-3d-layer.png") });
