@@ -25,5 +25,10 @@ for (const hero of ["liu-bei","guan-yu","zhang-fei"]) {
   assert.ok(joints >= 20, hero + " must have a real skeletal rig, found " + joints);
   assert.ok(animations.length >= 3, hero + " must include animation clips, found " + animations.length);
   assert.ok(nodeNames.includes("WeaponR"), hero + " must have a weapon attachment socket");
-  console.log(hero + ": " + (data.length/1024/1024).toFixed(2) + " MB, " + joints + " joints, " + animations.length + " animation clips, WeaponR socket OK");
+  const socketIndex = nodeNames.indexOf("WeaponR");
+  const parents = new Map();
+  (json.nodes || []).forEach((node, i) => (node.children || []).forEach(child => parents.set(child, i)));
+  assert.equal(nodeNames[parents.get(socketIndex)], "RightHand", hero + " weapon socket must be parented to the right hand");
+  for (const faceBone of ["Head","Jaw","LeftEye","RightEye"]) assert.ok(nodeNames.includes(faceBone), hero + " must have facial bones: " + faceBone);
+  console.log(hero + ": " + (data.length/1024/1024).toFixed(2) + " MB, " + joints + " joints, " + animations.length + " clips, face bones + right-hand weapon socket OK");
 }
