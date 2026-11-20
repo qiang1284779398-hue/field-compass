@@ -125,6 +125,7 @@ const assert = require("node:assert/strict");
       fight.allies[0].alive = true; fight.allies[0].hp = fight.allies[0].max;
       fight.allies[0].skill = name; fight.allies[0].skillLv = 1; fight.allies[0].energy = 5;
       fight.enemies.forEach(e => { e.alive = true; e.hp = 50000; e.max = 50000; e.shield = 0; e.status = {}; });
+      if (name === "青龙偃月" && fight.enemies.length < 2) fight.enemies.push(Object.assign({}, fight.enemies[0], { name: "测试副将", hp: 50000, max: 50000, alive: true, shield: 0, status: {} }));
       fight.target = 0; fight.logs = [];
       const energyBefore = fight.allies[0].energy;
       const enemyHpBefore = fight.enemies.slice(0,2).map(e => e.hp);
