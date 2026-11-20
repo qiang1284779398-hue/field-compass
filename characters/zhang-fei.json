@@ -2,18 +2,18 @@
   "name": "zhang-fei",
   "seed": 303,
   "gender": 1,
-  "age": 0.6,
-  "muscle": 0.94,
-  "weight": 0.7,
-  "height": 0.59,
-  "proportions": 0.62,
+  "age": 0.72,
+  "muscle": 0.98,
+  "weight": 0.82,
+  "height": 0.61,
+  "proportions": 0.58,
   "african": 0.02,
   "asian": 0.95,
   "caucasian": 0.03,
   "eyes": "blackbrown",
   "hair": "buzz",
   "hairColor": "#100f0e",
-  "facialHair": "short_beard",
+  "facialHair": "full_beard",
   "beardColor": "#171513",
   "outfit": "none",
   "top": "long_tunic",
@@ -30,13 +30,13 @@
   "garmentStyles": {
     "long_tunic": {
       "pattern": "solid",
-      "color": "#343c4c",
-      "color2": "#b8b8b2"
+      "color": "#292f3b",
+      "color2": "#c3b99f"
     },
     "leather_armor": {
       "pattern": "leather",
-      "color": "#303541",
-      "color2": "#a6a8ab"
+      "color": "#252b36",
+      "color2": "#b5a77d"
     },
     "trousers": {
       "pattern": "solid",
@@ -52,10 +52,16 @@
     }
   },
   "modifiers": {
-    "chin/chin-prominent": 0.28,
-    "head/head-square": 0.38
+    "chin/chin-prominent-decr|incr": 0.34,
+    "chin/chin-width-decr|incr": 0.42,
+    "head/head-square": 0.52,
+    "head/head-rectangular": 0.24,
+    "nose/nose-width1-decr|incr": 0.24,
+    "nose/nose-width2-decr|incr": 0.18,
+    "eyebrows/eyebrows-angle-down|up": -0.3,
+    "neck/neck-scale-horiz-decr|incr": 0.3
   },
-  "detail": "medium",
+  "detail": "high",
   "rig": "game",
   "faceBones": true,
   "restPose": "A",
