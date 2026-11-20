@@ -67,11 +67,28 @@ mayunlu|马云禄|西凉女将|先锋|骑兵|银月枪舞|银枪旋舞突击，�
 ganfuren|甘夫人|昭烈皇后|谋士|弓兵|母仪护佑|以仁慈之光保护友军，为全队恢复生命。|温良坚毅，辅佐刘备安定蜀汉后方。|fan|heal|#c7b59a|#6b5b4c|#f0dfbb|f|flower|none
 """
 
+BASE_SKILLS = {
+"liu-bei":("仁德济世","为全体友军恢复生命并净化持续伤害，鼓舞士气。","我方全体"),
+"guan-yu":("青龙偃月","选择两名敌军发动横斩，造成高额伤害并破甲。","敌方两名可选目标"),
+"zhang-fei":("燕人咆哮","震击敌方全体，造成伤害、降低速度并削弱士气。","敌方全体"),
+"zhao-yun":("七进七出","连续突击三次，低血量时伤害提高。","敌方最多三次追击"),
+"zhuge-liang":("八阵图","布下奇门阵，对全体敌军造成谋略伤害。","敌方全体"),
+"huang-zhong":("百步穿杨","锁定当前生命最低的敌人，造成高额远程伤害并破甲。","敌方最低生命目标"),
+"diaochan":("闭月迷魂","迷惑一名敌军，使其眩晕并错失下一次行动。","敌方单体"),
+"cao-cao":("魏武雄略","全体友军获得护盾、攻击强化与士气提升。","我方全体"),
+"zhou-yu":("赤壁烈焰","火攻覆盖敌方全体，造成伤害并持续灼烧。","敌方全体"),
+"lv-bu":("方天乱舞","挥动画戟连续发动三次打击，自动追击存活敌人。","敌方随机目标，最多三击"),
+"dian-wei":("恶来护主","全体友军获得护盾，同时反击锁定敌人。","我方全体＋敌方单体"),
+"jiang-wei":("麒麟奇谋","攻击一名敌人并减速，为全军回复能量并降低下一次技能消耗。","敌方单体＋我方全体")
+}
+
 def parse_base():
     out=[]
     for line in BASE_ROWS.strip().splitlines():
         i,slug,name,gender,armor,cloth,accent,weapon,fx,head,beard=line.split("|")
-        out.append(dict(id=i,slug=slug,name=name,gender=gender,armor=armor,cloth=cloth,accent=accent,weapon=weapon,fx=fx,head=head,beard=beard))
+        skill,desc,skillRange=BASE_SKILLS[slug]
+        out.append(dict(id=i,slug=slug,name=name,gender=gender,armor=armor,cloth=cloth,accent=accent,weapon=weapon,fx=fx,head=head,beard=beard,
+                        skill=skill,desc=desc,skillRange=skillRange))
     return out
 
 def parse_extras():
