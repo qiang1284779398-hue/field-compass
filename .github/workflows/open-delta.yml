@@ -26,7 +26,7 @@ jobs:
               -X POST "$MCP_URL" \
               -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
               -H "Content-Type: application/json" \
-              -H "Accept: application/json" \
+              -H "Accept: application/json, text/event-stream" \
               --data "$1"
           }
           echo "Requesting Delta Force launch on the connected Android phone..."
