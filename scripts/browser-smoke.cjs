@@ -18,7 +18,7 @@ const assert = require("node:assert/strict");
   assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: weapon sweep animation");
   for (const cls of ["hero-guan","hero-zhang","hero-liu"]) assert.ok(html.includes(cls), "battle art identity class must exist: "+cls);
   const assetRoot = path.resolve("app/src/main/assets");
-  const mime = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".glb":"model/gltf-binary", ".ogg":"audio/ogg" };
+  const mime = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".svg":"image/svg+xml", ".glb":"model/gltf-binary", ".ogg":"audio/ogg" };
   const server = http.createServer((req, res) => {
     const pathname = decodeURIComponent(new URL(req.url, "http://127.0.0.1").pathname);
     const relative = pathname === "/" ? "index.html" : pathname.startsWith("/") ? pathname.slice(1) : pathname;
