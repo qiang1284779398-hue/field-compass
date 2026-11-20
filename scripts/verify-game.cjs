@@ -114,6 +114,7 @@ assert.ok(game.resolveEnemyEspionage(true).includes("截获"),"active counter-in
 assert.equal(game.state().food,protectedFood,"intercepted enemy agents must not damage supplies");
 assert.ok(game.state().spyLog.length>=2,"spy operations should be written to the intelligence log");
 game.state().gold=1000;
+recruitedSpy.readyDay=game.state().day;
 game.state().explored.push(3);
 game.state().regionControl[3]="enemy";
 elements.get("spyTarget").value="3";
