@@ -1,4 +1,5 @@
 name: Build Android APK
+# Browser smoke is mandatory; the Android device workflow validates the packaged APK.
 on:
   push:
     branches: [ main ]
