@@ -120,7 +120,7 @@ const assert = require("node:assert/strict");
   await page.locator('button[data-p="home"]').click();
 
   // Resolve a random event through its visible choice button and verify persistent state.
-  await page.locator('button[onclick="randomEvent()"]').click();
+  await page.locator('button.tile[onclick="randomEvent()"]').click();
   assert.ok((await page.locator("#modal").innerText()).includes("城中奇遇"), "random event should open from home");
   const eventCountBefore = await page.evaluate(() => eval("s.eventCount||0"));
   await page.locator('button[onclick="chooseEvent(0)"]').click();
