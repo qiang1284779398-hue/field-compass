@@ -96,7 +96,7 @@ assert.equal(game.state().supplyRoutes.length, 1, "adjacent controlled outposts 
 const routeWoodBefore = game.state().wood;
 const routeFoodBefore = game.state().food;
 game.nextDay();
-assert.equal(game.state().wood, routeWoodBefore + 17, "supply line should add five daily wood to outpost production");
+assert.equal(game.state().wood, routeWoodBefore + 29, "two controlled outposts and one supply line should generate 29 daily wood");
 assert.equal(game.state().food, routeFoodBefore + game.state().build.farm * 65 + 8 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - 25, "supply line should add food and reduce upkeep by five");
 game.abandonOutpost(0);
 assert.equal(!!game.state().territories[0], false, "outpost can be abandoned");
