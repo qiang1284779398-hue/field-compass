@@ -33,6 +33,16 @@ assert.ok(source.includes("function makeTerritoryWave"), "frontier battles shoul
 assert.ok(source.includes("suppressed=(troop.includes(\"弓\")||troop.includes(\"弩\"))&&Math.random()<.24"), "archers should have a chance to suppress hero energy");
 assert.ok(source.includes("enemyFaction")||source.includes("factionForRegion"), "enemy faction data should exist");
 assert.ok(source.includes("campRecovery=Math.min(s.wounded||0,4+Math.floor((s.morale||0)/25))"), "daily camp recovery should heal wounded troops based on morale");
+assert.ok(source.includes("function applyStatus"), "battle status engine missing");
+assert.ok(source.includes("function tickUnitStatuses"), "status turn resolution missing");
+for (const effect of ["burn","poison","bleed","armorBreak","slow","disarm","stun"]) assert.ok(source.includes('"'+effect+'"'), "missing status effect: "+effect);
+assert.ok(source.includes("function statusText"), "unit status feedback missing");
+assert.ok(source.includes("步阵协同") && source.includes("骑兵协同") && source.includes("远程协同"), "troop formation synergy missing");
+assert.ok(source.includes("识破破绽，追击重伤目标") && source.includes("掩护远程部队"), "enemy tactical behavior missing");
+assert.ok(source.includes('name==="青龙偃月"') && source.includes('name==="麒麟奇谋"'), "signature hero skills missing");
+assert.ok(source.includes("skillCostReduction"), "strategist skill cost synergy missing");
+assert.ok(source.includes("terrain-2:before") && source.includes("terrain-3:before"), "terrain battlefield visuals missing");
+
 for (const track of ["theme_plain.ogg", "theme_lost_village.ogg", "theme_dream.ogg", "theme_swamp.ogg", "swing.ogg", "hit.ogg", "critical.ogg"]) assert.ok(html.includes(track), "missing audio asset reference: " + track);
 
 const makeElement = () => ({
