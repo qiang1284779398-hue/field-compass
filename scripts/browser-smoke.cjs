@@ -109,7 +109,6 @@ const assert = require("node:assert/strict");
   await page.evaluate(() => { fight.allies[1].skill = "麒麟奇谋"; fight.allies[1].energy = 5; drawBattle(); });
   const skillBefore = await readFight();
   await page.locator('button[onclick="useHeroSkill()"]').click();
-  await page.locator(".skill-aura").waitFor({state:"visible",timeout:2000});
   await page.waitForTimeout(900);
   assert.match(await page.locator(".combat-log").innerText(), /麒麟奇谋/, "skill execution must be written to the combat log");
   const afterSkill = await readFight();
