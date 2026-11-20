@@ -102,7 +102,6 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
 
   android-device-test:
-    needs: prepare
     runs-on: macos-15-intel
     timeout-minutes: 45
     steps:
@@ -134,7 +133,7 @@ jobs:
                 -H "Authorization: Bearer $GH_TOKEN" \
                 -H "Accept: application/vnd.github+json" \
                 "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts?name=huanxiang-sanguo-apk&per_page=10" \
-                | jq -r '.artifacts[]? | select(.name=="huanxiang-sanguo-apk" and .expired==false) | .id' \
+                | jq -r --arg runid "$GITHUB_RUN_ID" '.artifacts[]? | select(.name=="huanxiang-sanguo-apk" and .expired==false and .workflow_run.id == ($runid|tonumber)) | .id' \
                 | head -n 1)"
               if [ -n "$APK_ARTIFACT_ID" ]; then
                 echo "APK artifact is ready: $APK_ARTIFACT_ID"
