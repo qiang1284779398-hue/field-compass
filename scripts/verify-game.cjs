@@ -8,7 +8,7 @@ const source = scriptMatch[1];
 new Function(source);
 
 // Non-regression contract: established systems must remain present on every pass.
-assert.ok(source.includes("hero-portrait-wrap") && source.includes("hero-portrait") && source.includes("portrait-fallback"), "historical Three Kingdoms portrait skins must be integrated with graceful fallback");
+assert.ok(source.includes("data-hero3d") && source.includes("initHero3D"), "3D rigged hero models must be wired into battle rendering");
 assert.ok(source.includes("function initBattleRenderer") && source.includes("battle-3d-canvas") && source.includes('getContext("2d"'), "combat scene must use the offline 2.5D canvas renderer");
 const preservationContracts = [
   ["30-chapter campaign", "const CHAPTERS="],
