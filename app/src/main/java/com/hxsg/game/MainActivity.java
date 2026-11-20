@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
         getWindow().setStatusBarColor(0xff17130f);
         getWindow().setNavigationBarColor(0xff100e0b);
 
-        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
+        WebView.setWebContentsDebuggingEnabled(true);
         web = new WebView(this);
         WebSettings settings = web.getSettings();
         settings.setJavaScriptEnabled(true);
