@@ -179,7 +179,7 @@ const assert = require("node:assert/strict");
   assert.equal(allBattleSprites.length, 12, "all twelve generals must have battlefield sprite bindings");
   assert.ok(allBattleSprites.every(x=>x.loaded&&x.width===800&&x.height===1000), "all twelve battle sprites must load at a common 4:5 frame: "+JSON.stringify(allBattleSprites));
   assert.ok(allBattleSprites.every(x=>x.bodyWidth===88&&x.bodyHeight===104&&x.backgroundImage==="none"&&x.imageTransform==="none"), "all twelve battlefield heroes must share the same 88x104 anchor with no legacy pixel layer or per-hero perspective offset: "+JSON.stringify(allBattleSprites));
-  assert.ok(!html.includes("function troop("), "the 2.5D scene must not draw old miniature pixel people behind hero artwork");
+  assert.ok(html.includes("function troop(") && html.includes("for(let row=0;row<3;row++)"), "the 2.5D battlefield must retain its background miniature pixel troop formations");
 
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
