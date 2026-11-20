@@ -85,7 +85,10 @@ def parse_extras():
 
 BASE = parse_base()
 EXTRAS = parse_extras()
+PHYSIQUE_DATA = json.loads((ROOT / "app/src/main/assets/characters/2d/character-identity.json").read_text(encoding="utf-8"))["characters"]
 ALL_ART = BASE + EXTRAS
+for hero in ALL_ART:
+    hero["physique"] = PHYSIQUE_DATA[hero["slug"]]
 KEEP_BASE = {"liu-bei","guan-yu","zhang-fei","diaochan"}
 
 def esc(s):
@@ -236,6 +239,93 @@ def weapon_svg_detailed(h, female=False):
 <path d="M696 925 L696 192" stroke="{ink}" stroke-width="27"/><path d="M696 925 L696 192" stroke="{wood}" stroke-width="16"/><path d="M696 108 Q650 161 696 222 Q742 161 696 108Z" fill="{steel}" stroke="{ink}" stroke-width="9"/><path d="M696 125 L696 207" stroke="#fff4df" stroke-width="6"/><path d="M672 232 L720 232" stroke="{gold}" stroke-width="8"/>
 </g>'''
 
+def apply_character_identity(source,h,base_slug):
+    p=h["physique"]
+    slug=h["slug"]
+    female=h["gender"]=="f"
+    dx=40 if base_slug=="guan-yu" else (15 if female else 0)
+    brow=p.get("brows","平直略收")
+    eyes=p.get("eyes","沉稳")
+    brow_paths={
+        "浓密倒八字":'<path d="M372 218 Q402 192 426 216 M454 216 Q483 191 508 218" fill="none" stroke="#211815" stroke-width="13" stroke-linecap="round"/>',
+        "浓而压眼":'<path d="M372 220 Q405 195 429 218 M452 218 Q481 195 508 220" fill="none" stroke="#211815" stroke-width="12" stroke-linecap="round"/>',
+        "剑眉":'<path d="M372 218 L426 205 L433 218 M452 218 L507 205 L512 218" fill="none" stroke="#2b211d" stroke-width="8" stroke-linecap="round"/>',
+        "细长舒展":'<path d="M374 217 Q401 199 430 214 M451 214 Q480 199 506 217" fill="none" stroke="#332522" stroke-width="5" stroke-linecap="round"/>',
+        "浓而斜":'<path d="M372 223 L425 202 M453 202 L507 223" fill="none" stroke="#211816" stroke-width="11" stroke-linecap="round"/>',
+        "平直略收":'<path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/>',
+        "细弯眉":'<path d="M376 216 Q402 195 431 215 M450 215 Q479 195 504 216" fill="none" stroke="#553b36" stroke-width="4" stroke-linecap="round"/>',
+        "柔和弯眉":'<path d="M376 216 Q402 198 431 216 M450 216 Q478 198 504 216" fill="none" stroke="#73504a" stroke-width="4" stroke-linecap="round"/>',
+        "短粗眉":'<path d="M377 217 L426 208 M454 208 L503 217" fill="none" stroke="#251b18" stroke-width="10" stroke-linecap="round"/>',
+        "稀疏细长眉":'<path d="M376 216 Q404 209 429 216 M451 216 Q476 209 503 216" fill="none" stroke="#5d4b42" stroke-width="4" stroke-linecap="round"/>'
+    }
+    eye_marks={
+        "丹凤眼、眼尾上挑":'<path d="M378 244 Q401 252 429 236 Q403 231 378 244Z M452 236 Q480 252 503 244 Q478 231 452 236Z" fill="none" stroke="#291d19" stroke-width="5"/>',
+        "圆睁怒目":'<ellipse cx="404" cy="242" rx="16" ry="12" fill="none" stroke="#211a17" stroke-width="5"/><ellipse cx="478" cy="242" rx="16" ry="12" fill="none" stroke="#211a17" stroke-width="5"/>',
+        "鹰视、眼窝深":'<path d="M379 244 Q404 226 430 245 Q406 259 379 244Z M451 245 Q478 226 503 244 Q477 259 451 245Z" fill="none" stroke="#2a201d" stroke-width="5"/><path d="M380 235 L429 229 M453 229 L502 235" stroke="#2a201d" stroke-width="4"/>',
+        "冷峻审视":'<path d="M379 246 Q405 232 430 244 M451 244 Q477 232 503 246" fill="none" stroke="#2a211f" stroke-width="6"/>',
+        "柔媚但有决断":'<path d="M378 245 Q404 229 430 245 Q405 257 378 245Z M451 245 Q477 229 503 245 Q477 257 451 245Z" fill="none" stroke="#61403e" stroke-width="4"/>'
+    }
+    marks=""
+    if p.get("faceShape") in ("宽方脸","短宽脸","宽圆方脸","宽额方脸"):
+        marks+='<path d="M365 260 Q378 287 402 296 M478 296 Q502 287 515 260" fill="none" stroke="#8d5a47" stroke-width="5" opacity=".45"/>'
+    if slug in ("cao-cao","simayi","huang-zhong","huanggai"):
+        marks+='<path d="M393 193 Q410 185 427 193 M453 193 Q471 185 488 193" fill="none" stroke="#936c56" stroke-width="3" opacity=".65"/>'
+    if slug=="xiahou-dun":
+        marks+='<path d="M453 226 Q478 211 504 228 L507 263 Q478 282 453 262Z" fill="#261d1b" stroke="#151313" stroke-width="5"/><path d="M454 226 L504 260" stroke="#b48b61" stroke-width="5"/>'
+    elif slug=="dian-wei":
+        marks+='<path d="M365 271 L382 284 M510 271 L493 284" stroke="#3a2924" stroke-width="7" stroke-linecap="round"/><path d="M382 188 L394 197 M477 197 L490 188" stroke="#211815" stroke-width="8"/>'
+    elif slug=="weiyan":
+        marks+='<path d="M469 254 L488 273 L476 293" fill="none" stroke="#9c5845" stroke-width="5"/><path d="M381 202 L422 214" stroke="#2a1f1b" stroke-width="7"/>'
+    elif slug=="sunshangxiang":
+        marks+='<path d="M380 218 L430 207 M450 207 L500 218" fill="none" stroke="#342422" stroke-width="7"/><path d="M385 246 Q405 232 430 244 M450 244 Q475 232 495 246" fill="none" stroke="#382321" stroke-width="5"/>'
+    elif slug=="pangtong":
+        marks+='<path d="M361 235 Q396 221 425 238 M455 238 Q485 221 518 235" fill="none" stroke="#261e19" stroke-width="9"/>'
+    face=f'<g transform="translate({dx} 0)">{brow_paths.get(brow,brow_paths["平直略收"])}{eye_marks.get(eyes,"")}{marks}</g>'
+    hstyle=p.get("headStyle","")
+    crests={
+        "凤翅紫金冠":'<path d="M402 113 Q384 61 350 45 Q355 102 397 142 M480 142 Q528 98 550 43 Q551 107 493 132" fill="#9d332f" stroke="#dfb56e" stroke-width="8"/><path d="M440 62 L456 20 L472 62" fill="none" stroke="#e8c579" stroke-width="9"/>',
+        "黑铁双翎盔":'<path d="M392 116 Q348 57 331 47 Q340 117 401 149 M480 145 Q535 65 564 52 Q557 128 492 154" fill="#1b2428" stroke="#a68a56" stroke-width="8"/>',
+        "银盔白翎":'<path d="M430 101 Q435 29 481 13 Q495 73 463 119Z" fill="#e1e6e5" stroke="#586b72" stroke-width="7"/><path d="M448 101 L478 38" stroke="#fff" stroke-width="5"/>',
+        "西凉银盔红缨":'<path d="M434 104 Q435 28 482 18 Q501 79 464 127Z" fill="#d4d9d6" stroke="#574d3c" stroke-width="7"/><path d="M462 120 Q481 42 521 29 Q502 107 473 138Z" fill="#9c3030" stroke="#e2b76c" stroke-width="6"/>',
+        "魏王冠":'<path d="M394 119 L402 64 L430 87 L442 41 L456 87 L482 64 L490 119Z" fill="#302d3a" stroke="#d0ae68" stroke-width="8"/><path d="M410 111 L474 111" stroke="#b78d4e" stroke-width="7"/>',
+        "纶巾":'<path d="M390 124 Q405 71 442 73 Q479 71 494 124 Q441 143 390 124Z" fill="#d9d2bd" stroke="#665b4a" stroke-width="7"/>',
+        "魏文帝冠":'<path d="M393 112 L405 62 L441 81 L476 62 L488 112Z" fill="#4b515b" stroke="#c6ab71" stroke-width="8"/>',
+        "吴王冠":'<path d="M393 116 L405 64 L441 84 L476 64 L487 116Z" fill="#2e594f" stroke="#d7b66e" stroke-width="8"/>',
+        "江东儒将冠":'<path d="M392 120 Q400 71 441 75 Q482 71 490 120 Q441 136 392 120Z" fill="#9d7960" stroke="#dfc185" stroke-width="7"/>',
+        "锦帆头巾与铃饰":'<path d="M389 128 Q399 86 444 83 Q486 85 495 128" fill="none" stroke="#b18a50" stroke-width="12"/><g fill="#e1be70" stroke="#31251d" stroke-width="4"><circle cx="400" cy="125" r="8"/><circle cx="480" cy="125" r="8"/></g>',
+        "凤钗高髻":'<path d="M452 84 Q492 33 522 57 Q510 97 471 115Z" fill="#b76c9d" stroke="#d6ba82" stroke-width="6"/><circle cx="466" cy="99" r="9" fill="#eddaa8"/>',
+        "花钿与简洁高髻":'<g fill="#e3b0a8" stroke="#77536a" stroke-width="4"><circle cx="470" cy="106" r="12"/><circle cx="488" cy="92" r="7"/><circle cx="451" cy="88" r="7"/></g>',
+        "双扇花饰与束发":'<path d="M455 98 Q500 38 525 69 Q503 108 469 124Z" fill="#d08f9b" stroke="#77536a" stroke-width="6"/>',
+        "洛水珠冠":'<path d="M401 105 Q442 63 483 105" fill="none" stroke="#b7d8e5" stroke-width="9"/><g fill="#d7eef4"><circle cx="440" cy="75" r="8"/><circle cx="420" cy="86" r="6"/><circle cx="460" cy="86" r="6"/></g>',
+        "机关师发冠与护目饰":'<path d="M395 111 L409 72 L441 87 L475 72 L489 111Z" fill="#74866c" stroke="#d1bb81" stroke-width="7"/><circle cx="442" cy="90" r="12" fill="none" stroke="#d9bc70" stroke-width="5"/>'
+    }
+    head=f'<g transform="translate({dx} 0)">{crests.get(hstyle,"")}</g>'
+    outfit=""
+    if slug=="sunshangxiang":
+        source=re.sub(r'<g fill="none" stroke-linecap="round">.*?</g>',"",source,count=1,flags=re.S)
+        outfit='''<g id="sunshangxiang-practical-archer" stroke-linejoin="round" stroke-linecap="round">
+<path d="M333 637 Q391 654 439 637 L424 905 L388 959 L334 931Z M442 637 Q493 652 528 635 L467 931 L432 960 L421 904Z" fill="#29353b" stroke="#151b20" stroke-width="11"/>
+<path d="M334 671 Q383 692 429 669 L414 733 Q376 748 343 724Z M444 669 Q488 692 526 668 L503 725 Q465 750 431 733Z" fill="#48575d" stroke="#bd9d65" stroke-width="8"/>
+<path d="M328 374 Q398 349 469 374 L484 503 Q400 537 315 503Z" fill="#6b4841" stroke="#1d2325" stroke-width="12"/><path d="M344 390 Q400 367 456 390 L462 477 Q400 502 338 477Z" fill="#9a4946" stroke="#dfbd83" stroke-width="8"/><path d="M400 380 L400 498 M344 435 L456 435" stroke="#dfbd83" stroke-width="7"/>
+<path d="M300 381 Q326 350 354 377 L366 451 L334 478 L298 439Z M446 377 Q474 350 501 381 L503 439 L467 478 L434 451Z" fill="#56666b" stroke="#1b2528" stroke-width="10"/>
+<path d="M270 470 Q292 452 315 472 L300 550 L276 553Z M525 470 Q548 452 570 472 L564 553 L540 550Z" fill="#9d774d" stroke="#1a2226" stroke-width="9"/><path d="M278 490 L306 494 M544 490 L565 494" stroke="#ead19a" stroke-width="7"/>
+<path d="M322 535 Q400 560 478 535 L470 607 Q400 635 330 607Z" fill="#4a3431" stroke="#1b2226" stroke-width="9"/><path d="M335 557 Q400 578 465 557 L458 591 Q400 611 342 591Z" fill="#b08b54" stroke="#2b2520" stroke-width="6"/>
+<path d="M340 905 L390 920 L374 981 L316 976Z M432 920 L482 905 L508 976 L449 981Z" fill="#252a2c" stroke="#111719" stroke-width="10"/>
+<path d="M318 971 L380 971 L385 995 L305 995Z M445 971 L509 971 L522 995 L438 995Z" fill="#1c2022" stroke="#8a6c43" stroke-width="8"/>
+</g>'''
+    source=source.replace("</svg>",face+head+outfit+"</svg>")
+    sx=float(p.get("widthScale",1.0)); sy=float(p.get("heightScale",1.0))
+    if not (0.72<=sx<=1.42 and 0.84<=sy<=1.12):
+        raise ValueError(f"unsafe physique proportions for {slug}: {sx}/{sy}")
+    wrap=f'<g transform="translate(400 1000) scale({sx:.4f} {sy:.4f}) translate(-400 -1000)">'
+    defs_end=source.find("</defs>")+len("</defs>")
+    end=source.rfind("</svg>")
+    if defs_end<len("</defs>") or end<defs_end: raise ValueError(f"SVG definitions missing for {slug}")
+    source=source[:end]+"</g>"+source[end:]
+    source=source[:defs_end]+wrap+source[defs_end:]
+    return source
+
+
 def body_svg(h, index):
     female=h["gender"]=="f"
     if female:
@@ -323,9 +413,10 @@ def body_svg(h, index):
         source=source.replace("</svg>",sigil_head+sigil+"</svg>")
     else:
         source=source.replace("</svg>",sigil+"</svg>")
+    source=apply_character_identity(source,h,base_slug)
     label=esc(h["name"])
     source=re.sub(r'<title>.*?</title>',f'<title>{label} · 2D 立绘</title>',source,count=1,flags=re.S)
-    source=re.sub(r'<desc>.*?</desc>',f'<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>',source,count=1,flags=re.S)
+    source=re.sub(r'<desc>.*?</desc>',f'<desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>',source,count=1,flags=re.S)
     return source
 
 def portrait_svg(body,h):
@@ -416,6 +507,7 @@ def main():
     manifest=dict(total=len(ALL_ART),male=sum(h["gender"]=="m" for h in ALL_ART),female=sum(h["gender"]=="f" for h in ALL_ART),
                   heroes=[dict(id=h["id"],name=h["name"],art=h["slug"],gender=h["gender"],weapon=h["weapon"],skillFx=h["fx"]) for h in ALL_ART])
     write(ART/"roster-manifest.json",json.dumps(manifest,ensure_ascii=False,indent=2))
+    write(ART/"physique-reference.json",json.dumps({"schemaVersion":1,"description":"Actor measurements are visual stand-ins, not historical measurements. Unknown measurements remain null.","characters":PHYSIQUE_DATA},ensure_ascii=False,indent=2))
     attack_count=len(list(ANIMS.glob("*-attack.svg")))
     skill_count=len(list(ANIMS.glob("*-skill.svg")))
     assert attack_count==50 and skill_count==50, (attack_count,skill_count)
