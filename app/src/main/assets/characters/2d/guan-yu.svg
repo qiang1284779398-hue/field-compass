@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
-<title>Guan Yu — refined full-body 2D character concept</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 1024 1024" preserveAspectRatio="none">
+<title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
  <linearGradient id="jade" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#b5d69a"/><stop offset=".18" stop-color="#6b9d70"/><stop offset=".53" stop-color="#28634c"/><stop offset="1" stop-color="#102e2a"/></linearGradient>
