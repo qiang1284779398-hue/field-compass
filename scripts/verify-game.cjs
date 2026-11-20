@@ -154,6 +154,7 @@ assert.ok(elements.get("modal").innerHTML.includes("攻城器械已备妥"), "pr
 game.setBattleStance("defensive");
 game.beginTerritoryBattle(4, "cav");
 assert.equal(game.fight().stance, "defensive", "selected defensive formation should carry into the battle");
+assert.ok(elements.get("view").innerHTML.includes("方圆阵"), "battle header should show the selected formation");
 assert.ok(game.fight().allies.every(a => a.def >= game.heroDef(game.state().heroes[a.sourceIndex]) * 1.2 - 1), "defensive formation should increase every deployed hero's defense");
 assert.equal(game.fight().mode, "territory", "territory assault should enter the playable battlefield mode");
 assert.equal(game.fight().waves, 3, "territory conquest should contain three battle waves");
