@@ -8,7 +8,13 @@ const source = scriptMatch[1];
 new Function(source);
 
 // Non-regression contract: established systems must remain present on every pass.
-assert.ok(source.includes("data-hero3d") && source.includes("initHero3D"), "3D rigged hero models must be wired into battle rendering");
+for (const id of ["liu-bei","guan-yu","zhang-fei"]) {
+  assert.ok(fs.existsSync("app/src/main/assets/characters/2d/"+id+".svg"), id+" full-body SVG is missing");
+  assert.ok(fs.existsSync("app/src/main/assets/characters/2d/portraits/"+id+".svg"), id+" portrait SVG is missing");
+}
+assert.ok(source.includes("data-hero2d") && source.includes('class="hero-portrait"') && source.includes("characters/2d/"), "all Three Kingdoms generals must use bundled 2D hero art");
+assert.ok(source.includes("function generalPortrait") && source.includes("characters/2d/portraits/"), "the roster must use the custom general portraits");
+assert.ok(!source.includes("data-hero3d") && !source.includes("initHero3D"), "the playable character renderer must be 2D, not the retired 3D rig path");
 assert.ok(source.includes("function initBattleRenderer") && source.includes("battle-3d-canvas") && source.includes('getContext("2d"'), "combat scene must use the offline 2.5D canvas renderer");
 const preservationContracts = [
   ["30-chapter campaign", "const CHAPTERS="],
@@ -53,7 +59,7 @@ assert.ok(source.includes("function spawnImpact") && source.includes('spawnImpac
 for (const animation of ["chargeRight", "chargeLeft", "castHero", "bodyHit", "slash", "auraBurst", "bossWave", "damageUp"]) {
   assert.ok(html.includes("@keyframes " + animation), "missing combat animation: " + animation);
 }
-assert.ok(source.includes("function renderWarrior") && source.includes("data-hero3d") && html.includes("hero3d-layer") && !source.includes("class=\\\"unit-figure\\\""), "battlefield must use the rigged 3D actor layer; legacy SVG paper-doll fallback must remain removed");
+assert.ok(source.includes("function renderWarrior") && source.includes("data-hero2d") && source.includes("hero-portrait") && source.includes("characters/2d/") , "battlefield must render the original 2D hero sprites");
 assert.ok(source.includes("function animateHit"), "player attack animation missing");
 assert.ok(source.includes("function animateEnemyHit"), "enemy attack animation missing");
 assert.ok(source.includes("function playBossFx"), "boss skill animation missing");
