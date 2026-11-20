@@ -202,7 +202,7 @@ function sync(sceneEl){
   rec.root.position.x=(cx-w/2)/100;
   rec.root.position.y=(h/2-base)/100;
   const desiredH=a.height/100;const actual=rec.root.userData.modelHeight||1.8;
-  const scale=desiredH/actual*1.28;rec.root.scale.setScalar(scale);
+  const scale=desiredH/actual; // Fit the imported GLB exactly to the existing 2D character anchor; avoid the old 1.28x overscale.rec.root.scale.setScalar(scale);
   rec.root.rotation.y=el.classList.contains("enemy")?Math.PI:0;
   const swinging=el.classList.contains("swinging"),dead=el.classList.contains("dead");
   if(dead&&!rec.lastDead)play(rec,"death");else if(swinging&&!rec.lastSwing)play(rec,"attack");else if(!dead&&!swinging&&rec.current!=="idle")play(rec,"idle");
@@ -217,7 +217,7 @@ function frame(t){
  actors.forEach(a=>{if(a.mixer)a.mixer.update(dt)});
  if(lastScene&&lastScene.isConnected){sync(lastScene);app.renderer.render(app.scene,app.camera)}
 }
-window.__hero3dStatus=function(){return Array.from(actors.values()).map(a=>({id:a.id,ready:a.ready,skinnedMeshes:a.skinnedMeshes||0,bones:a.boneCount||0,clips:Object.keys(a.actions).length,weaponSocket:a.weaponSocket||false}))};
+window.__hero3dStatus=function(){return Array.from(actors.values()).map(a=>({id:a.id,ready:a.ready,skinnedMeshes:a.skinnedMeshes||0,bones:a.boneCount||0,clips:Object.keys(a.actions).length,weaponSocket:a.weaponSocket||false,modelHeight:a.root?.userData.modelHeight||0,scale:a.root?.scale.x||0,position:a.root?{x:a.root.position.x,y:a.root.position.y}:null}))};
 window.initHero3D=function(sceneEl){
  try{init();if(!app)return;sync(sceneEl);if(!raf)raf=requestAnimationFrame(frame)}catch(e){console.warn("3D hero renderer unavailable; using 2D fallback",e)}
 };
