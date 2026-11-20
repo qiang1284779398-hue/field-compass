@@ -28,9 +28,18 @@ jobs:
           cp node_modules/three/build/three.min.js app/src/main/assets/vendor/three.min.js
           cp node_modules/three/examples/js/loaders/GLTFLoader.js app/src/main/assets/vendor/GLTFLoader.js
           cp node_modules/three/examples/js/utils/SkeletonUtils.js app/src/main/assets/vendor/SkeletonUtils.js
-          npx -y ara3d@0.9.0 export --params characters/liu-bei.json --detail high --animations idle,walk,run,combat,reactions --out app/src/main/assets/characters
-          npx -y ara3d@0.9.0 export --params characters/guan-yu.json --detail high --animations idle,walk,run,combat,reactions --out app/src/main/assets/characters
-          npx -y ara3d@0.9.0 export --params characters/zhang-fei.json --detail high --animations idle,walk,run,combat,reactions --out app/src/main/assets/characters
+          # Download three distinct high-detail, CC0 rigged GLB assets; do not use the rejected procedural Ara3D placeholders.
+          curl -fL --retry 3 --retry-delay 2 --silent --show-error https://grab3d.com/dl/leather-armor-warrior-rigged/leather-armor-warrior-rigged.glb -o app/src/main/assets/characters/liu-bei.glb
+          curl -fL --retry 3 --retry-delay 2 --silent --show-error https://grab3d.com/dl/samurai-rigged/samurai-rigged.glb -o app/src/main/assets/characters/guan-yu.glb
+          curl -fL --retry 3 --retry-delay 2 --silent --show-error https://grab3d.com/dl/viking-rigged/viking-rigged.glb -o app/src/main/assets/characters/zhang-fei.glb
+          cat > app/src/main/assets/characters/ASSET_LICENSES.md <<'EOF'
+          # Third-party 3D character assets
+          All three files are downloaded from Grab3D and published as CC0 1.0 (public domain dedication; no attribution required):
+          - Liu Bei slot: Leather Armor Warrior, https://grab3d.com/models/characters/leather-armor-warrior/
+          - Guan Yu slot: Samurai, https://grab3d.com/models/characters/samurai/
+          - Zhang Fei slot: Viking, https://grab3d.com/models/characters/viking/
+          These are high-detail fantasy/historical base models adapted for this game's character slots; they are not original Three Kingdoms-specific sculpts. Grab3D discloses that its organic high-detail models are AI-assisted base meshes subsequently cleaned and reworked in Blender.
+          EOF
           test -s app/src/main/assets/characters/liu-bei.glb
           test -s app/src/main/assets/characters/guan-yu.glb
           test -s app/src/main/assets/characters/zhang-fei.glb
