@@ -7,13 +7,17 @@ assert.ok(scriptMatch, "game script block missing");
 const source = scriptMatch[1];
 new Function(source);
 
-const chapterMatch = source.match(/const CHAPTERS=(\[[\s\S]*?\n\]);\nconst EVENTS=/);
+const chapterMatch = source.match(/const CHAPTERS=(\[[\s\S]*?
+\]);
+const EVENTS=/);
 assert.ok(chapterMatch, "chapter data missing");
 const chapters = new Function("return " + chapterMatch[1])();
 assert.equal(chapters.length, 30, "campaign must contain 30 chapters");
 assert.ok(chapters.every(c => c.title && c.intro && c.dialog.length >= 3 && c.boss && c.sideText), "each chapter needs complete story, dialogue, boss and side quest");
 
-const eventMatch = source.match(/const EVENTS=(\[[\s\S]*?\n\]);\nfunction fresh/);
+const eventMatch = source.match(/const EVENTS=(\[[\s\S]*?
+\]);
+function fresh/);
 assert.ok(eventMatch, "random event data missing");
 const events = new Function("return " + eventMatch[1])();
 assert.ok(events.length >= 20, "at least 20 distinct random events required");
@@ -109,13 +113,22 @@ const storage = {
 };
 const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle};"
+  source + "
+return {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
 assert.equal(game.factionRelationTier(-20),"敌对","negative faction relation should be hostile");
 assert.equal(game.factionRelationTier(16),"中立","improved faction relation should reach neutral tier");
-const doctrineIds=["yellow","xiliang","yuan","cao","shu","jingwu"];\nassert.equal(doctrineIds.length,6,"all six factions should have doctrines");\nconst doctrines=doctrineIds.map(id=>game.factionDoctrine(id));\nassert.equal(new Set(doctrines.map(d=>d.name)).size,6,"each faction must have a distinct military doctrine");\nassert.ok(doctrines.every(d=>d.siege>0&&d.inf>0&&d.cav>0&&d.arch>0&&d.desc),"every faction doctrine needs valid siege and reinforcement weights");\nassert.ok(game.factionDoctrine("xiliang").cav>game.factionDoctrine("xiliang").arch,"Xiliang doctrine should prioritize cavalry");\nassert.ok(game.factionDoctrine("jingwu").arch>game.factionDoctrine("jingwu").cav,"Jingwu doctrine should prioritize ranged troops");\nassert.ok(game.factionDoctrine("shu").siege<1,"Shu doctrine should be less aggressive in siege warfare");\ngame.go("world");game.factionOverview();assert.ok(elements.get("view").innerHTML.includes("军略：")||game.factionOverview().includes("军略："),"faction overview should explain each doctrine");
+const doctrineIds=["yellow","xiliang","yuan","cao","shu","jingwu"];
+assert.equal(doctrineIds.length,6,"all six factions should have doctrines");
+const doctrines=doctrineIds.map(id=>game.factionDoctrine(id));
+assert.equal(new Set(doctrines.map(d=>d.name)).size,6,"each faction must have a distinct military doctrine");
+assert.ok(doctrines.every(d=>d.siege>0&&d.inf>0&&d.cav>0&&d.arch>0&&d.desc),"every faction doctrine needs valid siege and reinforcement weights");
+assert.ok(game.factionDoctrine("xiliang").cav>game.factionDoctrine("xiliang").arch,"Xiliang doctrine should prioritize cavalry");
+assert.ok(game.factionDoctrine("jingwu").arch>game.factionDoctrine("jingwu").cav,"Jingwu doctrine should prioritize ranged troops");
+assert.ok(game.factionDoctrine("shu").siege<1,"Shu doctrine should be less aggressive in siege warfare");
+game.go("world");game.factionOverview();assert.ok(elements.get("view").innerHTML.includes("军略：")||game.factionOverview().includes("军略："),"faction overview should explain each doctrine");
 const garrisonBeforeDiplomacy=game.state().enemyGarrisons[3].inf+game.state().enemyGarrisons[3].cav+game.state().enemyGarrisons[3].arch;
 game.applyChapterChoiceOutcome(3,1);
 const garrisonAfterDiplomacy=game.state().enemyGarrisons[3].inf+game.state().enemyGarrisons[3].cav+game.state().enemyGarrisons[3].arch;
