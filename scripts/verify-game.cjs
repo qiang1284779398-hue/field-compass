@@ -25,6 +25,10 @@ assert.ok(source.includes("function renderWarrior"), "battlefield unit renderer 
 assert.ok(source.includes("function animateHit"), "player attack animation missing");
 assert.ok(source.includes("function animateEnemyHit"), "enemy attack animation missing");
 assert.ok(source.includes("function playBossFx"), "boss skill animation missing");
+assert.ok(source.includes("function startMusic"), "offline soundtrack controller missing");
+assert.ok(source.includes("function toggleMusic"), "music toggle control missing");
+assert.ok(source.includes("function playSfx"), "combat sound effect controller missing");
+for (const track of ["theme_plain.ogg", "theme_lost_village.ogg", "theme_dream.ogg", "theme_swamp.ogg", "swing.ogg", "hit.ogg", "critical.ogg"]) assert.ok(html.includes(track), "missing audio asset reference: " + track);
 
 const makeElement = () => ({
   style: {}, dataset: { p: "home" },
