@@ -151,6 +151,7 @@ function makeActor(id,key){
    const moustacheMat=mat(0x241b16,.02,.95);
    [-1,1].forEach(side=>{const curve=new THREE.QuadraticBezierCurve3(new THREE.Vector3(0,-.10,.20),new THREE.Vector3(side*.12,-.13,.24),new THREE.Vector3(side*.23,-.04,.20));headBone.add(new THREE.Mesh(new THREE.TubeGeometry(curve,14,.032,8,false),moustacheMat));});
   }
+  }
   const socket=root.getObjectByName("WeaponR")||Object.values(bones).find(b=>/right.*(hand|wrist)|hand.*right/i.test(b.name));
   if(socket&&specs[id].weapon!=="none"){
    const weapon=makeWeapon(specs[id].weapon);
