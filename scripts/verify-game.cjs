@@ -51,7 +51,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,nextDay};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -88,6 +88,16 @@ game.resolveOutpostRaid(0);
 assert.equal(game.state().territories[0], true, "strong defenses should repel an outpost raid");
 assert.equal(game.state().army.inf, infantryBeforeRaid - 50, "repelling a raid should consume garrison reinforcements");
 assert.equal(game.state().food, foodBeforeRaid - 30, "repelling a raid should consume supplies");
+game.state().territories[1] = true;
+game.state().gold = 500;
+game.state().wood = 500;
+game.connectOutposts(0, 1);
+assert.equal(game.state().supplyRoutes.length, 1, "adjacent controlled outposts should be linkable");
+const routeWoodBefore = game.state().wood;
+const routeFoodBefore = game.state().food;
+game.nextDay();
+assert.equal(game.state().wood, routeWoodBefore + 17, "supply line should add five daily wood to outpost production");
+assert.equal(game.state().food, routeFoodBefore + game.state().build.farm * 65 + 8 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - 25, "supply line should add food and reduce upkeep by five");
 game.abandonOutpost(0);
 assert.equal(!!game.state().territories[0], false, "outpost can be abandoned");
 assert.equal(game.costText({ wood: 100, gold: 70 }), "木100 / 金70", "building costs must render correctly");
