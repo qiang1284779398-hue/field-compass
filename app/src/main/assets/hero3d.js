@@ -106,7 +106,7 @@ function play(rec,kind){
  if(!rec.mixer||rec.current===kind)return;
  const next=findAction(rec,kind);if(!next)return;
  if(rec.active)rec.active.fadeOut(.12);
- next.reset().fadeIn(.12).play();rec.active=next;rec.current=kind;
+ next.reset();if(kind==="death"){next.setLoop(THREE.LoopOnce,1);next.clampWhenFinished=true;}else{next.setLoop(THREE.LoopRepeat,Infinity);next.clampWhenFinished=false;}next.fadeIn(.12).play();rec.active=next;rec.current=kind;
 }
 function sync(sceneEl){
  if(!app||!sceneEl)return;
