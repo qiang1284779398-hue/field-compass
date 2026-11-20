@@ -427,7 +427,7 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     st.story=i;st.gold=100000;st.food=100000;st.wood=100000;st.iron=100000;st.jade=100000;
     game.startChapter(i);
     let steps=0;
-    while(elements.get("view").innerHTML.includes('onclick="storyNext()"')){
+    while(elements.get("modal").innerHTML.includes('onclick="storyNext()"')){
       game.storyNext();steps++;
       assert.ok(steps<30,"chapter dialogue must terminate: "+chapters[i].title);
     }
