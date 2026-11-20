@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>Guan Yu portrait icon</title>
+<desc>Hand-drawn vector bust portrait of Guan Yu, with green warrior crown, stern face, long dark beard and green lamellar armor.</desc>
+<defs>
+ <radialGradient id="bg"><stop stop-color="#405c48"/><stop offset="1" stop-color="#101f1d"/></radialGradient>
+ <linearGradient id="g" x2="1" y2="1"><stop stop-color="#b6d49a"/><stop offset=".45" stop-color="#397451"/><stop offset="1" stop-color="#102d29"/></linearGradient>
+ <linearGradient id="au" x2="1" y2="1"><stop stop-color="#fff0b0"/><stop offset=".5" stop-color="#b48743"/><stop offset="1" stop-color="#60401e"/></linearGradient>
+ <linearGradient id="s" x2=".8" y2="1"><stop stop-color="#f1cba2"/><stop offset=".55" stop-color="#c98562"/><stop offset="1" stop-color="#784332"/></linearGradient>
+ <linearGradient id="b" x2="1"><stop stop-color="#071615"/><stop offset=".5" stop-color="#294238"/><stop offset="1" stop-color="#071312"/></linearGradient>
+ <pattern id="lam" width="22" height="18" patternUnits="userSpaceOnUse"><path d="M1 1 Q11 13 21 1" fill="none" stroke="#d9bd79" stroke-width="1.7" opacity=".7"/></pattern>
+</defs>
+<circle cx="256" cy="256" r="246" fill="url(#bg)" stroke="url(#au)" stroke-width="12"/>
+<circle cx="256" cy="256" r="226" fill="none" stroke="#d8c18b" stroke-width="2" opacity=".55"/>
+<path d="M86 459 Q94 369 165 339 L347 339 Q421 370 428 459Z" fill="url(#g)" stroke="#112b25" stroke-width="10"/>
+<path d="M132 389 Q256 350 380 389 L396 460 L116 460Z" fill="#244d3c" stroke="url(#au)" stroke-width="8"/>
+<path d="M142 393 Q256 365 370 393 L384 451 L128 451Z" fill="url(#lam)"/>
+<path d="M207 330 L206 378 Q256 410 307 378 L302 326Z" fill="url(#s)" stroke="#704330" stroke-width="6"/>
+<!-- ears and face -->
+<path d="M169 190 Q133 164 139 222 Q145 265 183 259 M343 190 Q380 164 374 222 Q368 265 331 259" fill="url(#s)" stroke="#704330" stroke-width="7"/>
+<path d="M164 170 Q170 105 256 94 Q343 105 349 174 L336 269 Q322 326 256 349 Q190 326 176 269Z" fill="url(#s)" stroke="#653c2d" stroke-width="9"/>
+<path d="M184 258 Q198 310 256 326 Q314 310 328 258" fill="none" stroke="#f4d2ad" stroke-width="4" opacity=".5"/>
+<!-- hair and crown -->
+<path d="M157 203 Q135 126 194 82 Q256 38 319 82 Q379 124 355 204 L330 188 Q324 131 288 123 Q247 145 187 130 L180 207Z" fill="#101c1a" stroke="#07110f" stroke-width="9"/>
+<path d="M139 145 Q158 65 250 54 Q346 53 377 145 L351 179 Q303 139 253 148 Q196 137 159 184Z" fill="url(#g)" stroke="url(#au)" stroke-width="10"/>
+<path d="M161 130 Q253 80 355 131" fill="none" stroke="#f6dfa0" stroke-width="7"/>
+<path d="M247 57 Q226 23 256 12 Q287 35 274 66Z" fill="#5c9564" stroke="url(#au)" stroke-width="6"/>
+<path d="M154 180 Q254 150 358 181 L348 215 Q255 191 163 215Z" fill="#174332" stroke="#c49a50" stroke-width="7"/>
+<path d="M256 169 L275 191 L256 215 L237 191Z" fill="url(#au)" stroke="#62431f" stroke-width="4"/>
+<!-- brows and eyes -->
+<path d="M183 222 Q210 199 237 221 M276 221 Q304 198 330 222" fill="none" stroke="#30231f" stroke-width="10" stroke-linecap="round"/>
+<path d="M187 240 Q211 252 237 239 Q212 227 187 240Z M275 239 Q301 252 326 240 Q301 227 275 239Z" fill="#f7e8d0" stroke="#382922" stroke-width="4"/>
+<ellipse cx="214" cy="240" rx="6" ry="9" fill="#171b18"/><ellipse cx="300" cy="240" rx="6" ry="9" fill="#171b18"/>
+<path d="M256 241 L243 278 Q256 287 270 278" fill="none" stroke="#955b43" stroke-width="6" stroke-linecap="round"/>
+<!-- moustache -->
+<path d="M185 286 Q211 269 237 291 Q256 304 275 291 Q303 269 327 286 Q317 321 285 323 Q263 322 256 311 Q243 326 218 321 Q194 315 185 286Z" fill="url(#b)" stroke="#071514" stroke-width="6"/>
+<!-- long beard, flowing pointed strands -->
+<path d="M192 309 Q190 369 218 418 Q237 451 256 474 Q279 449 298 416 Q326 366 320 308 Q298 338 278 335 Q256 346 235 335 Q212 338 192 309Z" fill="url(#b)" stroke="#071514" stroke-width="8"/>
+<path d="M211 338 Q207 395 246 455 M238 343 Q235 408 256 466 M278 342 Q284 404 265 459 M303 335 Q310 390 272 443" fill="none" stroke="#718271" stroke-width="5" stroke-linecap="round"/>
+<path d="M215 353 Q220 399 250 445 M294 353 Q291 397 266 440" fill="none" stroke="#a9a88a" stroke-width="2" opacity=".6"/>
+<!-- shoulder plates -->
+<path d="M103 394 Q130 344 192 355 L216 407 Q166 431 111 423Z M309 407 L332 355 Q391 344 418 394 L410 423 Q355 431 309 407Z" fill="url(#g)" stroke="url(#au)" stroke-width="8"/>
+<path d="M121 389 Q161 360 193 379 L205 405 Q160 419 121 407Z M307 405 L319 379 Q352 360 391 389 L391 407 Q352 419 307 405Z" fill="url(#lam)"/>
+<path d="M256 386 L256 456" stroke="url(#au)" stroke-width="5"/>
+</svg>
