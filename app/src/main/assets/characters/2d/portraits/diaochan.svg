@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>貂蝉 portrait — 闭月</title>
+<defs>
+ <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2d8df"/><stop offset=".18" stop-color="#9d719d"/><stop offset=".55" stop-color="#5d405f"/><stop offset="1" stop-color="#2b263e"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dca6d2"/><stop offset=".28" stop-color="#9d6283"/><stop offset=".72" stop-color="#5d405f"/><stop offset="1" stop-color="#2b263e"/></linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff4d6"/><stop offset=".2" stop-color="#f2d8df"/><stop offset=".52" stop-color="#d7b77b"/><stop offset=".82" stop-color="#76502b"/><stop offset="1" stop-color="#30271f"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#ffe0bd"/><stop offset=".42" stop-color="#f0c5ae"/><stop offset="1" stop-color="#8e5744"/></linearGradient>
+ <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#171927"/><stop offset=".5" stop-color="#39404a"/><stop offset="1" stop-color="#0b1017"/></linearGradient>
+ <linearGradient id="cape" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dca6d2"/><stop offset=".45" stop-color="#9d6283"/><stop offset="1" stop-color="#2b263e"/></linearGradient>
+ <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf0"/><stop offset=".22" stop-color="#c8d4d0"/><stop offset=".55" stop-color="#6e8586"/><stop offset=".8" stop-color="#e6dfc8"/><stop offset="1" stop-color="#35474c"/></linearGradient>
+ <pattern id="scales" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 16 25 1" fill="none" stroke="#d7b77b" stroke-width="2" opacity=".7"/></pattern>
+ <pattern id="brocade" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M21 3 L36 21 L21 39 L6 21Z" fill="none" stroke="#f2d8df" stroke-width="2" opacity=".4"/><circle cx="21" cy="21" r="4" fill="#d7b77b" opacity=".55"/></pattern>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+ </defs>
+<defs><radialGradient id="bg"><stop stop-color="#dca6d2"/><stop offset=".55" stop-color="#5d405f"/><stop offset="1" stop-color="#151a22"/></radialGradient><clipPath id="round"><circle cx="256" cy="256" r="246"/></clipPath></defs>
+<circle cx="256" cy="256" r="251" fill="#080d14" stroke="url(#metal)" stroke-width="8"/><g clip-path="url(#round)"><rect width="512" height="512" fill="url(#bg)"/><circle cx="256" cy="235" r="194" fill="none" stroke="#f2d8df" stroke-width="3" opacity=".35"/><path d="M15 425 Q256 360 497 425" stroke="#d7b77b" stroke-width="3" fill="none" opacity=".5"/>
+<path d="M85 501 Q130 412 219 407 L294 422 Q376 409 434 501 L413 591 L104 591Z" fill="url(#cloth)" stroke="url(#metal)" stroke-width="10"/><path d="M113 503 Q257 440 405 503 L388 574 L126 574Z" fill="url(#brocade)" opacity=".55"/>
+<path d="M180 348 L176 425 Q255 469 338 425 L327 345Z" fill="url(#skin)"/>
+<path d="M106 271 Q86 75 243 62 Q389 53 418 215 L396 405 Q354 469 324 447 L361 263 Q344 161 264 150 Q172 143 143 240 L152 407 Q101 392 92 329Z" fill="url(#hair)" stroke="#11131d" stroke-width="12"/>
+<path d="M153 199 Q165 110 255 110 Q347 111 357 206 L344 302 Q321 369 257 383 Q190 367 169 300Z" fill="url(#skin)" stroke="#744b3b" stroke-width="9"/>
+<path d="M114 218 Q120 84 247 74 Q380 62 404 208 L377 254 L144 254Z" fill="url(#hair)" stroke="#171723" stroke-width="9"/><path d="M264 92 Q309 14 335 83 L315 149Z" fill="url(#metal)" stroke="#6c5142" stroke-width="5"/><path d="M306 90 Q389 36 401 112 Q357 151 313 153Z" fill="#b65d91" stroke="#e1c78e" stroke-width="5"/><circle cx="322" cy="117" r="11" fill="#8bc2c8" stroke="#ebd3a0" stroke-width="5"/>
+<path d="M153 199 Q165 108 255 110 Q346 115 357 206 L344 302 Q321 365 257 379 Q190 365 169 300Z" fill="url(#skin)" stroke="#8c5a4c" stroke-width="8"/><path d="M180 243 Q204 228 229 244 M282 244 Q307 228 332 243" fill="none" stroke="#38262b" stroke-width="7"/><path d="M184 259 Q207 267 229 259 M282 259 Q306 267 328 259" stroke="#4a3133" stroke-width="5" fill="none"/><ellipse cx="207" cy="258" rx="5" ry="7" fill="#2c1d21"/><ellipse cx="305" cy="258" rx="5" ry="7" fill="#2c1d21"/><path d="M255 260 L245 298 Q255 305 266 298" fill="none" stroke="#aa6a5c" stroke-width="4"/><path d="M231 324 Q255 333 280 324" fill="none" stroke="#9d5960" stroke-width="5"/>
+
+<path d="M152 280 Q162 321 190 340 M359 279 Q351 322 323 340" stroke="#f8ddc1" stroke-width="4" fill="none" opacity=".45"/>
+<path d="M0 442 Q256 405 512 442 L512 512 L0 512Z" fill="#111821" opacity=".78"/><path d="M0 443 Q256 408 512 443" stroke="url(#metal)" stroke-width="5" fill="none"/>
+</g></svg>
