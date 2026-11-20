@@ -119,6 +119,12 @@ const assert = require("node:assert/strict");
   await page.evaluate(() => closeModal());
   await page.locator('button[data-p="home"]').click();
 
+  // Rations belong to troop management rather than the home-city tiles.
+  await page.locator('button[data-p="army"]').click();
+  await page.locator('button[onclick="rations()"]').click();
+  assert.ok((await page.locator("#modal").innerText()).includes("军粮制度"), "army rations panel should open");
+  await page.evaluate(() => closeModal());
+
   // Resolve a random event through its visible choice button and verify persistent state.
   await page.locator('button.tile[onclick="randomEvent()"]').click();
   assert.ok((await page.locator("#modal").innerText()).includes("城中奇遇"), "random event should open from home");
