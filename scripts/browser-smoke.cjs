@@ -136,6 +136,7 @@ const assert = require("node:assert/strict");
     assert.equal(result.phase, "player", skillName + " must not unexpectedly leave the player phase");
     assert.ok(result.acted.includes(0), skillName + " must consume the acting hero's action exactly once");
   }
+  await page.evaluate(() => { fight.phase = "player"; fight.actionRunning = false; fight.actor = 2; fight.acted = [0,1]; drawBattle(); });
 
   // Defensive action must create a shield; completing all three actions must trigger enemy AI.
   await page.locator('button[onclick="selectActor(2)"]').click();
