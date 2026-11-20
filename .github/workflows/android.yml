@@ -17,7 +17,7 @@ jobs:
         run: node scripts/verify-game.cjs
       - name: Install Chromium for browser playability test
         run: |
-          npm install --no-save --package-lock=false playwright three@0.149.0
+          npm install --no-save --package-lock=false playwright three@0.128.0
           npx playwright install --with-deps chromium
       - name: Build rigged Three Kingdoms heroes
         run: |
