@@ -106,7 +106,7 @@ const assert = require("node:assert/strict");
 
   // A distinct hero skill must spend energy and produce a combat effect.
   await page.locator('button[onclick="selectActor(1)"]').click();
-  await page.evaluate(() => { fight.allies[1].skill = "麒麟奇谋"; fight.allies[1].energy = 5; drawBattle(); });
+  await page.evaluate(() => { fight.allies[1].alive = true; fight.allies[1].hp = Math.max(1, fight.allies[1].max); fight.allies[1].skill = "麒麟奇谋"; fight.allies[1].energy = 5; fight.acted = fight.acted.filter(i => i !== 1); fight.enemies[0].alive = true; fight.enemies[0].hp = fight.enemies[0].max; fight.target = 0; drawBattle(); });
   const skillBefore = await readFight();
   const skillLockProbe = await page.evaluate(() => { fight.phase = "player"; fight.actionRunning = false; fight.actor = 1; fight.acted = fight.acted.filter(i => i !== 1); fight.allies[1].alive = true; fight.allies[1].hp = Math.max(1, fight.allies[1].max); fight.allies[1].skill = "麒麟奇谋"; fight.allies[1].energy = 5; const before = { phase: fight.phase, actor: fight.actor, acted: fight.acted.slice(), hero: { alive: fight.allies[1].alive, hp: fight.allies[1].hp, max: fight.allies[1].max, energy: fight.allies[1].energy } }; window.__qaSkillRun = useHeroSkill(); const locked = fight.actionRunning; selectActor(2); return { before, locked, actorAfterAttempt: fight.actor, logs: fight.logs.slice(-2) }; });
   assert.equal(skillLockProbe.locked, true, "skill execution must hold the action lock during its animation: " + JSON.stringify(skillLockProbe));
