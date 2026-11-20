@@ -475,6 +475,41 @@ def female_hero_svg(h):
     else:
         hair_markup=f'<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M410 98 Q440 65 480 78" fill="none" stroke="{hair}" stroke-width="20"/><g fill="{accent}" stroke="#655744" stroke-width="3"><circle cx="510" cy="108" r="8"/><circle cx="525" cy="93" r="5"/></g>'
     face=f'<path d="M365 222 Q370 120 447 112 Q523 118 540 223 L525 295 Q504 347 450 361 Q397 346 379 294Z" fill="url(#skin)" stroke="#704936" stroke-width="9"/><path d="M390 243 Q412 225 433 242 M466 242 Q489 225 511 243" fill="none" stroke="{ink}" stroke-width="6" stroke-linecap="round"/><path d="M391 261 Q413 270 434 261 Q413 250 391 261Z M466 261 Q489 270 511 261 Q489 250 466 261Z" fill="#fff0df"/><ellipse cx="413" cy="262" rx="4" ry="6" fill="#281d20"/><ellipse cx="489" cy="262" rx="4" ry="6" fill="#281d20"/><path d="M451 266 L442 294 Q451 299 461 293 M435 315 Q452 324 470 315" fill="none" stroke="#a9695b" stroke-width="4"/>'
+    expression=""
+    if slug=="sunshangxiang":
+        expression=f'<path d="M386 232 L433 224 M465 224 L515 232" fill="none" stroke="#30201d" stroke-width="8" stroke-linecap="round"/><path d="M395 260 Q414 250 433 258 M468 258 Q489 250 507 260" fill="none" stroke="#38211d" stroke-width="3"/>'
+    elif slug=="wangyi":
+        expression=f'<path d="M382 232 L433 218 M466 218 L518 232" fill="none" stroke="#2d1e1c" stroke-width="8"/><path d="M390 285 Q412 293 432 282 M469 282 Q490 293 510 285" fill="none" stroke="#a25d56" stroke-width="4"/>'
+    elif slug=="mayunlu":
+        expression=f'<path d="M380 230 L431 220 M468 220 L520 230" fill="none" stroke="#30201d" stroke-width="8"/><path d="M435 315 Q452 322 469 315" fill="none" stroke="#8f5148" stroke-width="4"/>'
+    elif slug=="daqiao":
+        expression=f'<path d="M387 232 Q412 220 435 235 M466 235 Q489 220 514 232" fill="none" stroke="#77554e" stroke-width="4"/><path d="M436 315 Q452 322 468 315" fill="none" stroke="#bd817d" stroke-width="4"/>'
+    elif slug=="xiaoqiao":
+        expression=f'<path d="M385 231 Q410 214 436 232 M465 232 Q492 214 516 231" fill="none" stroke="#754b48" stroke-width="4"/><path d="M432 315 Q452 332 472 315" fill="none" stroke="#bd756d" stroke-width="4"/>'
+    elif slug=="zhenji":
+        expression=f'<path d="M388 232 Q410 224 434 235 M468 235 Q490 224 512 232" fill="none" stroke="#667e83" stroke-width="4"/><path d="M436 315 Q452 321 469 315" fill="none" stroke="#a5c8d0" stroke-width="4"/>'
+    elif slug=="huangyueying":
+        expression=f'<path d="M385 231 L433 223 M466 223 L515 231" fill="none" stroke="#39423a" stroke-width="7"/><path d="M437 315 Q452 324 468 315" fill="none" stroke="#a87561" stroke-width="4"/>'
+    else:
+        expression=f'<path d="M387 232 Q410 224 435 234 M466 234 Q490 224 513 232" fill="none" stroke="#78665c" stroke-width="4"/><path d="M436 315 Q452 323 468 315" fill="none" stroke="#a88778" stroke-width="4"/>'
+    front_hair=""
+    if slug=="sunshangxiang":
+        front_hair=f'<path d="M357 212 Q342 115 412 76 Q482 38 536 100 Q558 128 552 211 Q525 167 500 151 Q447 117 397 164Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M376 177 Q406 125 459 126" fill="none" stroke="#667078" stroke-width="5"/><path d="M493 102 Q567 50 612 84" fill="none" stroke="{hair}" stroke-width="22" stroke-linecap="round"/>'
+    elif slug=="wangyi":
+        front_hair=f'<path d="M357 212 Q345 119 412 78 Q483 41 538 102 Q558 134 550 210 Q520 173 488 155 Q438 135 393 180Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M520 160 Q574 252 557 400" fill="none" stroke="{hair}" stroke-width="27" stroke-linecap="round"/><path d="M382 166 Q425 130 480 146" fill="none" stroke="#62565a" stroke-width="5"/>'
+    elif slug=="mayunlu":
+        front_hair=f'<path d="M358 210 Q342 114 412 75 Q483 38 538 100 Q562 130 550 210 Q520 168 492 151 Q443 125 395 176Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M488 104 Q544 36 596 67 Q560 114 522 151" fill="none" stroke="{hair}" stroke-width="25" stroke-linecap="round"/>'
+    elif slug=="huangyueying":
+        front_hair=f'<path d="M358 210 Q348 119 414 79 Q481 43 536 102 Q556 137 550 210 Q520 166 490 151 Q443 130 394 177Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M406 105 Q418 43 474 47 Q529 50 540 110" fill="none" stroke="{hair}" stroke-width="24"/><path d="M510 95 L538 67 L548 106 L520 128Z" fill="{accent}" stroke="{ink}" stroke-width="5"/>'
+    elif slug=="daqiao":
+        front_hair=f'<path d="M357 210 Q345 118 414 78 Q480 44 536 102 Q558 137 550 210 Q520 170 490 153 Q445 130 394 178Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M416 93 Q435 32 490 60 Q530 78 531 119" fill="none" stroke="{hair}" stroke-width="23"/><g fill="{accent}" stroke="#6a584a" stroke-width="4"><circle cx="522" cy="111" r="12"/><path d="M522 80 L522 51" fill="none"/></g>'
+    elif slug=="xiaoqiao":
+        front_hair=f'<path d="M358 212 Q343 114 412 78 Q479 42 536 101 Q559 130 551 211 Q522 172 490 152 Q445 130 394 178Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><circle cx="376" cy="126" r="31" fill="{hair}" stroke="{ink}" stroke-width="8"/><circle cx="528" cy="126" r="31" fill="{hair}" stroke="{ink}" stroke-width="8"/><path d="M350 112 Q328 71 310 99 M549 111 Q576 70 595 101" fill="none" stroke="{accent}" stroke-width="9"/>'
+    elif slug=="zhenji":
+        front_hair=f'<path d="M356 213 Q344 115 413 77 Q482 40 538 101 Q562 136 552 210 Q520 172 491 153 Q445 126 395 177Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M522 162 Q602 250 566 485" fill="none" stroke="{hair}" stroke-width="24"/><path d="M393 98 Q440 29 493 84" fill="none" stroke="{accent}" stroke-width="9"/>'
+    else:
+        front_hair=f'<path d="M358 212 Q345 121 414 81 Q483 47 536 103 Q555 136 551 210 Q522 172 490 153 Q445 133 394 180Z" fill="{hair}" stroke="{ink}" stroke-width="10"/><path d="M417 105 Q445 65 488 83" fill="none" stroke="#87796c" stroke-width="5"/>'
+
     if slug in ("sunshangxiang","wangyi","mayunlu"):
         clothes=f'''
 <path d="M335 635 L390 625 L380 896 L344 942 L303 935Z M455 625 L515 635 L546 935 L505 942 L470 896Z" fill="#303a41" stroke="{ink}" stroke-width="11"/>
@@ -574,6 +609,8 @@ def female_hero_svg(h):
 <path d="M360 330 L360 390 Q400 415 490 390 L490 330Z" fill="url(#skin)" stroke="#704936" stroke-width="7"/>
 {hair_markup}
 {face}
+{expression}
+{front_hair}
 {crest}
 {accent_detail}
 </svg>'''
