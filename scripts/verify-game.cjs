@@ -447,7 +447,6 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     chapterFlowsTested,
     randomEventBranches: eventBranchesTested,
     randomEvents: events.length,
-    randomEventBranches: eventBranchesTested,
     inlineButtonHandlers: new Set(inlineHandlerNames).size,
     heroes: game.state().heroes.length,
     battleWaves: 3,
