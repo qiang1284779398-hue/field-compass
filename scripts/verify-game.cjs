@@ -51,7 +51,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,nextDay};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -68,6 +68,18 @@ assert.ok(elements.get("view").innerHTML.includes("已探索"), "explored region
 game.inspectRegion(0);
 game.exploreRegion(0);
 assert.equal(game.state().explored.length, 1, "a region must not grant its discovery reward twice");
+const woodBeforeOutpost = game.state().wood;
+const infantryBeforeOutpost = game.state().army.inf;
+game.establishOutpost(0);
+assert.equal(game.state().territories[0], true, "explored region should become a controlled outpost");
+assert.equal(game.state().wood, woodBeforeOutpost - 120, "outpost construction should consume wood");
+assert.equal(game.state().army.inf, infantryBeforeOutpost - 100, "outpost construction should assign garrison troops");
+const woodBeforeDay = game.state().wood;
+game.nextDay();
+assert.equal(game.state().wood, woodBeforeDay + 12, "controlled outpost should generate daily wood");
+assert.ok(game.state().food >= 0, "outpost upkeep should be included in daily food settlement");
+game.abandonOutpost(0);
+assert.equal(!!game.state().territories[0], false, "outpost can be abandoned");
 assert.equal(game.costText({ wood: 100, gold: 70 }), "木100 / 金70", "building costs must render correctly");
 game.go("daily");
 assert.ok(elements.get("view").innerHTML.includes("六项常务"), "daily mission page should open");
@@ -143,6 +155,6 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     heroes: game.state().heroes.length,
     battleWaves: 3,
     gameHtmlBytes: Buffer.byteLength(html),
-    tested: ["startup","city","daily missions","story","battle","skills","events","region exploration and branching encounter","recruitment","equipment","forging","side quests","rewards"]
+    tested: ["startup","city","daily missions","story","battle","skills","events","region exploration, branching encounter, outpost control and daily economy","recruitment","equipment","forging","side quests","rewards"]
   });
 })().catch(error => { console.error(error); process.exitCode = 1; });
