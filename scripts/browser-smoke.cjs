@@ -99,6 +99,8 @@ const assert = require("node:assert/strict");
   await page.waitForTimeout(4200);
   const afterEnemyTurn = await readFight();
   assert.ok(afterEnemyTurn.round >= 2 || afterEnemyTurn.phase === "end", "enemy phase must resolve and advance the round or end the battle");
+  const markedEnemyTarget = await page.locator(".warrior.ai-targeted").count();
+  assert.ok(markedEnemyTarget >= 1 || afterEnemyTurn.phase === "end", "enemy AI should visibly mark the ally it has selected as its target");
 
   // A battlefield command must apply once, then retreat and loss settlement must return to the campaign.
   if (afterEnemyTurn.phase === "player") {
