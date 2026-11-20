@@ -116,6 +116,7 @@ assert.equal(game.resolveTerritoryAssault(2, "inf"), true, "strong attacking for
 assert.equal(game.state().regionControl[2], "player", "victory should transfer regional control");
 assert.equal(game.state().enemyGarrisons[2], undefined, "captured region should no longer retain an enemy garrison");
 assert.ok(game.state().fame >= 8, "territory victory should award prestige");
+game.state().story = 2;
 game.state().explored.push(4);
 game.state().enemyGarrisons[4] = { inf: 20, cav: 10, arch: 12, fort: 2 };
 game.state().wood = 500;
