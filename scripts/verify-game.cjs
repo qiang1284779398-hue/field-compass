@@ -8,6 +8,18 @@ const source = scriptMatch[1];
 new Function(source);
 
 // Non-regression contract: established systems must remain present on every pass.
+const rosterManifest=JSON.parse(fs.readFileSync("app/src/main/assets/characters/2d/roster-manifest.json","utf8"));
+assert.equal(rosterManifest.total,50,"the expanded roster must contain fifty generals");
+assert.equal(rosterManifest.heroes.length,50,"the roster manifest must list all fifty generals");
+assert.equal(rosterManifest.male,42,"the roster must contain forty-two male generals");
+assert.equal(rosterManifest.female,8,"the roster must contain eight female generals");
+for(const hero of rosterManifest.heroes){
+  const root="app/src/main/assets/characters/2d/";
+  assert.ok(fs.existsSync(root+hero.art+".svg"),hero.id+" full-body art missing");
+  assert.ok(fs.existsSync(root+"portraits/"+hero.art+".svg"),hero.id+" portrait art missing");
+  assert.ok(fs.existsSync(root+"animations/"+hero.art+"-attack.svg"),hero.id+" weapon attack frames missing");
+  assert.ok(fs.existsSync(root+"animations/"+hero.art+"-skill.svg"),hero.id+" unique skill frames missing");
+}
 for (const id of ["liu-bei","guan-yu","zhang-fei","zhao-yun","zhuge-liang","huang-zhong","diaochan","cao-cao","zhou-yu","lv-bu","dian-wei","jiang-wei"]) {
   assert.ok(fs.existsSync("app/src/main/assets/characters/2d/"+id+".svg"), id+" full-body SVG is missing");
   assert.ok(fs.existsSync("app/src/main/assets/characters/2d/portraits/"+id+".svg"), id+" portrait SVG is missing");

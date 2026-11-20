@@ -51,7 +51,7 @@ const assert = require("node:assert/strict");
       }), { timeout: 10000 });
       assert.equal(await page.locator(".portrait .general-portrait").count(), 3, "roster must display all three bespoke general portraits");
     
-      // Expand the roster to every recruitable general and verify all twelve bespoke portraits load.
+      // Expand the roster to every recruitable general and verify all fifty bespoke portraits load.
       await page.evaluate(() => {
         s.heroes = HEROES.map(h => cloneHero(h.id));
         s.owned = s.heroes.map(h => h.id);
@@ -60,16 +60,23 @@ const assert = require("node:assert/strict");
       });
       await page.waitForFunction(() => {
         const imgs = [...document.querySelectorAll(".general-portrait")];
-        return imgs.length === 12 && imgs.every(img => img.complete && img.naturalWidth > 0);
+        return imgs.length === 50 && imgs.every(img => img.complete && img.naturalWidth > 0);
       }, { timeout: 15000 });
       const rosterPortraitStatus = await page.locator(".general-portrait").evaluateAll(imgs => imgs.map(img => ({name:img.alt,loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight})));
-      assert.equal(rosterPortraitStatus.length, 12, "all twelve generals must have bespoke portraits in the roster");
-      assert.ok(rosterPortraitStatus.every(x=>x.loaded&&x.width>=300&&x.height>=300), "all twelve roster portraits must load at full resolution");
+      assert.equal(await page.evaluate(() => HEROES.length), 50, "exactly fifty playable generals must be registered");
+      const actionSheetCount = await page.evaluate(() => Object.keys(HERO_ANIM_META).length);
+      assert.equal(actionSheetCount, 50, "all fifty generals must have per-hero animation metadata");
+      for (const h of await page.evaluate(() => HEROES.map(x => HERO_ART_IDS[x.id]))) {
+        assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/animations/"+h+"-attack.svg")), h+" weapon attack sheet missing");
+        assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/animations/"+h+"-skill.svg")), h+" skill animation sheet missing");
+      }
+      assert.equal(rosterPortraitStatus.length, 50, "all fifty generals must have bespoke portraits in the roster");
+      assert.ok(rosterPortraitStatus.every(x=>x.loaded&&x.width>=300&&x.height>=300), "all fifty roster portraits must load at full resolution");
       const rosterAvatarLayout = await page.locator(".portrait").evaluateAll(nodes => nodes.map(el => {
         const r = el.getBoundingClientRect();
         return {width:Math.round(r.width),height:Math.round(r.height),fit:getComputedStyle(el.querySelector(".general-portrait")).objectFit};
       }));
-      assert.equal(rosterAvatarLayout.length, 12, "all twelve portraits must use the same roster frame");
+      assert.equal(rosterAvatarLayout.length, 50, "all fifty portraits must use the same roster frame");
       assert.ok(rosterAvatarLayout.every(x=>x.width===rosterAvatarLayout[0].width&&x.height===rosterAvatarLayout[0].height&&x.fit==="contain"), "all roster portraits must share one square layout: "+JSON.stringify(rosterAvatarLayout));
       fs.mkdirSync(path.resolve("artifacts"), { recursive: true });
       await page.locator("#view").screenshot({path:path.resolve("artifacts/all-general-roster.png")});

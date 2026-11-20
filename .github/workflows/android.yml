@@ -14,15 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generate original 2D art for all nine remaining playable generals
+      - name: Generate 50 original generals and 100 weapon-specific action sheets
         run: |
           set -euo pipefail
-          gzip -dc scripts/generate-general-art.py.gz > "$RUNNER_TEMP/generate-general-art.py"
-          python3 "$RUNNER_TEMP/generate-general-art.py"
-          for id in zhao-yun zhuge-liang huang-zhong diaochan cao-cao zhou-yu lv-bu dian-wei jiang-wei; do
-            test -s "app/src/main/assets/characters/2d/$id.svg"
-            test -s "app/src/main/assets/characters/2d/portraits/$id.svg"
-          done
+          python3 scripts/generate-roster-art.py
+          test -s app/src/main/assets/characters/2d/roster-extra.js
+          test -s app/src/main/assets/characters/2d/roster-manifest.json
+          test "$(find app/src/main/assets/characters/2d/animations -name "*-attack.svg" | wc -l)" -eq 50
+          test "$(find app/src/main/assets/characters/2d/animations -name "*-skill.svg" | wc -l)" -eq 50
       - name: Commit generated SVG artwork back to main
         run: |
           set -euo pipefail
@@ -33,7 +32,7 @@ jobs:
             git commit -m "Add hand-drawn 2D artwork for all playable generals [skip ci]"
             git push origin HEAD:main
           fi
-      - name: Upload source SVG artwork for all twelve generals
+      - name: Upload source SVG artwork for all fifty generals
         uses: actions/upload-artifact@v4
         with:
           name: three-kingdoms-all-general-artwork
