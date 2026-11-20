@@ -15,6 +15,14 @@ jobs:
           node-version: '20'
       - name: Verify game logic and content
         run: node scripts/verify-game.cjs
+      - name: Download CC0 soundtrack for offline play
+        run: |
+          mkdir -p app/src/main/assets/audio
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_plain.ogg -o app/src/main/assets/audio/theme_plain.ogg
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_lost_village.ogg -o app/src/main/assets/audio/theme_lost_village.ogg
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_dream.ogg -o app/src/main/assets/audio/theme_dream.ogg
+          curl -L --fail --silent --show-error https://raw.githubusercontent.com/pixel-boy/NinjaAdventure/main/audio/music/theme_swamp.ogg -o app/src/main/assets/audio/theme_swamp.ogg
+          test $(find app/src/main/assets/audio -name '*.ogg' | wc -l) -eq 4
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
