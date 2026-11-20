@@ -88,6 +88,9 @@ const assert = require("node:assert/strict");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
   const vectorModels = await page.locator("#battleScene .warrior .unit-figure").evaluateAll(nodes => nodes.map(n => ({ width: n.getBoundingClientRect().width, height: n.getBoundingClientRect().height, paths: n.querySelectorAll("path").length })));
+  const signatureModels = await page.evaluate(() => ["刘备","关羽","张飞"].map((name,i) => renderWarrior({name,hp:100,max:100,alive:true,troop:"骑兵",status:{}},i,"ally")));
+  for (const [index,heroClass] of ["hero-liu","hero-guan","hero-zhang"].entries()) assert.ok(signatureModels[index].includes(heroClass), heroClass+" must render a dedicated hero silhouette");
+  assert.ok(signatureModels.every(markup => markup.includes("weapon-gesture")), "every rendered warrior must include an animated weapon group");
   assert.ok(vectorModels.length >= 2 && vectorModels.every(v => v.width >= 35 && v.height >= 55 && v.paths >= 8), "both armies must display visible full-body vector character models, not blank sprite placeholders");
   // A dead middle slot must not corrupt actor indices or strand the player turn.
   await page.evaluate(() => { fight.allies[1].alive = false; fight.allies[1].hp = 0; fight.acted = [0]; fight.actor = 0; continueTurn(); });
