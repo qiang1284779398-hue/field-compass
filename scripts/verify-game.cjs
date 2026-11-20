@@ -189,6 +189,8 @@ assert.equal(game.fight().stance, "defensive", "selected defensive formation sho
 assert.ok(elements.get("view").innerHTML.includes("方圆阵"), "battle header should show the selected formation");
 assert.ok(game.fight().allies.every(a => a.def >= game.heroDef(game.state().heroes[a.sourceIndex]) * 1.2 - 1), "defensive formation should increase every deployed hero's defense");
 assert.equal(game.fight().mode, "territory", "territory assault should enter the playable battlefield mode");
+assert.ok(elements.get("view").innerHTML.includes(game.fight().weather.name), "battle HUD should display current battlefield weather");
+assert.ok(elements.get("view").innerHTML.includes("主攻骑兵"), "battle HUD should display selected assault troop focus");
 const weatherBefore=game.fight().weather;
 game.fight().weather={id:"rain",name:"暴雨",icon:"🌧️",arch:.88,burn:1};
 const cavalryProbe={troop:"骑兵"},archerProbe={troop:"弓兵"};
