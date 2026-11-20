@@ -27,7 +27,7 @@ const assert = require("node:assert/strict");
 
   // Exercise the main-city feature tiles and verify each opens a usable panel.
   await page.locator('button[data-p="home"]').click();
-  const homePanels = ["城池经营","颁布政令","内政任命","民心治安","招贤馆","巡城奇遇","本章支线","铁匠工坊"];
+  const homePanels = ["城池经营","颁布政令","内政任命","民心治安","招贤馆","巡城奇遇","本章支线","铁匠工坊","密探机关"];
   for (const label of homePanels) {
     await page.getByRole("button", { name: new RegExp(label) }).click();
     await page.locator("#backdrop").waitFor({ state: "visible", timeout: 3000 });
@@ -35,6 +35,19 @@ const assert = require("node:assert/strict");
     await page.evaluate(() => closeModal());
     await page.locator("#backdrop").waitFor({ state: "hidden" });
   }
+
+  // Exercise the persistent intelligence bureau in a real mobile browser session.
+  await page.getByRole("button", { name: /密探机关/ }).click();
+  await page.locator("#backdrop").waitFor({ state: "visible", timeout: 3000 });
+  await page.getByRole("button", { name: /招募密探/ }).click();
+  await page.locator(".spy-agent").waitFor({ state: "visible", timeout: 3000 });
+  assert.equal(await page.locator(".spy-agent").count(), 1, "recruitment should create a persistent spy agent");
+  await page.getByRole("button", { name: /训练一名密探/ }).click();
+  assert.match(await page.locator(".spy-agent").innerText(), /技能 2\/5/, "training should increase spy skill");
+  await page.getByRole("button", { name: /反间布防/ }).click();
+  assert.match(await page.locator("#modal").innerText(), /戒备中|四日内/, "counter-intelligence should activate");
+  await page.evaluate(() => closeModal());
+  await page.locator("#backdrop").waitFor({ state: "hidden" });
 
   // Enter the first story chapter, advance all dialogue, make a choice, and enter battle.
   await page.locator('button[data-p="campaign"]').click();
@@ -144,7 +157,7 @@ const assert = require("node:assert/strict");
   assert.ok(restored.heading && restored.view && restored.view.trim().length > 20, "game should recover after reload");
   assert.deepEqual(pageErrors, [], "browser runtime must not throw uncaught JavaScript errors");
 
-  console.log(JSON.stringify({ result: "PASS", navigationTabs: 6, storyDialogueSteps: dialogueSteps, homeServicesTested: 8, randomEventChoice: "PASS", mobileLayout: "PASS", battle: { bothSidesRendered: true, targetSelection: "PASS", basicAttackDamage: hpBefore - afterAttack.enemyHp, skillEnergySpent: skillBefore.energy[1] - afterSkill.energy[1], defendShieldAdded: afterDefend.shield[2] - shieldBefore, enemyTurn: afterEnemyTurn.phase === "end" ? "battle-ended" : "round-" + afterEnemyTurn.round }, saveReload: "PASS", pageErrors }, null, 2));
+  console.log(JSON.stringify({ result: "PASS", navigationTabs: 6, storyDialogueSteps: dialogueSteps, homeServicesTested: 9, randomEventChoice: "PASS", mobileLayout: "PASS", battle: { bothSidesRendered: true, targetSelection: "PASS", basicAttackDamage: hpBefore - afterAttack.enemyHp, skillEnergySpent: skillBefore.energy[1] - afterSkill.energy[1], defendShieldAdded: afterDefend.shield[2] - shieldBefore, enemyTurn: afterEnemyTurn.phase === "end" ? "battle-ended" : "round-" + afterEnemyTurn.round }, saveReload: "PASS", pageErrors }, null, 2));
   await browser.close();
   await new Promise(resolve => server.close(resolve));
 })().catch(error => { console.error(error); process.exit(1); });
