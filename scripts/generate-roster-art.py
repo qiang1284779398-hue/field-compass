@@ -674,14 +674,41 @@ def portrait_svg(body,h):
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="{view}"><title>{esc(h["name"])}头像</title>{inner}</svg>'
 
 def attack_mark(h,frame):
-    a=[.10,.55,1,.35][frame]; w=h["weapon"]; c=h["accent"]
-    if w in ("spear","spear-long"): p='M250 480 Q420 505 720 330'
-    elif w in ("bow",): p='M555 470 Q690 420 760 360 M565 500 L780 500'
-    elif w in ("fan","scroll"): p='M530 530 Q680 360 725 485 M540 535 Q650 420 680 560'
-    elif w in ("dual-dagger","dual-blade","dual-axe"): p='M255 425 Q400 300 560 435 M255 565 Q410 690 600 535'
-    elif w in ("hammer","axe","shield","mechanism"): p='M300 560 Q480 300 690 430'
-    else: p='M285 570 Q470 290 730 430'
-    return f'<path d="{p}" fill="none" stroke="{c}" stroke-width="{18 if frame==2 else 11}" stroke-linecap="round" opacity="{a}"/><path d="{p}" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="{a*.7}"/>'
+    a=[.10,.48,1,.32][frame]; w=h["weapon"]; c=h["accent"]
+    width=16 if frame==2 else 10
+    if w in ("spear","spear-long"):
+        p=["M310 520 L690 390 M650 360 L720 380 L668 425","M285 500 L730 340 M682 310 L752 330 L700 375","M245 485 L755 315 M700 285 L780 300 L722 352","M300 510 L690 390"][frame]
+    elif w=="guandao":
+        p=["M250 625 Q380 350 670 405","M200 610 Q390 280 710 405","M160 570 Q400 235 740 405","M240 620 Q420 330 680 410"][frame]
+    elif w=="halberd":
+        p=["M330 670 Q530 350 700 280","M270 680 Q560 300 740 260","M230 700 Q600 250 770 220","M330 665 Q520 360 700 300"][frame]
+    elif w in ("sword","saber"):
+        p=["M270 670 L600 350","M220 700 L650 285","M175 710 L700 240","M280 675 L610 355"][frame]
+    elif w=="bow":
+        p=["M590 440 L750 410 M620 470 L780 430","M560 455 L770 395 M580 490 L800 425","M520 430 L790 350 M545 470 L810 390","M585 445 L760 410"][frame]
+    elif w=="crossbow":
+        p=["M600 480 L760 465","M550 475 L780 430 M550 510 L780 465","M500 455 L805 390 M500 495 L805 430 M500 535 L805 470","M575 480 L770 435"][frame]
+    elif w=="fan":
+        p=["M470 600 Q640 330 735 520","M430 620 Q650 280 770 520 M450 640 Q690 380 760 610","M400 640 Q660 240 800 520 M415 660 Q700 350 790 640","M465 600 Q645 350 740 525"][frame]
+    elif w=="scroll":
+        p=["M520 430 Q670 330 750 440","M500 420 Q660 280 780 430 M500 560 Q680 670 780 550","M470 400 Q680 240 810 410 M470 590 Q690 760 810 580","M520 440 Q670 340 750 450"][frame]
+    elif w in ("dual-dagger","dual-blade"):
+        p=["M245 430 Q390 320 520 435 M320 620 Q465 720 610 575","M210 410 Q410 280 570 430 M290 650 Q480 780 660 570","M180 390 Q420 245 620 425 M265 680 Q500 800 700 560","M245 435 Q400 330 530 440 M325 615 Q470 710 610 575"][frame]
+    elif w=="dual-axe":
+        p=["M260 380 L510 615 M500 380 L260 615","M230 345 L560 650 M550 345 L230 650","M195 320 L600 680 M590 320 L195 680","M250 380 L510 610 M510 380 L250 610"][frame]
+    elif w=="axe":
+        p=["M300 300 L625 670","M270 260 L660 700","M230 220 L700 735","M300 315 L625 660"][frame]
+    elif w=="hammer":
+        p=["M400 340 L400 670","M365 280 L435 690","M340 220 L460 740","M400 340 L400 665"][frame]
+    elif w=="shield":
+        p=["M300 520 Q400 400 500 520","M250 500 Q400 330 550 500","M200 480 Q400 260 600 480","M300 520 Q400 400 500 520"][frame]
+    elif w=="ribbon":
+        p=["M520 650 Q700 500 590 350","M500 690 Q760 480 600 300","M480 720 Q800 450 610 260","M520 650 Q700 500 590 350"][frame]
+    elif w=="mechanism":
+        p=["M500 500 L650 350 M650 500 L500 350","M470 530 L700 300 M700 530 L470 300","M430 560 L750 270 M750 560 L430 270","M500 500 L650 350 M650 500 L500 350"][frame]
+    else:
+        p=["M285 570 Q470 290 730 430","M245 610 Q490 250 770 420","M200 650 Q520 210 810 400","M285 570 Q470 290 730 430"][frame]
+    return f'<path d="{p}" fill="none" stroke="{c}" stroke-width="{width}" stroke-linecap="round" stroke-linejoin="round" opacity="{a}"/><path d="{p}" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="{a*.72}"/>'
 
 SPECIAL_SKILL_PATHS = {
 "benevolent-mandate":'M400 270 C520 380 540 520 400 730 C260 520 280 380 400 270Z M400 370 L400 620 M330 490 L470 490',
@@ -760,7 +787,27 @@ def sprite_sheet(body,h,mode):
     m=re.search(r'<svg[^>]*>(.*)</svg>',body,re.S)
     inner=m.group(1) if m else ''
     frames=[]
-    transforms=(["translate(0 0)","translate(-10 -8) rotate(-3 400 840)","translate(28 -16) rotate(7 400 840)","translate(-4 0) rotate(-1 400 840)"] if mode=="attack" else ["translate(0 0)","translate(0 -18) scale(1.02)","translate(0 -28) scale(1.06)","translate(0 -2) scale(1.01)"])
+    attack_motion={
+        "spear":["translate(0 0)","translate(-8 -5) rotate(-2 400 820)","translate(20 -10) rotate(4 400 820)","translate(0 0)"],
+        "spear-long":["translate(0 0)","translate(-10 -4) rotate(-2 400 820)","translate(28 -8) rotate(5 400 820)","translate(0 0)"],
+        "guandao":["translate(0 0)","translate(-18 -2) rotate(-6 400 800)","translate(25 -10) rotate(10 400 800)","translate(0 0)"],
+        "halberd":["translate(0 0)","translate(-15 -6) rotate(-8 400 800)","translate(18 -15) rotate(13 400 800)","translate(0 0)"],
+        "sword":["translate(0 0)","translate(-12 -8) rotate(-4 400 820)","translate(25 -12) rotate(7 400 820)","translate(0 0)"],
+        "saber":["translate(0 0)","translate(-16 -5) rotate(-6 400 800)","translate(25 -8) rotate(11 400 800)","translate(0 0)"],
+        "bow":["translate(0 0)","translate(-5 -12) scale(1.01)","translate(18 -16) scale(1.03)","translate(0 -2)"],
+        "crossbow":["translate(0 0)","translate(-4 -8) scale(1.01)","translate(16 -8) scale(1.02)","translate(0 0)"],
+        "fan":["translate(0 0)","translate(-8 -5) rotate(-5 400 820)","translate(14 -8) rotate(9 400 820)","translate(0 0)"],
+        "scroll":["translate(0 0)","translate(-7 -4) rotate(-3 400 820)","translate(9 -4) rotate(5 400 820)","translate(0 0)"],
+        "dual-dagger":["translate(0 0)","translate(-8 -10) rotate(-4 400 820)","translate(18 -12) rotate(7 400 820)","translate(0 0)"],
+        "dual-blade":["translate(0 0)","translate(-10 -8) rotate(-5 400 820)","translate(20 -10) rotate(8 400 820)","translate(0 0)"],
+        "dual-axe":["translate(0 0)","translate(-16 -10) rotate(-7 400 820)","translate(25 -15) rotate(9 400 820)","translate(0 0)"],
+        "axe":["translate(0 0)","translate(-10 -8) rotate(-5 400 820)","translate(14 -22) rotate(10 400 820)","translate(0 0)"],
+        "hammer":["translate(0 0)","translate(-4 -18) rotate(-2 400 820)","translate(8 -28) rotate(3 400 820)","translate(0 0)"],
+        "shield":["translate(0 0)","translate(0 -8) rotate(-3 400 820)","translate(24 -8) rotate(5 400 820)","translate(0 0)"],
+        "ribbon":["translate(0 0)","translate(-5 -8) rotate(-6 400 820)","translate(10 -10) rotate(8 400 820)","translate(0 0)"],
+        "mechanism":["translate(0 0)","translate(-8 -4) rotate(-3 400 820)","translate(12 -8) rotate(4 400 820)","translate(0 0)"]
+    }
+    transforms=(attack_motion.get(h["weapon"],["translate(0 0)","translate(-10 -8) rotate(-3 400 840)","translate(28 -16) rotate(7 400 840)","translate(-4 0) rotate(-1 400 840)"]) if mode=="attack" else ["translate(0 0)","translate(0 -18) scale(1.02)","translate(0 -28) scale(1.06)","translate(0 -2) scale(1.01)"])
     for i,tr in enumerate(transforms):
         mark=attack_mark(h,i) if mode=="attack" else skill_mark(h,i)
         frames.append(f'<g transform="translate({i*800} 0)"><g transform="{tr}"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">{inner}</svg></g>{mark}</g>')
