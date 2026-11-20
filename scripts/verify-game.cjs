@@ -46,7 +46,8 @@ assert.ok(source.includes("function statusText"), "unit status feedback missing"
 assert.ok(source.includes("function spyMission"), "persistent spy operations missing");
 assert.ok(source.includes("function recruitSpy") && source.includes("function trainSpy"), "spy recruitment and training missing");
 assert.ok(source.includes("function recoverSpyAgents"), "captured agents must recover through daily turns");
-assert.ok(source.includes("function storyEcho"), "campaign choices must feed back into later narrative");
+assert.ok(source.includes("function storyEcho") && source.includes("function campaignLegacy"), "campaign choices must feed back into later narrative and battle rules");
+assert.ok(source.includes("campaignLegacy:legacy") && source.includes("legacy.humanity*.025") && source.includes("legacy.strategy*3"), "accumulated story choices must modify allied defense and enemy morale in combat");
 assert.ok(source.includes("choiceHistory[i]={choice:n,day:s.day,title:c.title}"), "chapter choice history must persist");
 assert.ok(source.includes("Visual direction pass") && html.includes(".spy-agent"), "visual presentation pass missing");
 assert.ok(source.includes("page]||0"), "music should react to the current game scene");
