@@ -48,9 +48,9 @@ assert.ok(source.includes("异常状态已消退"), "status expiration feedback 
 assert.ok(source.includes("掩护己方远程部队"), "enemy guard unit protection tactic missing");
 assert.ok(source.includes("护盾抵消"), "shield damage feedback missing");
 
-const declaredFunctions = new Set([...source.matchAll(/function\s+([A-Za-z_$][\w$]*)\s*\(/g)].map(x => x[1]));
+const declaredFunctions = new Set([...source.matchAll(/function\s+([A-Za-z_$][\w$]*)\s*[(]/g)].map(x => x[1]));
 const inlineHandlerNames = [...html.matchAll(/onclick="([^"]+)"/g)].map(m => {
-  const hit = m[1].match(/^\s*([A-Za-z_$][\w$]*)\s*\(/);
+  const hit = m[1].match(/^\s*([A-Za-z_$][\w$]*)\s*[(]/);
   return hit && hit[1];
 }).filter(Boolean).filter(name => name !== "if");
 const missingHandlers = [...new Set(inlineHandlerNames)].filter(name => !declaredFunctions.has(name));
