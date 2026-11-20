@@ -17,9 +17,12 @@ const assert = require("node:assert/strict");
   assert.match(await page.locator("#heading").innerText(), /新野|主城/, "home screen should render");
 
   // Every primary navigation entry must respond and render a non-empty page.
+  const pageMarkers = { campaign: "三十章山河史诗", heroes: "名将录", army: "军团编制", world: "天下舆图", bag: "军府库藏", home: "山河未定" };
   for (const tab of ["campaign", "heroes", "army", "world", "bag", "home"]) {
     await page.locator('button[data-p="' + tab + '"]').click();
-    assert.ok((await page.locator("#view").innerText()).trim().length > 20, tab + " page should render content");
+    const pageText = (await page.locator("#view").innerText()).trim();
+    assert.ok(pageText.length > 20, tab + " page should render content");
+    assert.ok(pageText.includes(pageMarkers[tab]), tab + " page should render its expected feature section");
   }
 
   // Exercise the main-city feature tiles and verify each opens a usable panel.
