@@ -12,18 +12,18 @@ SPRITES = ROOT / "game-assets/sprites"
 # Existing Liu Bei, Guan Yu, Zhang Fei and Diao Chan are the visual standards.
 # The other eight original male sprites are rebuilt with the same anatomy/linework system.
 BASE_ROWS = """
-liu|liu-bei|刘备|m|#8e302d|#392226|#d8b56a|sword|heal|crown|goatee
-guan|guan-yu|关羽|m|#28644a|#112b2b|#d9bd79|guandao|dragon|winged|long
-zhang|zhang-fei|张飞|m|#374852|#111b22|#bd9558|spear|roar|iron|full
-zhao|zhao-yun|赵云|m|#8baebb|#293f55|#e0d8c3|spear|dragon|plume|clean
-zhuge|zhuge-liang|诸葛亮|m|#879987|#2d4846|#d7c59a|fan|formation|scholar|goatee
-huang|huang-zhong|黄忠|m|#b68a42|#3d5138|#e1c17c|bow|arrow|archer|white
-dia|diaochan|貂蝉|f|#9b6285|#392642|#e7c6df|dual-dagger|charm|hairpin|none
-cao|cao-cao|曹操|m|#515875|#252a3f|#c9aa6b|sword|shield|crown|short
-zhou|zhou-yu|周瑜|m|#a94736|#4b2930|#e2c077|sword|fire|plume|clean
-lvbu|lv-bu|吕布|m|#9d332f|#341e29|#e0b56b|halberd|storm|horned|long
-diaowei|dian-wei|典韦|m|#816044|#342d2b|#c99a58|dual-axe|ironstorm|iron|full
-jiang|jiang-wei|姜维|m|#4c8192|#253c4d|#d5d7c5|spear|tiger|silver|short
+liu|liu-bei|刘备|m|#8e302d|#392226|#d8b56a|sword|benevolent-mandate|crown|goatee
+guan|guan-yu|关羽|m|#28644a|#112b2b|#d9bd79|guandao|azure-dragon-slash|winged|long
+zhang|zhang-fei|张飞|m|#374852|#111b22|#bd9558|spear|tiger-roar|iron|full
+zhao|zhao-yun|赵云|m|#8baebb|#293f55|#e0d8c3|spear|silver-pearls|plume|clean
+zhuge|zhuge-liang|诸葛亮|m|#879987|#2d4846|#d7c59a|fan|eight-trigrams|scholar|goatee
+huang|huang-zhong|黄忠|m|#b68a42|#3d5138|#e1c17c|bow|hundred-pace-arrow|archer|white
+dia|diaochan|貂蝉|f|#9b6285|#392642|#e7c6df|dual-dagger|closed-moon|hairpin|none
+cao|cao-cao|曹操|m|#515875|#252a3f|#c9aa6b|sword|wei-warlord|crown|short
+zhou|zhou-yu|周瑜|m|#a94736|#4b2930|#e2c077|sword|red-cliff-fire|plume|clean
+lvbu|lv-bu|吕布|m|#9d332f|#341e29|#e0b56b|halberd|sky-halberd|horned|long
+diaowei|dian-wei|典韦|m|#816044|#342d2b|#c99a58|dual-axe|evil-hunter|iron|full
+jiang|jiang-wei|姜维|m|#4c8192|#253c4d|#d5d7c5|spear|qilin-strategy|silver|short
 """
 # id|name|title|role|troop|skill|skill description|biography|weapon|fx|armor|cloth|accent|gender|headgear|beard
 EXTRA_ROWS = """
@@ -544,7 +544,7 @@ def main():
         if h in EXTRAS:
             extra_ids[h["id"]]=slug
             hero_entry=dict(id=h["id"],name=h["name"],title=h["title"],rarity=h["rarity"],role=h["role"],troop=h["troop"],
-                            atk=h["atk"],hp=h["hp"],energy=h["energy"],skill=h["skill"],desc=h["desc"],
+                            atk=h["atk"],hp=h["hp"],energy=h["energy"],skill=h["skill"],desc=h["desc"],skillRange=h["skillRange"],
                             face=h["face"],bio=h["bio"],weapon=h["weapon"],skillFx=h["fx"])
             hero_entry["def"]=h["defense"]
             extras_js.append(hero_entry)
@@ -559,6 +559,8 @@ def main():
     attack_count=len(list(ANIMS.glob("*-attack.svg")))
     skill_count=len(list(ANIMS.glob("*-skill.svg")))
     assert attack_count==50 and skill_count==50, (attack_count,skill_count)
+    assert len({h["skill"] for h in ALL_ART})==50, "all fifty generals must have unique skill names"
+    assert len({h["fx"] for h in ALL_ART})==50, "all fifty generals must have unique skill frame effects"
     print(f"Generated 50 generals ({manifest['male']} male, {manifest['female']} female), 50 portraits, 100 four-frame action sheets.")
 
 if __name__=="__main__":
