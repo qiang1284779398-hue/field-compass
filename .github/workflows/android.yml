@@ -4,7 +4,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   actions: read
 concurrency:
   group: android-build-${{ github.ref }}
@@ -14,6 +14,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Generate original 2D art for all nine remaining playable generals
+        run: |
+          set -euo pipefail
+          gzip -dc scripts/generate-general-art.py.gz > "$RUNNER_TEMP/generate-general-art.py"
+          python3 "$RUNNER_TEMP/generate-general-art.py"
+          for id in zhao-yun zhuge-liang huang-zhong diaochan cao-cao zhou-yu lv-bu dian-wei jiang-wei; do
+            test -s "app/src/main/assets/characters/2d/$id.svg"
+            test -s "app/src/main/assets/characters/2d/portraits/$id.svg"
+          done
+      - name: Commit generated SVG artwork back to main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add game-assets/sprites app/src/main/assets/characters/2d
+          if ! git diff --cached --quiet; then
+            git commit -m "Add hand-drawn 2D artwork for all playable generals [skip ci]"
+            git push origin HEAD:main
+          fi
+      - name: Upload source SVG artwork for all twelve generals
+        uses: actions/upload-artifact@v4
+        with:
+          name: three-kingdoms-all-general-artwork
+          path: game-assets/sprites/
+          if-no-files-found: error
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -67,7 +92,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Run browser playability test (required)
         run: node scripts/browser-smoke.cjs
-      - name: Upload browser battle screenshot and 3D model evidence
+      - name: Upload browser battle screenshot and 2D general artwork evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:

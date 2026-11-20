@@ -8,7 +8,7 @@ const source = scriptMatch[1];
 new Function(source);
 
 // Non-regression contract: established systems must remain present on every pass.
-for (const id of ["liu-bei","guan-yu","zhang-fei"]) {
+for (const id of ["liu-bei","guan-yu","zhang-fei","zhao-yun","zhuge-liang","huang-zhong","diaochan","cao-cao","zhou-yu","lv-bu","dian-wei","jiang-wei"]) {
   assert.ok(fs.existsSync("app/src/main/assets/characters/2d/"+id+".svg"), id+" full-body SVG is missing");
   assert.ok(fs.existsSync("app/src/main/assets/characters/2d/portraits/"+id+".svg"), id+" portrait SVG is missing");
 }

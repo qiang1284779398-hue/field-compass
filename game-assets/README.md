@@ -35,3 +35,8 @@ The first hand-authored 2D SVG set is now checked in:
 - Android/WebView runtime copies: `app/src/main/assets/characters/2d/` and `app/src/main/assets/characters/2d/portraits/`
 
 The Android game loads these files locally in the battlefield and roster. The battlefield uses CSS action effects for attack, hit, and skill motions; these are not yet frame-by-frame sprite animations. Keep the canonical source art in `game-assets/sprites/` and copy reviewed updates into the Android asset directory.
+
+
+## Twelve playable general illustrations
+
+The original 2D illustration set now covers all twelve recruitable generals: Liu Bei, Guan Yu, Zhang Fei, Zhao Yun, Zhuge Liang, Huang Zhong, Diaochan, Cao Cao, Zhou Yu, Lu Bu, Dian Wei, and Jiang Wei. Each has an individually authored full-body 4:5 SVG and a matching 1:1 roster portrait. Runtime copies are bundled under `app/src/main/assets/characters/2d/`. All character artwork is hand-authored vector SVG (not external model downloads or generated raster sprites).
