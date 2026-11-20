@@ -52,14 +52,8 @@
     }
   },
   "modifiers": {
-    "chin/chin-prominent-decr|incr": 0.34,
-    "chin/chin-width-decr|incr": 0.42,
-    "head/head-square": 0.52,
-    "head/head-rectangular": 0.24,
-    "nose/nose-width1-decr|incr": 0.24,
-    "nose/nose-width2-decr|incr": 0.18,
-    "eyebrows/eyebrows-angle-down|up": -0.3,
-    "neck/neck-scale-horiz-decr|incr": 0.3
+    "chin/chin-prominent": 0.38,
+    "head/head-square": 0.52
   },
   "detail": "high",
   "rig": "game",
