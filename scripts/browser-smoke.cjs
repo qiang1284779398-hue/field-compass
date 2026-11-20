@@ -65,6 +65,14 @@ const assert = require("node:assert/strict");
       const rosterPortraitStatus = await page.locator(".general-portrait").evaluateAll(imgs => imgs.map(img => ({name:img.alt,loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight})));
       assert.equal(rosterPortraitStatus.length, 12, "all twelve generals must have bespoke portraits in the roster");
       assert.ok(rosterPortraitStatus.every(x=>x.loaded&&x.width>=300&&x.height>=300), "all twelve roster portraits must load at full resolution");
+      const rosterAvatarLayout = await page.locator(".portrait").evaluateAll(nodes => nodes.map(el => {
+        const r = el.getBoundingClientRect();
+        return {width:Math.round(r.width),height:Math.round(r.height),fit:getComputedStyle(el.querySelector(".general-portrait")).objectFit};
+      }));
+      assert.equal(rosterAvatarLayout.length, 12, "all twelve portraits must use the same roster frame");
+      assert.ok(rosterAvatarLayout.every(x=>x.width===rosterAvatarLayout[0].width&&x.height===rosterAvatarLayout[0].height&&x.fit==="contain"), "all roster portraits must share one square layout: "+JSON.stringify(rosterAvatarLayout));
+      fs.mkdirSync(path.resolve("artifacts"), { recursive: true });
+      await page.locator("#view").screenshot({path:path.resolve("artifacts/all-general-roster.png")});
       // Restore the original starting trio so the campaign smoke follows the normal new-game path.
       await page.evaluate(() => {
         s.heroes = HEROES.slice(0,3).map(h => cloneHero(h.id));
@@ -161,12 +169,17 @@ const assert = require("node:assert/strict");
     const images = [...host.querySelectorAll("img.hero-portrait")];
     images.forEach(img => { img.loading = "eager"; });
     await Promise.all(images.map(img => img.decode().catch(() => null)));
-    const result = images.map(img => ({id:img.getAttribute("src").split("/").pop().replace(".svg",""),loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight}));
+    const result = images.map(img => {
+      const actor=img.closest(".warrior"),body=actor.querySelector(".body-art"),bodyStyle=getComputedStyle(body),imageStyle=getComputedStyle(img),rect=body.getBoundingClientRect();
+      return {id:img.getAttribute("src").split("/").pop().replace(".svg",""),loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight,bodyWidth:Math.round(rect.width),bodyHeight:Math.round(rect.height),backgroundImage:bodyStyle.backgroundImage,imageTransform:imageStyle.transform};
+    });
     host.remove();
     return result;
   });
   assert.equal(allBattleSprites.length, 12, "all twelve generals must have battlefield sprite bindings");
   assert.ok(allBattleSprites.every(x=>x.loaded&&x.width===800&&x.height===1000), "all twelve battle sprites must load at a common 4:5 frame: "+JSON.stringify(allBattleSprites));
+  assert.ok(allBattleSprites.every(x=>x.bodyWidth===88&&x.bodyHeight===104&&x.backgroundImage==="none"&&x.imageTransform==="none"), "all twelve battlefield heroes must share the same 88x104 anchor with no legacy pixel layer or per-hero perspective offset: "+JSON.stringify(allBattleSprites));
+  assert.ok(!html.includes("function troop("), "the 2.5D scene must not draw old miniature pixel people behind hero artwork");
 
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
