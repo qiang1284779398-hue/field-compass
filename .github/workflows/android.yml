@@ -150,6 +150,7 @@ jobs:
           echo "REMOTE_ANDROID_MCP_CONNECTION_PASSED"
 
   android-device-test:
+    if: false # User requested browser-only verification; skip Android emulator.
     # Apple Silicon + ARM64 Android image avoids the slow/stalled Intel x86_64 path.
     runs-on: macos-15
     timeout-minutes: 45
