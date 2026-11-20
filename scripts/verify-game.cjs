@@ -48,6 +48,14 @@ assert.ok(source.includes("异常状态已消退"), "status expiration feedback 
 assert.ok(source.includes("掩护己方远程部队"), "enemy guard unit protection tactic missing");
 assert.ok(source.includes("护盾抵消"), "shield damage feedback missing");
 
+const declaredFunctions = new Set([...source.matchAll(/function\\s+([A-Za-z_$][\\w$]*)\\s*\\(/g)].map(x => x[1]));
+const inlineHandlerNames = [...html.matchAll(/onclick="([^"]+)"/g)].map(m => {
+  const hit = m[1].match(/^\\s*([A-Za-z_$][\\w$]*)\\s*\\(/);
+  return hit && hit[1];
+}).filter(Boolean).filter(name => name !== "if");
+const missingHandlers = [...new Set(inlineHandlerNames)].filter(name => !declaredFunctions.has(name));
+assert.deepEqual(missingHandlers, [], "every static inline button handler must resolve to a game function");
+
 
 for (const track of ["theme_plain.ogg", "theme_lost_village.ogg", "theme_dream.ogg", "theme_swamp.ogg", "swing.ogg", "hit.ogg", "critical.ogg"]) assert.ok(html.includes(track), "missing audio asset reference: " + track);
 
@@ -71,9 +79,10 @@ const storage = {
   setItem(key, value) { memory.set(key, value); },
   removeItem(key) { memory.delete(key); }
 };
+const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
   source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,factionForRegion,enemyCommander,siegeCost};"
-)(documentMock, storage, {}, fn => 1, () => {}, () => true);
+)(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
 game.go("world");
@@ -373,9 +382,47 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
   assert.ok(elements.get("view").innerHTML.includes("颁布政令"), "home screen should expose the city edict system");
   assert.ok(elements.get("view").innerHTML.includes("内政任命"), "home screen should expose city officer appointments");
 
+
+  // Exercise the remaining core progression and inventory controls with sufficient resources.
+  game.state().gold=100000;game.state().food=100000;game.state().wood=100000;game.state().iron=100000;game.state().jade=100000;
+  const heroLevelBefore=game.state().heroes[0].lv;game.levelHero(0);
+  assert.equal(game.state().heroes[0].lv,heroLevelBefore+1,"hero level-up should increase level");
+  const skillLevelBefore=game.state().heroes[0].skillLv;game.state().tech=10;game.upgradeSkill(0);
+  assert.equal(game.state().heroes[0].skillLv,skillLevelBefore+1,"skill upgrade should increase skill rank");
+  const bondBefore=game.state().bond[game.state().heroes[0].id]||0;game.bondHero(0);
+  assert.equal(game.state().bond[game.state().heroes[0].id],bondBefore+5,"hero bonding should increase bond");
+  game.formation();elements.get("slot0").value="0";elements.get("slot1").value="1";elements.get("slot2").value="2";game.saveFormation();
+  assert.deepEqual(game.state().formation,[0,1,2],"formation editor should save three distinct positions");
+  const troopBefore=game.state().army.inf;game.recruitTroops("inf");
+  assert.equal(game.state().army.inf,troopBefore+60,"infantry recruitment should add the stated troop count");
+  game.state().wounded=80;const woundedBefore=game.state().wounded;game.healArmy();
+  assert.equal(game.state().wounded,woundedBefore-60,"field hospital should heal up to sixty wounded");
+  const techBefore=game.state().tech;game.research();
+  assert.equal(game.state().tech,techBefore+3,"research should grant three technology points");
+  const foodBeforeRations=game.state().food;game.rations();game.buyRations(250,100);
+  assert.equal(game.state().food,foodBeforeRations+250,"ration purchase should add the purchased grain");
+  const potionBefore=game.state().potions;game.craftPotion();
+  assert.equal(game.state().potions,potionBefore+1,"potion crafting should add one potion");
+  const salvage=game.makeItem("QA 拆解测试装备","weapon",20);game.state().items.push(salvage);
+  const ironBeforeSalvage=game.state().iron;const salvageIndex=game.state().items.indexOf(salvage);game.salvageItem(salvageIndex);
+  assert.ok(game.state().iron>ironBeforeSalvage,"salvaging an unequipped item should return iron");
+
+  // Test both choices for every random event, not just one randomly selected event.
+  let eventBranchesTested=0;
+  for(const event of game.events()){
+    for(const choice of [0,1]){
+      const st=game.state();st.gold=100000;st.food=100000;st.wood=100000;st.iron=100000;st.jade=100000;
+      st.eventDay=null;st.day++;windowMock.currentEvent=event;
+      const count=st.eventCount||0;game.chooseEvent(choice);
+      assert.equal(st.eventCount,count+1,"each random-event choice should resolve exactly once: "+event.name+" choice "+choice);
+      eventBranchesTested++;
+    }
+  }
+  assert.equal(eventBranchesTested,events.length*2,"both branches of every random event should be exercised");
+
   console.log("Game QA passed:", {
     chapters: chapters.length,
-    randomEvents: events.length,
+    randomEvents: events.length,\n    randomEventBranches: eventBranchesTested,\n    inlineButtonHandlers: new Set(inlineHandlerNames).size,
     heroes: game.state().heroes.length,
     battleWaves: 3,
     gameHtmlBytes: Buffer.byteLength(html),
