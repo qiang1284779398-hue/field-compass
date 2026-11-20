@@ -12,3 +12,9 @@
 - Attribution is not required under CC0; credit is included here as a courtesy.
 
 The complete asset pack is larger than the subset currently integrated. Only the listed character sprites and four soundtrack tracks are bundled; the full 89 MB pack is not included.
+
+## Kenney combat sound effects
+- Source pack: Kenney RPG Audio and Impact Sounds, CC0 1.0.
+- Public mirror used by the build: https://github.com/GeorgeQLe/assets-sfx-combat
+- Bundled files: `audio/sfx/swing.ogg` (drawKnife1), `audio/sfx/hit.ogg` (chop), and `audio/sfx/critical.ogg` (impactMetal_heavy_000).
+- Usage: weapon swing, hit impact, and critical-hit feedback.
