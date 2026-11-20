@@ -51,10 +51,21 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
+game.go("world");
+assert.ok(elements.get("view").innerHTML.includes("天下舆图 · 行军探索"), "world map should show the exploration layer");
+const foodBeforeExplore = game.state().food;
+game.inspectRegion(0);
+game.exploreRegion(0);
+assert.ok(game.state().explored.includes(0), "region exploration should persist in save state");
+assert.equal(game.state().food, foodBeforeExplore - 45 + 150, "grain cache should reward its discovery after travel cost");
+assert.ok(elements.get("view").innerHTML.includes("已探索"), "explored regions should be marked on the map");
+game.inspectRegion(0);
+game.exploreRegion(0);
+assert.equal(game.state().explored.length, 1, "a region must not grant its discovery reward twice");
 assert.equal(game.costText({ wood: 100, gold: 70 }), "木100 / 金70", "building costs must render correctly");
 game.go("daily");
 assert.ok(elements.get("view").innerHTML.includes("六项常务"), "daily mission page should open");
