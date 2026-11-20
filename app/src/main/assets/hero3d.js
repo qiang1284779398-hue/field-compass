@@ -115,7 +115,7 @@ function sync(sceneEl){
  const seen=new Set();
  sceneEl.querySelectorAll(".warrior[data-hero3d]").forEach(el=>{
   const id=el.dataset.hero3d;if(!specs[id])return;
-  const key=id;seen.add(key);const rec=makeActor(id,key);
+  const side=el.dataset.side||"unknown",unitIndex=el.dataset.index||"0";const key=id+":"+side+":"+unitIndex;seen.add(key);const rec=makeActor(id,key);
   if(!rec.ready||!rec.root)return;
   const anchor=el.querySelector(".body-art");if(!anchor)return;
   const a=anchor.getBoundingClientRect(),cx=a.left-rect.left+a.width/2,base=a.bottom-rect.top;
