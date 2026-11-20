@@ -81,6 +81,7 @@ def parse_extras():
         out.append(dict(id=i,slug=i,name=name,title=title,role=role,troop=troop,skill=skill,desc=desc,bio=bio,
                         weapon=weapon,fx=fx,armor=armor,cloth=cloth,accent=accent,gender=gender,head=head,beard=beard,
                         rarity=5 if n%4 else 4,atk=70+(n*7)%31,defense=44+(n*5)%34,hp=520+(n*31)%250,energy=4 if n%5==0 else 3,face="⚔️"))
+    return out
 
 BASE = parse_base()
 EXTRAS = parse_extras()
