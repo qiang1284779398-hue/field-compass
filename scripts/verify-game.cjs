@@ -26,6 +26,11 @@ assert.ok(source.includes("function animateHit"), "player attack animation missi
 assert.ok(source.includes("function animateEnemyHit"), "enemy attack animation missing");
 assert.ok(source.includes("function playBossFx"), "boss skill animation missing");
 assert.ok(source.includes("function startMusic"), "offline soundtrack controller missing");
+assert.ok(source.includes("fight.wave===3?3:fight.chapter%4"), "boss wave should switch to a dedicated existing soundtrack track");
+assert.ok(source.includes("function factionRelationTier") && source.includes("factionRelationTier(s.factionRelations[f.id]||0)"), "diplomacy should expose readable relationship tiers");
+assert.ok(source.includes("factionRelations[attacker.f.id]||-20))*.002"), "diplomatic relations should affect enemy siege pressure");
+assert.ok(source.includes("function applyChapterChoiceOutcome") && source.includes("s.enemyMoraleByRegion[i]=Math.max(10"), "story choices should persistently alter local faction relations or enemy readiness");
+assert.ok(html.includes(".boss-arrival") && html.includes("@keyframes bossHeroIn") && html.includes(".boss-title"), "boss entry needs a visible animated entrance");
 assert.ok(source.includes("function toggleMusic"), "music toggle control missing");
 assert.ok(source.includes("function playSfx"), "combat sound effect controller missing");
 assert.ok(source.includes("function beginTerritoryBattle"), "frontier conquests should use the playable battle engine");
@@ -48,6 +53,7 @@ assert.ok(source.includes("function recruitSpy") && source.includes("function tr
 assert.ok(source.includes("function recoverSpyAgents"), "captured agents must recover through daily turns");
 assert.ok(source.includes("function storyEcho") && source.includes("function campaignLegacy"), "campaign choices must feed back into later narrative and battle rules");
 assert.ok(source.includes("campaignLegacy:legacy") && source.includes("legacy.humanity*.025") && source.includes("legacy.strategy*3"), "accumulated story choices must modify allied defense and enemy morale in combat");
+assert.ok(source.includes("applyChapterChoiceOutcome(i,n)"), "chapter decisions must alter persistent world state");
 assert.ok(source.includes("choiceHistory[i]={choice:n,day:s.day,title:c.title}"), "chapter choice history must persist");
 assert.ok(html.includes("Visual direction pass") && html.includes(".spy-agent"), "visual presentation pass missing");
 assert.ok(source.includes("page]||0"), "music should react to the current game scene");
@@ -98,10 +104,12 @@ const storage = {
 };
 const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,factionRelationTier};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
+assert.equal(game.factionRelationTier(-20),"敌对","negative faction relation should be hostile");
+assert.equal(game.factionRelationTier(16),"中立","improved faction relation should reach neutral tier");
 game.go("home");
 assert.ok(elements.get("view").innerHTML.includes("密探机关"), "home page should expose the intelligence bureau");
 game.recruitSpy();
@@ -491,6 +499,7 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     st.flags.humanity=6;st.flags.strategy=4;
     game.chapterChoice(0);
     assert.equal(game.state().choiceHistory[i].choice,0,"chapter choice history should persist: "+chapters[i].title);
+    assert.ok(game.state().factionRelations.yellow>=-17,"humanitarian chapter choice should improve the local faction relation");
     assert.deepEqual(game.campaignLegacy(),{humanity:2,strategy:2},"campaign legacy should derive bounded modifiers from prior choices");
     assert.ok(game.fight(),"chapter branch should start battle: "+chapters[i].title);
     assert.equal(game.fight().campaignLegacy.humanity,2,"humanity legacy should be attached to the battle");
