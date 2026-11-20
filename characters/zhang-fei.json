@@ -1,0 +1,69 @@
+{
+  "$schema": "https://ara3dgen.com/schemas/character.v1.json",
+  "kind": "ara-character",
+  "version": 1,
+  "preset": "The Soldier",
+  "params": {
+    "name": "zhang-fei",
+    "ageYears": 38,
+    "gender": 1,
+    "muscle": 0.94,
+    "weight": 0.7,
+    "height": 0.59,
+    "proportions": 0.62,
+    "african": 0.02,
+    "asian": 0.95,
+    "caucasian": 0.03,
+    "eyes": "blackbrown",
+    "hair": "buzz",
+    "hairColor": "#100f0e",
+    "facialHair": "full_beard",
+    "beardColor": "#171513",
+    "outfit": "none",
+    "top": "long_tunic",
+    "jacket": "tactical_vest",
+    "bottom": "trousers",
+    "shoes": "combat_boots",
+    "hat": "none",
+    "accessories": [
+      "belt",
+      "arm_wraps"
+    ],
+    "garmentStyles": {
+      "long_tunic": {
+        "pattern": "solid",
+        "color": "#343c4c",
+        "color2": "#b8b8b2"
+      },
+      "tactical_vest": {
+        "pattern": "leather",
+        "color": "#303541",
+        "color2": "#a6a8ab"
+      },
+      "trousers": {
+        "pattern": "solid",
+        "color": "#292d36"
+      },
+      "belt": {
+        "pattern": "leather",
+        "color": "#241e1a"
+      },
+      "arm_wraps": {
+        "pattern": "solid",
+        "color": "#343c4c"
+      }
+    },
+    "modifiers": {
+      "chin/chin-prominent": 0.28,
+      "head/head-square": 0.38
+    },
+    "rig": "game",
+    "faceBones": true,
+    "restPose": "A",
+    "animations": true,
+    "weapon": "sword",
+    "expression": "angry",
+    "faceShapes": true,
+    "speechShapes": true
+  }
+}
