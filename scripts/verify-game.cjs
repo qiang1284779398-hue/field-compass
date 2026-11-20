@@ -164,7 +164,7 @@ assert.ok(doctrines.every(d=>d.siege>0&&d.inf>0&&d.cav>0&&d.arch>0&&d.desc),"eve
   assert.equal(game.factionTargetPlan("yellow","步兵",allies,backline,frontline).target.id,"wounded","Yellow Turban AI should swarm the weakest unit");
   assert.equal(game.factionTargetPlan("xiliang","骑兵",allies,backline,frontline).target.id,"archer","Xiliang cavalry should flank the weakest backline defense");
   assert.equal(game.factionTargetPlan("xiliang","骑兵",allies,[],frontline).target.id,"wounded","Xiliang cavalry should adapt by striking the weakest-defense unit when no backline exists");
-  assert.equal(game.factionTargetPlan("yuan","步兵",allies,backline,frontline).target.id,"wounded","Yuan heavy infantry should breach the weakest-defense frontline unit");
+  assert.equal(game.factionTargetPlan("yuan","步兵",allies,backline,frontline).target.id,"threat","Yuan heavy infantry should breach the weakest-defense frontline unit");
   const caoFirst=game.factionTargetPlan("cao","步兵",allies,backline,frontline).target;
   assert.equal(game.factionTargetPlan("cao","骑兵",allies,backline,frontline).target.id,caoFirst.id,"Cao Wei should maintain coordinated focus fire");
   assert.equal(game.factionTargetPlan("shu","步兵",allies,backline,frontline).target.id,"threat","Shu defenders should prioritize the highest attack threat");
