@@ -58,12 +58,6 @@ assert.ok(source.includes("function spyMission"), "persistent spy operations mis
 assert.ok(source.includes("function recruitSpy") && source.includes("function trainSpy"), "spy recruitment and training missing");
 assert.ok(source.includes("function recoverSpyAgents"), "captured agents must recover through daily turns");
 assert.ok(source.includes("function storyEcho") && source.includes("function campaignLegacy"), "campaign choices must feed back into later narrative and battle rules");
-{
-  game.state().factionRelations.yellow=35;
-  assert.ok(game.storyEcho(0).includes("当地黄巾余部已愿意与我军互通消息"),"story echo should reflect improved local faction relations");
-  game.state().factionRelations.yellow=-20;
-  assert.ok(game.storyEcho(0).includes("敌意未消"),"story echo should reflect hostile local faction relations");
-}
 assert.ok(source.includes("fight.enemyTargetHeroId=target.id||target.name") && html.includes(".warrior.ai-targeted"),"enemy target selection should visibly mark the threatened allied unit");
 assert.ok(source.includes("campaignLegacy:legacy") && source.includes("legacy.humanity*.025") && source.includes("legacy.strategy*3"), "accumulated story choices must modify allied defense and enemy morale in combat");
 assert.ok(source.includes("applyChapterChoiceOutcome(i,n)"), "chapter decisions must alter persistent world state");
@@ -123,6 +117,13 @@ const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
   source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,applyFactionBattleTactic,factionTargetPlan,storyEcho,setFight:v=>{fight=v},factionRelationTier,factionDoctrine,factionOverview,makeWave,drawBattle,applyFactionBattleTactic};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
+
+{
+  game.state().factionRelations.yellow=35;
+  assert.ok(game.storyEcho(0).includes("当地黄巾余部已愿意与我军互通消息"),"story echo should reflect improved local faction relations");
+  game.state().factionRelations.yellow=-20;
+  assert.ok(game.storyEcho(0).includes("敌意未消"),"story echo should reflect hostile local faction relations");
+}
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
 assert.equal(game.factionRelationTier(-20),"敌对","negative faction relation should be hostile");
