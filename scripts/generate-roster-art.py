@@ -245,8 +245,12 @@ def body_svg(h, index):
 </defs>'''
     title=f'<title>{esc(h["name"])} · 独立全身立绘</title><desc>统一厚涂质感线稿、完整双臂与双手结构、分层胸甲和专属武器。</desc>'
     # Render weapon behind the arms so the grip sits in the palm rather than floating beside it.
-    wide='<g transform="translate(-100 0) scale(1.25 1)">'
-    content='<ellipse cx="400" cy="984" rx="180" ry="15" fill="#101719" opacity=".18"/>'+wide+cape+'</g><g transform="translate(22 0)">'+weapon_svg(h)+'</g>'+wide+legs+body+arms+shoulders+collar+''.join(rows)+emblem+rivets+extra+hair+'<path d="M360 334 Q400 354 440 334" fill="none" stroke="'+accent+'" stroke-width="8"/>'+face+beard+helmet+hands+'</g>'
+    scale_x=1.4 if not female else 1.25
+    offset_x=-160 if not female else -100
+    weapon_shift=45 if not female else 22
+    if h["weapon"] in ("dual-dagger","dual-blade","dual-axe"): weapon_shift=0
+    wide=f'<g transform="translate({offset_x} 0) scale({scale_x} 1)">'
+    content='<ellipse cx="400" cy="984" rx="220" ry="15" fill="#101719" opacity=".18"/>'+wide+cape+'</g><g transform="translate('+str(weapon_shift)+' 0)">'+weapon_svg(h)+'</g>'+wide+legs+body+arms+shoulders+collar+''.join(rows)+emblem+rivets+extra+hair+'<path d="M360 334 Q400 354 440 334" fill="none" stroke="'+accent+'" stroke-width="8"/>'+face+beard+helmet+hands+'</g>'
     if female:
         content+='<g transform="translate(-100 0) scale(1.25 1)"><g fill="'+accent+'" stroke="url(#ink)" stroke-width="4"><circle cx="338" cy="265" r="9"/><circle cx="462" cy="265" r="9"/></g><path d="M355 294 Q400 309 445 294" fill="none" stroke="#f8e0d3" stroke-width="4" opacity=".8"/></g>'
     else:
@@ -277,7 +281,7 @@ def skill_mark(h,frame):
         return f'<g opacity="{a}" fill="none" stroke="{c}" stroke-width="11"><circle cx="400" cy="500" r="{115+frame*24}"/><circle cx="400" cy="500" r="{70+frame*18}"/><path d="M400 340 L400 660 M240 500 L560 500"/></g><path d="M400 390 Q450 450 400 510 Q350 450 400 390Z" fill="{c}" opacity="{a*.6}"/>'
     if fx in ("charm","ice"):
         return f'<g opacity="{a}" fill="none" stroke="{c}" stroke-width="12"><path d="M400 320 Q510 390 470 510 Q440 605 335 565 Q250 530 280 430 Q300 370 360 372"/><path d="M400 390 L430 450 L400 510 L370 450Z"/></g><g fill="{c}" opacity="{a}"><circle cx="280" cy="350" r="14"/><circle cx="530" cy="390" r="12"/><circle cx="320" cy="650" r="10"/></g>'
-    if fx in ("dragon","tiger","wind","storm","lightning"):
+    if fx in ("dragon","tiger","wind","storm","lightning","ironstorm","water"):
         return f'<g opacity="{a}" fill="none" stroke="{c}" stroke-width="14" stroke-linecap="round"><path d="M200 570 Q300 320 480 390 Q660 460 570 640 Q500 760 350 640 Q260 565 400 480 Q510 405 610 510"/><path d="M240 690 Q400 800 620 650"/></g><path d="M540 355 L620 300 L590 395Z" fill="{c}" opacity="{a}"/>'
     if fx in ("formation","shadow","thunder","earth"):
         return f'<g opacity="{a}" fill="none" stroke="{c}" stroke-width="9"><circle cx="400" cy="500" r="190"/><circle cx="400" cy="500" r="125"/><path d="M400 300 L575 600 L225 600Z M225 400 L575 400 L400 700Z"/><path d="M400 310 L400 690 M230 500 L570 500"/></g>'
