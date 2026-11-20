@@ -8,6 +8,7 @@ const source = scriptMatch[1];
 new Function(source);
 
 // Non-regression contract: established systems must remain present on every pass.
+assert.ok(source.includes("function initBattleRenderer") && source.includes("battle-3d-canvas") && source.includes('getContext("2d"'), "combat scene must use the offline 2.5D canvas renderer");
 const preservationContracts = [
   ["30-chapter campaign", "const CHAPTERS="],
   ["story choice application", "function applyChapterChoiceOutcome"],
