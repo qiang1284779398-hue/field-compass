@@ -54,6 +54,9 @@ assert.ok(source.includes("function recoverSpyAgents"), "captured agents must re
 assert.ok(source.includes("function storyEcho") && source.includes("function campaignLegacy"), "campaign choices must feed back into later narrative and battle rules");
 assert.ok(source.includes("campaignLegacy:legacy") && source.includes("legacy.humanity*.025") && source.includes("legacy.strategy*3"), "accumulated story choices must modify allied defense and enemy morale in combat");
 assert.ok(source.includes("applyChapterChoiceOutcome(i,n)"), "chapter decisions must alter persistent world state");
+assert.ok(source.includes("low.loyalty=Math.min(100,(low.loyalty||75)+2)") && source.includes("lead.loyalty=Math.min(100,(lead.loyalty||75)+2)"), "humanity and strategy choices should have distinct persistent hero loyalty consequences");
+assert.ok(source.includes("s.intel=Math.min(20,(s.intel||0)+1)"), "strategy choice should grant persistent strategic intelligence");
+assert.ok(html.includes("@keyframes bossLineAdvance") && html.includes("@keyframes bossChampionRise") && html.includes("@keyframes bossTitleReveal"), "boss entrance should animate both formation and champion with a title reveal");
 assert.ok(source.includes("choiceHistory[i]={choice:n,day:s.day,title:c.title}"), "chapter choice history must persist");
 assert.ok(html.includes("Visual direction pass") && html.includes(".spy-agent"), "visual presentation pass missing");
 assert.ok(source.includes("page]||0"), "music should react to the current game scene");
