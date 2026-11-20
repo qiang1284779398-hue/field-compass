@@ -1,4 +1,4 @@
-name: Open Delta Force on remote Android phone
+name: Inspect remote Android phone for game 3D test
 on:
   push:
     branches: [ main ]
@@ -7,11 +7,11 @@ on:
 permissions:
   contents: read
 jobs:
-  open-delta:
+  inspect-phone:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Launch Delta Force on the connected phone
+      - name: List available remote phone controls and read current screen
         env:
           ANDROID_MCP_URL: ${{ secrets.ANDROID_MCP_URL }}
           ANDROID_MCP_TOKEN: ${{ secrets.ANDROID_MCP_TOKEN }}
@@ -29,16 +29,35 @@ jobs:
               -H "Accept: application/json, text/event-stream" \
               --data "$1"
           }
-          echo "Requesting Delta Force launch on the connected Android phone..."
-          OPEN_RESPONSE="$(call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_open_app","arguments":{"package_id":"com.tencent.tmgp.dfm"}}}')"
-          if printf '%s' "$OPEN_RESPONSE" | grep -q '"isError"[[:space:]]*:[[:space:]]*true'; then
-            echo "::error::The phone MCP returned an error while opening Delta Force. The app may not be installed or its package ID may differ."
-            exit 1
-          fi
-          sleep 12
+          TOOLS_RESPONSE="$(call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/list"}')"
+          printf '%s\n' "$TOOLS_RESPONSE" > /tmp/tools-response.txt
+          python3 - <<'PY'
+          import json
+          raw=open('/tmp/tools-response.txt').read()
+          for line in raw.splitlines():
+              if line.startswith('data:'):
+                  raw=line[5:].strip()
+          obj=json.loads(raw)
+          tools=obj.get('result',{}).get('tools',[])
+          print('REMOTE_PHONE_TOOL_COUNT:',len(tools))
+          for t in tools:
+              print(json.dumps({'name':t.get('name'),'description':t.get('description'),'inputSchema':t.get('inputSchema')},ensure_ascii=False))
+          PY
           SCREEN_RESPONSE="$(call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{}}}')"
-          if printf '%s' "$SCREEN_RESPONSE" | grep -q '"isError"[[:space:]]*:[[:space:]]*true'; then
-            echo "::error::The app launch request returned, but screen verification failed."
-            exit 1
-          fi
-          echo "DELTA_FORCE_LAUNCH_REQUEST_SENT_AND_SCREEN_STATE_READ"
+          printf '%s\n' "$SCREEN_RESPONSE" > /tmp/screen-response.txt
+          python3 - <<'PY'
+          import json
+          raw=open('/tmp/screen-response.txt').read()
+          for line in raw.splitlines():
+              if line.startswith('data:'):
+                  raw=line[5:].strip()
+          obj=json.loads(raw)
+          result=obj.get('result',{})
+          print('SCREEN_STATE_CALL_OK:', not obj.get('error') and not result.get('isError',False))
+          for item in result.get('content',[]):
+              if item.get('type')=='text':
+                  print('SCREEN_TEXT:',item.get('text','')[:3000])
+              else:
+                  print('SCREEN_CONTENT_TYPE:',item.get('type'))
+          PY
+          echo "REMOTE_PHONE_INSPECTION_COMPLETED"
