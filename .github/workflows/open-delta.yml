@@ -1,4 +1,4 @@
-name: Open downloaded APK installer on real phone
+name: Wait for APK download and open installer on real phone
 on:
   push:
     branches: [ main ]
@@ -7,11 +7,11 @@ on:
 permissions:
   contents: read
 jobs:
-  open-installer:
+  install:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
-      - name: Tap downloaded APK and inspect Android package installer
+      - name: Wait for download completion, tap APK, and inspect installer
         env:
           ANDROID_MCP_URL: ${{ secrets.ANDROID_MCP_URL }}
           ANDROID_MCP_TOKEN: ${{ secrets.ANDROID_MCP_TOKEN }}
@@ -26,21 +26,39 @@ jobs:
                 -X POST "$MCP_URL" -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
                 -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" \
                 --data "$payload" -o "$out"; then cat "$out"; rm -f "$out"; return 0; fi
+              echo "MCP reconnect attempt $attempt"
               sleep 8
             done
             return 1
           }
-          call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_tap","arguments":{"x":620,"y":790}}}' > /tmp/tap.json
-          sleep 10
-          call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/screen.json
+          done_download=0
+          for i in $(seq 1 36); do
+            call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/screen.json
+            if grep -q '35.54 MB' /tmp/screen.json && ! grep -q '还剩' /tmp/screen.json; then
+              echo "APK_DOWNLOAD_COMPLETE"
+              done_download=1
+              break
+            fi
+            echo "APK_DOWNLOAD_STILL_RUNNING poll=$i"
+            grep -o '已下载[^"\\]*' /tmp/screen.json | tail -1 || true
+            sleep 10
+          done
+          if [ "$done_download" -ne 1 ]; then
+            echo "APK_DOWNLOAD_NOT_CONFIRMED_WITHIN_WINDOW"
+            exit 1
+          fi
+          call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_tap","arguments":{"x":620,"y":790}}}' > /tmp/tap.json
+          echo "APK_DOWNLOAD_ROW_TAPPED"
+          sleep 8
+          call_mcp '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/installer.json
           python3 - <<'PY'
           import json
-          raw=open('/tmp/screen.json').read()
+          raw=open('/tmp/installer.json').read()
           for line in raw.splitlines():
               if line.startswith('data:'): raw=line[5:].strip()
           obj=json.loads(raw)
           result=obj.get('result',{})
-          if obj.get('error') or result.get('isError'): raise SystemExit('SCREEN_READ_FAILED')
-          for x in result.get('content',[]):
-              if x.get('type')=='text': print('PACKAGE_INSTALLER_SCREEN:',x.get('text','')[:14000])
+          if obj.get('error') or result.get('isError'): raise SystemExit('INSTALLER_SCREEN_READ_FAILED')
+          for item in result.get('content',[]):
+              if item.get('type')=='text': print('ANDROID_INSTALLER_SCREEN:',item.get('text','')[:14000])
           PY
