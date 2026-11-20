@@ -188,7 +188,7 @@ assert.equal(game.state().edict.id, "屯田", "city edict should persist its sel
 assert.equal(game.state().edict.untilDay, game.state().day + 2, "city edict should last three in-game days");
 const edictFoodBefore = game.state().food;
 game.nextDay();
-assert.equal(game.state().food, edictFoodBefore + game.state().build.farm * 65 + 50 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - Math.max(0,Object.keys(game.state().territories||{}).filter(k=>game.state().territories[k]).length*15-game.state().supplyRoutes.filter(r=>game.state().territories[r[0]]&&game.state().territories[r[1]]).length*5), "屯田令 should add fifty food to daily settlement");
+assert.equal(game.state().food, edictFoodBefore + game.state().build.farm * 65 + game.state().supplyRoutes.filter(r=>game.state().territories[r[0]]&&game.state().territories[r[1]]).length * 8 + 50 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - Math.max(0,Object.keys(game.state().territories||{}).filter(k=>game.state().territories[k]).length*15-game.state().supplyRoutes.filter(r=>game.state().territories[r[0]]&&game.state().territories[r[1]]).length*5), "屯田令 should add fifty food to daily settlement");
 game.setCityEdict("通商");
 assert.equal(game.state().edict.id, "屯田", "active edict should not be replaced early");
 game.state().day = game.state().edict.untilDay + 1;
