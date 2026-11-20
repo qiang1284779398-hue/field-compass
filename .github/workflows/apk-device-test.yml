@@ -1,65 +1,13 @@
-name: Android APK device test
+name: Legacy Android APK device test (manual only)
 on:
-  workflow_run:
-    workflows: ["Build Android APK"]
-    types: [completed]
+  workflow_dispatch:
 permissions:
   actions: read
   contents: read
+# Device QA now runs in parallel with browser QA in android.yml.
+# This workflow is retained for manual diagnostics only.
 jobs:
   install-and-launch:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Install Playwright CDP client
-        run: npm install --no-save --package-lock=false playwright
-      - name: Download APK from successful build
-        uses: actions/download-artifact@v4
-        with:
-          name: huanxiang-sanguo-apk
-          path: apk
-          github-token: ${{ github.token }}
-          run-id: ${{ github.event.workflow_run.id }}
-      - name: Boot Android emulator, install APK and test real WebView battle
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          target: google_apis
-          arch: x86_64
-          profile: pixel_6
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          script: |
-            set -e
-            mkdir -p artifacts
-            APK="$(find apk -name '*.apk' -print -quit)"
-            test -n "$APK"
-            adb install -r "$APK"
-            adb shell am force-stop com.hxsg.game || true
-            adb shell monkey -p com.hxsg.game 1
-            sleep 12
-            adb shell dumpsys activity activities | grep -q 'com.hxsg.game'
-            PID="$(adb shell pidof -s com.hxsg.game | tr -d '\r')"
-            test -n "$PID"
-            adb forward tcp:9222 localabstract:webview_devtools_remote_$PID
-            for i in $(seq 1 40); do
-              if curl -fsS http://127.0.0.1:9222/json/version >/dev/null; then break; fi
-              sleep 2
-            done
-            curl -fsS http://127.0.0.1:9222/json/version
-            node scripts/android-webview-smoke.cjs
-            adb logcat -d -s AndroidRuntime:E HuanxiangWebView:D > artifacts/android-logcat.txt
-            adb exec-out screencap -p > artifacts/android-final-screen.png
-      - name: Upload Android emulator battle evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-emulator-evidence
-          path: artifacts/
-          if-no-files-found: warn
+      - run: echo "Use the parallel Android device QA job in the Build Android APK and parallel QA workflow."
