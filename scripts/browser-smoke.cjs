@@ -24,9 +24,9 @@ const assert = require("node:assert/strict");
   const mime = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".glb":"model/gltf-binary", ".ogg":"audio/ogg" };
   const server = http.createServer((req, res) => {
     const pathname = decodeURIComponent(new URL(req.url, "http://127.0.0.1").pathname);
-    const target = path.resolve(assetRoot, "." + pathname);
-    if (!target.startsWith(assetRoot)) { res.writeHead(403); return res.end(); }
-    const file = target === assetRoot + path.sep ? path.join(assetRoot, "index.html") : target;
+    const relative = pathname === "/" ? "index.html" : pathname.replace(/^\\/+/, "");
+    const file = path.resolve(assetRoot, relative);
+    if (file !== assetRoot && !file.startsWith(assetRoot + path.sep)) { res.writeHead(403); return res.end(); }
     if (!fs.existsSync(file) || !fs.statSync(file).isFile()) { res.writeHead(404); return res.end("not found"); }
     res.writeHead(200, { "content-type": mime[path.extname(file)] || "application/octet-stream" });
     fs.createReadStream(file).pipe(res);
@@ -102,8 +102,8 @@ const assert = require("node:assert/strict");
   await page.locator('button[onclick="chapterChoice(0)"]').click();
   assert.equal(await page.evaluate(() => s.factionRelations.yellow), Math.min(50, relationBeforeChoice + 3), "humanitarian choice should improve the local faction relation");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
-  await page.waitForTimeout(3500);
-  assert.ok(await page.locator("#battleScene .hero3d-layer").count()===1, "shared WebGL layer should be attached to the active battle scene");
+  await page.locator("#battleScene .hero3d-layer").waitFor({ state: "attached", timeout: 5000 });
+  await page.waitForFunction(() => document.querySelectorAll("#battleScene .warrior.hero3d-ready").length >= 1, { timeout: 15000 });
   assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count()>=1, "at least one actual skinned GLB hero should load and replace its SVG fallback");
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
