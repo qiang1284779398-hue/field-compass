@@ -58,7 +58,7 @@ function makeActor(id,key){
  getModel(id).then(gltf=>{
   if(!app)return;
   const root=THREE.SkeletonUtils.clone(gltf.scene);
-  root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material){o.material.side=THREE.FrontSide}}});
+  let skinnedMeshes=0,boneCount=0;root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material){o.material.side=THREE.FrontSide}}if(o.isSkinnedMesh&&o.skeleton){skinnedMeshes++;boneCount=Math.max(boneCount,o.skeleton.bones.length)}});
   const box=new THREE.Box3().setFromObject(root),size=box.getSize(new THREE.Vector3());
   root.position.y-=box.min.y;
   const height=Math.max(.1,size.y);
@@ -70,7 +70,7 @@ function makeActor(id,key){
    weapon.scale.setScalar(id==="guan-yu"?1.05:1);
    socket.add(weapon);
   }
-  rec.root=root;rec.mixer=new THREE.AnimationMixer(root);
+  rec.root=root;rec.skinnedMeshes=skinnedMeshes;rec.boneCount=boneCount;rec.weaponSocket=!!socket;rec.mixer=new THREE.AnimationMixer(root);
   (gltf.animations||[]).forEach(clip=>{rec.actions[clip.name.toLowerCase()]=rec.mixer.clipAction(clip)});
   app.scene.add(root);rec.ready=true;
   play(rec,"idle");
@@ -120,6 +120,7 @@ function frame(t){
  actors.forEach(a=>{if(a.mixer)a.mixer.update(dt)});
  if(lastScene&&lastScene.isConnected){sync(lastScene);app.renderer.render(app.scene,app.camera)}
 }
+window.__hero3dStatus=function(){return Array.from(actors.values()).map(a=>({id:a.id,ready:a.ready,skinnedMeshes:a.skinnedMeshes||0,bones:a.boneCount||0,clips:Object.keys(a.actions).length,weaponSocket:a.weaponSocket||false}))};
 window.initHero3D=function(sceneEl){
  try{init();if(!app)return;sync(sceneEl);if(!raf)raf=requestAnimationFrame(frame)}catch(e){console.warn("3D hero renderer unavailable; using 2D fallback",e)}
 };
