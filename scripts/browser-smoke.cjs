@@ -6,20 +6,16 @@ const assert = require("node:assert/strict");
 
 (async () => {
   const html = fs.readFileSync(path.resolve("app/src/main/assets/index.html"), "utf8");
-  const hero3d = fs.readFileSync(path.resolve("app/src/main/assets/hero3d.js"), "utf8");
-  for (const f of ["liu-bei.glb","guan-yu.glb","zhang-fei.glb"]) assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters",f)), "generated rigged model must exist: "+f);
-  for (const f of ["three.min.js","GLTFLoader.js","SkeletonUtils.js"]) assert.ok(fs.existsSync(path.resolve("app/src/main/assets/vendor",f)), "offline 3D runtime must be bundled: "+f);
-  assert.ok(hero3d.includes("THREE.GLTFLoader") && hero3d.includes("THREE.SkeletonUtils") && hero3d.includes("AnimationMixer"), "real skinned GLB models use skeleton cloning and animation mixers");
-  assert.ok(html.includes("class=\"body-art\""), "battle actors must expose 3D model anchors");
-  assert.ok(html.includes("data-hero3d") && html.includes("initHero3D"), "3D rigged hero anchors are integrated");
-  assert.ok(html.includes("characters/guan-yu.glb") || html.includes("guan-yu"), "Guan Yu 3D model identity is wired");
-  assert.ok(html.includes("zhang-fei"), "Zhang Fei 3D model identity is wired");
-  assert.ok(html.includes("hero3d-layer") && html.includes("hero3d-ready"), "3D-only renderer must attach and mark loaded models");
-  assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: @keyframes weaponSweep");
-  assert.ok(hero3d.includes("AnimationMixer"), "3D actors must use skeletal animation mixers");
-  assert.ok(html.includes("hero-guan"), "battle art upgrade: hero-guan");
-  assert.ok(html.includes("hero-zhang"), "battle art upgrade: hero-zhang");
-  assert.ok(html.includes("hero-liu"), "battle art upgrade: hero-liu");
+  for (const id of ["liu-bei","guan-yu","zhang-fei"]) {
+    assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/"+id+".svg")), id+" full-body 2D SVG must be bundled");
+    assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/portraits/"+id+".svg")), id+" portrait SVG must be bundled");
+    assert.ok(html.includes('characters/2d/'+id+'.svg'), id+" full-body sprite path must be wired into the game");
+  }
+  assert.ok(html.includes("data-hero2d") && html.includes("class=\\"hero-portrait\\""), "battle actors must expose integrated 2D hero image anchors");
+  assert.ok(html.includes("function generalPortrait") && html.includes("characters/2d/portraits/"), "general roster must use bespoke 2D portraits");
+  assert.ok(!html.includes("initHero3D(") && !html.includes("vendor/three.min.js"), "2D build must not require the old 3D runtime");
+  assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: weapon sweep animation");
+  for (const cls of ["hero-guan","hero-zhang","hero-liu"]) assert.ok(html.includes(cls), "battle art identity class must exist: "+cls);
   const assetRoot = path.resolve("app/src/main/assets");
   const mime = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".glb":"model/gltf-binary", ".ogg":"audio/ogg" };
   const server = http.createServer((req, res) => {
@@ -102,30 +98,31 @@ const assert = require("node:assert/strict");
   await page.locator('button[onclick="chapterChoice(0)"]').click();
   assert.equal(await page.evaluate(() => s.factionRelations.yellow), Math.min(50, relationBeforeChoice + 3), "humanitarian choice should improve the local faction relation");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
-  await page.locator("#battleScene .hero3d-layer").waitFor({ state: "attached", timeout: 5000 });
-  await page.waitForFunction(() => document.querySelectorAll("#battleScene .warrior.hero3d-ready").length >= 1, { timeout: 15000 });
-  let rigStatus = await page.evaluate(() => window.__hero3dStatus ? window.__hero3dStatus() : []);
-  assert.ok(rigStatus.some(x => x.ready && x.skinnedMeshes > 0 && x.bones >= 20 && x.clips >= 2), "loaded heroes must contain real skinned meshes, a humanoid skeleton and multiple animation clips");
+  await page.waitForFunction(() => {
+    const expected = ["liu-bei","guan-yu","zhang-fei"];
+    return expected.every(id => {
+      const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
+      return !!img && img.complete && img.naturalWidth > 0;
+    });
+  }, { timeout: 15000 });
+  const spriteStatus = await page.evaluate(() => ["liu-bei","guan-yu","zhang-fei"].map(id => {
+    const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
+    return { id, loaded:!!img && img.complete && img.naturalWidth > 0, width:img?.naturalWidth||0, height:img?.naturalHeight||0 };
+  }));
+  assert.ok(spriteStatus.every(x=>x.loaded && x.width>=300 && x.height>=300), "all three original 2D hero sprites must load at full SVG resolution: "+JSON.stringify(spriteStatus));
   // Save visual evidence while the first battle is actually on screen.
   const evidenceDir = path.resolve("artifacts");
   fs.mkdirSync(evidenceDir, { recursive: true });
-  await page.waitForFunction(() => { const a=window.__hero3dStatus?.()||[]; return ["liu-bei","guan-yu","zhang-fei"].every(id=>a.some(x=>x.id===id&&x.ready)); }, { timeout: 90000 });
-  // Refresh the status snapshot after the async GLB loads; the earlier snapshot may be stale.
-  rigStatus = await page.evaluate(() => window.__hero3dStatus ? window.__hero3dStatus() : []);
-  await page.waitForTimeout(1200);
+  await page.waitForTimeout(500);
   await page.locator("#battleScene").screenshot({ path: path.join(evidenceDir, "battle-scene.png") });
-  await page.locator("#battleScene .hero3d-layer").screenshot({ path: path.join(evidenceDir, "battle-3d-layer.png") });
-  fs.writeFileSync(path.join(evidenceDir, "battle-model-status.json"), JSON.stringify({
+  fs.writeFileSync(path.join(evidenceDir, "battle-2d-sprite-status.json"), JSON.stringify({
     capturedAt: new Date().toISOString(),
     scene: await page.locator("#battleScene").evaluate(el => ({ width: el.clientWidth, height: el.clientHeight })),
-    models: rigStatus,
-    visibleReadyWarriors: await page.locator("#battleScene .warrior.hero3d-ready").count(),
-    hero3dCanvas: await page.locator("#battleScene canvas.hero3d-layer").count(),
-    hero3dCanvasSize: await page.locator("#battleScene canvas.hero3d-layer").evaluate(el => ({width:el.width,height:el.height,webgl:!!(el.getContext("webgl")||el.getContext("webgl2"))}))
+    sprites: spriteStatus,
+    visible2DWarriors: await page.locator("#battleScene .warrior[data-hero2d]").count(),
+    imagesLoaded: await page.locator("#battleScene .warrior[data-hero2d] .hero-portrait").evaluateAll(imgs => imgs.every(img => img.complete && img.naturalWidth>0))
   }, null, 2));
-  assert.ok(await page.locator("#battleScene canvas.hero3d-layer").count() === 1, "actual WebGL hero canvas must be attached to the battle scene");
-  assert.ok(rigStatus.length >= 3 && ["liu-bei","guan-yu","zhang-fei"].every(id => rigStatus.some(x => x.id === id && x.ready && x.skinnedMeshes > 0 && x.bones >= 20 && x.clips >= 2)), "Liu Bei, Guan Yu and Zhang Fei must all finish loading their rigged models");
-  assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count() >= 3, "at least three battlefield warriors must be marked as using loaded 3D models");
+  assert.ok(await page.locator("#battleScene .warrior[data-hero2d]").count() >= 3, "all three allied generals must render as dedicated 2D characters");
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
@@ -134,8 +131,8 @@ const assert = require("node:assert/strict");
   assert.ok(canvasInfo.width>=300 && canvasInfo.height>=250 && canvasInfo.context && canvasInfo.rendering!=="pixelated", "2.5D battlefield must render at device resolution without pixel interpolation");
   const actorMarkup = await page.evaluate(() => ["刘备","关羽","张飞"].map((name,i) => renderWarrior({name,hp:100,max:100,alive:true,troop:"骑兵",status:{}},i,"ally")));
   for (const [index,heroId] of ["liu-bei","guan-yu","zhang-fei"].entries()) {
-    assert.ok(actorMarkup[index].includes('data-hero3d="'+heroId+'"'), heroId+" must be connected to its actual GLB model");
-    assert.ok(actorMarkup[index].includes('class="body-art" aria-hidden="true"></div>'), heroId+" must not fall back to a paper-doll/vector character");
+    assert.ok(actorMarkup[index].includes('data-hero2d="'+heroId+'"'), heroId+" must be connected to its actual 2D SVG sprite");
+    assert.ok(actorMarkup[index].includes('class="hero-portrait"') && actorMarkup[index].includes('characters/2d/'+heroId+'.svg'), heroId+" battle markup must contain the actual image element and local asset path");
   }
   // A dead middle slot must not corrupt actor indices or strand the player turn.
   await page.evaluate(() => { fight.allies[1].alive = false; fight.allies[1].hp = 0; fight.acted = [0]; fight.actor = 0; continueTurn(); });
