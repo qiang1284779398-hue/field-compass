@@ -9,7 +9,7 @@
       "art": "liu-bei",
       "gender": "m",
       "weapon": "sword",
-      "skillFx": "heal"
+      "skillFx": "benevolent-mandate"
     },
     {
       "id": "guan",
@@ -17,7 +17,7 @@
       "art": "guan-yu",
       "gender": "m",
       "weapon": "guandao",
-      "skillFx": "dragon"
+      "skillFx": "azure-dragon-slash"
     },
     {
       "id": "zhang",
@@ -25,7 +25,7 @@
       "art": "zhang-fei",
       "gender": "m",
       "weapon": "spear",
-      "skillFx": "roar"
+      "skillFx": "tiger-roar"
     },
     {
       "id": "zhao",
@@ -33,7 +33,7 @@
       "art": "zhao-yun",
       "gender": "m",
       "weapon": "spear",
-      "skillFx": "dragon"
+      "skillFx": "silver-pearls"
     },
     {
       "id": "zhuge",
@@ -41,7 +41,7 @@
       "art": "zhuge-liang",
       "gender": "m",
       "weapon": "fan",
-      "skillFx": "formation"
+      "skillFx": "eight-trigrams"
     },
     {
       "id": "huang",
@@ -49,7 +49,7 @@
       "art": "huang-zhong",
       "gender": "m",
       "weapon": "bow",
-      "skillFx": "arrow"
+      "skillFx": "hundred-pace-arrow"
     },
     {
       "id": "dia",
@@ -57,7 +57,7 @@
       "art": "diaochan",
       "gender": "f",
       "weapon": "dual-dagger",
-      "skillFx": "charm"
+      "skillFx": "closed-moon"
     },
     {
       "id": "cao",
@@ -65,7 +65,7 @@
       "art": "cao-cao",
       "gender": "m",
       "weapon": "sword",
-      "skillFx": "shield"
+      "skillFx": "wei-warlord"
     },
     {
       "id": "zhou",
@@ -73,7 +73,7 @@
       "art": "zhou-yu",
       "gender": "m",
       "weapon": "sword",
-      "skillFx": "fire"
+      "skillFx": "red-cliff-fire"
     },
     {
       "id": "lvbu",
@@ -81,7 +81,7 @@
       "art": "lv-bu",
       "gender": "m",
       "weapon": "halberd",
-      "skillFx": "storm"
+      "skillFx": "sky-halberd"
     },
     {
       "id": "diaowei",
@@ -89,7 +89,7 @@
       "art": "dian-wei",
       "gender": "m",
       "weapon": "dual-axe",
-      "skillFx": "ironstorm"
+      "skillFx": "evil-hunter"
     },
     {
       "id": "jiang",
@@ -97,7 +97,7 @@
       "art": "jiang-wei",
       "gender": "m",
       "weapon": "spear",
-      "skillFx": "tiger"
+      "skillFx": "qilin-strategy"
     },
     {
       "id": "machao",

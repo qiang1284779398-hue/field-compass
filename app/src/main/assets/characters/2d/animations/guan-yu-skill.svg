@@ -128,7 +128,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g><g opacity="0.18" fill="none" stroke="#d9bd79" stroke-width="14" stroke-linecap="round"><path d="M200 570 Q300 320 480 390 Q660 460 570 640 Q500 760 350 640 Q260 565 400 480 Q510 405 610 510"/><path d="M240 690 Q400 800 620 650"/></g><path d="M540 355 L620 300 L590 395Z" fill="#d9bd79" opacity="0.18"/></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g><g opacity="0.18" fill="none" stroke="#d9bd79" stroke-width="12"><circle cx="400" cy="500" r="160"/><path d="M400 300 Q540 500 400 700 Q260 500 400 300Z"/></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -257,7 +257,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g><g opacity="0.52" fill="none" stroke="#d9bd79" stroke-width="14" stroke-linecap="round"><path d="M200 570 Q300 320 480 390 Q660 460 570 640 Q500 760 350 640 Q260 565 400 480 Q510 405 610 510"/><path d="M240 690 Q400 800 620 650"/></g><path d="M540 355 L620 300 L590 395Z" fill="#d9bd79" opacity="0.52"/></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g><g opacity="0.52" fill="none" stroke="#d9bd79" stroke-width="12"><circle cx="400" cy="500" r="160"/><path d="M400 300 Q540 500 400 700 Q260 500 400 300Z"/></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -386,7 +386,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g><g opacity="1" fill="none" stroke="#d9bd79" stroke-width="14" stroke-linecap="round"><path d="M200 570 Q300 320 480 390 Q660 460 570 640 Q500 760 350 640 Q260 565 400 480 Q510 405 610 510"/><path d="M240 690 Q400 800 620 650"/></g><path d="M540 355 L620 300 L590 395Z" fill="#d9bd79" opacity="1"/></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g><g opacity="1" fill="none" stroke="#d9bd79" stroke-width="12"><circle cx="400" cy="500" r="160"/><path d="M400 300 Q540 500 400 700 Q260 500 400 300Z"/></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -515,4 +515,4 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g><g opacity="0.42" fill="none" stroke="#d9bd79" stroke-width="14" stroke-linecap="round"><path d="M200 570 Q300 320 480 390 Q660 460 570 640 Q500 760 350 640 Q260 565 400 480 Q510 405 610 510"/><path d="M240 690 Q400 800 620 650"/></g><path d="M540 355 L620 300 L590 395Z" fill="#d9bd79" opacity="0.42"/></g></svg>
+</svg></g><g opacity="0.42" fill="none" stroke="#d9bd79" stroke-width="12"><circle cx="400" cy="500" r="160"/><path d="M400 300 Q540 500 400 700 Q260 500 400 300Z"/></g></g></svg>
