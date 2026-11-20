@@ -189,7 +189,7 @@
 @media(min-width:600px){.battle-scene{height:370px}}
 
 /* Original hand-drawn 2D hero artwork for mobile battle and general cards. */
-.portrait .general-portrait{display:block;width:100%;height:100%;object-fit:cover;border-radius:5px}
+.portrait .general-portrait{display:block;width:100%;height:100%;object-fit:contain;border-radius:5px;background:linear-gradient(145deg,#1a2a20,#344632)}
 .warrior.hero-liu .body-art,.warrior.hero-guan .body-art,.warrior.hero-zhang .body-art{width:88px;height:104px;background:none!important;background-image:none!important;image-rendering:auto;filter:drop-shadow(0 6px 5px #000a)}
 .warrior.hero-liu .hero-portrait,.warrior.hero-guan .hero-portrait,.warrior.hero-zhang .hero-portrait{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;filter:drop-shadow(0 5px 5px #000b);transform:none}
 .warrior.hero-liu .hero-portrait{filter:drop-shadow(0 0 4px #c59a58) drop-shadow(0 5px 5px #000b)}
@@ -307,6 +307,7 @@ function fresh(){return {v:4,regionControl:{"0":"player"},enemyGarrisons:{},outp
 function cloneHero(id){let h=HEROES.find(x=>x.id===id);return Object.assign({},h,{lv:1,xp:0,hpNow:h.hp,energyNow:h.energy,gear:{weapon:null,armor:null,accessory:null},skillLv:1,wounds:0,loyalty:75})}
 function makeItem(name,type,power){return {id:"it"+Math.random().toString(36).slice(2,9),name:name,type:type,power:power,quality:power>=35?"史诗":power>=20?"精良":"普通",desc:"战场与工坊所得的装备。",equippedBy:null}}
 let s;try{s=JSON.parse(localStorage.getItem(KEY));if(!s||s.v!==4)throw 0}catch(e){try{let prev=JSON.parse(localStorage.getItem("hxsg_save_v3"));s=fresh();if(prev){s.gold=Math.max(300,prev.gold||800);s.food=Math.max(700,prev.food||1200);s.wood=prev.wood||500;s.iron=prev.iron||180;s.fame=prev.fame||0;s.day=prev.day||1;s.lv=prev.lv||1;s.story=Math.min(5,prev.story||0);if(Array.isArray(prev.heroes)&&prev.heroes.length){s.heroes=prev.heroes.map(x=>Object.assign(cloneHero(x.id)||{},x,{gear:x.gear||{weapon:null,armor:null,accessory:null}}));s.owned=s.heroes.map(x=>x.id);if(!s.heroes.some(x=>x.id==="guan")){s.heroes.push(cloneHero("guan"));s.owned.push("guan")}}if(Array.isArray(prev.items))s.items=prev.items.map(x=>Object.assign(makeItem(x.name,x.type,x.atk||10),x))}}catch(x){s=fresh()}}
+if(!s.recruitGrant999){s.recruitTokens=999;s.recruitGrant999=true;save()}
 let page="home",fight=null,toastTimer=null,storyContext=null,musicEnabled=localStorage.getItem("hxsg_music_enabled")!=="0",musicTrack=-1;
 const $=id=>document.getElementById(id);
 function fmt(n){return Math.floor(n||0).toLocaleString("zh-CN")}
