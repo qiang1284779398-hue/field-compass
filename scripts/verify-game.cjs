@@ -40,6 +40,13 @@ assert.ok(eventMatch, "random event data missing");
 const events = new Function("return " + eventMatch[1])();
 assert.ok(events.length >= 20, "at least 20 distinct random events required");
 
+assert.ok(!/url\\(data:image\\/png;base64,[^)]*\\s[^)]*\\)/.test(html), "embedded battlefield sprite data must not contain CSS-invalid whitespace");
+assert.ok((html.match(/url\\(data:image\\/png;base64,/g)||[]).length>=2, "both friendly and enemy sprite sheets must be embedded");
+assert.ok(source.includes('if((s.recruitTokens||0)<1)return toast("招贤令不足') && source.includes('s.recruitTokens--;s.heroes.push'), "hero recruitment must require and consume a recruitment token, never substitute gold");
+assert.ok(source.includes('s.recruitTokens<1?\'disabled\':\'\'') && source.includes("招贤令不足，暂不可寻访"), "recruitment UI must disable the action when no token is available");
+assert.ok(source.includes("active.find(i=>!fight.acted.includes(i))") && source.includes('fight.phase!=="player"'), "turn progression must use original ally indices and reject duplicate enemy-phase entry");
+assert.ok(source.includes("playSkillFx(i,skillFxKind(name),name)") && source.includes("function skillFxKind"), "every hero skill must receive a visible skill animation");
+assert.ok(source.includes("function spawnImpact") && source.includes('spawnImpact("enemy",di,critical)') && source.includes('spawnImpact("ally",ai,false)'), "both sides need impact effects at the struck unit");
 for (const animation of ["chargeRight", "chargeLeft", "castHero", "bodyHit", "slash", "auraBurst", "bossWave", "damageUp"]) {
   assert.ok(html.includes("@keyframes " + animation), "missing combat animation: " + animation);
 }
