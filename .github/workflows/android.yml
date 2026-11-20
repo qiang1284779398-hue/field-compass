@@ -27,7 +27,9 @@ jobs:
           cp node_modules/three/build/three.min.js app/src/main/assets/vendor/three.min.js
           cp node_modules/three/examples/js/loaders/GLTFLoader.js app/src/main/assets/vendor/GLTFLoader.js
           cp node_modules/three/examples/js/utils/SkeletonUtils.js app/src/main/assets/vendor/SkeletonUtils.js
-          npx -y ara3d@0.9.0 export --params characters/liu-bei.json --params characters/guan-yu.json --params characters/zhang-fei.json --detail medium --animations idle,walk,run,combat --out app/src/main/assets/characters
+          npx -y ara3d@0.9.0 export --params characters/liu-bei.json --detail medium --animations idle,walk,run,combat,reactions --out app/src/main/assets/characters
+          npx -y ara3d@0.9.0 export --params characters/guan-yu.json --detail medium --animations idle,walk,run,combat,reactions --out app/src/main/assets/characters
+          npx -y ara3d@0.9.0 export --params characters/zhang-fei.json --detail medium --animations idle,walk,run,combat,reactions --out app/src/main/assets/characters
           test -s app/src/main/assets/characters/liu-bei.glb
           test -s app/src/main/assets/characters/guan-yu.glb
           test -s app/src/main/assets/characters/zhang-fei.glb
