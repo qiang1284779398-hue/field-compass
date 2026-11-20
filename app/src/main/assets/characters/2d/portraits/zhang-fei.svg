@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>Zhang Fei portrait</title><defs><radialGradient id="bg"><stop stop-color="#56616a"/><stop offset="1" stop-color="#12191f"/></radialGradient><linearGradient id="iron" x2="1" y2="1"><stop stop-color="#9ba5a4"/><stop offset=".45" stop-color="#39464d"/><stop offset="1" stop-color="#10181d"/></linearGradient><linearGradient id="gold" x2="1" y2="1"><stop stop-color="#f5e2a5"/><stop offset=".5" stop-color="#b28a4a"/><stop offset="1" stop-color="#563a1d"/></linearGradient><linearGradient id="skin" x2="1" y2="1"><stop stop-color="#efc29c"/><stop offset="1" stop-color="#874631"/></linearGradient><linearGradient id="beard" x2="1"><stop stop-color="#091014"/><stop offset=".5" stop-color="#455052"/><stop offset="1" stop-color="#080d11"/></linearGradient></defs>
+<circle cx="256" cy="256" r="246" fill="url(#bg)" stroke="url(#gold)" stroke-width="12"/><circle cx="256" cy="256" r="223" fill="none" stroke="#d1c2a0" opacity=".4" stroke-width="2"/>
+<path d="M75 469 Q82 357 162 331 L351 331 Q435 365 440 469Z" fill="url(#iron)" stroke="#0c1317" stroke-width="10"/><path d="M111 394 Q256 348 401 394 L414 466 L99 466Z" fill="#26333a" stroke="url(#gold)" stroke-width="8"/>
+<path d="M143 392 Q256 354 369 392 L385 453 L128 453Z" fill="#546068" opacity=".45"/>
+<path d="M203 326 L199 375 Q256 406 314 375 L308 326Z" fill="url(#skin)" stroke="#703f2e" stroke-width="7"/>
+<path d="M151 171 Q159 86 256 80 Q354 86 362 172 L348 269 Q328 327 256 344 Q183 327 165 269Z" fill="url(#skin)" stroke="#653b2d" stroke-width="9"/>
+<path d="M167 207 Q135 187 135 237 Q139 275 171 280 M345 207 Q378 187 377 237 Q371 275 340 280Z" fill="url(#skin)" stroke="#653b2d" stroke-width="7"/>
+<path d="M143 192 Q125 110 193 68 Q257 24 326 69 Q391 111 371 196 L345 184 Q341 130 300 115 Q250 142 176 126 L169 201Z" fill="#11191e" stroke="#070d11" stroke-width="10"/>
+<path d="M138 132 Q159 51 255 40 Q359 44 382 132 L359 164 Q304 124 255 139 Q194 128 157 170Z" fill="url(#iron)" stroke="url(#gold)" stroke-width="9"/>
+<path d="M165 121 Q256 75 354 123" fill="none" stroke="#dcd6bd" stroke-width="6"/>
+<path d="M174 160 Q255 134 339 161 L330 199 Q255 178 181 200Z" fill="#18242b" stroke="#bd9558" stroke-width="6"/>
+<path d="M153 98 Q111 60 108 15 Q167 30 193 80Z M324 80 Q355 29 409 20 Q401 78 355 112Z" fill="#344148" stroke="url(#gold)" stroke-width="7"/>
+<path d="M179 211 Q215 185 240 213 M272 213 Q303 185 336 211" fill="none" stroke="#211918" stroke-width="12" stroke-linecap="round"/>
+<path d="M180 236 Q211 253 239 233 Q209 220 180 236Z M273 233 Q302 253 332 236 Q301 220 273 233Z" fill="#f4e1c8" stroke="#2d211c" stroke-width="5"/>
+<ellipse cx="210" cy="237" rx="7" ry="9" fill="#141515"/><ellipse cx="302" cy="237" rx="7" ry="9" fill="#141515"/>
+<path d="M256 241 L239 280 Q256 294 275 280" fill="none" stroke="#8b4d38" stroke-width="7"/>
+<path d="M156 286 Q202 264 230 290 Q256 316 283 290 Q318 263 356 286 Q352 333 305 339 Q278 337 256 321 Q230 340 201 336 Q163 328 156 286Z" fill="url(#beard)" stroke="#080d10" stroke-width="9"/>
+<path d="M177 304 Q209 339 240 319 M274 319 Q310 341 337 304" fill="none" stroke="#87918c" stroke-width="5"/>
+<path d="M189 326 Q172 388 206 431 Q232 464 256 479 Q283 461 308 428 Q342 378 324 326 Q294 355 270 346 Q244 360 218 347Z" fill="url(#beard)" stroke="#080d10" stroke-width="9"/>
+<path d="M210 352 Q203 407 244 464 M239 355 Q238 424 258 471 M284 351 Q294 414 267 469 M310 348 Q324 402 274 454" fill="none" stroke="#71807d" stroke-width="6" stroke-linecap="round"/>
+</svg>
