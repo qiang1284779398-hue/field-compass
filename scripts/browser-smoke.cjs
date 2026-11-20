@@ -103,7 +103,6 @@ const assert = require("node:assert/strict");
     ["cityOffices()", "内政任命"],
     ["tavern()", "招贤馆"],
     ["forge()", "百炼工坊"],
-    ["rations()", "军粮制度"],
     ["sideQuest()", "支线委托"]
   ]) {
     const control = page.locator('button[onclick="' + handler + '"]');
@@ -112,6 +111,13 @@ const assert = require("node:assert/strict");
     assert.ok((await page.locator("#modal").innerText()).includes(heading), "service should open the correct modal: " + handler);
     await page.evaluate(() => closeModal());
   }
+
+  // Rations are correctly located in the army page, not the city home panel.
+  await page.locator('button[data-p="army"]').click();
+  await page.locator('button[onclick="rations()"]').click();
+  assert.ok((await page.locator("#modal").innerText()).includes("军粮制度"), "army page should expose the rations panel");
+  await page.evaluate(() => closeModal());
+  await page.locator('button[data-p="home"]').click();
 
   // Resolve a random event through its visible choice button and verify persistent state.
   await page.locator('button[onclick="randomEvent()"]').click();
