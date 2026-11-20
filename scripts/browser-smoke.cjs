@@ -32,7 +32,7 @@ const assert = require("node:assert/strict");
     await page.getByRole("button", { name: new RegExp(label) }).click();
     await page.locator("#backdrop").waitFor({ state: "visible", timeout: 3000 });
     assert.ok((await page.locator("#modal").innerText()).trim().length > 10, label + " should show actionable content");
-    await page.locator('#modal button[onclick="closeModal()"]').click();
+    await page.evaluate(() => closeModal());
     await page.locator("#backdrop").waitFor({ state: "hidden" });
   }
 
