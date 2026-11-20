@@ -51,7 +51,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,unitEffectiveness,isRegionAdjacent};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -100,6 +100,39 @@ assert.equal(game.state().wood, routeWoodBefore + 29, "two controlled outposts a
 assert.equal(game.state().food, routeFoodBefore + game.state().build.farm * 65 + 8 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - 25, "supply line should add food and reduce upkeep by five");
 game.abandonOutpost(0);
 assert.equal(!!game.state().territories[0], false, "outpost can be abandoned");
+assert.equal(game.isRegionAdjacent(0, 2), true, "map road network should include a valid alternate road");
+assert.equal(game.isRegionAdjacent(0, 3), false, "map road network should reject non-adjacent regions");
+game.state().explored.push(2, 3);
+game.state().army = { inf: 1000, cav: 1000, arch: 1000 };
+game.state().enemyGarrisons[2] = { inf: 15, cav: 8, arch: 10, fort: 1 };
+game.inspectRegion(2);
+assert.ok(elements.get("modal").innerHTML.includes("黄巾余部控制"), "unconquered region should identify its hostile faction");
+game.assaultRegion(2);
+assert.ok(elements.get("modal").innerHTML.includes("步兵主攻"), "frontier assault should expose tactical unit choices");
+assert.ok(game.unitEffectiveness("inf", "cav") > game.unitEffectiveness("inf", "arch"), "infantry should counter cavalry");
+assert.ok(game.unitEffectiveness("cav", "arch") > game.unitEffectiveness("cav", "inf"), "cavalry should counter archers");
+assert.ok(game.unitEffectiveness("arch", "inf") > game.unitEffectiveness("arch", "cav"), "archers should counter infantry");
+assert.equal(game.resolveTerritoryAssault(2, "inf"), true, "strong attacking force should capture the frontier region");
+assert.equal(game.state().regionControl[2], "player", "victory should transfer regional control");
+assert.equal(game.state().enemyGarrisons[2], undefined, "captured region should no longer retain an enemy garrison");
+assert.ok(game.state().fame >= 8, "territory victory should award prestige");
+game.state().explored.push(4);
+game.state().enemyGarrisons[4] = { inf: 20, cav: 10, arch: 12, fort: 2 };
+game.state().wood = 500;
+game.state().iron = 500;
+game.state().gold = 500;
+game.state().food = 500;
+game.prepareSiege(4);
+assert.equal(game.state().siegePlans[4], true, "siege preparation should consume resources and persist its plan");
+assert.ok(elements.get("modal").innerHTML.includes("攻城器械已备妥"), "prepared siege should be reflected in assault briefing");
+game.resolveTerritoryAssault(4, "cav");
+assert.equal(game.state().siegePlans[4], false, "siege plan should be consumed after the assault");
+game.state().territories[1] = true;
+game.state().army.inf = 300;
+game.state().food = 500;
+game.reinforceOutpost(1, "inf");
+assert.equal(game.state().outpostGarrisons[1].inf, 25, "outpost reinforcement should persist the assigned infantry");
+
 assert.equal(game.costText({ wood: 100, gold: 70 }), "木100 / 金70", "building costs must render correctly");
 game.go("daily");
 assert.ok(elements.get("view").innerHTML.includes("六项常务"), "daily mission page should open");
