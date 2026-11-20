@@ -40,6 +40,8 @@ assert.ok(source.includes("function toggleMusic"), "music toggle control missing
 assert.ok(source.includes("function playSfx"), "combat sound effect controller missing");
 assert.ok(source.includes("function beginTerritoryBattle"), "frontier conquests should use the playable battle engine");
 assert.ok(source.includes("function makeTerritoryWave"), "frontier battles should generate staged enemy formations");
+assert.ok(source.includes("doctrine=factionDoctrine(f)") && source.includes("((doctrine[d.key]||1)-1)*.18") && source.includes("((doctrine[d.key]||1)-1)*.10"), "faction doctrine must modify actual enemy troop attack and defense in regional battles");
+assert.ok(source.includes("施展"+'"+doctrine.name+"：'+") , "regional battle logs should identify the enemy faction doctrine");
 assert.ok(source.includes("suppressed=(troop.includes(\"弓\")||troop.includes(\"弩\"))&&Math.random()<.24"), "archers should have a chance to suppress hero energy");
 assert.ok(source.includes("enemyFaction")||source.includes("factionForRegion"), "enemy faction data should exist");
 assert.ok(source.includes("campRecovery=Math.min(s.wounded||0,4+Math.floor((s.morale||0)/25))"), "daily camp recovery should heal wounded troops based on morale");
