@@ -220,7 +220,7 @@ assert.equal(game.state().outpostFacilities[1].granary, 1, "granary upgrade shou
 game.nextDay();
 const facilityOutposts = Object.keys(game.state().territories).filter(k => game.state().territories[k]).length;
 const facilityRoutes = game.state().supplyRoutes.filter(r => game.state().territories[r[0]] && game.state().territories[r[1]]).length;
-const expectedFacilityFood = facilityFoodBefore + game.state().build.farm * 65 + facilityRoutes * 8 + 8 - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - Math.max(0, facilityOutposts * 15 - facilityRoutes * 5);
+const expectedFacilityFood = facilityFoodBefore + game.state().build.farm * 65 + facilityRoutes * 8 + 8 + game.cityOfficerEffects().food - Math.ceil((game.state().army.inf + game.state().army.cav + game.state().army.arch) * .08) - Math.max(0, facilityOutposts * 15 - facilityRoutes * 5);
 assert.equal(game.state().food, expectedFacilityFood, "granary should add eight daily food alongside farm income and upkeep");
 game.upgradeOutpost(1, "wall");
 assert.equal(game.state().outpostFacilities[1].wall, 1, "defensive wall upgrade should persist");
