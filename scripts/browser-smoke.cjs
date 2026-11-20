@@ -6,6 +6,12 @@ const assert = require("node:assert/strict");
 
 (async () => {
   const html = fs.readFileSync(path.resolve("app/src/main/assets/index.html"), "utf8");
+  assert.ok(html.includes("class=\"weapon-gesture\""), "battle art upgrade: class=\"weapon-gesture\"");
+  assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: @keyframes weaponSweep");
+  assert.ok(html.includes("warrior.swinging .weapon-gesture"), "battle art upgrade: warrior.swinging .weapon-gesture");
+  assert.ok(html.includes("hero-guan"), "battle art upgrade: hero-guan");
+  assert.ok(html.includes("hero-zhang"), "battle art upgrade: hero-zhang");
+  assert.ok(html.includes("hero-liu"), "battle art upgrade: hero-liu");
   const server = http.createServer((req, res) => { res.writeHead(200, { "content-type": "text/html; charset=utf-8" }); res.end(html); });
   await new Promise(resolve => server.listen(4173, "127.0.0.1", resolve));
   const browser = await chromium.launch({ headless: true });
