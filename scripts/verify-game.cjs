@@ -494,7 +494,7 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     assert.ok(game.fight(),"chapter branch should start battle: "+chapters[i].title);
     assert.equal(game.fight().campaignLegacy.humanity,2,"humanity legacy should be attached to the battle");
     assert.equal(game.fight().campaignLegacy.strategy,2,"strategy legacy should be attached to the battle");
-    assert.equal(game.fight().enemyMorale,69,"strategy legacy should reduce enemy morale by six points");
+    assert.equal(game.fight().enemyMorale,58,"strategy legacy should reduce the chapter-choice enemy morale by six points");
     assert.ok(game.fight().allies[0].def>=Math.round(game.heroDef(st.heroes[0])*1.05),"humanity legacy should improve allied defense");
     assert.equal(game.fight().waves,3,"chapter battle should contain three waves: "+chapters[i].title);
     game.fight().phase="end";game.fight().win=true;
