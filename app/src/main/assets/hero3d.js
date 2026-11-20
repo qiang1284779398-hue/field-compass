@@ -65,8 +65,6 @@ function makeActor(id,key){
   root.userData.modelHeight=height;
   let headBone=null,bones={};root.traverse(o=>{if(o.isBone){bones[o.name.toLowerCase()]=o;if(!headBone&&/head$/i.test(o.name))headBone=o}});
   if(headBone){
-   const mat=(color,metalness=.15,roughness=.72)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
-   const gold=mat(0xd3ad62,.72,.3),green=mat(0x174b38,.25,.62),black=mat(0x171719,.12,.82),red=mat(0x842d27,.2,.7);
    // Distinctive Three Kingdoms silhouettes, layered over the rigged base mesh.
   const mat=(color,metalness=.15,roughness=.72)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
   const gold=mat(0xd5b56c,.78,.28),green=mat(0x174b38,.3,.58),black=mat(0x17191d,.35,.48),red=mat(0x842d27,.18,.68),jade=mat(0x2c8b68,.45,.25);
