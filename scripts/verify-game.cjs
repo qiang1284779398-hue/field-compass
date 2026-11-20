@@ -57,6 +57,7 @@ assert.ok(source.includes("applyChapterChoiceOutcome(i,n)"), "chapter decisions 
 assert.ok(source.includes("choiceHistory[i]={choice:n,day:s.day,title:c.title}"), "chapter choice history must persist");
 assert.ok(html.includes("Visual direction pass") && html.includes(".spy-agent"), "visual presentation pass missing");
 assert.ok(source.includes("page]||0"), "music should react to the current game scene");
+assert.ok(source.includes("makeWave();drawBattle();startMusic();return true"), "music must change when a boss wave begins");
 assert.ok(source.includes('page="battle";drawBattle();startMusic()'), "battle scene should start its own soundtrack");
 assert.equal((source.match(/function ensureSpyNetwork\(/g)||[]).length,1,"spy state initializer must not be duplicated");
 assert.ok(source.includes("步阵协同") && source.includes("骑兵协同") && source.includes("远程协同"), "troop formation synergy missing");
@@ -104,12 +105,17 @@ const storage = {
 };
 const windowMock = {};
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,factionRelationTier};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,events:()=>EVENTS,levelHero,upgradeSkill,bondHero,formation,saveFormation,recruitTroops,healArmy,rations,buyRations,research,craftPotion,itemDetail,salvageItem,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,battlefieldAttackMultiplier,battlefieldDefenseMultiplier,terrainDefenseMultiplier,regionTerrain,damage,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,ensureHeroPolitics,heroRelationScore,improveHeroRelation,rewardHeroLoyalty,driftHeroLoyalty,prepareFieldTactic,resolvePendingSiege,ensureSpyNetwork,scoutEnemyRegion,sabotageEnemySupply,recruitSpy,trainSpy,spyMission,openSpyOffice,resolveEnemyEspionage,factionForRegion,enemyCommander,siegeCost,campaignLegacy,applyChapterChoiceOutcome,factionRelationTier,makeWave,drawBattle};"
 )(documentMock, storage, windowMock, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
 assert.equal(game.factionRelationTier(-20),"敌对","negative faction relation should be hostile");
 assert.equal(game.factionRelationTier(16),"中立","improved faction relation should reach neutral tier");
+const garrisonBeforeDiplomacy=game.state().enemyGarrisons[3].inf+game.state().enemyGarrisons[3].cav+game.state().enemyGarrisons[3].arch;
+game.applyChapterChoiceOutcome(3,1);
+const garrisonAfterDiplomacy=game.state().enemyGarrisons[3].inf+game.state().enemyGarrisons[3].cav+game.state().enemyGarrisons[3].arch;
+assert.ok(garrisonAfterDiplomacy<garrisonBeforeDiplomacy,"strategy choice should weaken the regional garrison");
+assert.equal(game.state().enemyMoraleByRegion[3],66,"strategy choice should lower local enemy morale by four");
 game.go("home");
 assert.ok(elements.get("view").innerHTML.includes("密探机关"), "home page should expose the intelligence bureau");
 game.recruitSpy();
@@ -507,6 +513,9 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
     assert.equal(game.fight().enemyMorale,58,"strategy legacy should reduce the chapter-choice enemy morale by six points");
     assert.ok(game.fight().allies[0].def>=Math.round(game.heroDef(st.heroes[0])*1.05),"humanity legacy should improve allied defense");
     assert.equal(game.fight().waves,3,"chapter battle should contain three waves: "+chapters[i].title);
+    game.fight().wave=3;game.makeWave();game.drawBattle();
+    assert.ok(game.fight().bossIntro && game.fight().enemies.some(x=>x.boss),"third wave should spawn a boss unit");
+    assert.match(elements.get("view").innerHTML,/boss-arrival[\s\S]*boss-title/,"boss wave should render the animated entrance treatment");
     game.fight().phase="end";game.fight().win=true;
     game.finishBattle();
     assert.equal(game.state().story,i+1,"victory should unlock next chapter: "+chapters[i].title);
