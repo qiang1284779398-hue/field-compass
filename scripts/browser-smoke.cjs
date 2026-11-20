@@ -117,6 +117,25 @@ const assert = require("node:assert/strict");
   const afterSkill = await readFight();
   assert.ok(afterSkill.energy[1] < skillBefore.energy[1], "hero skill must consume energy");
 
+  // Regression: exercise every dedicated skill branch, not only the generic buff skill.
+  const skillCases = ["仁德济世","八阵图","赤壁烈焰","魏武雄略","闭月迷魂","燕人咆哮","青龙偃月","麒麟奇谋","七进七出","方天乱舞","百步穿杨","恶来护主","破军斩"];
+  for (const skillName of skillCases) {
+    const result = await page.evaluate(async (name) => {
+      fight.phase = "player"; fight.actionRunning = false; fight.actor = 0; fight.acted = [];
+      fight.allies[0].alive = true; fight.allies[0].hp = fight.allies[0].max;
+      fight.allies[0].skill = name; fight.allies[0].skillLv = 1; fight.allies[0].energy = 5;
+      fight.enemies.forEach(e => { e.alive = true; e.hp = 50000; e.max = 50000; e.shield = 0; e.status = {}; });
+      fight.target = 0; fight.logs = [];
+      const energyBefore = fight.allies[0].energy;
+      await useHeroSkill();
+      return { energySpent: energyBefore - fight.allies[0].energy, logs: fight.logs.slice(), actor: fight.actor, phase: fight.phase, actionRunning: fight.actionRunning, acted: fight.acted.slice() };
+    }, skillName);
+    assert.ok(result.energySpent > 0, skillName + " must spend energy");
+    assert.ok(result.logs.some(line => line.includes(skillName)), skillName + " must write a skill-specific combat log: " + JSON.stringify(result));
+    assert.equal(result.actionRunning, false, skillName + " must release the action lock");
+    assert.equal(result.phase, "player", skillName + " must not unexpectedly leave the player phase");
+    assert.ok(result.acted.includes(0), skillName + " must consume the acting hero's action exactly once");
+  }
 
   // Defensive action must create a shield; completing all three actions must trigger enemy AI.
   await page.locator('button[onclick="selectActor(2)"]').click();
