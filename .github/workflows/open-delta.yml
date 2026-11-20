@@ -1,42 +1,33 @@
-name: Select Android package installer and install game
+name: Tap package installer choice on real phone
 on:
   push:
     branches: [ main ]
-    paths:
-      - .github/workflows/open-delta.yml
+    paths: [ .github/workflows/open-delta.yml ]
 permissions:
   contents: read
 jobs:
   install:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 6
     steps:
-      - name: Choose package installer and confirm installation
+      - name: Select installer and inspect
         env:
           ANDROID_MCP_URL: ${{ secrets.ANDROID_MCP_URL }}
           ANDROID_MCP_TOKEN: ${{ secrets.ANDROID_MCP_TOKEN }}
         run: |
           set -euo pipefail
-          MCP_URL="${ANDROID_MCP_URL%/}"
-          case "$MCP_URL" in */mcp) ;; *) MCP_URL="$MCP_URL/mcp" ;; esac
-          call_mcp() {
-            local payload="$1" out="/tmp/mcp-$RANDOM.json"
-            for attempt in $(seq 1 12); do
-              if curl --http1.1 --fail --silent --show-error --connect-timeout 15 --max-time 60 -X POST "$MCP_URL" -H "Authorization: Bearer $ANDROID_MCP_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" --data "$payload" -o "$out"; then cat "$out"; rm -f "$out"; return 0; fi
-              sleep 5
-            done
-            return 1
-          }
-          call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_click_node","arguments":{"by":"text","value":"软件包安装程序","exact_match":true}}}' > /tmp/choose.json
-          sleep 5
-          call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/screen.json
+          U="${ANDROID_MCP_URL%/}"; case "$U" in */mcp) ;; *) U="$U/mcp";; esac
+          call(){ local p="$1" o="/tmp/m-$RANDOM"; for n in $(seq 1 10); do if curl --http1.1 -fsS --connect-timeout 12 --max-time 50 -X POST "$U" -H "Authorization: Bearer $ANDROID_MCP_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" --data "$p" -o "$o"; then cat "$o"; rm -f "$o"; return; fi; sleep 4; done; return 1; }
+          call '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_tap","arguments":{"x":620,"y":2100}}}' >/tmp/tap
+          sleep 6
+          call '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' >/tmp/screen
           python3 - <<'PY'
           import json
-          raw=open('/tmp/screen.json').read()
-          for line in raw.splitlines():
-              if line.startswith('data:'): raw=line[5:].strip()
-          o=json.loads(raw); r=o.get('result',{})
-          if o.get('error') or r.get('isError'): raise SystemExit('SCREEN_FAILED')
+          s=open('/tmp/screen').read()
+          for l in s.splitlines():
+              if l.startswith('data:'): s=l[5:].strip()
+          o=json.loads(s); r=o.get('result',{})
+          if o.get('error') or r.get('isError'): raise SystemExit('SCREEN_ERROR')
           for x in r.get('content',[]):
-              if x.get('type')=='text': print('INSTALLER_CHOICE_SCREEN:',x.get('text','')[:12000])
+              if x.get('type')=='text': print(x.get('text','')[:14000])
           PY
