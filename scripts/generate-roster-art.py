@@ -584,7 +584,7 @@ def body_svg(h, index):
         return female_hero_svg(h)
     if female:
         base_slug="diaochan"
-    elif h.get("beard") in ("white","full","moustache","braid"):
+    elif h.get("beard") in ("white","full","moustache","braid") or float(h.get("physique",{}).get("widthScale",1.0))>=1.12:
         base_slug="zhang-fei"
     elif h.get("beard")=="long":
         base_slug="guan-yu"
