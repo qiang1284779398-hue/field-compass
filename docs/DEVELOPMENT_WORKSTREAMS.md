@@ -4,11 +4,11 @@
 
 | Workstream | Current implementation in this pass | Verification |
 |---|---|---|
-| Story depth | Persist chapter choice history, echo the latest three decisions, and convert accumulated humanity/strategy choices into battle modifiers: humanity improves allied defense, strategy suppresses enemy morale. Existing daily morale/intelligence effects remain. | Source assertions plus runtime verification of both modifiers; full 30-chapter flow regression remains in verify-game. |
-| Visual art direction | Improve banner hierarchy, cards, tactile controls, readability and battlefield contrast; render moving rain, fog and wind layers in matching battles. Existing character/environment art remains in use. | CSS/source assertions plus a live mocked battle render confirming the correct weather layer is mounted. |
-| Music and sound | Route the existing offline soundtrack by current screen as well as battle chapter; preserve music toggle and existing combat SFX. | Source assertions and browser smoke test. |
-| Battle animation | Improve battlefield depth, target highlighting, damage popups and slash impact feedback while respecting reduced-motion settings. | Existing animation assertions and browser smoke test. |
-| New gameplay | Add persistent spy agents with recruitment, training, three-day enemy-city infiltration, intel gathering, supply sabotage, rumor operations, counter-intelligence, fatigue, capture and recovery. Sabotage/rumors feed into regional battle morale. | Deterministic recruit/train/infiltration/counter-intel runtime checks; probabilistic field missions still need manual play testing. |
+| Story depth | Persist chapter choice history, echo the latest three decisions, and convert accumulated humanity/strategy into battle modifiers. Each chapter choice now also changes the local faction relation (humanity) or weakens the local garrison and morale (strategy). | Source assertions plus deterministic checks of campaign legacy and 30 chapter flows. |
+| Visual art direction | Improve banner hierarchy, cards, tactile controls, readability and battlefield contrast; render moving rain, fog and wind layers; add a boss arrival title and formation entrance treatment. Existing character/environment art remains in use. | CSS/source assertions plus browser battle smoke test. |
+| Music and sound | Route the existing offline soundtrack by current screen and chapter; the third-wave boss battle switches to the already-bundled fourth track. Preserve toggle and combat SFX. | Source assertions and browser smoke test; no new original recording claimed. |
+| Battle animation | Improve battlefield depth, target highlighting, damage popups and slash impact feedback; add a distinct boss formation entrance and title treatment while respecting reduced-motion settings. | Existing animation assertions and browser smoke test. |
+| New gameplay | Persistent spy bureau remains in place. Diplomacy now exposes hostile/wary/neutral/friendly tiers, and improved relations reduce enemy siege pressure in addition to envoy truces. | Deterministic relationship-tier assertions; siege behavior still needs hands-on multi-faction campaign testing. |
 | QA and integration | Extend source/runtime checks; retain full campaign and random-event branch checks, then run browser and Android workflows. | GitHub Actions. |
 
 ## Existing systems not duplicated
@@ -17,7 +17,7 @@ The game already had basic regional scouting, enemy garrison reports, supply sab
 
 ## Known limitations after this pass
 
-- Story choices now have cumulative combat consequences, but this is still a campaign-legacy layer rather than a fully branching rewrite of all 30 chapters.
+- Story choices now have persistent regional consequences and cumulative combat consequences, but this is still a branching consequence layer rather than a fully rewritten multi-ending 30-chapter narrative.
 - Visual work is a CSS/presentation pass, not a replacement set of bespoke character illustrations.
 - Music routing uses the existing bundled tracks; no new soundtrack recordings are claimed.
 - Spy field-operation success is probability-based. Capture/recovery, costs and persistent reports need hands-on playtesting.
