@@ -24,7 +24,7 @@ const assert = require("node:assert/strict");
   const mime = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".glb":"model/gltf-binary", ".ogg":"audio/ogg" };
   const server = http.createServer((req, res) => {
     const pathname = decodeURIComponent(new URL(req.url, "http://127.0.0.1").pathname);
-    const relative = pathname === "/" ? "index.html" : pathname.replace(/^\\/+/, "");
+    const relative = pathname === "/" ? "index.html" : pathname.startsWith("/") ? pathname.slice(1) : pathname;
     const file = path.resolve(assetRoot, relative);
     if (file !== assetRoot && !file.startsWith(assetRoot + path.sep)) { res.writeHead(403); return res.end(); }
     if (!fs.existsSync(file) || !fs.statSync(file).isFile()) { res.writeHead(404); return res.end("not found"); }
