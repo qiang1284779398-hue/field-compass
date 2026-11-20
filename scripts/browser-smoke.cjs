@@ -106,6 +106,20 @@ const assert = require("node:assert/strict");
   await page.waitForFunction(() => document.querySelectorAll("#battleScene .warrior.hero3d-ready").length >= 1, { timeout: 15000 });
   const rigStatus = await page.evaluate(() => window.__hero3dStatus ? window.__hero3dStatus() : []);
   assert.ok(rigStatus.some(x => x.ready && x.skinnedMeshes > 0 && x.bones >= 20 && x.clips >= 3), "loaded heroes must contain real skinned meshes, a humanoid skeleton and multiple animation clips");
+  // Save visual evidence while the first battle is actually on screen.
+  const evidenceDir = path.resolve("artifacts");
+  fs.mkdirSync(evidenceDir, { recursive: true });
+  await page.waitForTimeout(1800);
+  await page.locator("#battleScene").screenshot({ path: path.join(evidenceDir, "battle-scene.png") });
+  await page.locator("#battleScene .hero3d-layer").screenshot({ path: path.join(evidenceDir, "battle-3d-layer.png") });
+  fs.writeFileSync(path.join(evidenceDir, "battle-model-status.json"), JSON.stringify({
+    capturedAt: new Date().toISOString(),
+    scene: await page.locator("#battleScene").evaluate(el => ({ width: el.clientWidth, height: el.clientHeight })),
+    models: rigStatus,
+    visibleReadyWarriors: await page.locator("#battleScene .warrior.hero3d-ready").count(),
+    hero3dCanvas: await page.locator("#battleScene .hero3d-layer canvas").count()
+  }, null, 2));
+  assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count() >= 3, "at least three battlefield warriors must be marked as using loaded 3D models");
   assert.ok(await page.locator("#battleScene .warrior.hero3d-ready").count()>=1, "at least one actual skinned GLB hero should load and replace its SVG fallback");
   assert.match(await page.locator(".skill-panel").innerText(), /仁德济世|目标范围|消耗/, "battle screen must show the selected hero skill description, energy cost, and target range");
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
