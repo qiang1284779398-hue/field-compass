@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>刘备·普通攻击四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>Liu Bei — original 2D full-body game sprite</title><desc>A dignified Han-era warlord in vermilion and gold lamellar armor, with a restrained imperial headpiece and twin swords.</desc>
+<defs>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ed9a70"/><stop offset=".2" stop-color="#b64b38"/><stop offset=".58" stop-color="#7b2b29"/><stop offset="1" stop-color="#391b1d"/></linearGradient>
+ <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0b7"/><stop offset=".24" stop-color="#e0bb70"/><stop offset=".58" stop-color="#a67536"/><stop offset=".82" stop-color="#f1d68e"/><stop offset="1" stop-color="#6e4722"/></linearGradient>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3d5"/><stop offset=".3" stop-color="#b8c2b6"/><stop offset=".62" stop-color="#697b79"/><stop offset="1" stop-color="#e7dfc9"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#f4d2ad"/><stop offset=".48" stop-color="#d79a72"/><stop offset="1" stop-color="#8b4c39"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c25b45"/><stop offset=".45" stop-color="#87352e"/><stop offset="1" stop-color="#3e2022"/></linearGradient>
+ <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
+ <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e6c77f" stroke-width="2" opacity=".72"/></pattern>
+</defs>
+<ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
+<!-- Twin swords behind the lord -->
+<g>
+ <path d="M230 882 L116 193 M570 886 L680 194" stroke="#30261f" stroke-width="24" stroke-linecap="round"/>
+ <path d="M230 882 L116 193 M570 886 L680 194" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+ <path d="M87 242 Q75 122 121 54 Q174 125 144 249 L119 295Z" fill="url(#steel)" stroke="#42524d" stroke-width="8"/>
+ <path d="M653 244 Q625 121 680 54 Q728 137 703 257 L679 294Z" fill="url(#steel)" stroke="#42524d" stroke-width="8"/>
+ <path d="M103 105 L122 252 M678 105 L681 252" stroke="#f8f1dd" stroke-width="7" opacity=".75"/>
+ <path d="M194 844 L253 832 L265 878 L204 889Z M548 836 L607 846 L597 890 L540 880Z" fill="url(#gold)" stroke="#634520" stroke-width="6"/>
+ <path d="M184 850 L272 862 M538 860 L615 871" stroke="#8e3028" stroke-width="10"/>
+</g>
+<!-- flowing rear cloak -->
+<path d="M300 359 Q203 389 168 519 Q129 681 213 864 Q273 925 347 911 L405 835 L551 911 Q659 849 646 644 Q639 435 516 363Z" fill="url(#cloth)" stroke="#321b1d" stroke-width="15"/>
+<path d="M228 463 Q166 646 258 837 L305 876 Q271 710 339 478Z" fill="#e18b67" opacity=".32"/>
+<path d="M546 440 Q638 587 591 817 L552 864 Q570 643 489 490Z" fill="#301c20" opacity=".62"/>
+<path d="M206 682 Q260 820 339 863 M571 530 Q621 680 588 800" fill="none" stroke="#efbb7d" stroke-width="5" opacity=".36"/>
+<!-- boots and greaves -->
+<path d="M335 756 Q332 830 303 897 L293 941 Q342 970 414 946 L439 854 L425 775Z" fill="url(#dark)" stroke="#191d1d" stroke-width="12"/>
+<path d="M463 759 Q486 829 494 896 L482 944 Q540 972 610 941 L589 878 L565 773Z" fill="url(#dark)" stroke="#191d1d" stroke-width="12"/>
+<path d="M304 848 Q360 868 432 842 L421 903 Q355 923 294 891Z M490 849 Q542 869 594 841 L613 895 Q551 923 485 897Z" fill="url(#steel)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M291 916 Q355 893 419 925 L424 967 Q355 990 271 965Z M482 916 Q548 893 616 919 L637 960 Q562 991 475 966Z" fill="#1b2020" stroke="url(#gold)" stroke-width="8"/>
+<!-- robe -->
+<path d="M292 369 Q369 332 521 367 Q609 414 630 560 L603 805 Q517 859 401 847 Q292 829 228 779 L245 535 Q250 422 292 369Z" fill="url(#red)" stroke="#361e1e" stroke-width="15"/>
+<path d="M257 490 Q320 512 368 555 L342 816 L263 780Z" fill="#d17759" opacity=".46"/>
+<path d="M515 415 Q583 482 592 584 L567 795 L514 812 L524 564Z" fill="#5a2928" stroke="#452022" stroke-width="8"/>
+<path d="M385 388 Q421 375 463 388 L497 824 Q434 847 366 819Z" fill="#5d2726" stroke="url(#gold)" stroke-width="9"/>
+<path d="M399 408 L432 414 L462 795" fill="none" stroke="#e8b97e" stroke-width="5" opacity=".65"/>
+<!-- pauldrons -->
+<path d="M269 406 Q303 361 371 384 L400 448 Q355 488 291 465 Q254 447 269 406Z" fill="url(#gold)" stroke="#5d4024" stroke-width="9"/>
+<path d="M478 385 Q552 358 601 416 L591 472 Q530 493 473 451Z" fill="url(#gold)" stroke="#5d4024" stroke-width="9"/>
+<path d="M282 414 Q323 382 360 404 L381 444 Q333 464 282 439Z M496 412 Q547 385 583 435 L570 458 Q530 465 493 441Z" fill="url(#lam)"/>
+<!-- chest armour -->
+<path d="M329 432 Q432 393 538 437 L564 621 Q438 674 300 615Z" fill="#473c35" stroke="url(#gold)" stroke-width="12"/>
+<path d="M342 449 Q432 418 526 453 L542 599 Q432 642 319 596Z" fill="#7a4937"/>
+<path d="M342 449 Q432 418 526 453 L542 599 Q432 642 319 596Z" fill="url(#lam)"/>
+<g fill="#9a6a4a" stroke="#ebcd88" stroke-width="4">
+ <path d="M350 467 L395 456 L401 489 L356 500Z"/><path d="M408 454 L455 451 L461 485 L413 490Z"/><path d="M469 458 L518 472 L510 504 L465 489Z"/>
+ <path d="M339 510 L395 502 L400 536 L343 544Z"/><path d="M407 500 L462 497 L466 533 L412 540Z"/><path d="M472 507 L529 519 L520 553 L468 540Z"/>
+ <path d="M330 552 L395 546 L392 581 L325 579Z"/><path d="M405 545 L467 543 L468 580 L402 583Z"/><path d="M474 550 L525 561 L517 590 L470 582Z"/>
+</g>
+<path d="M433 436 L441 625" stroke="#f6d99a" stroke-width="8"/>
+<path d="M410 624 Q438 647 469 623 L489 666 L439 693 L391 662Z" fill="url(#gold)" stroke="#61441f" stroke-width="8"/>
+<path d="M433 636 L446 654 L458 636 L469 660 L440 678 L414 657Z" fill="#8e3028" stroke="#f0d18b" stroke-width="4"/>
+<!-- sleeves and forearms -->
+<path d="M281 451 Q226 478 219 566 L255 650 Q285 663 315 632 L307 552 L364 506Z M529 449 Q598 477 632 551 L610 635 Q578 655 548 624 L565 555 L514 505Z" fill="url(#red)" stroke="#422021" stroke-width="11"/>
+<path d="M222 572 Q202 611 232 657 L282 672 L310 636 L274 584Z M606 568 Q646 590 661 636 L637 681 Q596 677 578 642Z" fill="url(#skin)" stroke="#744735" stroke-width="8"/>
+<path d="M222 632 L286 646 L278 686 L230 674Z M588 636 L650 647 L640 687 L591 675Z" fill="url(#gold)" stroke="#634522" stroke-width="7"/>
+<!-- neck -->
+<path d="M397 302 L397 384 Q436 414 478 382 L473 303Z" fill="url(#skin)" stroke="#704633" stroke-width="8"/>
+<!-- head and face -->
+<path d="M358 183 Q367 105 435 101 Q506 101 521 185 L510 280 Q486 331 437 339 Q383 324 365 277Z" fill="url(#skin)" stroke="#704330" stroke-width="9"/>
+<path d="M366 220 Q342 210 342 248 Q347 281 373 284 M510 220 Q538 211 535 250 Q530 280 507 284Z" fill="url(#skin)" stroke="#704330" stroke-width="7"/>
+<!-- hair and refined crown -->
+<path d="M349 207 Q333 128 386 89 Q441 51 497 89 Q550 126 529 211 L505 198 Q502 149 468 137 Q425 154 375 143 L370 214Z" fill="#151b1a" stroke="#090f10" stroke-width="10"/>
+<path d="M340 144 Q358 70 438 61 Q519 62 548 145 L525 178 Q479 143 438 151 Q392 144 359 184Z" fill="url(#gold)" stroke="#684a27" stroke-width="9"/>
+<path d="M362 139 Q441 93 528 140" fill="none" stroke="#fff0b7" stroke-width="7"/>
+<path d="M382 163 Q438 143 508 165 L501 202 Q435 185 386 202Z" fill="#8b302a" stroke="#dfb96f" stroke-width="7"/>
+<path d="M440 150 L463 174 L440 198 L417 174Z" fill="#2d766b" stroke="url(#gold)" stroke-width="6"/>
+<circle cx="440" cy="174" r="9" fill="#c6f0d2"/>
+<!-- brows and calm eyes -->
+<path d="M379 224 Q404 209 426 224 M455 224 Q481 208 504 224" fill="none" stroke="#302522" stroke-width="8" stroke-linecap="round"/>
+<path d="M382 242 Q403 253 427 241 Q404 231 382 242Z M456 241 Q480 253 501 241 Q479 231 456 241Z" fill="#f6e7cd" stroke="#3a2a24" stroke-width="4"/>
+<ellipse cx="405" cy="242" rx="5.5" ry="8" fill="#211c19"/><ellipse cx="480" cy="242" rx="5.5" ry="8" fill="#211c19"/>
+<path d="M442 247 L432 277 Q440 283 451 278" fill="none" stroke="#9b5d43" stroke-width="5" stroke-linecap="round"/>
+<!-- neat moustache and short beard -->
+<path d="M389 293 Q411 277 431 292 Q441 302 451 293 Q477 277 496 292 Q484 315 461 316 Q446 311 440 306 Q425 318 406 311Z" fill="url(#hair)" stroke="#131a18" stroke-width="5"/>
+<path d="M410 311 Q420 340 439 345 Q461 341 476 311 Q470 353 445 369 Q423 359 410 311Z" fill="#19211f" stroke="#101615" stroke-width="6"/>
+<path d="M424 326 Q430 345 441 355 M458 326 Q454 344 444 357" fill="none" stroke="#647164" stroke-width="4"/>
+<!-- waist guard and hanging sashes -->
+<path d="M247 666 Q435 711 617 658 L629 718 Q438 777 236 718Z" fill="#2d2421" stroke="url(#gold)" stroke-width="10"/>
+<path d="M411 684 L468 676 L482 731 L420 746Z" fill="url(#gold)" stroke="#61441f" stroke-width="7"/>
+<path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8b302a" stroke="#edcf8a" stroke-width="4"/>
+<path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#8e342e" stroke="url(#gold)" stroke-width="8"/>
+<g fill="#f1d895" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
+</svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#d8b56a" stroke-width="11" stroke-linecap="round" opacity="0.1"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.06999999999999999"/></g><g transform="translate(800 0)"><g transform="translate(-10 -8) rotate(-3 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>Liu Bei — original 2D full-body game sprite</title><desc>A dignified Han-era warlord in vermilion and gold lamellar armor, with a restrained imperial headpiece and twin swords.</desc>
+<defs>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ed9a70"/><stop offset=".2" stop-color="#b64b38"/><stop offset=".58" stop-color="#7b2b29"/><stop offset="1" stop-color="#391b1d"/></linearGradient>
+ <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0b7"/><stop offset=".24" stop-color="#e0bb70"/><stop offset=".58" stop-color="#a67536"/><stop offset=".82" stop-color="#f1d68e"/><stop offset="1" stop-color="#6e4722"/></linearGradient>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3d5"/><stop offset=".3" stop-color="#b8c2b6"/><stop offset=".62" stop-color="#697b79"/><stop offset="1" stop-color="#e7dfc9"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#f4d2ad"/><stop offset=".48" stop-color="#d79a72"/><stop offset="1" stop-color="#8b4c39"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c25b45"/><stop offset=".45" stop-color="#87352e"/><stop offset="1" stop-color="#3e2022"/></linearGradient>
+ <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
+ <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e6c77f" stroke-width="2" opacity=".72"/></pattern>
+</defs>
+<ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
+<!-- Twin swords behind the lord -->
+<g>
+ <path d="M230 882 L116 193 M570 886 L680 194" stroke="#30261f" stroke-width="24" stroke-linecap="round"/>
+ <path d="M230 882 L116 193 M570 886 L680 194" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+ <path d="M87 242 Q75 122 121 54 Q174 125 144 249 L119 295Z" fill="url(#steel)" stroke="#42524d" stroke-width="8"/>
+ <path d="M653 244 Q625 121 680 54 Q728 137 703 257 L679 294Z" fill="url(#steel)" stroke="#42524d" stroke-width="8"/>
+ <path d="M103 105 L122 252 M678 105 L681 252" stroke="#f8f1dd" stroke-width="7" opacity=".75"/>
+ <path d="M194 844 L253 832 L265 878 L204 889Z M548 836 L607 846 L597 890 L540 880Z" fill="url(#gold)" stroke="#634520" stroke-width="6"/>
+ <path d="M184 850 L272 862 M538 860 L615 871" stroke="#8e3028" stroke-width="10"/>
+</g>
+<!-- flowing rear cloak -->
+<path d="M300 359 Q203 389 168 519 Q129 681 213 864 Q273 925 347 911 L405 835 L551 911 Q659 849 646 644 Q639 435 516 363Z" fill="url(#cloth)" stroke="#321b1d" stroke-width="15"/>
+<path d="M228 463 Q166 646 258 837 L305 876 Q271 710 339 478Z" fill="#e18b67" opacity=".32"/>
+<path d="M546 440 Q638 587 591 817 L552 864 Q570 643 489 490Z" fill="#301c20" opacity=".62"/>
+<path d="M206 682 Q260 820 339 863 M571 530 Q621 680 588 800" fill="none" stroke="#efbb7d" stroke-width="5" opacity=".36"/>
+<!-- boots and greaves -->
+<path d="M335 756 Q332 830 303 897 L293 941 Q342 970 414 946 L439 854 L425 775Z" fill="url(#dark)" stroke="#191d1d" stroke-width="12"/>
+<path d="M463 759 Q486 829 494 896 L482 944 Q540 972 610 941 L589 878 L565 773Z" fill="url(#dark)" stroke="#191d1d" stroke-width="12"/>
+<path d="M304 848 Q360 868 432 842 L421 903 Q355 923 294 891Z M490 849 Q542 869 594 841 L613 895 Q551 923 485 897Z" fill="url(#steel)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M291 916 Q355 893 419 925 L424 967 Q355 990 271 965Z M482 916 Q548 893 616 919 L637 960 Q562 991 475 966Z" fill="#1b2020" stroke="url(#gold)" stroke-width="8"/>
+<!-- robe -->
+<path d="M292 369 Q369 332 521 367 Q609 414 630 560 L603 805 Q517 859 401 847 Q292 829 228 779 L245 535 Q250 422 292 369Z" fill="url(#red)" stroke="#361e1e" stroke-width="15"/>
+<path d="M257 490 Q320 512 368 555 L342 816 L263 780Z" fill="#d17759" opacity=".46"/>
+<path d="M515 415 Q583 482 592 584 L567 795 L514 812 L524 564Z" fill="#5a2928" stroke="#452022" stroke-width="8"/>
+<path d="M385 388 Q421 375 463 388 L497 824 Q434 847 366 819Z" fill="#5d2726" stroke="url(#gold)" stroke-width="9"/>
+<path d="M399 408 L432 414 L462 795" fill="none" stroke="#e8b97e" stroke-width="5" opacity=".65"/>
+<!-- pauldrons -->
+<path d="M269 406 Q303 361 371 384 L400 448 Q355 488 291 465 Q254 447 269 406Z" fill="url(#gold)" stroke="#5d4024" stroke-width="9"/>
+<path d="M478 385 Q552 358 601 416 L591 472 Q530 493 473 451Z" fill="url(#gold)" stroke="#5d4024" stroke-width="9"/>
+<path d="M282 414 Q323 382 360 404 L381 444 Q333 464 282 439Z M496 412 Q547 385 583 435 L570 458 Q530 465 493 441Z" fill="url(#lam)"/>
+<!-- chest armour -->
+<path d="M329 432 Q432 393 538 437 L564 621 Q438 674 300 615Z" fill="#473c35" stroke="url(#gold)" stroke-width="12"/>
+<path d="M342 449 Q432 418 526 453 L542 599 Q432 642 319 596Z" fill="#7a4937"/>
+<path d="M342 449 Q432 418 526 453 L542 599 Q432 642 319 596Z" fill="url(#lam)"/>
+<g fill="#9a6a4a" stroke="#ebcd88" stroke-width="4">
+ <path d="M350 467 L395 456 L401 489 L356 500Z"/><path d="M408 454 L455 451 L461 485 L413 490Z"/><path d="M469 458 L518 472 L510 504 L465 489Z"/>
+ <path d="M339 510 L395 502 L400 536 L343 544Z"/><path d="M407 500 L462 497 L466 533 L412 540Z"/><path d="M472 507 L529 519 L520 553 L468 540Z"/>
+ <path d="M330 552 L395 546 L392 581 L325 579Z"/><path d="M405 545 L467 543 L468 580 L402 583Z"/><path d="M474 550 L525 561 L517 590 L470 582Z"/>
+</g>
+<path d="M433 436 L441 625" stroke="#f6d99a" stroke-width="8"/>
+<path d="M410 624 Q438 647 469 623 L489 666 L439 693 L391 662Z" fill="url(#gold)" stroke="#61441f" stroke-width="8"/>
+<path d="M433 636 L446 654 L458 636 L469 660 L440 678 L414 657Z" fill="#8e3028" stroke="#f0d18b" stroke-width="4"/>
+<!-- sleeves and forearms -->
+<path d="M281 451 Q226 478 219 566 L255 650 Q285 663 315 632 L307 552 L364 506Z M529 449 Q598 477 632 551 L610 635 Q578 655 548 624 L565 555 L514 505Z" fill="url(#red)" stroke="#422021" stroke-width="11"/>
+<path d="M222 572 Q202 611 232 657 L282 672 L310 636 L274 584Z M606 568 Q646 590 661 636 L637 681 Q596 677 578 642Z" fill="url(#skin)" stroke="#744735" stroke-width="8"/>
+<path d="M222 632 L286 646 L278 686 L230 674Z M588 636 L650 647 L640 687 L591 675Z" fill="url(#gold)" stroke="#634522" stroke-width="7"/>
+<!-- neck -->
+<path d="M397 302 L397 384 Q436 414 478 382 L473 303Z" fill="url(#skin)" stroke="#704633" stroke-width="8"/>
+<!-- head and face -->
+<path d="M358 183 Q367 105 435 101 Q506 101 521 185 L510 280 Q486 331 437 339 Q383 324 365 277Z" fill="url(#skin)" stroke="#704330" stroke-width="9"/>
+<path d="M366 220 Q342 210 342 248 Q347 281 373 284 M510 220 Q538 211 535 250 Q530 280 507 284Z" fill="url(#skin)" stroke="#704330" stroke-width="7"/>
+<!-- hair and refined crown -->
+<path d="M349 207 Q333 128 386 89 Q441 51 497 89 Q550 126 529 211 L505 198 Q502 149 468 137 Q425 154 375 143 L370 214Z" fill="#151b1a" stroke="#090f10" stroke-width="10"/>
+<path d="M340 144 Q358 70 438 61 Q519 62 548 145 L525 178 Q479 143 438 151 Q392 144 359 184Z" fill="url(#gold)" stroke="#684a27" stroke-width="9"/>
+<path d="M362 139 Q441 93 528 140" fill="none" stroke="#fff0b7" stroke-width="7"/>
+<path d="M382 163 Q438 143 508 165 L501 202 Q435 185 386 202Z" fill="#8b302a" stroke="#dfb96f" stroke-width="7"/>
+<path d="M440 150 L463 174 L440 198 L417 174Z" fill="#2d766b" stroke="url(#gold)" stroke-width="6"/>
+<circle cx="440" cy="174" r="9" fill="#c6f0d2"/>
+<!-- brows and calm eyes -->
+<path d="M379 224 Q404 209 426 224 M455 224 Q481 208 504 224" fill="none" stroke="#302522" stroke-width="8" stroke-linecap="round"/>
+<path d="M382 242 Q403 253 427 241 Q404 231 382 242Z M456 241 Q480 253 501 241 Q479 231 456 241Z" fill="#f6e7cd" stroke="#3a2a24" stroke-width="4"/>
+<ellipse cx="405" cy="242" rx="5.5" ry="8" fill="#211c19"/><ellipse cx="480" cy="242" rx="5.5" ry="8" fill="#211c19"/>
+<path d="M442 247 L432 277 Q440 283 451 278" fill="none" stroke="#9b5d43" stroke-width="5" stroke-linecap="round"/>
+<!-- neat moustache and short beard -->
+<path d="M389 293 Q411 277 431 292 Q441 302 451 293 Q477 277 496 292 Q484 315 461 316 Q446 311 440 306 Q425 318 406 311Z" fill="url(#hair)" stroke="#131a18" stroke-width="5"/>
+<path d="M410 311 Q420 340 439 345 Q461 341 476 311 Q470 353 445 369 Q423 359 410 311Z" fill="#19211f" stroke="#101615" stroke-width="6"/>
+<path d="M424 326 Q430 345 441 355 M458 326 Q454 344 444 357" fill="none" stroke="#647164" stroke-width="4"/>
+<!-- waist guard and hanging sashes -->
+<path d="M247 666 Q435 711 617 658 L629 718 Q438 777 236 718Z" fill="#2d2421" stroke="url(#gold)" stroke-width="10"/>
+<path d="M411 684 L468 676 L482 731 L420 746Z" fill="url(#gold)" stroke="#61441f" stroke-width="7"/>
+<path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8b302a" stroke="#edcf8a" stroke-width="4"/>
+<path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#8e342e" stroke="url(#gold)" stroke-width="8"/>
+<g fill="#f1d895" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
+</svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#d8b56a" stroke-width="11" stroke-linecap="round" opacity="0.55"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.385"/></g><g transform="translate(1600 0)"><g transform="translate(28 -16) rotate(7 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>Liu Bei — original 2D full-body game sprite</title><desc>A dignified Han-era warlord in vermilion and gold lamellar armor, with a restrained imperial headpiece and twin swords.</desc>
+<defs>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ed9a70"/><stop offset=".2" stop-color="#b64b38"/><stop offset=".58" stop-color="#7b2b29"/><stop offset="1" stop-color="#391b1d"/></linearGradient>
+ <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0b7"/><stop offset=".24" stop-color="#e0bb70"/><stop offset=".58" stop-color="#a67536"/><stop offset=".82" stop-color="#f1d68e"/><stop offset="1" stop-color="#6e4722"/></linearGradient>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3d5"/><stop offset=".3" stop-color="#b8c2b6"/><stop offset=".62" stop-color="#697b79"/><stop offset="1" stop-color="#e7dfc9"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#f4d2ad"/><stop offset=".48" stop-color="#d79a72"/><stop offset="1" stop-color="#8b4c39"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c25b45"/><stop offset=".45" stop-color="#87352e"/><stop offset="1" stop-color="#3e2022"/></linearGradient>
+ <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
+ <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e6c77f" stroke-width="2" opacity=".72"/></pattern>
+</defs>
+<ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
+<!-- Twin swords behind the lord -->
+<g>
+ <path d="M230 882 L116 193 M570 886 L680 194" stroke="#30261f" stroke-width="24" stroke-linecap="round"/>
+ <path d="M230 882 L116 193 M570 886 L680 194" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+ <path d="M87 242 Q75 122 121 54 Q174 125 144 249 L119 295Z" fill="url(#steel)" stroke="#42524d" stroke-width="8"/>
+ <path d="M653 244 Q625 121 680 54 Q728 137 703 257 L679 294Z" fill="url(#steel)" stroke="#42524d" stroke-width="8"/>
+ <path d="M103 105 L122 252 M678 105 L681 252" stroke="#f8f1dd" stroke-width="7" opacity=".75"/>
+ <path d="M194 844 L253 832 L265 878 L204 889Z M548 836 L607 846 L597 890 L540 880Z" fill="url(#gold)" stroke="#634520" stroke-width="6"/>
+ <path d="M184 850 L272 862 M538 860 L615 871" stroke="#8e3028" stroke-width="10"/>
+</g>
+<!-- flowing rear cloak -->
+<path d="M300 359 Q203 389 168 519 Q129 681 213 864 Q273 925 347 911 L405 835 L551 911 Q659 849 646 644 Q639 435 516 363Z" fill="url(#cloth)" stroke="#321b1d" stroke-width="15"/>
+<path d="M228 463 Q166 646 258 837 L305 876 Q271 710 339 478Z" fill="#e18b67" opacity=".32"/>
+<path d="M546 440 Q638 587 591 817 L552 864 Q570 643 489 490Z" fill="#301c20" opacity=".62"/>
+<path d="M206 682 Q260 820 339 863 M571 530 Q621 680 588 800" fill="none" stroke="#efbb7d" stroke-width="5" opacity=".36"/>
+<!-- boots and greaves -->
+<path d="M335 756 Q332 830 303 897 L293 941 Q342 970 414 946 L439 854 L425 775Z" fill="url(#dark)" stroke="#191d1d" stroke-width="12"/>
+<path d="M463 759 Q486 829 494 896 L482 944 Q540 972 610 941 L589 878 L565 773Z" fill="url(#dark)" stroke="#191d1d" stroke-width="12"/>
+<path d="M304 848 Q360 868 432 842 L421 903 Q355 923 294 891Z M490 849 Q542 869 594 841 L613 895 Q551 923 485 897Z" fill="url(#steel)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M291 916 Q355 893 419 925 L424 967 Q355 990 271 965Z M482 916 Q548 893 616 919 L637 960 Q562 991 475 966Z" fill="#1b2020" stroke="url(#gold)" stroke-width="8"/>
+<!-- robe -->
+<path d="M292 369 Q369 332 521 367 Q609 414 630 560 L603 805 Q517 859 401 847 Q292 829 228 779 L245 535 Q250 422 292 369Z" fill="url(#red)" stroke="#361e1e" stroke-width="15"/>
+<path d="M257 490 Q320 512 368 555 L342 816 L263 780Z" fill="#d17759" opacity=".46"/>
+<path d="M515 415 Q583 482 592 584 L567 795 L514 812 L524 564Z" fill="#5a2928" stroke="#452022" stroke-width="8"/>
+<path d="M385 388 Q421 375 463 388 L497 824 Q434 847 366 819Z" fill="#5d2726" stroke="url(#gold)" stroke-width="9"/>
+<path d="M399 408 L432 414 L462 795" fill="none" stroke="#e8b97e" stroke-width="5" opacity=".65"/>
+<!-- pauldrons -->
+<path d="M269 406 Q303 361 371 384 L400 448 Q355 488 291 465 Q254 447 269 406Z" fill="url(#gold)" stroke="#5d4024" stroke-width="9"/>
+<path d="M478 385 Q552 358 601 416 L591 472 Q530 493 473 451Z" fill="url(#gold)" stroke="#5d4024" stroke-width="9"/>
+<path d="M282 414 Q323 382 360 404 L381 444 Q333 464 282 439Z M496 412 Q547 385 583 435 L570 458 Q530 465 493 441Z" fill="url(#lam)"/>
+<!-- chest armour -->
+<path d="M329 432 Q432 393 538 437 L564 621 Q438 674 300 615Z" fill="#473c35" stroke="url(#gold)" stroke-width="12"/>
+<path d="M342 449 Q432 418 526 453 L542 599 Q432 642 319 596Z" fill="#7a4937"/>
+<path d="M342 449 Q432 418 526 453 L542 599 Q432 642 319 596Z" fill="url(#lam)"/>
+<g fill="#9a6a4a" stroke="#ebcd88" stroke-width="4">
+ <path d="M350 467 L395 456 L401 489 L356 500Z"/><path d="M408 454 L455 451 L461 485 L413 490Z"/><path d="M469 458 L518 472 L510 504 L465 489Z"/>
+ <path d="M339 510 L395 502 L400 536 L343 544Z"/><path d="M407 500 L462 497 L466 533 L412 540Z"/><path d="M472 507 L529 519 L520 553 L468 540Z"/>
+ <path d="M330 552 L395 546 L392 581 L325 579Z"/><path d="M405 545 L467 543 L468 580 L402 583Z"/><path d="M474 550 L525 561 L517 590 L470 582Z"/>
+</g>
+<path d="M433 436 L441 625" stroke="#f6d99a" stroke-width="8"/>
+<path d="M410 624 Q438 647 469 623 L489 666 L439 693 L391 662Z" fill="url(#gold)" stroke="#61441f" stroke-width="8"/>
+<path d="M433 636 L446 654 L458 636 L469 660 L440 678 L414 657Z" fill="#8e3028" stroke="#f0d18b" stroke-width="4"/>
+<!-- sleeves and forearms -->
+<path d="M281 451 Q226 478 219 566 L255 650 Q285 663 315 632 L307 552 L364 506Z M529 449 Q598 477 632 551 L610 635 Q578 655 548 624 L565 555 L514 505Z" fill="url(#red)" stroke="#422021" stroke-width="11"/>
+<path d="M222 572 Q202 611 232 657 L282 672 L310 636 L274 584Z M606 568 Q646 590 661 636 L637 681 Q596 677 578 642Z" fill="url(#skin)" stroke="#744735" stroke-width="8"/>
+<path d="M222 632 L286 646 L278 686 L230 674Z M588 636 L650 647 L640 687 L591 675Z" fill="url(#gold)" stroke="#634522" stroke-width="7"/>
+<!-- neck -->
+<path d="M397 302 L397 384 Q436 414 478 382 L473 303Z" fill="url(#skin)" stroke="#704633" stroke-width="8"/>
+<!-- head and face -->
+<path d="M358 183 Q367 105 435 101 Q506 101 521 185 L510 280 Q486 331 437 339 Q383 324 365 277Z" fill="url(#skin)" stroke="#704330" stroke-width="9"/>
+<path d="M366 220 Q342 210 342 248 Q347 281 373 284 M510 220 Q538 211 535 250 Q530 280 507 284Z" fill="url(#skin)" stroke="#704330" stroke-width="7"/>
+<!-- hair and refined crown -->
+<path d="M349 207 Q333 128 386 89 Q441 51 497 89 Q550 126 529 211 L505 198 Q502 149 468 137 Q425 154 375 143 L370 214Z" fill="#151b1a" stroke="#090f10" stroke-width="10"/>
+<path d="M340 144 Q358 70 438 61 Q519 62 548 145 L525 178 Q479 143 438 151 Q392 144 359 184Z" fill="url(#gold)" stroke="#684a27" stroke-width="9"/>
+<path d="M362 139 Q441 93 528 140" fill="none" stroke="#fff0b7" stroke-width="7"/>
+<path d="M382 163 Q438 143 508 165 L501 202 Q435 185 386 202Z" fill="#8b302a" stroke="#dfb96f" stroke-width="7"/>
+<path d="M440 150 L463 174 L440 198 L417 174Z" fill="#2d766b" stroke="url(#gold)" stroke-width="6"/>
+<circle cx="440" cy="174" r="9" fill="#c6f0d2"/>
+<!-- brows and calm eyes -->
+<path d="M379 224 Q404 209 426 224 M455 224 Q481 208 504 224" fill="none" stroke="#302522" stroke-width="8" stroke-linecap="round"/>
+<path d="M382 242 Q403 253 427 241 Q404 231 382 242Z M456 241 Q480 253 501 241 Q479 231 456 241Z" fill="#f6e7cd" stroke="#3a2a24" stroke-width="4"/>
+<ellipse cx="405" cy="242" rx="5.5" ry="8" fill="#211c19"/><ellipse cx="480" cy="242" rx="5.5" ry="8" fill="#211c19"/>
+<path d="M442 247 L432 277 Q440 283 451 278" fill="none" stroke="#9b5d43" stroke-width="5" stroke-linecap="round"/>
+<!-- neat moustache and short beard -->
+<path d="M389 293 Q411 277 431 292 Q441 302 451 293 Q477 277 496 292 Q484 315 461 316 Q446 311 440 306 Q425 318 406 311Z" fill="url(#hair)" stroke="#131a18" stroke-width="5"/>
+<path d="M410 311 Q420 340 439 345 Q461 341 476 311 Q470 353 445 369 Q423 359 410 311Z" fill="#19211f" stroke="#101615" stroke-width="6"/>
+<path d="M424 326 Q430 345 441 355 M458 326 Q454 344 444 357" fill="none" stroke="#647164" stroke-width="4"/>
+<!-- waist guard and hanging sashes -->
+<path d="M247 666 Q435 711 617 658 L629 718 Q438 777 236 718Z" fill="#2d2421" stroke="url(#gold)" stroke-width="10"/>
+<path d="M411 684 L468 676 L482 731 L420 746Z" fill="url(#gold)" stroke="#61441f" stroke-width="7"/>
+<path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8b302a" stroke="#edcf8a" stroke-width="4"/>
+<path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#8e342e" stroke="url(#gold)" stroke-width="8"/>
+<g fill="#f1d895" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
+</svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#d8b56a" stroke-width="18" stroke-linecap="round" opacity="1"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.7"/></g><g transform="translate(2400 0)"><g transform="translate(-4 0) rotate(-1 400 840)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<title>Liu Bei — original 2D full-body game sprite</title><desc>A dignified Han-era warlord in vermilion and gold lamellar armor, with a restrained imperial headpiece and twin swords.</desc>
+<defs>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ed9a70"/><stop offset=".2" stop-color="#b64b38"/><stop offset=".58" stop-color="#7b2b29"/><stop offset="1" stop-color="#391b1d"/></linearGradient>
+ <linearGradient id="dark" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#675246"/><stop offset=".45" stop-color="#302b2a"/><stop offset="1" stop-color="#171b1b"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0b7"/><stop offset=".24" stop-color="#e0bb70"/><stop offset=".58" stop-color="#a67536"/><stop offset=".82" stop-color="#f1d68e"/><stop offset="1" stop-color="#6e4722"/></linearGradient>
+ <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3d5"/><stop offset=".3" stop-color="#b8c2b6"/><stop offset=".62" stop-color="#697b79"/><stop offset="1" stop-color="#e7dfc9"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#f4d2ad"/><stop offset=".48" stop-color="#d79a72"/><stop offset="1" stop-color="#8b4c39"/></linearGradient>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c25b45"/><stop offset=".45" stop-color="#87352e"/><stop offset="1" stop-color="#3e2022"/></linearGradient>
+ <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#101919"/><stop offset=".5" stop-color="#394037"/><stop offset="1" stop-color="#0b1213"/></linearGradient>
+ <pattern id="lam" width="26" height="20" patternUnits="userSpaceOnUse"><path d="M1 1 Q13 14 25 1" fill="none" stroke="#e6c77f" stroke-width="2" opacity=".72"/></pattern>
+</defs>
+<ellipse cx="401" cy="958" rx="260" ry="27" fill="#07100e" opacity=".3"/>
+<!-- Twin swords behind the lord -->
+<g>
+ <path d="M230 882 L116 193 M570 886 L680 194" stroke="#30261f" stroke-width="24" stroke-linecap="round"/>
+ <path d="M230 882 L116 193 M570 886 L680 194" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+ <path d="M87 242 Q75 122 121 54 Q174 125 144 249 L119 295Z" fill="url(#steel)" stroke="#42524d" stroke-width="8"/>
+ <path d="M653 244 Q625 121 680 54 Q728 137 703 257 L679 294Z" fill="url(#steel)" stroke="#42524d" stroke-width="8"/>
+ <path d="M103 105 L122 252 M678 105 L681 252" stroke="#f8f1dd" stroke-width="7" opacity=".75"/>
+ <path d="M194 844 L253 832 L265 878 L204 889Z M548 836 L607 846 L597 890 L540 880Z" fill="url(#gold)" stroke="#634520" stroke-width="6"/>
+ <path d="M184 850 L272 862 M538 860 L615 871" stroke="#8e3028" stroke-width="10"/>
+</g>
+<!-- flowing rear cloak -->
+<path d="M300 359 Q203 389 168 519 Q129 681 213 864 Q273 925 347 911 L405 835 L551 911 Q659 849 646 644 Q639 435 516 363Z" fill="url(#cloth)" stroke="#321b1d" stroke-width="15"/>
+<path d="M228 463 Q166 646 258 837 L305 876 Q271 710 339 478Z" fill="#e18b67" opacity=".32"/>
+<path d="M546 440 Q638 587 591 817 L552 864 Q570 643 489 490Z" fill="#301c20" opacity=".62"/>
+<path d="M206 682 Q260 820 339 863 M571 530 Q621 680 588 800" fill="none" stroke="#efbb7d" stroke-width="5" opacity=".36"/>
+<!-- boots and greaves -->
+<path d="M335 756 Q332 830 303 897 L293 941 Q342 970 414 946 L439 854 L425 775Z" fill="url(#dark)" stroke="#191d1d" stroke-width="12"/>
+<path d="M463 759 Q486 829 494 896 L482 944 Q540 972 610 941 L589 878 L565 773Z" fill="url(#dark)" stroke="#191d1d" stroke-width="12"/>
+<path d="M304 848 Q360 868 432 842 L421 903 Q355 923 294 891Z M490 849 Q542 869 594 841 L613 895 Q551 923 485 897Z" fill="url(#steel)" stroke="url(#gold)" stroke-width="8"/>
+<path d="M291 916 Q355 893 419 925 L424 967 Q355 990 271 965Z M482 916 Q548 893 616 919 L637 960 Q562 991 475 966Z" fill="#1b2020" stroke="url(#gold)" stroke-width="8"/>
+<!-- robe -->
+<path d="M292 369 Q369 332 521 367 Q609 414 630 560 L603 805 Q517 859 401 847 Q292 829 228 779 L245 535 Q250 422 292 369Z" fill="url(#red)" stroke="#361e1e" stroke-width="15"/>
+<path d="M257 490 Q320 512 368 555 L342 816 L263 780Z" fill="#d17759" opacity=".46"/>
+<path d="M515 415 Q583 482 592 584 L567 795 L514 812 L524 564Z" fill="#5a2928" stroke="#452022" stroke-width="8"/>
+<path d="M385 388 Q421 375 463 388 L497 824 Q434 847 366 819Z" fill="#5d2726" stroke="url(#gold)" stroke-width="9"/>
+<path d="M399 408 L432 414 L462 795" fill="none" stroke="#e8b97e" stroke-width="5" opacity=".65"/>
+<!-- pauldrons -->
+<path d="M269 406 Q303 361 371 384 L400 448 Q355 488 291 465 Q254 447 269 406Z" fill="url(#gold)" stroke="#5d4024" stroke-width="9"/>
+<path d="M478 385 Q552 358 601 416 L591 472 Q530 493 473 451Z" fill="url(#gold)" stroke="#5d4024" stroke-width="9"/>
+<path d="M282 414 Q323 382 360 404 L381 444 Q333 464 282 439Z M496 412 Q547 385 583 435 L570 458 Q530 465 493 441Z" fill="url(#lam)"/>
+<!-- chest armour -->
+<path d="M329 432 Q432 393 538 437 L564 621 Q438 674 300 615Z" fill="#473c35" stroke="url(#gold)" stroke-width="12"/>
+<path d="M342 449 Q432 418 526 453 L542 599 Q432 642 319 596Z" fill="#7a4937"/>
+<path d="M342 449 Q432 418 526 453 L542 599 Q432 642 319 596Z" fill="url(#lam)"/>
+<g fill="#9a6a4a" stroke="#ebcd88" stroke-width="4">
+ <path d="M350 467 L395 456 L401 489 L356 500Z"/><path d="M408 454 L455 451 L461 485 L413 490Z"/><path d="M469 458 L518 472 L510 504 L465 489Z"/>
+ <path d="M339 510 L395 502 L400 536 L343 544Z"/><path d="M407 500 L462 497 L466 533 L412 540Z"/><path d="M472 507 L529 519 L520 553 L468 540Z"/>
+ <path d="M330 552 L395 546 L392 581 L325 579Z"/><path d="M405 545 L467 543 L468 580 L402 583Z"/><path d="M474 550 L525 561 L517 590 L470 582Z"/>
+</g>
+<path d="M433 436 L441 625" stroke="#f6d99a" stroke-width="8"/>
+<path d="M410 624 Q438 647 469 623 L489 666 L439 693 L391 662Z" fill="url(#gold)" stroke="#61441f" stroke-width="8"/>
+<path d="M433 636 L446 654 L458 636 L469 660 L440 678 L414 657Z" fill="#8e3028" stroke="#f0d18b" stroke-width="4"/>
+<!-- sleeves and forearms -->
+<path d="M281 451 Q226 478 219 566 L255 650 Q285 663 315 632 L307 552 L364 506Z M529 449 Q598 477 632 551 L610 635 Q578 655 548 624 L565 555 L514 505Z" fill="url(#red)" stroke="#422021" stroke-width="11"/>
+<path d="M222 572 Q202 611 232 657 L282 672 L310 636 L274 584Z M606 568 Q646 590 661 636 L637 681 Q596 677 578 642Z" fill="url(#skin)" stroke="#744735" stroke-width="8"/>
+<path d="M222 632 L286 646 L278 686 L230 674Z M588 636 L650 647 L640 687 L591 675Z" fill="url(#gold)" stroke="#634522" stroke-width="7"/>
+<!-- neck -->
+<path d="M397 302 L397 384 Q436 414 478 382 L473 303Z" fill="url(#skin)" stroke="#704633" stroke-width="8"/>
+<!-- head and face -->
+<path d="M358 183 Q367 105 435 101 Q506 101 521 185 L510 280 Q486 331 437 339 Q383 324 365 277Z" fill="url(#skin)" stroke="#704330" stroke-width="9"/>
+<path d="M366 220 Q342 210 342 248 Q347 281 373 284 M510 220 Q538 211 535 250 Q530 280 507 284Z" fill="url(#skin)" stroke="#704330" stroke-width="7"/>
+<!-- hair and refined crown -->
+<path d="M349 207 Q333 128 386 89 Q441 51 497 89 Q550 126 529 211 L505 198 Q502 149 468 137 Q425 154 375 143 L370 214Z" fill="#151b1a" stroke="#090f10" stroke-width="10"/>
+<path d="M340 144 Q358 70 438 61 Q519 62 548 145 L525 178 Q479 143 438 151 Q392 144 359 184Z" fill="url(#gold)" stroke="#684a27" stroke-width="9"/>
+<path d="M362 139 Q441 93 528 140" fill="none" stroke="#fff0b7" stroke-width="7"/>
+<path d="M382 163 Q438 143 508 165 L501 202 Q435 185 386 202Z" fill="#8b302a" stroke="#dfb96f" stroke-width="7"/>
+<path d="M440 150 L463 174 L440 198 L417 174Z" fill="#2d766b" stroke="url(#gold)" stroke-width="6"/>
+<circle cx="440" cy="174" r="9" fill="#c6f0d2"/>
+<!-- brows and calm eyes -->
+<path d="M379 224 Q404 209 426 224 M455 224 Q481 208 504 224" fill="none" stroke="#302522" stroke-width="8" stroke-linecap="round"/>
+<path d="M382 242 Q403 253 427 241 Q404 231 382 242Z M456 241 Q480 253 501 241 Q479 231 456 241Z" fill="#f6e7cd" stroke="#3a2a24" stroke-width="4"/>
+<ellipse cx="405" cy="242" rx="5.5" ry="8" fill="#211c19"/><ellipse cx="480" cy="242" rx="5.5" ry="8" fill="#211c19"/>
+<path d="M442 247 L432 277 Q440 283 451 278" fill="none" stroke="#9b5d43" stroke-width="5" stroke-linecap="round"/>
+<!-- neat moustache and short beard -->
+<path d="M389 293 Q411 277 431 292 Q441 302 451 293 Q477 277 496 292 Q484 315 461 316 Q446 311 440 306 Q425 318 406 311Z" fill="url(#hair)" stroke="#131a18" stroke-width="5"/>
+<path d="M410 311 Q420 340 439 345 Q461 341 476 311 Q470 353 445 369 Q423 359 410 311Z" fill="#19211f" stroke="#101615" stroke-width="6"/>
+<path d="M424 326 Q430 345 441 355 M458 326 Q454 344 444 357" fill="none" stroke="#647164" stroke-width="4"/>
+<!-- waist guard and hanging sashes -->
+<path d="M247 666 Q435 711 617 658 L629 718 Q438 777 236 718Z" fill="#2d2421" stroke="url(#gold)" stroke-width="10"/>
+<path d="M411 684 L468 676 L482 731 L420 746Z" fill="url(#gold)" stroke="#61441f" stroke-width="7"/>
+<path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8b302a" stroke="#edcf8a" stroke-width="4"/>
+<path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#8e342e" stroke="url(#gold)" stroke-width="8"/>
+<g fill="#f1d895" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
+</svg></g><path d="M285 570 Q470 290 730 430" fill="none" stroke="#d8b56a" stroke-width="11" stroke-linecap="round" opacity="0.35"/><path d="M285 570 Q470 290 730 430" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.24499999999999997"/></g></svg>

@@ -1,0 +1,407 @@
+{
+  "total": 50,
+  "male": 41,
+  "female": 9,
+  "heroes": [
+    {
+      "id": "liu",
+      "name": "刘备",
+      "art": "liu-bei",
+      "gender": "m",
+      "weapon": "sword",
+      "skillFx": "heal"
+    },
+    {
+      "id": "guan",
+      "name": "关羽",
+      "art": "guan-yu",
+      "gender": "m",
+      "weapon": "guandao",
+      "skillFx": "dragon"
+    },
+    {
+      "id": "zhang",
+      "name": "张飞",
+      "art": "zhang-fei",
+      "gender": "m",
+      "weapon": "spear",
+      "skillFx": "roar"
+    },
+    {
+      "id": "zhao",
+      "name": "赵云",
+      "art": "zhao-yun",
+      "gender": "m",
+      "weapon": "spear",
+      "skillFx": "dragon"
+    },
+    {
+      "id": "zhuge",
+      "name": "诸葛亮",
+      "art": "zhuge-liang",
+      "gender": "m",
+      "weapon": "fan",
+      "skillFx": "formation"
+    },
+    {
+      "id": "huang",
+      "name": "黄忠",
+      "art": "huang-zhong",
+      "gender": "m",
+      "weapon": "bow",
+      "skillFx": "arrow"
+    },
+    {
+      "id": "dia",
+      "name": "貂蝉",
+      "art": "diaochan",
+      "gender": "f",
+      "weapon": "dual-dagger",
+      "skillFx": "charm"
+    },
+    {
+      "id": "cao",
+      "name": "曹操",
+      "art": "cao-cao",
+      "gender": "m",
+      "weapon": "sword",
+      "skillFx": "shield"
+    },
+    {
+      "id": "zhou",
+      "name": "周瑜",
+      "art": "zhou-yu",
+      "gender": "m",
+      "weapon": "sword",
+      "skillFx": "fire"
+    },
+    {
+      "id": "lvbu",
+      "name": "吕布",
+      "art": "lv-bu",
+      "gender": "m",
+      "weapon": "halberd",
+      "skillFx": "storm"
+    },
+    {
+      "id": "diaowei",
+      "name": "典韦",
+      "art": "dian-wei",
+      "gender": "m",
+      "weapon": "dual-axe",
+      "skillFx": "ironstorm"
+    },
+    {
+      "id": "jiang",
+      "name": "姜维",
+      "art": "jiang-wei",
+      "gender": "m",
+      "weapon": "spear",
+      "skillFx": "tiger"
+    },
+    {
+      "id": "machao",
+      "name": "马超",
+      "art": "machao",
+      "gender": "m",
+      "weapon": "spear",
+      "skillFx": "wind"
+    },
+    {
+      "id": "weiyan",
+      "name": "魏延",
+      "art": "weiyan",
+      "gender": "m",
+      "weapon": "saber",
+      "skillFx": "blood"
+    },
+    {
+      "id": "pangtong",
+      "name": "庞统",
+      "art": "pangtong",
+      "gender": "m",
+      "weapon": "fan",
+      "skillFx": "phoenix"
+    },
+    {
+      "id": "fazheng",
+      "name": "法正",
+      "art": "fazheng",
+      "gender": "m",
+      "weapon": "scroll",
+      "skillFx": "thunder"
+    },
+    {
+      "id": "xushu",
+      "name": "徐庶",
+      "art": "xushu",
+      "gender": "m",
+      "weapon": "sword",
+      "skillFx": "wind"
+    },
+    {
+      "id": "madai",
+      "name": "马岱",
+      "art": "madai",
+      "gender": "m",
+      "weapon": "spear",
+      "skillFx": "wind"
+    },
+    {
+      "id": "guanping",
+      "name": "关平",
+      "art": "guanping",
+      "gender": "m",
+      "weapon": "saber",
+      "skillFx": "water"
+    },
+    {
+      "id": "guanxing",
+      "name": "关兴",
+      "art": "guanxing",
+      "gender": "m",
+      "weapon": "guandao",
+      "skillFx": "dragon"
+    },
+    {
+      "id": "zhangbao",
+      "name": "张苞",
+      "art": "zhangbao",
+      "gender": "m",
+      "weapon": "spear",
+      "skillFx": "roar"
+    },
+    {
+      "id": "zhangliao",
+      "name": "张辽",
+      "art": "zhangliao",
+      "gender": "m",
+      "weapon": "spear",
+      "skillFx": "storm"
+    },
+    {
+      "id": "zhanghe",
+      "name": "张郃",
+      "art": "zhanghe",
+      "gender": "m",
+      "weapon": "spear",
+      "skillFx": "wind"
+    },
+    {
+      "id": "xuhuang",
+      "name": "徐晃",
+      "art": "xuhuang",
+      "gender": "m",
+      "weapon": "axe",
+      "skillFx": "earth"
+    },
+    {
+      "id": "xuchu",
+      "name": "许褚",
+      "art": "xuchu",
+      "gender": "m",
+      "weapon": "hammer",
+      "skillFx": "roar"
+    },
+    {
+      "id": "xiahou-dun",
+      "name": "夏侯惇",
+      "art": "xiahou-dun",
+      "gender": "m",
+      "weapon": "saber",
+      "skillFx": "blood"
+    },
+    {
+      "id": "xiahou-yuan",
+      "name": "夏侯渊",
+      "art": "xiahou-yuan",
+      "gender": "m",
+      "weapon": "bow",
+      "skillFx": "arrow"
+    },
+    {
+      "id": "guojia",
+      "name": "郭嘉",
+      "art": "guojia",
+      "gender": "m",
+      "weapon": "fan",
+      "skillFx": "formation"
+    },
+    {
+      "id": "xunyu",
+      "name": "荀彧",
+      "art": "xunyu",
+      "gender": "m",
+      "weapon": "scroll",
+      "skillFx": "heal"
+    },
+    {
+      "id": "simayi",
+      "name": "司马懿",
+      "art": "simayi",
+      "gender": "m",
+      "weapon": "staff",
+      "skillFx": "shadow"
+    },
+    {
+      "id": "caoren",
+      "name": "曹仁",
+      "art": "caoren",
+      "gender": "m",
+      "weapon": "shield",
+      "skillFx": "shield"
+    },
+    {
+      "id": "caopi",
+      "name": "曹丕",
+      "art": "caopi",
+      "gender": "m",
+      "weapon": "sword",
+      "skillFx": "thunder"
+    },
+    {
+      "id": "yuejin",
+      "name": "乐进",
+      "art": "yuejin",
+      "gender": "m",
+      "weapon": "saber",
+      "skillFx": "flame"
+    },
+    {
+      "id": "yujin",
+      "name": "于禁",
+      "art": "yujin",
+      "gender": "m",
+      "weapon": "shield",
+      "skillFx": "shield"
+    },
+    {
+      "id": "sunce",
+      "name": "孙策",
+      "art": "sunce",
+      "gender": "m",
+      "weapon": "saber",
+      "skillFx": "lightning"
+    },
+    {
+      "id": "sunquan",
+      "name": "孙权",
+      "art": "sunquan",
+      "gender": "m",
+      "weapon": "sword",
+      "skillFx": "shield"
+    },
+    {
+      "id": "luxun",
+      "name": "陆逊",
+      "art": "luxun",
+      "gender": "m",
+      "weapon": "fan",
+      "skillFx": "fire"
+    },
+    {
+      "id": "lvmeng",
+      "name": "吕蒙",
+      "art": "lvmeng",
+      "gender": "m",
+      "weapon": "sword",
+      "skillFx": "shadow"
+    },
+    {
+      "id": "ganning",
+      "name": "甘宁",
+      "art": "ganning",
+      "gender": "m",
+      "weapon": "dual-blade",
+      "skillFx": "thunder"
+    },
+    {
+      "id": "taishici",
+      "name": "太史慈",
+      "art": "taishici",
+      "gender": "m",
+      "weapon": "bow",
+      "skillFx": "arrow"
+    },
+    {
+      "id": "huanggai",
+      "name": "黄盖",
+      "art": "huanggai",
+      "gender": "m",
+      "weapon": "hammer",
+      "skillFx": "fire"
+    },
+    {
+      "id": "lusu",
+      "name": "鲁肃",
+      "art": "lusu",
+      "gender": "m",
+      "weapon": "scroll",
+      "skillFx": "shield"
+    },
+    {
+      "id": "sunshangxiang",
+      "name": "孙尚香",
+      "art": "sunshangxiang",
+      "gender": "f",
+      "weapon": "bow",
+      "skillFx": "arrow"
+    },
+    {
+      "id": "daqiao",
+      "name": "大乔",
+      "art": "daqiao",
+      "gender": "f",
+      "weapon": "fan",
+      "skillFx": "charm"
+    },
+    {
+      "id": "xiaoqiao",
+      "name": "小乔",
+      "art": "xiaoqiao",
+      "gender": "f",
+      "weapon": "fan",
+      "skillFx": "fire"
+    },
+    {
+      "id": "zhenji",
+      "name": "甄宓",
+      "art": "zhenji",
+      "gender": "f",
+      "weapon": "ribbon",
+      "skillFx": "ice"
+    },
+    {
+      "id": "huangyueying",
+      "name": "黄月英",
+      "art": "huangyueying",
+      "gender": "f",
+      "weapon": "mechanism",
+      "skillFx": "shield"
+    },
+    {
+      "id": "wangyi",
+      "name": "王异",
+      "art": "wangyi",
+      "gender": "f",
+      "weapon": "dual-blade",
+      "skillFx": "blood"
+    },
+    {
+      "id": "mayunlu",
+      "name": "马云禄",
+      "art": "mayunlu",
+      "gender": "f",
+      "weapon": "spear",
+      "skillFx": "dragon"
+    },
+    {
+      "id": "ganfuren",
+      "name": "甘夫人",
+      "art": "ganfuren",
+      "gender": "f",
+      "weapon": "fan",
+      "skillFx": "heal"
+    }
+  ]
+}
