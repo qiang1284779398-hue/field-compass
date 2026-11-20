@@ -121,8 +121,8 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
   game.finishSideQuest();
   assert.equal(game.state().daily.progress.side, 1, "side quest should progress daily command");
 
-  game.claimDaily("train", 100);
-  assert.ok(game.state().daily.claimed.includes("train"), "daily reward should be claimable once");
+  game.claimDaily("side", 150);
+  assert.ok(game.state().daily.claimed.includes("side"), "daily reward should be claimable once");
 
   console.log("Game QA passed:", {
     chapters: chapters.length,
