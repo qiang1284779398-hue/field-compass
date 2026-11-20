@@ -1,17 +1,17 @@
-name: Confirm APK download on real Android phone
+name: Resume real phone APK installation
 on:
   push:
     branches: [ main ]
     paths:
       - .github/workflows/open-delta.yml
 permissions:
-  contents: write
+  contents: read
 jobs:
-  confirm-download:
+  resume-install:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
-      - name: Open the published APK and inspect installer prompt
+      - name: Reconnect, inspect, and continue Android installation
         env:
           ANDROID_MCP_URL: ${{ secrets.ANDROID_MCP_URL }}
           ANDROID_MCP_TOKEN: ${{ secrets.ANDROID_MCP_TOKEN }}
@@ -20,29 +20,48 @@ jobs:
           MCP_URL="${ANDROID_MCP_URL%/}"
           case "$MCP_URL" in */mcp) ;; *) MCP_URL="$MCP_URL/mcp" ;; esac
           call_mcp() {
-            curl --http1.1 --fail --silent --show-error --max-time 45 --retry 4 --retry-all-errors --retry-delay 3 \
-              -X POST "$MCP_URL" -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
-              -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" --data "$1"
+            local payload="$1" out="/tmp/mcp-$RANDOM.json"
+            for attempt in $(seq 1 12); do
+              if curl --http1.1 --fail --silent --show-error --connect-timeout 15 --max-time 60 \
+                -X POST "$MCP_URL" -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
+                -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" \
+                --data "$payload" -o "$out"; then
+                cat "$out"
+                rm -f "$out"
+                return 0
+              fi
+              echo "MCP reconnect attempt $attempt failed; retrying shortly"
+              sleep 8
+            done
+            echo "MCP_CONNECTION_UNAVAILABLE"
+            return 1
           }
-          call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_click_node","arguments":{"by":"text","value":"仍然下载","exact_match":true}}}' > /tmp/click.json
+          call_mcp '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/initial.json
           python3 - <<'PY'
           import json
-          raw=open('/tmp/click.json').read()
+          raw=open('/tmp/initial.json').read()
           for line in raw.splitlines():
               if line.startswith('data:'): raw=line[5:].strip()
           obj=json.loads(raw)
-          print('CONFIRM_DOWNLOAD:',json.dumps(obj.get('result',obj.get('error')),ensure_ascii=False)[:3000])
-          if obj.get('error') or obj.get('result',{}).get('isError'): raise SystemExit('DOWNLOAD_CONFIRM_FAILED')
+          result=obj.get('result',{})
+          if obj.get('error') or result.get('isError'): raise SystemExit('SCREEN_READ_FAILED')
+          for item in result.get('content',[]):
+              if item.get('type')=='text': print('CURRENT_PHONE_SCREEN:',item.get('text','')[:10000])
           PY
-          sleep 12
-          call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/screen.json
+          if grep -q '仍然下载' /tmp/initial.json; then
+            call_mcp '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"android_click_node","arguments":{"by":"text","value":"仍然下载","exact_match":true}}}' > /tmp/click.json
+            echo "DOWNLOAD_CONFIRMATION_TAPPED"
+          fi
+          sleep 20
+          call_mcp '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"android_get_screen_state","arguments":{"include_screenshot":true,"annotate":false}}}' > /tmp/final.json
           python3 - <<'PY'
           import json
-          raw=open('/tmp/screen.json').read()
+          raw=open('/tmp/final.json').read()
           for line in raw.splitlines():
               if line.startswith('data:'): raw=line[5:].strip()
           obj=json.loads(raw)
-          for item in obj.get('result',{}).get('content',[]):
-              if item.get('type')=='text': print('INSTALLER_SCREEN:',item.get('text','')[:10000])
-          if obj.get('error') or obj.get('result',{}).get('isError'): raise SystemExit('SCREEN_READ_FAILED')
+          result=obj.get('result',{})
+          if obj.get('error') or result.get('isError'): raise SystemExit('FINAL_SCREEN_READ_FAILED')
+          for item in result.get('content',[]):
+              if item.get('type')=='text': print('PHONE_INSTALL_SCREEN:',item.get('text','')[:12000])
           PY
