@@ -126,6 +126,9 @@ jobs:
           profile: pixel_6
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
+          emulator-boot-timeout: 900
+          env:
+            ANDROID_I_WANT_MY_TCG: "yes"
           script: |
             set -e
             mkdir -p artifacts
