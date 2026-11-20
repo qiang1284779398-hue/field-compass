@@ -22,7 +22,7 @@ jobs:
           MCP_URL="${ANDROID_MCP_URL%/}"
           case "$MCP_URL" in */mcp) ;; *) MCP_URL="$MCP_URL/mcp" ;; esac
           call_mcp() {
-            curl --http1.1 --fail --silent --show-error --max-time 35 \
+            curl --http1.1 --fail --silent --show-error --max-time 35 --retry 4 --retry-all-errors --retry-delay 3 \
               -X POST "$MCP_URL" \
               -H "Authorization: Bearer $ANDROID_MCP_TOKEN" \
               -H "Content-Type: application/json" \
