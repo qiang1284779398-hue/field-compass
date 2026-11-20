@@ -23,6 +23,7 @@ const assert = require("node:assert/strict");
     const pageText = (await page.locator("#view").innerText()).trim();
     assert.ok(pageText.length > 20, tab + " page should render content");
     assert.ok(pageText.includes(pageMarkers[tab]), tab + " page should render its expected feature section");
+    if (tab === "world") assert.match(pageText, /敌对|戒备|中立|友善/, "world page should show readable faction diplomacy tiers");
   }
 
   // Exercise the main-city feature tiles and verify each opens a usable panel.
@@ -59,11 +60,16 @@ const assert = require("node:assert/strict");
     assert.ok(dialogueSteps < 20, "story dialogue must not loop forever");
   }
   assert.ok(dialogueSteps > 0, "chapter should contain playable dialogue");
+  const relationBeforeChoice = await page.evaluate(() => s.factionRelations.yellow);
   await page.locator('button[onclick="chapterChoice(0)"]').click();
+  assert.equal(await page.evaluate(() => s.factionRelations.yellow), Math.min(50, relationBeforeChoice + 3), "humanitarian choice should improve the local faction relation");
   await page.locator("#battleScene").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator("#battleScene .warrior[data-side=ally]").count() >= 1, "friendly units should appear on battlefield");
   assert.ok(await page.locator("#battleScene .warrior[data-side=enemy]").count() >= 1, "enemy units should appear on battlefield");
   assert.match(await page.locator(".battle-top").innerText(), /晴朗|暴雨|浓雾|烈风/, "battle HUD should display current weather");
+  await page.evaluate(() => { fight.wave = 3; makeWave(); drawBattle(); startMusic(); });
+  await page.locator("#battleScene.boss-arrival .boss-title").waitFor({ state: "visible", timeout: 3000 });
+  assert.match(await page.locator(".boss-title").innerText(), /首领压阵/, "boss wave should show its dedicated entrance title");
 
   // Verify real combat outcomes, not just that the buttons can be clicked.
   const readFight = () => page.evaluate(() => eval("({round:fight.round,phase:fight.phase,enemyHp:fight.enemies[0].hp,actor:fight.actor,energy:fight.allies.map(x=>x.energy),shield:fight.allies.map(x=>x.shield),acted:fight.acted.length})"));
