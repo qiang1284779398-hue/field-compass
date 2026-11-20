@@ -53,7 +53,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,factionForRegion,enemyCommander,siegeCost};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,heroDef,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,upgradeOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,setBattleStance,cityEdicts,setCityEdict,cityOffices,appointCityOfficer,dismissCityOfficer,cityOfficerEffects,cityGovernance,runCityAction,reduceCityTax,settleCityGovernance,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, {}, fn => 1, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -302,6 +302,24 @@ assert.equal(game.chooseTarget(), 1, "single-target attacks should follow the se
   game.claimDaily("side", 150);
   assert.ok(game.state().daily.claimed.includes("side"), "daily reward should be claimable once");
 
+  game.state().publicOrder=40; game.state().peopleMorale=38; game.state().gold=500; game.state().food=500; game.state().wood=100;
+  game.cityGovernance();
+  assert.ok(elements.get("modal").innerHTML.includes("治安"), "city governance should display public order");
+  const orderBeforePatrol=game.state().publicOrder;
+  game.runCityAction("patrol");
+  assert.equal(game.state().publicOrder, Math.min(100,orderBeforePatrol+14), "patrol should improve public order");
+  const peopleBeforeRelief=game.state().peopleMorale;
+  game.runCityAction("relief");
+  assert.equal(game.state().peopleMorale, Math.min(100,peopleBeforeRelief+14), "relief should improve public morale");
+  game.reduceCityTax();
+  assert.equal(game.state().taxReliefUntil,game.state().day+2,"tax relief should last three in-game days");
+  game.state().publicOrder=20; game.state().peopleMorale=20; game.state().gold=300; game.state().day+=1;
+  const unrestGold=game.state().gold;
+  const unrest=game.settleCityGovernance();
+  assert.ok(unrest.includes("骚乱"),"low public order and morale should trigger unrest");
+  assert.ok(game.state().gold<unrestGold,"unrest should impose a real treasury penalty");
+  game.go("home");
+  assert.ok(elements.get("view").innerHTML.includes("民心治安"), "home screen should expose city governance");
   game.go("home");
   assert.ok(elements.get("view").innerHTML.includes("颁布政令"), "home screen should expose the city edict system");
   assert.ok(elements.get("view").innerHTML.includes("内政任命"), "home screen should expose city officer appointments");
