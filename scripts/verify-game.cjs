@@ -44,6 +44,7 @@ assert.ok(source.includes("function normalizeRecruitState()") && source.includes
 assert.ok(source.includes('s.recruitTokens<1?\'disabled\':\'\'') && source.includes("招贤令不足，暂不可寻访"), "recruitment UI must disable the action when no token is available");
 assert.ok(source.includes("active.find(i=>!fight.acted.includes(i))") && source.includes('fight.phase!=="player"') && source.includes("fight.phase=\"enemy\";enemyPhase()") && source.includes("fight.enemyPhaseRunning") && source.includes("finally{if(fight===battleRef)fight.enemyPhaseRunning=false}"), "turn progression must enter enemy phase once and always release the enemy-phase lock");
 assert.ok(source.includes("playSkillFx(i,skillFxKind(a.skill),a.skill)") && source.includes("发动专属战技") && source.includes("function skillFxKind"), "every hero skill must log its use and receive a visible skill animation");
+assert.ok(source.includes("fight.actionRunning=true") && source.includes("fight.actionRunning=false") && source.includes("fight.actionRunning)return"), "player input must be locked during asynchronous combat animations and always released");
 assert.ok(source.includes("function spawnImpact") && source.includes('spawnImpact("enemy",di,critical)') && source.includes('spawnImpact("ally",ai,false)'), "both sides need impact effects at the struck unit");
 for (const animation of ["chargeRight", "chargeLeft", "castHero", "bodyHit", "slash", "auraBurst", "bossWave", "damageUp"]) {
   assert.ok(html.includes("@keyframes " + animation), "missing combat animation: " + animation);
