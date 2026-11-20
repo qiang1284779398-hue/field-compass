@@ -165,9 +165,9 @@ def body_svg(h, index):
     armor=h["armor"]; cloth=h["cloth"]; accent=h["accent"]
     skin="#f2c7a5" if female else "#e5b18c"
     ink="#171d22"
-    style=index%4
+    style=index%6
     if female:
-        body='<path d="M346 344 Q400 322 454 344 L474 554 Q496 706 557 913 Q402 970 243 913 Q304 706 326 554Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="11"/><path d="M351 372 Q400 345 449 372 L456 518 Q400 554 344 518Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="9"/><path d="M362 392 Q400 376 438 392 L442 470 Q400 488 358 470Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="6"/>'
+        body='<path d="M346 344 Q400 322 454 344 L474 554 Q496 706 557 913 Q402 970 243 913 Q304 706 326 554Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="11"/><path d="M351 372 Q400 345 449 372 L456 518 Q400 554 344 518Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="9"/><path d="M362 392 Q400 376 438 392 L442 470 Q400 488 358 470Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="6"/>+'<path d="M354 414 Q374 390 398 418 Q422 390 446 414" fill="none" stroke="'+accent+'" stroke-width="7"/><path d="M400 416 L400 490" fill="none" stroke="url(#metal)" stroke-width="5"/>'
         arms='<path d="M344 365 Q311 372 296 411 L266 495 Q260 524 286 540 L312 522 L335 448 L371 417Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M456 365 Q489 372 504 411 L534 495 Q540 524 514 540 L488 522 L465 448 L429 417Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/>'
         hands='<path d="M269 510 Q282 501 297 511 L313 532 Q317 548 303 557 L287 551 L277 562 Q262 560 258 545Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M531 510 Q518 501 503 511 L487 532 Q483 548 497 557 L513 551 L523 562 Q538 560 542 545Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M278 531 L292 546 M506 531 L520 546" stroke="#a66d5b" stroke-width="4" fill="none"/>'
         hair='<path d="M342 182 Q310 302 292 470 Q320 535 352 484 L367 293 M458 182 Q490 302 508 470 Q480 535 448 484 L433 293Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="10"/>'
@@ -180,8 +180,12 @@ def body_svg(h, index):
             chest='<path d="M340 376 Q400 345 460 376 L478 470 L400 525 L322 470Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M400 374 L400 515 M342 425 L458 425 M333 467 L467 467" fill="none" stroke="'+accent+'" stroke-width="8"/>'
         elif style==2:
             chest='<path d="M335 374 Q400 345 465 374 L473 505 Q400 532 327 505Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M344 397 Q400 420 456 397 M338 436 Q400 461 462 436 M334 477 Q400 503 466 477" fill="none" stroke="'+accent+'" stroke-width="8"/>'
-        else:
+        elif style==3:
             chest='<path d="M340 370 L460 370 L482 470 L400 531 L318 470Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 390 L450 390 L462 455 L400 500 L338 455Z" fill="url(#armor)" stroke="'+accent+'" stroke-width="7"/><path d="M400 389 L400 505" stroke="url(#metal)" stroke-width="7"/>'
+        elif style==4:
+            chest='<path d="M338 376 Q400 346 462 376 L468 510 Q400 542 332 510Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 397 Q400 421 450 397 L444 469 Q400 493 356 469Z" fill="url(#armor)" stroke="'+accent+'" stroke-width="7"/><g fill="'+accent+'" stroke="url(#ink)" stroke-width="4"><circle cx="365" cy="414" r="9"/><circle cx="400" cy="429" r="10"/><circle cx="435" cy="414" r="9"/></g><path d="M350 478 Q400 506 450 478" fill="none" stroke="url(#metal)" stroke-width="7"/>'
+        else:
+            chest='<path d="M334 379 Q400 344 466 379 L478 500 Q400 543 322 500Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 397 L450 397 L465 466 L400 515 L335 466Z" fill="url(#armor)" stroke="'+accent+'" stroke-width="7"/><path d="M355 420 L445 420 M342 463 L458 463 M400 397 L400 505" fill="none" stroke="url(#metal)" stroke-width="7"/><path d="M365 441 L435 481 M435 441 L365 481" fill="none" stroke="'+accent+'" stroke-width="5"/>'
         body+=chest
         arms='<path d="M321 359 Q286 366 269 411 L241 485 Q236 516 263 535 L294 520 L318 448 L355 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M479 359 Q514 366 531 411 L559 485 Q564 516 537 535 L506 520 L482 448 L445 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M252 473 Q279 463 299 487 L290 532 L263 546 Q244 529 245 505Z M548 473 Q521 463 501 487 L510 532 L537 546 Q556 529 555 505Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/>'
         hands='<path d="M251 518 Q266 506 283 519 L299 541 Q302 557 288 568 L273 559 L261 570 Q246 565 242 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M549 518 Q534 506 517 519 L501 541 Q498 557 512 568 L527 559 L539 570 Q554 565 558 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M254 542 L270 557 M546 542 L530 557" stroke="#9a644d" stroke-width="4" fill="none"/>'
@@ -208,9 +212,10 @@ def body_svg(h, index):
         beard=beard_path.replace("/>",' fill="'+bfill+'" stroke="url(#ink)" stroke-width="7"/>')
         if beard_kind=="braid":
             beard+='<path d="M400 364 Q414 402 398 442" fill="none" stroke="'+accent+'" stroke-width="8"/>'
-    face='<path d="M350 166 Q350 112 400 108 Q450 112 450 166 L446 254 Q436 304 400 320 Q364 304 354 254Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="9"/><path d="M354 221 Q400 243 446 221" fill="none" stroke="#c88468" stroke-width="4" opacity=".65"/><path d="M368 206 Q385 190 395 205 M405 205 Q415 190 432 206" fill="none" stroke="#30201d" stroke-width="8" stroke-linecap="round"/><path d="M374 225 Q386 234 395 225 M405 225 Q416 234 426 225" fill="none" stroke="#201a19" stroke-width="5" stroke-linecap="round"/><path d="M400 222 L390 257 Q400 266 410 257" fill="none" stroke="#a96f58" stroke-width="5"/><path d="M382 278 Q400 286 418 278" fill="none" stroke="#8d5145" stroke-width="5"/><path d="M338 198 Q326 225 348 244 M462 198 Q474 225 452 244" fill="none" stroke="url(#skin)" stroke-width="12"/>'
+    face='<path d="M350 166 Q350 112 400 108 Q450 112 450 166 L446 254 Q436 304 400 320 Q364 304 354 254Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="9"/><path d="M354 221 Q400 243 446 221" fill="none" stroke="#c88468" stroke-width="4" opacity=".65"/><path d="M368 206 Q385 190 395 205 M405 205 Q415 190 432 206" fill="none" stroke="#30201d" stroke-width="8" stroke-linecap="round"/><path d="M368 225 Q382 207 396 225 Q382 243 368 225Z M404 225 Q418 207 432 225 Q418 243 404 225Z" fill="#fff0df" stroke="#3b2928" stroke-width="5"/><g fill="#292126"><ellipse cx="382" cy="225" rx="5" ry="8"/><ellipse cx="418" cy="225" rx="5" ry="8"/></g><path d="M369 216 L362 210 M431 216 L438 210" fill="none" stroke="#332326" stroke-width="4"/><path d="M400 222 L390 257 Q400 266 410 257" fill="none" stroke="#a96f58" stroke-width="5"/><path d="M382 278 Q400 286 418 278" fill="none" stroke="#8d5145" stroke-width="5"/><path d="M338 198 Q326 225 348 244 M462 198 Q474 225 452 244" fill="none" stroke="url(#skin)" stroke-width="12"/>'
     if female:
         face=face.replace('Q400 286 418 278','Q400 282 418 278')
+        face+='<g fill="#d88992" opacity=".28"><circle cx="358" cy="257" r="10"/><circle cx="442" cy="257" r="10"/></g><path d="M385 284 Q400 293 415 284" fill="none" stroke="#a74f63" stroke-width="4"/>'
         hair+='<path d="M352 180 Q370 149 398 154 Q430 150 448 181" fill="none" stroke="'+h["accent"]+'" stroke-width="9"/>'
     else:
         hair+='<path d="M356 153 Q400 110 444 153 L438 183 Q400 159 362 183Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="7"/>'
@@ -240,9 +245,10 @@ def body_svg(h, index):
 </defs>'''
     title=f'<title>{esc(h["name"])} · 独立全身立绘</title><desc>统一厚涂质感线稿、完整双臂与双手结构、分层胸甲和专属武器。</desc>'
     # Render weapon behind the arms so the grip sits in the palm rather than floating beside it.
-    content='<ellipse cx="400" cy="984" rx="150" ry="13" fill="#101719" opacity=".18"/>'+cape+weapon_svg(h)+legs+body+arms+shoulders+collar+''.join(rows)+emblem+rivets+extra+hair+'<path d="M360 334 Q400 354 440 334" fill="none" stroke="'+accent+'" stroke-width="8"/>'+face+beard+helmet+hands
+    wide='<g transform="translate(-100 0) scale(1.25 1)">'
+    content='<ellipse cx="400" cy="984" rx="180" ry="15" fill="#101719" opacity=".18"/>'+wide+cape+'</g><g transform="translate(22 0)">'+weapon_svg(h)+'</g>'+wide+legs+body+arms+shoulders+collar+''.join(rows)+emblem+rivets+extra+hair+'<path d="M360 334 Q400 354 440 334" fill="none" stroke="'+accent+'" stroke-width="8"/>'+face+beard+helmet+hands+'</g>'
     if female:
-        content+='<g fill="'+accent+'" stroke="url(#ink)" stroke-width="4"><circle cx="338" cy="265" r="9"/><circle cx="462" cy="265" r="9"/></g><path d="M355 294 Q400 309 445 294" fill="none" stroke="#f8e0d3" stroke-width="4" opacity=".8"/>'
+        content+='<g transform="translate(-100 0) scale(1.25 1)"><g fill="'+accent+'" stroke="url(#ink)" stroke-width="4"><circle cx="338" cy="265" r="9"/><circle cx="462" cy="265" r="9"/></g><path d="M355 294 Q400 309 445 294" fill="none" stroke="#f8e0d3" stroke-width="4" opacity=".8"/></g>'
     else:
         content+='<path d="M345 203 Q360 188 380 197 M420 197 Q440 188 455 203" fill="none" stroke="#171819" stroke-width="7"/>'
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">{title}{defs}<g stroke-linejoin="round" stroke-linecap="round">{content}</g></svg>'
