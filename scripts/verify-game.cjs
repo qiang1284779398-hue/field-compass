@@ -11,8 +11,8 @@ new Function(source);
 const rosterManifest=JSON.parse(fs.readFileSync("app/src/main/assets/characters/2d/roster-manifest.json","utf8"));
 assert.equal(rosterManifest.total,50,"the expanded roster must contain fifty generals");
 assert.equal(rosterManifest.heroes.length,50,"the roster manifest must list all fifty generals");
-assert.equal(rosterManifest.male,42,"the roster must contain forty-two male generals");
-assert.equal(rosterManifest.female,8,"the roster must contain eight female generals");
+assert.equal(rosterManifest.male,41,"the roster must contain forty-one male generals");
+assert.equal(rosterManifest.female,9,"the roster must contain nine female generals");
 for(const hero of rosterManifest.heroes){
   const root="app/src/main/assets/characters/2d/";
   assert.ok(fs.existsSync(root+hero.art+".svg"),hero.id+" full-body art missing");
