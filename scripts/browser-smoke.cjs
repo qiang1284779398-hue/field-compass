@@ -1,13 +1,18 @@
 const { chromium } = require("playwright");
 const path = require("node:path");
+const fs = require("node:fs");
+const http = require("node:http");
 const assert = require("node:assert/strict");
 
 (async () => {
+  const html = fs.readFileSync(path.resolve("app/src/main/assets/index.html"), "utf8");
+  const server = http.createServer((req, res) => { res.writeHead(200, { "content-type": "text/html; charset=utf-8" }); res.end(html); });
+  await new Promise(resolve => server.listen(4173, "127.0.0.1", resolve));
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
-  await page.goto("file://" + path.resolve("app/src/main/assets/index.html"));
+  await page.goto("http://127.0.0.1:4173/");
   await page.locator("#heading").waitFor();
   assert.match(await page.locator("#heading").innerText(), /新野|主城/, "home screen should render");
 
@@ -47,4 +52,5 @@ const assert = require("node:assert/strict");
 
   console.log(JSON.stringify({ result: "PASS", navigationTabs: 6, storyDialogueSteps: dialogueSteps, battle: "entered; both sides rendered; basic attack clicked", saveReload: "PASS", pageErrors }, null, 2));
   await browser.close();
+  await new Promise(resolve => server.close(resolve));
 })().catch(error => { console.error(error); process.exit(1); });
