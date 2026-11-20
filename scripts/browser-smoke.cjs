@@ -22,6 +22,17 @@ const assert = require("node:assert/strict");
     assert.ok((await page.locator("#view").innerText()).trim().length > 20, tab + " page should render content");
   }
 
+  // Exercise the main-city feature tiles and verify each opens a usable panel.
+  await page.locator('button[data-p="home"]').click();
+  const homePanels = ["城池经营","颁布政令","内政任命","民心治安","招贤馆","巡城奇遇","本章支线","铁匠工坊"];
+  for (const label of homePanels) {
+    await page.getByRole("button", { name: new RegExp(label) }).click();
+    await page.locator("#backdrop").waitFor({ state: "visible", timeout: 3000 });
+    assert.ok((await page.locator("#modal").innerText()).trim().length > 10, label + " should show actionable content");
+    await page.locator('#modal button[onclick="closeModal()"]').click();
+    await page.locator("#backdrop").waitFor({ state: "hidden" });
+  }
+
   // Enter the first story chapter, advance all dialogue, make a choice, and enter battle.
   await page.locator('button[data-p="campaign"]').click();
   await page.locator('button[onclick="startChapter(0)"]').click();
