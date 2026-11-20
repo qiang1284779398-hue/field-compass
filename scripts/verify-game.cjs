@@ -51,7 +51,7 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,nextDay};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,nextDay};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
@@ -78,6 +78,16 @@ const woodBeforeDay = game.state().wood;
 game.nextDay();
 assert.equal(game.state().wood, woodBeforeDay + 12, "controlled outpost should generate daily wood");
 assert.ok(game.state().food >= 0, "outpost upkeep should be included in daily food settlement");
+game.state().wall = 3;
+game.establishOutpost(0);
+const infantryBeforeRaid = game.state().army.inf;
+const foodBeforeRaid = game.state().food;
+game.raidOutpost(0);
+assert.ok(elements.get("modal").innerHTML.includes("敌军来袭"), "controlled outpost should expose a raid encounter");
+game.resolveOutpostRaid(0);
+assert.equal(game.state().territories[0], true, "strong defenses should repel an outpost raid");
+assert.equal(game.state().army.inf, infantryBeforeRaid - 50, "repelling a raid should consume garrison reinforcements");
+assert.equal(game.state().food, foodBeforeRaid - 30, "repelling a raid should consume supplies");
 game.abandonOutpost(0);
 assert.equal(!!game.state().territories[0], false, "outpost can be abandoned");
 assert.equal(game.costText({ wood: 100, gold: 70 }), "木100 / 金70", "building costs must render correctly");
