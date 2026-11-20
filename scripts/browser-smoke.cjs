@@ -89,6 +89,40 @@ const assert = require("node:assert/strict");
     assert.ok((await page.locator("#heading").innerText()).includes("山河志"), "battle settlement should return to the campaign");
   }
 
+
+  // Exercise real home-screen service buttons and confirm their modals/actions work.
+  await page.locator('button[data-p="home"]').click();
+  await page.evaluate(() => eval("s.gold=100000;s.food=100000;s.wood=100000;s.iron=100000;s.eventDay=null"));
+  for (const [handler, heading] of [
+    ["cityGovernance()", "民心与治安"],
+    ["cityEdicts()", "新野政令"],
+    ["cityOffices()", "内政任命"],
+    ["tavern()", "招贤馆"],
+    ["forge()", "百炼工坊"],
+    ["rations()", "军粮制度"],
+    ["sideQuest()", "支线委托"]
+  ]) {
+    const control = page.locator('button[onclick="' + handler + '"]');
+    assert.equal(await control.count(), 1, "home service button should exist: " + handler);
+    await control.click();
+    assert.ok((await page.locator("#modal").innerText()).includes(heading), "service should open the correct modal: " + handler);
+    await page.evaluate(() => closeModal());
+  }
+
+  // Resolve a random event through its visible choice button and verify persistent state.
+  await page.locator('button[onclick="randomEvent()"]').click();
+  assert.ok((await page.locator("#modal").innerText()).includes("城中奇遇"), "random event should open from home");
+  const eventCountBefore = await page.evaluate(() => eval("s.eventCount||0"));
+  await page.locator('button[onclick="chooseEvent(0)"]').click();
+  assert.equal(await page.evaluate(() => eval("s.eventCount")), eventCountBefore + 1, "visible event choice should resolve and update event count");
+
+  // Check the mobile viewport does not introduce horizontal page overflow.
+  const mobileLayout = await page.evaluate(() => ({
+    viewport: document.documentElement.clientWidth,
+    content: document.documentElement.scrollWidth
+  }));
+  assert.ok(mobileLayout.content <= mobileLayout.viewport + 2, "mobile layout should not overflow horizontally: " + JSON.stringify(mobileLayout));
+
   // The local save should be written and survive a browser reload.
   const saved = await page.evaluate(() => localStorage.getItem("hxsg_save_v4"));
   assert.ok(saved, "game should persist a local save");
@@ -99,7 +133,7 @@ const assert = require("node:assert/strict");
   assert.ok(restored.heading && restored.view && restored.view.trim().length > 20, "game should recover after reload");
   assert.deepEqual(pageErrors, [], "browser runtime must not throw uncaught JavaScript errors");
 
-  console.log(JSON.stringify({ result: "PASS", navigationTabs: 6, storyDialogueSteps: dialogueSteps, battle: "entered; both sides rendered; basic attack clicked", saveReload: "PASS", pageErrors }, null, 2));
+  console.log(JSON.stringify({ result: "PASS", navigationTabs: 6, storyDialogueSteps: dialogueSteps, homeServicesTested: 7, randomEventChoice: "PASS", mobileLayout: "PASS", battle: "entered; both sides rendered; basic attack clicked", saveReload: "PASS", pageErrors }, null, 2));
   await browser.close();
   await new Promise(resolve => server.close(resolve));
 })().catch(error => { console.error(error); process.exit(1); });
