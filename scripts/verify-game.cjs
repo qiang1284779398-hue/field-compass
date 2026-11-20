@@ -53,12 +53,16 @@ const storage = {
   removeItem(key) { memory.delete(key); }
 };
 const game = new Function("document", "localStorage", "window", "setTimeout", "clearTimeout", "confirm",
-  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass};"
+  source + "\nreturn {state:()=>s,fight:()=>fight,go,buildings,upgradeBuilding,startChapter,storyNext,chapterChoice,basicAttack,selectActor,selectTarget,chooseTarget,useHeroSkill,defendAction,finishBattle,randomEvent,chooseEvent,tavern,recruitHero,makeItem,heroAtk,equipHero,equipItemTo,forge,craftItem,sideQuest,finishSideQuest,trainArmy,claimDaily,costText,worldPage,inspectRegion,exploreRegion,resolveRegionChoice,establishOutpost,abandonOutpost,raidOutpost,resolveOutpostRaid,connectOutposts,nextDay,assaultRegion,resolveTerritoryAssault,prepareSiege,reinforceOutpost,unitEffectiveness,isRegionAdjacent,beginTerritoryBattle,checkBattleEnd,regionTerrain,terrainDefenseMultiplier,terrainAttackMultiplier,terrainSceneClass,sendFactionEnvoy,resolveEnemyWorldTurn,factionForRegion,enemyCommander,siegeCost};"
 )(documentMock, storage, {}, fn => { fn(); return 1; }, () => {}, () => true);
 
 assert.equal(game.state().heroes.length, 3, "new game should start with a complete three-hero formation");
 game.go("world");
-assert.ok(elements.get("view").innerHTML.includes("天下舆图 · 郡县经营"), "world map should show the exploration layer");
+assert.ok(elements.get("view").innerHTML.includes("天下舆图 · 群雄割据"), "world map should show the exploration layer");
+assert.ok(elements.get("view").innerHTML.includes("六方割据"), "world map should show all six rival factions");
+assert.equal(game.factionForRegion(3).id, "xiliang", "Luoyang should belong to the Xiliang faction");
+assert.equal(game.enemyCommander(3), "董卓", "Xiliang capital region should have a named commander");
+assert.ok(game.siegeCost(3).wood > game.siegeCost(2).wood, "major cities should require heavier siege equipment");
 const foodBeforeExplore = game.state().food;
 game.inspectRegion(0);
 game.exploreRegion(0);
@@ -118,6 +122,22 @@ assert.equal(game.resolveTerritoryAssault(2, "inf"), true, "strong attacking for
 assert.equal(game.state().regionControl[2], "player", "victory should transfer regional control");
 assert.equal(game.state().enemyGarrisons[2], undefined, "captured region should no longer retain an enemy garrison");
 assert.ok(game.state().fame >= 8, "territory victory should award prestige");
+game.state().gold = 1000;
+game.state().day = 10;
+const relationBeforeEnvoy = game.state().factionRelations.xiliang;
+game.sendFactionEnvoy(3);
+assert.ok(game.state().factionRelations.xiliang > relationBeforeEnvoy, "envoy should improve faction relations");
+assert.equal(game.state().factionTruces.xiliang, 13, "envoy should grant a three-day truce");
+const troopsBeforeEnemyTurn = game.state().enemyGarrisons[1].inf + game.state().enemyGarrisons[1].cav + game.state().enemyGarrisons[1].arch;
+game.state().territories[0] = true;
+game.state().regionControl[0] = "player";
+game.state().territories[1] = true;
+game.state().regionControl[1] = "player";
+game.state().outpostGarrisons[1] = {inf:0,cav:0,arch:0};
+game.state().enemyLastActionDay = null;
+game.resolveEnemyWorldTurn(true);
+assert.ok(game.state().regionControl[1] === "player" || game.state().regionControl[1] === "enemy", "enemy campaign turn should resolve without corrupting territory control");
+assert.ok(game.state().enemyLastActionDay === game.state().day, "enemy should act at most once per game day");
 game.state().story = 2;
 game.state().explored.push(4);
 game.state().enemyGarrisons[4] = { inf: 20, cav: 10, arch: 12, fort: 2 };
