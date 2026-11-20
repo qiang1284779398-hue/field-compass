@@ -327,9 +327,6 @@ def main():
                             face=h["face"],bio=h["bio"],weapon=h["weapon"],skillFx=h["fx"])
             hero_entry["def"]=h["defense"]
             extras_js.append(hero_entry)
-            extras_js.append(dict(id=h["id"],name=h["name"],title=h["title"],rarity=h["rarity"],role=h["role"],troop=h["troop"],
-                                  atk=h["atk"],def=h["defense"],hp=h["hp"],energy=h["energy"],skill=h["skill"],desc=h["desc"],
-                                  face=h["face"],bio=h["bio"],weapon=h["weapon"],skillFx=h["fx"]))
     js="window.EXTRA_HEROES="+json.dumps(extras_js,ensure_ascii=False,separators=(",",":"))+";\n"
     js+="window.EXTRA_HERO_ART_IDS="+json.dumps(extra_ids,ensure_ascii=False,separators=(",",":"))+";\n"
     js+="window.HERO_ANIM_META="+json.dumps(meta,ensure_ascii=False,separators=(",",":"))+";\n"
