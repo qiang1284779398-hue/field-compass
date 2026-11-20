@@ -195,7 +195,7 @@
 .warrior.hero-liu .hero-portrait{filter:drop-shadow(0 0 4px #c59a58) drop-shadow(0 5px 5px #000b)}
 .warrior.hero-guan .hero-portrait{filter:drop-shadow(0 0 4px #39845b) drop-shadow(0 5px 5px #000b)}
 .warrior.hero-zhang .hero-portrait{filter:drop-shadow(0 0 4px #9ca8b4) drop-shadow(0 5px 5px #000b)}
-.warrior[data-hero2d] .body-art{width:88px!important;height:104px!important;background:none!important;background-image:none!important;background-color:transparent!important;image-rendering:auto!important}
+.warrior[data-hero2d] .body-art{position:relative;width:88px!important;height:104px!important;background:transparent none!important;background-image:none!important;background-color:transparent!important;image-rendering:auto!important;isolation:isolate}.warrior[data-hero2d] .hero-portrait-wrap{position:absolute;inset:0;z-index:2}.warrior[data-hero2d] .hero-portrait{background:transparent none!important}
 .warrior[data-hero2d] .hero-portrait-wrap{width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;overflow:visible;background:none!important}
 .warrior[data-hero2d] .hero-portrait{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;transform:none!important;transform-origin:center bottom;filter:drop-shadow(0 5px 5px #000b);image-rendering:auto}
 </style>
@@ -545,6 +545,7 @@ function initBattleRenderer(scene){
  function tree(x,y,s){oval(x,y+4*s,9*s,3*s,"#17251d88");path([[x,y-31*s],[x-14*s,y-9*s],[x-7*s,y-8*s],[x-17*s,y+8*s],[x+17*s,y+8*s],[x+7*s,y-8*s],[x+14*s,y-9*s]],"#294632","#182e22",s);ln([[x,y+6*s],[x,y+17*s]],"#57442c",3*s)}
  function tent(x,y,s,col){path([[x-20*s,y],[x,y-22*s],[x+21*s,y],[x+15*s,y+3*s],[x-15*s,y+3*s]],col,"#493b2a",s);path([[x-3*s,y],[x,y-11*s],[x+4*s,y]],"#342b23")}
 
+ function troop(x,y,s,side,kind){oval(x,y+3*s,5*s,2*s,"#11180f88");let col=side==="ally"?"#526d4d":"#883f35";path([[x-4*s,y-13*s],[x+4*s,y-13*s],[x+6*s,y-3*s],[x+4*s,y+1*s],[x-4*s,y+1*s],[x-6*s,y-3*s]],col,"#20271e",s);oval(x,y-17*s,3.5*s,4*s,"#c49a78");path([[x-4*s,y-19*s],[x,y-25*s],[x+4*s,y-19*s]],"#c4ad79","#302c24",s);if(kind==="cav"){path([[x-10*s,y-5*s],[x+9*s,y-5*s],[x+13*s,y+1*s],[x-9*s,y+1*s]],"#4c3b2a")}else if(kind==="arch"){ln([[x+6*s,y-17*s],[x+10*s,y-5*s],[x+6*s,y+4*s]],"#d7c28f",s)}else{ln([[x+6*s,y-23*s],[x+9*s,y+7*s]],"#8a6842",1.5*s);ln([[x+6*s,y-22*s],[x+10*s,y-24*s]],"#d8c28e",s)}}
  function mountains(base,amp,col,seed){c.beginPath();c.moveTo(0,h*.52);for(let x=0;x<=w+20;x+=18){let y=base-Math.abs(Math.sin((x+seed)*.006))*amp-Math.abs(Math.sin((x+seed)*.014))*amp*.35;c.lineTo(x,y)}c.lineTo(w,h*.58);c.lineTo(0,h*.58);c.closePath();c.fillStyle=col;c.fill()}
  function draw(t){let nw=scene.clientWidth,nh=scene.clientHeight;if(!nw||!nh)return;if(nw!==w||nh!==h){w=nw;h=nh;d=Math.min(2,window.devicePixelRatio||1);canvas.width=Math.round(w*d);canvas.height=Math.round(h*d);canvas.style.width=w+"px";canvas.style.height=h+"px"}c.setTransform(d,0,0,d,0,0);
  let sky=c.createLinearGradient(0,0,0,h);sky.addColorStop(0,"#718e92");sky.addColorStop(.48,"#c8b99a");sky.addColorStop(1,"#9b896a");c.fillStyle=sky;c.fillRect(0,0,w,h);
@@ -559,6 +560,8 @@ function initBattleRenderer(scene){
  for(let i=0;i<10;i++){let y=h*(.53+i*.05);ln([[0,y],[w*.43,y-h*.045*i],[w,y]],"#dfc99920",1)}
  for(let i=0;i<7;i++){let x=w*i/6;ln([[w*.5,h*.49],[x,h]],"#dfc9991c",1)}
  tent(w*.23,h*.49,.55,"#8d6848");tent(w*.78,h*.49,.6,"#9b7954");
+ for(let row=0;row<3;row++){let y=h*(.48+row*.043),s=.34+row*.12;for(let i=0;i<15;i++){let x=w*(.1+i*.057)+(row%2)*3;troop(x,y,s,i%2?"ally":"enemy",i%5===0?"cav":i%3===0?"arch":"inf")}}
+ for(let i=0;i<5;i++){let y=h*(.73+i*.035),s=.8+i*.1;troop(w*(.025+i*.012),y,s,"ally",i%3===0?"cav":"inf");troop(w*(.975-i*.012),y,s,"enemy",i%3===0?"cav":"inf")}
  for(let i=0;i<12;i++){let y=h*(.5+i*.035),s=.35+i*.04;tree(w*.025+i*w*.013,y,s);tree(w*.975-i*w*.013,y,s)}
  for(let i=0;i<16;i++){let x=w*(.08+i*.055),y=h*(.69+(i%4)*.04);oval(x,y,4+(i%3),2.5,"#b9a47a66")}
 
