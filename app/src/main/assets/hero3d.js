@@ -31,14 +31,15 @@ function init(){
  if(app)return;
  if(!window.THREE||!THREE.GLTFLoader||!THREE.SkeletonUtils)return;
  const scene=new THREE.Scene();
- const camera=new THREE.OrthographicCamera(-2,2,2,-2,.1,100);camera.position.set(0,0,30);camera.lookAt(0,0,0);
+ const camera=new THREE.OrthographicCamera(-2,2,2,-2,.1,100);camera.position.set(0,3.4,30);camera.lookAt(0,1.3,0);
  const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:"high-performance"});
  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.6));
  renderer.outputEncoding=THREE.sRGBEncoding;
  renderer.setClearColor(0x000000,0);
  scene.add(new THREE.HemisphereLight(0xe9f1ff,0x463a2c,2.0));
- const key=new THREE.DirectionalLight(0xffe2b5,2.1);key.position.set(-3,6,8);scene.add(key);
- const fill=new THREE.DirectionalLight(0x8aa9d0,.8);fill.position.set(4,2,-5);scene.add(fill);
+ const key=new THREE.DirectionalLight(0xffe2b5,2.6);key.position.set(-5,8,7);scene.add(key);
+ const fill=new THREE.DirectionalLight(0x8aa9d0,1.2);fill.position.set(5,3,-6);scene.add(fill);
+ const rim=new THREE.DirectionalLight(0xffd18b,1.4);rim.position.set(0,5,-8);scene.add(rim);
  app={scene,camera,renderer,canvas:renderer.domElement,width:0,height:0};
  app.canvas.className="hero3d-layer";app.canvas.setAttribute("aria-hidden","true");
 }
@@ -60,7 +61,7 @@ function makeActor(id,key){
   const root=THREE.SkeletonUtils.clone(gltf.scene);
   let skinnedMeshes=0,boneCount=0;root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material){o.material.side=THREE.FrontSide}}if(o.isSkinnedMesh&&o.skeleton){skinnedMeshes++;boneCount=Math.max(boneCount,o.skeleton.bones.length)}});
   const box=new THREE.Box3().setFromObject(root),size=box.getSize(new THREE.Vector3());
-  root.position.y-=box.min.y;
+  root.userData.baseYOffset=-box.min.y;
   const height=Math.max(.1,size.y);
   root.userData.modelHeight=height;
   let headBone=null;root.traverse(o=>{if(!headBone&&o.isBone&&/head$/i.test(o.name))headBone=o});
