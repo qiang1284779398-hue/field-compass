@@ -46,8 +46,10 @@ const assert = require("node:assert/strict");
   const saved = await page.evaluate(() => localStorage.getItem("hxsg_save_v4"));
   assert.ok(saved, "game should persist a local save");
   await page.reload();
-  await page.waitForFunction(() => (document.querySelector("#heading")?.innerText || "").trim().length > 0 && (document.querySelector("#view")?.innerText || "").trim().length > 20, null, { timeout: 8000 });
-  assert.ok(await page.locator("#view").innerText().length > 20, "game should recover after reload");
+  await page.waitForTimeout(500);
+  const restored = await page.evaluate(() => ({ heading: document.querySelector("#heading")?.innerText, view: document.querySelector("#view")?.innerText, save: localStorage.getItem("hxsg_save_v4")?.length || 0 }));
+  console.log("RESTORE_DIAGNOSTIC", JSON.stringify({ ...restored, pageErrors }));
+  assert.ok(restored.heading && restored.view && restored.view.trim().length > 20, "game should recover after reload");
   assert.deepEqual(pageErrors, [], "browser runtime must not throw uncaught JavaScript errors");
 
   console.log(JSON.stringify({ result: "PASS", navigationTabs: 6, storyDialogueSteps: dialogueSteps, battle: "entered; both sides rendered; basic attack clicked", saveReload: "PASS", pageErrors }, null, 2));
