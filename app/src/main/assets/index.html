@@ -513,7 +513,7 @@ function cancelSkillTargetSelection(){if(!fight||!fight.skillTargetMode)return;f
 
 /* Offline 2.5D battlefield: perspective ground, layered terrain, fortifications, trees and depth-scaled troop ranks. */
 function initBattleRenderer(scene){
- if(!scene)return;
+ if(!scene||typeof scene.querySelector!=="function"||typeof window==="undefined"||typeof requestAnimationFrame!=="function")return;
  if(window.__battleRaf)cancelAnimationFrame(window.__battleRaf);
  const canvas=scene.querySelector(".battle-3d-canvas");if(!canvas)return;
  const c=canvas.getContext("2d",{alpha:false,desynchronized:true});if(!c)return;
