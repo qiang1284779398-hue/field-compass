@@ -51,16 +51,6 @@
       "color": "#14583f"
     }
   },
-  "modifiers": {
-    "head/head-oval": 0.22,
-    "head/head-rectangular": 0.24,
-    "chin/chin-width-decr|incr": 0.24,
-    "chin/chin-prominent-decr|incr": 0.22,
-    "nose/nose-width1-decr|incr": 0.1,
-    "eyebrows/eyebrows-angle-down|up": -0.18,
-    "cheek/l-cheek-bones-decr|incr": 0.18,
-    "cheek/r-cheek-bones-decr|incr": 0.18
-  },
   "detail": "high",
   "rig": "game",
   "faceBones": true,
