@@ -25,6 +25,7 @@ assert.ok(source.includes("function renderWarrior"), "battlefield unit renderer 
 assert.ok(source.includes("function animateHit"), "player attack animation missing");
 assert.ok(source.includes("function animateEnemyHit"), "enemy attack animation missing");
 assert.ok(source.includes("function playBossFx"), "boss skill animation missing");
+assert.ok(source.includes('function playBossFx(){playSfx("critical")') && source.includes("a.volume=fight&&fight.wave===3?.34:.26"), "boss combat should trigger a distinct impact cue and stronger boss soundtrack mix");
 assert.ok(source.includes("function startMusic"), "offline soundtrack controller missing");
 assert.ok(source.includes("fight.wave===3?3:fight.chapter%4"), "boss wave should switch to a dedicated existing soundtrack track");
 assert.ok(source.includes("function factionRelationTier") && source.includes("factionRelationTier(s.factionRelations[f.id]||0)"), "diplomacy should expose readable relationship tiers");
