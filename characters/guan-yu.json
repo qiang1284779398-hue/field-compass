@@ -2,11 +2,11 @@
   "name": "guan-yu",
   "seed": 202,
   "gender": 1,
-  "age": 0.63,
-  "muscle": 0.78,
-  "weight": 0.58,
-  "height": 0.62,
-  "proportions": 0.76,
+  "age": 0.74,
+  "muscle": 0.86,
+  "weight": 0.62,
+  "height": 0.68,
+  "proportions": 0.68,
   "african": 0.02,
   "asian": 0.95,
   "caucasian": 0.03,
@@ -14,7 +14,7 @@
   "hair": "short02",
   "hairColor": "#11100e",
   "facialHair": "full_beard",
-  "beardColor": "#203b2a",
+  "beardColor": "#201b18",
   "outfit": "none",
   "top": "long_tunic",
   "jacket": "none",
@@ -30,17 +30,17 @@
   "garmentStyles": {
     "long_tunic": {
       "pattern": "solid",
-      "color": "#176044",
-      "color2": "#c4a25d"
+      "color": "#14583f",
+      "color2": "#d5b66b"
     },
     "leather_armor": {
       "pattern": "leather",
-      "color": "#244d3d",
-      "color2": "#c2a45f"
+      "color": "#1d4938",
+      "color2": "#d1ad65"
     },
     "trousers": {
       "pattern": "solid",
-      "color": "#253d32"
+      "color": "#203b30"
     },
     "belt": {
       "pattern": "leather",
@@ -48,10 +48,20 @@
     },
     "arm_wraps": {
       "pattern": "solid",
-      "color": "#176044"
+      "color": "#14583f"
     }
   },
-  "detail": "medium",
+  "modifiers": {
+    "head/head-oval": 0.22,
+    "head/head-rectangular": 0.24,
+    "chin/chin-width-decr|incr": 0.24,
+    "chin/chin-prominent-decr|incr": 0.22,
+    "nose/nose-width1-decr|incr": 0.1,
+    "eyebrows/eyebrows-angle-down|up": -0.18,
+    "cheek/l-cheek-bones-decr|incr": 0.18,
+    "cheek/r-cheek-bones-decr|incr": 0.18
+  },
+  "detail": "high",
   "rig": "game",
   "faceBones": true,
   "restPose": "A",
