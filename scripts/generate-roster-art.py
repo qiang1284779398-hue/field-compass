@@ -160,102 +160,173 @@ def weapon_svg(h):
         return pole+'<path d="M536 154 Q565 116 594 154 L588 194 Q565 214 542 194Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="7"/><path d="M544 170 L586 170" stroke="'+h["accent"]+'" stroke-width="7"/>'
     return pole+grip+'<path d="M565 90 L537 160 L565 210 L593 160Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="7"/>'
 
+def _rgb(hex_color):
+    return tuple(int(hex_color[i:i+2],16) for i in (1,3,5))
+
+def _hex(rgb):
+    return "#"+"".join(f"{max(0,min(255,int(v))):02x}" for v in rgb)
+
+def _mix(a,b,t):
+    aa=_rgb(a); bb=_rgb(b)
+    return _hex(tuple(aa[i]*(1-t)+bb[i]*t for i in range(3)))
+
+def _dark(c,t=0.25):
+    return _mix(c,"#11171b",t)
+
+def _light(c,t=0.3):
+    return _mix(c,"#fff0d0",t)
+
+def weapon_svg_detailed(h, female=False):
+    steel="url(#blade)" if female else "url(#steel)"
+    gold="url(#metal)" if female else "url(#gold)"
+    accent=h["accent"]
+    ink="#30271f" if female else "#191d1d"
+    wood="#553a2b"
+    w=h["weapon"]
+    # Every weapon sits behind the drawing but uses the same material highlights and thick outline as the reference sprites.
+    if w in ("spear","spear-long"):
+        return f'''<g id="weapon">
+<path d="M696 924 L696 160" stroke="{ink}" stroke-width="29" stroke-linecap="round"/><path d="M696 924 L696 160" stroke="{wood}" stroke-width="17" stroke-linecap="round"/><path d="M691 888 L691 270" stroke="{gold}" stroke-width="5" opacity=".75"/>
+<path d="M696 58 Q650 126 696 224 Q742 126 696 58Z" fill="{steel}" stroke="{ink}" stroke-width="10"/><path d="M696 79 L696 204" stroke="#fff4df" stroke-width="8"/><path d="M664 187 L728 187 L716 225 L676 225Z" fill="{gold}" stroke="{ink}" stroke-width="7"/><path d="M696 221 L696 285" stroke="{accent}" stroke-width="8"/><path d="M663 290 Q696 316 729 290" fill="none" stroke="{gold}" stroke-width="7"/>
+</g>'''
+    if w in ("guandao","halberd"):
+        blade='''<path d="M696 174 Q756 104 770 146 Q783 214 714 274 Q726 224 696 174Z"'''
+        return f'''<g id="weapon">
+<path d="M696 944 L696 170" stroke="{ink}" stroke-width="30" stroke-linecap="round"/><path d="M696 944 L696 170" stroke="{wood}" stroke-width="17" stroke-linecap="round"/><path d="M691 900 L691 288" stroke="{gold}" stroke-width="5" opacity=".8"/>
+{blade} fill="{steel}" stroke="{ink}" stroke-width="10"/><path d="M710 178 Q753 143 758 155" fill="none" stroke="#fff4df" stroke-width="8"/><path d="M689 219 Q651 183 636 220 Q639 270 699 282" fill="{gold}" stroke="{ink}" stroke-width="8"/><path d="M679 262 L718 276 L705 305 L674 288Z" fill="{gold}" stroke="{ink}" stroke-width="6"/><path d="M696 301 L696 345" stroke="{accent}" stroke-width="9"/>
+</g>'''
+    if w in ("sword","saber"):
+        return f'''<g id="weapon">
+<path d="M696 610 L696 200" stroke="{ink}" stroke-width="25" stroke-linecap="round"/><path d="M696 590 L696 206 Q665 154 684 83 Q701 145 724 188 L707 590Z" fill="{steel}" stroke="{ink}" stroke-width="9"/><path d="M694 120 L700 550" stroke="#fff4df" stroke-width="7" opacity=".85"/><path d="M650 590 Q696 568 742 590 L734 615 Q696 642 658 615Z" fill="{gold}" stroke="{ink}" stroke-width="8"/><path d="M680 625 L711 625 L711 754 L680 754Z" fill="{wood}" stroke="{ink}" stroke-width="7"/><path d="M680 651 L711 678 M680 690 L711 717" stroke="{accent}" stroke-width="7"/><path d="M696 752 L696 782" stroke="{gold}" stroke-width="9"/>
+</g>'''
+    if w=="bow":
+        return f'''<g id="weapon">
+<path d="M704 136 Q826 473 704 850" fill="none" stroke="{ink}" stroke-width="25"/><path d="M704 136 Q826 473 704 850" fill="none" stroke="{wood}" stroke-width="15"/><path d="M704 136 L704 850" stroke="{steel}" stroke-width="5"/><path d="M704 136 L704 850" stroke="#fff4df" stroke-width="2"/><path d="M666 506 L792 465" stroke="{ink}" stroke-width="13"/><path d="M674 503 L785 467" stroke="{steel}" stroke-width="6"/><path d="M780 462 L821 454 L795 487Z" fill="{steel}" stroke="{ink}" stroke-width="5"/><path d="M703 220 L748 206 M703 757 L748 771" stroke="{gold}" stroke-width="9"/>
+</g>'''
+    if w in ("fan","scroll"):
+        return f'''<g id="weapon">
+<path d="M686 648 Q594 500 640 378 Q687 416 704 451 Q728 379 757 364 Q791 494 686 648Z" fill="{steel}" stroke="{ink}" stroke-width="9"/><path d="M686 648 L640 378 M686 648 L704 451 M686 648 L757 364 M686 648 L782 448" fill="none" stroke="{gold}" stroke-width="7"/><path d="M686 648 L694 754" stroke="{wood}" stroke-width="16" stroke-linecap="round"/><path d="M673 648 Q687 663 702 648" fill="none" stroke="{accent}" stroke-width="8"/>
+</g>'''
+    if w in ("dual-dagger","dual-blade","dual-axe"):
+        return f'''<g id="weapon">
+<path d="M654 540 L621 349 L662 404 L682 348 L688 540Z" fill="{steel}" stroke="{ink}" stroke-width="8"/><path d="M645 532 L693 542 L690 562 L642 555Z" fill="{gold}" stroke="{ink}" stroke-width="6"/><path d="M635 559 L665 590 L645 689 L619 675Z" fill="{wood}" stroke="{ink}" stroke-width="6"/>
+<path d="M740 540 L710 349 L750 404 L771 348 L776 540Z" fill="{steel}" stroke="{ink}" stroke-width="8"/><path d="M728 532 L779 542 L776 562 L725 555Z" fill="{gold}" stroke="{ink}" stroke-width="6"/>
+</g>'''
+    if w=="axe":
+        return f'''<g id="weapon">
+<path d="M696 925 L696 184" stroke="{ink}" stroke-width="29"/><path d="M696 925 L696 184" stroke="{wood}" stroke-width="17"/><path d="M700 166 Q774 112 792 179 Q792 257 711 304 Q720 231 700 166Z" fill="{steel}" stroke="{ink}" stroke-width="10"/><path d="M715 180 Q766 150 778 177" fill="none" stroke="#fff4df" stroke-width="7"/><path d="M678 218 L720 232 L711 264 L674 249Z" fill="{gold}" stroke="{ink}" stroke-width="7"/>
+</g>'''
+    if w=="hammer":
+        return f'''<g id="weapon">
+<path d="M696 925 L696 188" stroke="{ink}" stroke-width="29"/><path d="M696 925 L696 188" stroke="{wood}" stroke-width="17"/><path d="M620 126 Q696 86 773 126 L780 260 Q696 298 612 260Z" fill="{steel}" stroke="{ink}" stroke-width="11"/><path d="M636 151 L756 151 M629 195 L763 195 M640 238 L752 238" stroke="{gold}" stroke-width="9"/><path d="M696 120 L696 270" stroke="{accent}" stroke-width="8"/>
+</g>'''
+    if w=="shield":
+        return f'''<g id="weapon">
+<path d="M696 290 Q778 268 814 316 L804 640 Q760 722 696 670 Q632 722 588 640 L578 316 Q614 268 696 290Z" fill="{steel}" stroke="{ink}" stroke-width="11"/><path d="M696 324 L696 667 M612 354 L780 354 M606 416 L786 416 M611 480 L781 480 M625 548 L767 548" stroke="{gold}" stroke-width="9"/><path d="M696 390 L731 458 L696 526 L661 458Z" fill="{accent}" stroke="{ink}" stroke-width="7"/>
+</g>'''
+    if w=="ribbon":
+        return f'''<g id="weapon">
+<path d="M690 624 Q814 530 762 390 Q721 286 804 176 M690 624 Q790 686 785 820" fill="none" stroke="{ink}" stroke-width="30" stroke-linecap="round"/><path d="M690 624 Q814 530 762 390 Q721 286 804 176 M690 624 Q790 686 785 820" fill="none" stroke="{accent}" stroke-width="18" stroke-linecap="round"/><path d="M690 624 Q814 530 762 390 Q721 286 804 176" fill="none" stroke="#fff0df" stroke-width="5"/>
+</g>'''
+    if w=="mechanism":
+        return f'''<g id="weapon">
+<path d="M696 925 L696 210" stroke="{ink}" stroke-width="24"/><path d="M696 925 L696 210" stroke="{wood}" stroke-width="14"/><path d="M620 220 L696 172 L773 220 L696 268Z" fill="{steel}" stroke="{ink}" stroke-width="9"/><circle cx="696" cy="220" r="27" fill="none" stroke="{gold}" stroke-width="10"/><circle cx="696" cy="220" r="8" fill="{accent}"/><path d="M696 183 L696 257 M658 220 L734 220" stroke="{gold}" stroke-width="6"/>
+</g>'''
+    return f'''<g id="weapon">
+<path d="M696 925 L696 192" stroke="{ink}" stroke-width="27"/><path d="M696 925 L696 192" stroke="{wood}" stroke-width="16"/><path d="M696 108 Q650 161 696 222 Q742 161 696 108Z" fill="{steel}" stroke="{ink}" stroke-width="9"/><path d="M696 125 L696 207" stroke="#fff4df" stroke-width="6"/><path d="M672 232 L720 232" stroke="{gold}" stroke-width="8"/>
+</g>'''
+
 def body_svg(h, index):
     female=h["gender"]=="f"
+    if female:
+        base_slug="diaochan"
+    elif h.get("beard") in ("white","full","moustache","braid"):
+        base_slug="zhang-fei"
+    elif h.get("beard")=="long":
+        base_slug="guan-yu"
+    else:
+        base_slug="liu-bei"
+    source=(ART/(base_slug+".svg")).read_text(encoding="utf-8")
+    # Preserve the approved three-men / Diao Chan illustration style: their exact silhouettes,
+    # anatomy, layered armor, face construction, hands and line weights become the shared master.
     armor=h["armor"]; cloth=h["cloth"]; accent=h["accent"]
-    skin="#f2c7a5" if female else "#e5b18c"
-    ink="#171d22"
-    style=index%6
     if female:
-        body='<path d="M346 344 Q400 322 454 344 L474 554 Q496 706 557 913 Q402 970 243 913 Q304 706 326 554Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="11"/><path d="M351 372 Q400 345 449 372 L456 518 Q400 554 344 518Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="9"/><path d="M362 392 Q400 376 438 392 L442 470 Q400 488 358 470Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="6"/>'+'<path d="M354 414 Q374 390 398 418 Q422 390 446 414" fill="none" stroke="'+accent+'" stroke-width="7"/><path d="M400 416 L400 490" fill="none" stroke="url(#metal)" stroke-width="5"/>'
-        arms='<path d="M344 365 Q311 372 296 411 L266 495 Q260 524 286 540 L312 522 L335 448 L371 417Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M456 365 Q489 372 504 411 L534 495 Q540 524 514 540 L488 522 L465 448 L429 417Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/>'
-        hands='<path d="M269 510 Q282 501 297 511 L313 532 Q317 548 303 557 L287 551 L277 562 Q262 560 258 545Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M531 510 Q518 501 503 511 L487 532 Q483 548 497 557 L513 551 L523 562 Q538 560 542 545Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M278 531 L292 546 M506 531 L520 546" stroke="#a66d5b" stroke-width="4" fill="none"/>'
-        hair='<path d="M342 182 Q310 302 292 470 Q320 535 352 484 L367 293 M458 182 Q490 302 508 470 Q480 535 448 484 L433 293Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="10"/>'
-        extra='<path d="M330 505 Q400 560 470 505 L501 865 Q400 930 299 865Z" fill="none" stroke="'+accent+'" stroke-width="9"/><path d="M320 568 Q400 610 480 568 M302 660 Q400 711 498 660 M277 780 Q400 834 523 780" fill="none" stroke="url(#metal)" stroke-width="6"/>'
+        primary={
+            "#f2d8df":_light(armor,.42),"#9d719d":armor,"#5d405f":_dark(armor,.24),"#2b263e":_dark(cloth,.18),
+            "#dca6d2":_light(cloth,.42),"#9d6283":cloth,"#e7bad6":_light(armor,.30),"#a77aab":armor,
+            "#f2d6e0":_light(armor,.32),"#d7a7c8":_light(cloth,.28),"#3d2943":_dark(cloth,.2),
+            "#251f34":_dark(cloth,.34),"#37283c":_dark(cloth,.12),"#49344b":_dark(cloth,.08),
+            "#4c3547":_dark(cloth,.15)
+        }
+    elif base_slug=="liu-bei":
+        primary={
+            "#ed9a70":_light(armor,.48),"#b64b38":armor,"#7b2b29":_dark(armor,.24),"#391b1d":_dark(cloth,.18),
+            "#c25b45":_light(armor,.22),"#87352e":armor,"#3e2022":_dark(cloth,.22),"#e18b67":_light(armor,.36),
+            "#d17759":_light(armor,.18),"#5a2928":_dark(armor,.28),"#8e3028":_dark(armor,.10),
+            "#8e342e":armor,"#8b302a":_dark(armor,.2)
+        }
+    elif base_slug=="guan-yu":
+        primary={
+            "#b5d69a":_light(armor,.5),"#6b9d70":armor,"#28634c":_dark(armor,.2),"#102e2a":_dark(cloth,.18),
+            "#527c5b":_light(armor,.2),"#244e40":_dark(armor,.28),"#0b2425":_dark(cloth,.24),"#76a878":_light(armor,.38),
+            "#3d7956":armor,"#1d4c3c":_dark(armor,.26),"#102c2b":_dark(cloth,.12)
+        }
     else:
-        body='<path d="M314 345 Q400 308 486 345 L508 572 Q496 694 474 815 L326 815 Q304 694 292 572Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="12"/><path d="M335 355 Q400 322 465 355 L482 526 Q400 573 318 526Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/>'
-        if style==0:
-            chest='<path d="M340 378 Q400 348 460 378 L470 456 Q400 494 330 456Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="7"/><path d="M333 425 Q400 454 467 425 M330 460 Q400 492 470 460 M337 495 Q400 523 463 495" fill="none" stroke="'+accent+'" stroke-width="9"/>'
-        elif style==1:
-            chest='<path d="M340 376 Q400 345 460 376 L478 470 L400 525 L322 470Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M400 374 L400 515 M342 425 L458 425 M333 467 L467 467" fill="none" stroke="'+accent+'" stroke-width="8"/>'
-        elif style==2:
-            chest='<path d="M335 374 Q400 345 465 374 L473 505 Q400 532 327 505Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M344 397 Q400 420 456 397 M338 436 Q400 461 462 436 M334 477 Q400 503 466 477" fill="none" stroke="'+accent+'" stroke-width="8"/>'
-        elif style==3:
-            chest='<path d="M340 370 L460 370 L482 470 L400 531 L318 470Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 390 L450 390 L462 455 L400 500 L338 455Z" fill="url(#armor)" stroke="'+accent+'" stroke-width="7"/><path d="M400 389 L400 505" stroke="url(#metal)" stroke-width="7"/>'
-        elif style==4:
-            chest='<path d="M338 376 Q400 346 462 376 L468 510 Q400 542 332 510Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 397 Q400 421 450 397 L444 469 Q400 493 356 469Z" fill="url(#armor)" stroke="'+accent+'" stroke-width="7"/><g fill="'+accent+'" stroke="url(#ink)" stroke-width="4"><circle cx="365" cy="414" r="9"/><circle cx="400" cy="429" r="10"/><circle cx="435" cy="414" r="9"/></g><path d="M350 478 Q400 506 450 478" fill="none" stroke="url(#metal)" stroke-width="7"/>'
+        primary={
+            "#8d9695":_light(armor,.38),"#47545a":armor,"#202b31":_dark(armor,.23),"#0b1419":_dark(cloth,.2),
+            "#3e4a4d":_dark(armor,.08),"#1b252a":_dark(cloth,.12),"#29343a":_dark(armor,.22),"#111a1e":_dark(cloth,.28),
+            "#080f14":_dark(cloth,.34),"#de805d":_light(armor,.25),"#8c332b":armor,"#401d20":_dark(armor,.24)
+        }
+    # Re-tint all original gold accents to the general's insignia color, retaining rich metallic highlights.
+    gold_pairs={
+        "#fff0b7":_light(accent,.70),"#e0bb70":_light(accent,.20),"#a67536":_dark(accent,.20),
+        "#f1d68e":_light(accent,.38),"#6e4722":_dark(accent,.38),"#e6c77f":_light(accent,.16),
+        "#ebcd88":_light(accent,.32),"#f6d99a":_light(accent,.42),"#f1d895":_light(accent,.35),
+        "#fff1b0":_light(accent,.68),"#d9b76c":_light(accent,.18),"#a87936":_dark(accent,.18),
+        "#f0d58c":_light(accent,.35),"#68441f":_dark(accent,.4),"#c59b54":_light(accent,.08),
+        "#80602f":_dark(accent,.28),"#edcd84":_light(accent,.35),"#c48a42":_dark(accent,.08)
+    }
+    for old,new in {**primary,**gold_pairs}.items():
+        source=source.replace(old,new)
+    # Remove the template's signature weapon and insert the correct weapon for this general.
+    if female:
+        source=re.sub(r'<g><path d="M668 717.*?</g>',weapon_svg_detailed(h,True),source,count=1,flags=re.S)
+    else:
+        source=re.sub(r'<!--\s*(?:Twin swords behind the lord|polearm behind the body|long spear and iron head)\s*-->\s*<g>.*?</g>',
+                      weapon_svg_detailed(h,False),source,count=1,flags=re.S|re.I)
+    # Clean-shaven heroes do not inherit Liu Bei's moustache and short beard.
+    if not female and h.get("beard") in ("clean","none"):
+        source=re.sub(r'<!--\s*(?:neat moustache and short beard|moustache and legendary long beard|huge moustache and forked beard)\s*-->.*?(?=<!--|</svg>)',
+                      "",source,count=1,flags=re.S|re.I)
+    # An individual insignia is placed into the chest plate; silhouette and gold lamellar detail stay intact.
+    fx=h.get("fx","")
+    if fx in ("fire","phoenix","flame"):
+        sigil=f'<path d="M440 510 Q409 544 436 575 Q472 552 440 510Z" fill="{accent}" stroke="#30241d" stroke-width="6"/><path d="M440 522 Q428 548 444 556" fill="none" stroke="#fff0c8" stroke-width="5"/>'
+    elif fx in ("heal","shield"):
+        sigil=f'<path d="M440 505 L473 540 L440 575 L407 540Z" fill="{accent}" stroke="#30241d" stroke-width="6"/><path d="M440 520 L440 560 M420 540 L460 540" stroke="#fff0c8" stroke-width="5"/>'
+    elif fx in ("dragon","tiger","wind","storm","lightning","ironstorm","water"):
+        sigil=f'<path d="M410 532 Q432 505 459 527 Q477 548 448 563 Q425 574 416 551 Q430 543 443 552 Q454 550 449 539" fill="none" stroke="{accent}" stroke-width="10" stroke-linecap="round"/><circle cx="460" cy="526" r="5" fill="#fff0c8"/>'
+    elif fx in ("charm","ice"):
+        sigil=f'<path d="M440 505 Q455 528 477 540 Q455 552 440 575 Q425 552 403 540 Q425 528 440 505Z" fill="{accent}" stroke="#30241d" stroke-width="6"/><circle cx="440" cy="540" r="8" fill="#fff0c8"/>'
+    else:
+        sigil=f'<path d="M440 506 L474 540 L440 574 L406 540Z" fill="{accent}" stroke="#30241d" stroke-width="6"/><path d="M440 516 L440 564 M416 540 L464 540" stroke="#fff0c8" stroke-width="5"/>'
+    if female:
+        accessory=h.get("head","")
+        if accessory in ("flower","hairpin"):
+            sigil_head=f'<g stroke="{accent}" stroke-width="5" fill="none"><circle cx="545" cy="168" r="16"/><circle cx="545" cy="168" r="5"/><path d="M545 143 L545 131 M520 168 L508 168 M570 168 L582 168"/></g>'
+        elif accessory in ("ribbon","veil"):
+            sigil_head=f'<path d="M520 165 Q600 130 620 205 Q580 197 550 225" fill="none" stroke="{accent}" stroke-width="12" stroke-linecap="round"/>'
+        elif accessory in ("plume","phoenix"):
+            sigil_head=f'<path d="M520 174 Q548 95 590 82 Q580 145 550 184Z" fill="{accent}" stroke="#30241f" stroke-width="6"/><path d="M545 164 L580 107" stroke="#fff2d9" stroke-width="5"/>'
         else:
-            chest='<path d="M334 379 Q400 344 466 379 L478 500 Q400 543 322 500Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/><path d="M350 397 L450 397 L465 466 L400 515 L335 466Z" fill="url(#armor)" stroke="'+accent+'" stroke-width="7"/><path d="M355 420 L445 420 M342 463 L458 463 M400 397 L400 505" fill="none" stroke="url(#metal)" stroke-width="7"/><path d="M365 441 L435 481 M435 441 L365 481" fill="none" stroke="'+accent+'" stroke-width="5"/>'
-        body+=chest
-        arms='<path d="M321 359 Q286 366 269 411 L241 485 Q236 516 263 535 L294 520 L318 448 L355 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M479 359 Q514 366 531 411 L559 485 Q564 516 537 535 L506 520 L482 448 L445 416Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M252 473 Q279 463 299 487 L290 532 L263 546 Q244 529 245 505Z M548 473 Q521 463 501 487 L510 532 L537 546 Q556 529 555 505Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/>'
-        hands='<path d="M251 518 Q266 506 283 519 L299 541 Q302 557 288 568 L273 559 L261 570 Q246 565 242 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M549 518 Q534 506 517 519 L501 541 Q498 557 512 568 L527 559 L539 570 Q554 565 558 549Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="7"/><path d="M254 542 L270 557 M546 542 L530 557" stroke="#9a644d" stroke-width="4" fill="none"/>'
-        extra='<path d="M326 548 Q400 579 474 548 L462 684 Q400 715 338 684Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="9"/><path d="M337 568 Q400 594 463 568 M341 605 Q400 629 459 605 M346 643 Q400 664 454 643" fill="none" stroke="'+accent+'" stroke-width="7"/>'
-        hair='<path d="M342 176 Q329 243 350 287 L331 338 Q303 308 311 215 Q310 138 371 115Z M458 176 Q471 243 450 287 L469 338 Q497 308 489 215 Q490 138 429 115Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="9"/>'
-    # Cape and common lower-body structure.
-    cape='<path d="M320 352 Q242 395 218 564 L251 788 Q300 747 345 696 L400 730 L455 696 Q500 747 549 788 L582 564 Q558 395 480 352 L445 407 L400 430 L355 407Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="10"/><path d="M246 548 Q282 570 318 545 M554 548 Q518 570 482 545" fill="none" stroke="'+accent+'" stroke-width="8"/>'
-    legs='<path d="M326 680 Q400 716 474 680 L458 878 L424 931 L362 931 L342 878Z" fill="url(#armor)" stroke="url(#ink)" stroke-width="11"/><path d="M341 742 Q400 768 459 742 L450 828 Q400 852 350 828Z" fill="url(#cloth)" stroke="'+accent+'" stroke-width="7"/><path d="M350 872 L422 872 L433 950 Q400 969 333 950Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M333 950 Q380 964 433 950 L445 982 Q380 1000 315 982Z" fill="#211f20" stroke="url(#ink)" stroke-width="8"/>'
-    if female:
-        legs='<path d="M330 670 Q400 700 470 670 L552 916 Q400 982 248 916Z" fill="url(#cloth)" stroke="url(#ink)" stroke-width="11"/><path d="M350 710 Q400 740 450 710 L485 899 Q400 944 315 899Z" fill="url(#armor)" stroke="'+accent+'" stroke-width="8"/><path d="M400 704 L400 917" stroke="url(#metal)" stroke-width="6"/>'
-    beard_kind=h["beard"]
-    beard=""
-    if not female and beard_kind not in ("none","clean"):
-        beard_path={
-            "short":'<path d="M354 270 Q400 321 446 270 L438 315 Q400 352 362 315Z"/>',
-            "goatee":'<path d="M370 278 Q400 312 430 278 Q426 345 400 362 Q374 345 370 278Z"/>',
-            "long":'<path d="M355 270 Q400 320 445 270 L442 398 Q400 466 358 398Z"/>',
-            "full":'<path d="M346 262 Q400 326 454 262 L470 350 Q445 432 400 448 Q355 432 330 350Z"/>',
-            "white":'<path d="M355 270 Q400 320 445 270 L440 390 Q400 432 360 390Z"/>',
-            "moustache":'<path d="M360 270 Q380 250 400 274 Q420 250 440 270 Q422 299 400 284 Q378 299 360 270Z"/>',
-            "braid":'<path d="M354 270 Q400 320 446 270 L438 360 Q400 414 362 360Z"/>'
-        }.get(beard_kind,"")
-        bfill="#e1d4bd" if beard_kind=="white" else "#211d1c"
-        beard=beard_path.replace("/>",' fill="'+bfill+'" stroke="url(#ink)" stroke-width="7"/>')
-        if beard_kind=="braid":
-            beard+='<path d="M400 364 Q414 402 398 442" fill="none" stroke="'+accent+'" stroke-width="8"/>'
-    face='<path d="M350 166 Q350 112 400 108 Q450 112 450 166 L446 254 Q436 304 400 320 Q364 304 354 254Z" fill="url(#skin)" stroke="url(#ink)" stroke-width="9"/><path d="M354 221 Q400 243 446 221" fill="none" stroke="#c88468" stroke-width="4" opacity=".65"/><path d="M368 206 Q385 190 395 205 M405 205 Q415 190 432 206" fill="none" stroke="#30201d" stroke-width="8" stroke-linecap="round"/><path d="M368 225 Q382 207 396 225 Q382 243 368 225Z M404 225 Q418 207 432 225 Q418 243 404 225Z" fill="#fff0df" stroke="#3b2928" stroke-width="5"/><g fill="#292126"><ellipse cx="382" cy="225" rx="5" ry="8"/><ellipse cx="418" cy="225" rx="5" ry="8"/></g><path d="M369 216 L362 210 M431 216 L438 210" fill="none" stroke="#332326" stroke-width="4"/><path d="M400 222 L390 257 Q400 266 410 257" fill="none" stroke="#a96f58" stroke-width="5"/><path d="M382 278 Q400 286 418 278" fill="none" stroke="#8d5145" stroke-width="5"/><path d="M338 198 Q326 225 348 244 M462 198 Q474 225 452 244" fill="none" stroke="url(#skin)" stroke-width="12"/>'
-    if female:
-        face=face.replace('Q400 286 418 278','Q400 282 418 278')
-        face+='<g fill="#d88992" opacity=".28"><circle cx="358" cy="257" r="10"/><circle cx="442" cy="257" r="10"/></g><path d="M385 284 Q400 293 415 284" fill="none" stroke="#a74f63" stroke-width="4"/>'
-        hair+='<path d="M352 180 Q370 149 398 154 Q430 150 448 181" fill="none" stroke="'+h["accent"]+'" stroke-width="9"/>'
+            sigil_head=f'<path d="M520 157 Q560 123 594 157 L574 187 L535 187Z" fill="{accent}" stroke="#30241f" stroke-width="6"/>'
+        source=source.replace("</svg>",sigil_head+sigil+"</svg>")
     else:
-        hair+='<path d="M356 153 Q400 110 444 153 L438 183 Q400 159 362 183Z" fill="url(#hair)" stroke="url(#ink)" stroke-width="7"/>'
-    helmet=headgear(h)
-    if female:
-        shoulders='<path d="M340 354 Q300 346 286 386 L318 428 L354 399 M460 354 Q500 346 514 386 L482 428 L446 399" fill="url(#armor)" stroke="url(#ink)" stroke-width="8"/><path d="M344 365 Q400 342 456 365" fill="none" stroke="url(#metal)" stroke-width="8"/>'
-        collar='<path d="M360 345 Q400 385 440 345 L432 403 Q400 430 368 403Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="7"/>'
-    else:
-        shoulders='<path d="M330 352 Q285 328 268 378 L304 446 L349 414Z M470 352 Q515 328 532 378 L496 446 L451 414Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="9"/><path d="M280 384 Q309 356 333 391 M520 384 Q491 356 467 391" fill="none" stroke="'+accent+'" stroke-width="8"/>'
-        collar='<path d="M354 332 Q400 360 446 332 L438 382 Q400 415 362 382Z" fill="url(#metal)" stroke="url(#ink)" stroke-width="8"/>'
-    rows=[]
-    for y in (414,452,490,528):
-        width=58+(y-414)//5
-        rows.append(f'<path d="M{400-width} {y} Q400 {y+17} {400+width} {y} L{400+width-7} {y+26} Q400 {y+43} {400-width+7} {y+26}Z" fill="url(#armor)" stroke="{accent}" stroke-width="5"/>')
-    emblem='<path d="M400 405 L420 433 L400 462 L380 433Z" fill="'+accent+'" stroke="url(#ink)" stroke-width="5"/><circle cx="400" cy="433" r="8" fill="url(#metal)"/>'
-    if female:
-        emblem='<path d="M400 403 Q430 426 400 456 Q370 426 400 403Z" fill="'+accent+'" stroke="url(#ink)" stroke-width="5"/><circle cx="400" cy="429" r="9" fill="url(#metal)"/>'
-    rivets='<g fill="#f1d99a" stroke="url(#ink)" stroke-width="3"><circle cx="343" cy="446" r="6"/><circle cx="457" cy="446" r="6"/><circle cx="350" cy="489" r="5"/><circle cx="450" cy="489" r="5"/></g>'
-    if h["beard"]=="white": hair=hair.replace('url(#hair)','url(#hair)')
-    defs=f'''<defs>
-<linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="{h["accent"]}"/><stop offset=".22" stop-color="{armor}"/><stop offset=".62" stop-color="{cloth}"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="{cloth}"/><stop offset=".55" stop-color="{h["cloth"]}"/><stop offset="1" stop-color="#171d22"/></linearGradient>
-<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0c7"/><stop offset=".3" stop-color="{accent}"/><stop offset=".7" stop-color="#8a653b"/><stop offset="1" stop-color="#30251c"/></linearGradient>
-<linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0c0"/><stop offset=".65" stop-color="{skin}"/><stop offset="1" stop-color="#a96e5a"/></linearGradient>
-<linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#51403a"/><stop offset=".45" stop-color="#211e20"/><stop offset="1" stop-color="#090e12"/></linearGradient>
-<linearGradient id="ink"><stop stop-color="#24201e"/><stop offset="1" stop-color="#0d1318"/></linearGradient><linearGradient id="accent"><stop stop-color="{accent}"/><stop offset="1" stop-color="#5f472e"/></linearGradient>
-</defs>'''
-    title=f'<title>{esc(h["name"])} · 独立全身立绘</title><desc>统一厚涂质感线稿、完整双臂与双手结构、分层胸甲和专属武器。</desc>'
-    # Render weapon behind the arms so the grip sits in the palm rather than floating beside it.
-    scale_x=1.4 if not female else 1.25
-    offset_x=-160 if not female else -100
-    weapon_shift=45 if not female else 22
-    if h["weapon"] in ("dual-dagger","dual-blade","dual-axe"): weapon_shift=0
-    wide=f'<g transform="translate({offset_x} 0) scale({scale_x} 1)">'
-    content='<ellipse cx="400" cy="984" rx="220" ry="15" fill="#101719" opacity=".18"/>'+wide+cape+'</g><g transform="translate('+str(weapon_shift)+' 0)">'+weapon_svg(h)+'</g>'+wide+legs+body+arms+shoulders+collar+''.join(rows)+emblem+rivets+extra+hair+'<path d="M360 334 Q400 354 440 334" fill="none" stroke="'+accent+'" stroke-width="8"/>'+face+beard+helmet+hands+'</g>'
-    if female:
-        content+='<g transform="translate(-100 0) scale(1.25 1)"><g fill="'+accent+'" stroke="url(#ink)" stroke-width="4"><circle cx="338" cy="265" r="9"/><circle cx="462" cy="265" r="9"/></g><path d="M355 294 Q400 309 445 294" fill="none" stroke="#f8e0d3" stroke-width="4" opacity=".8"/></g>'
-    else:
-        content+='<path d="M345 203 Q360 188 380 197 M420 197 Q440 188 455 203" fill="none" stroke="#171819" stroke-width="7"/>'
-    return f'<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">{title}{defs}<g stroke-linejoin="round" stroke-linecap="round">{content}</g></svg>'
+        source=source.replace("</svg>",sigil+"</svg>")
+    label=esc(h["name"])
+    source=re.sub(r'<title>.*?</title>',f'<title>{label} · 2D 立绘</title>',source,count=1,flags=re.S)
+    source=re.sub(r'<desc>.*?</desc>',f'<desc>按刘关张基准构图与线稿绘制，独立头饰、武器、胸甲配色、人物标识和专属技能。</desc>',source,count=1,flags=re.S)
+    return source
 
 def portrait_svg(body,h):
     m=re.search(r'<svg[^>]*>(.*)</svg>',body,re.S)
