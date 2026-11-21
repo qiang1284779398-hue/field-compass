@@ -2,18 +2,18 @@
 
 ## Current implementation
 
-The first playable 3D hero is **Liu Bei**, integrated into the allied formation in the existing 2.5D battlefield.
+The first three allied generals now use separate, original procedural Q-style 3D character builds in the existing 2.5D battlefield.
 
-- Character source: `app/src/main/assets/hero3d.js`.
-- Geometry: original procedural Three.js meshes with beveled extruded plates, curved tubes, shaped robe panels, layered metal fittings, sculpted facial forms, and detailed straight jian swords. Static sibling meshes are merged by material inside each rig segment to keep Android draw calls manageable.
-- Style: compact Q-style proportions; deep vermilion layered robe; individually modeled lamellar chest scales, faulds, shoulder guards, bracers and greaves; decorated winged ceremonial crown with jade and red enamel; long earlobes; layered moustache and divided chin beard; paired ornamented jian.
-- Face: separate cheek/jaw planes, brow ridges, eyelids, irises, pupils, catchlights, nose bridge/tip/nostrils, mouth, sideburns and individual beard strands.
-- Weapon placement: both jian are attached to the hands, lifted into a forward depth layer ahead of the breastplate, and angled outward in the rest pose so neither the torso nor cape occludes them during attacks and skills. Browser QA also checks their scaled world-space depth and live attack rotation.
-- Animation: procedural idle breathing/sway, anticipation-to-strike-to-recovery sword movement, articulated shoulder/elbow/wrist/hand response, subtle leg bracing, skill preparation, hit reaction, and a simple knockdown/death pose.
-- Runtime: Three.js r128, loaded locally from `app/src/main/assets/vendor/three.min.js`; no model or texture is fetched at runtime.
-- Scene integration: a transparent WebGL canvas is layered into the existing 2.5D battlefield and positions Liu Bei against the same `.body-art` anchor used by the original 2D sprites.
-- Fallback: Liu Bei's existing SVG remains in the markup and is revealed automatically if the WebGL model cannot initialize.
-- Scope: only the allied Liu Bei currently uses the new 3D renderer. Guan Yu, Zhang Fei, enemy characters, and the rest of the general roster retain their existing 2D artwork. The terrain painter and miniature pixel troop formations are unchanged.
+- Shared source: `app/src/main/assets/hero3d.js`.
+- Shared geometry language: beveled extruded plates, curved tube details, layered cloth and armour, sculpted facial forms, articulated hands and weapon grips. Static sibling meshes are merged by material inside rig segments to reduce draw calls on Android.
+- **Liu Bei**: deep vermilion layered robe, detailed gold lamellar armour, winged crown with jade and red enamel, long earlobes, layered moustache and divided chin beard, paired ornamented jian held visibly in front of the torso.
+- **Guan Yu**: broad green battle robe and green lamellar armour, ruddy face, stern eyes, long black side-locks and flowing multi-strand beard, green-and-gold battle turban, oversized shoulder guards, and a detailed front-held Green Dragon Crescent Blade with a crescent steel edge, engraved shaft, fittings and red silk tassel.
+- **Zhang Fei**: wider, stockier silhouette, dark iron lamellar armour over crimson under-robe, oversized tiger-like pauldrons, broad ruddy face, heavy brows and round fierce eyes, black wrapped headcloth, thick moustache and pointed beard, and a front-held Zhangba Serpent Spear with recurved steel point, lacquered shaft and red tassel.
+- **Face detail**: each character has individually positioned brows, eyelids, irises, pupils, catchlights, nose, cheeks, jaw, mouth and facial hair; face proportions, complexion and beard silhouette differ by general.
+- **Weapons and animation**: each signature weapon stays forward of the breastplate and cape. Weapon rotation is linked to the articulated hand/forearm hierarchy; idle sway, anticipation, attack swing, skill preparation, recovery, hurt and death states are shared while retaining each general's distinct equipment and silhouette.
+- **Runtime**: Three.js r128, loaded locally from `app/src/main/assets/vendor/three.min.js`; no model or texture is fetched at runtime.
+- **Scene integration**: a transparent WebGL canvas is layered into the existing 2.5D battlefield and each 3D actor is anchored to the matching original `.body-art` placement. The three original 2D SVG sprites remain available as graceful fallbacks.
+- **Preservation**: terrain painter, miniature pixel troop formations, non-brother generals, campaign logic, skills, status effects, troop rules, and save data remain in their existing systems.
 
 ## What this prototype is not
 
