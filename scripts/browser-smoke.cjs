@@ -177,6 +177,8 @@ const assert = require("node:assert/strict");
   const liuBei3dStatus = await page.evaluate(() => window.__hero3dStatus());
   const liuBei3d = liuBei3dStatus.find(x=>x.id==="liu-bei");
   assert.ok(liuBei3d && liuBei3d.model==="procedural-chibi-3d" && liuBei3d.meshes>=35 && liuBei3d.heightRatio>2.5, "Liu Bei must render as a multipart Q-style 3D model: "+JSON.stringify(liuBei3d));
+  assert.ok(liuBei3d.detailLevel==="high-detail-chibi" && liuBei3d.optimizedStaticMeshes===true, "Liu Bei must use the fully detailed, mobile-optimized character build: "+JSON.stringify(liuBei3d));
+  assert.ok(Object.values(liuBei3d.rig||{}).every(Boolean) && liuBei3d.rig.weapons===2, "Liu Bei must retain a complete articulated body and two separate swords: "+JSON.stringify(liuBei3d));
   const spriteStatus = await page.evaluate(() => ["liu-bei","guan-yu","zhang-fei"].map(id => {
     const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
     return { id, loaded:!!img && img.complete && img.naturalWidth > 0, width:img?.naturalWidth||0, height:img?.naturalHeight||0 };
