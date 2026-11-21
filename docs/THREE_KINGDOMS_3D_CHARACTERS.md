@@ -24,9 +24,10 @@ This first pass is **not** a skinned GLB/GLTF character and does not use motion-
 The Android workflow installs Three.js r128, copies its minified runtime into the app's offline assets, then runs source checks, Chromium browser interaction tests, and the APK build.
 
 The browser test checks that:
-- the Three.js renderer initializes and the Liu Bei character is attached to the battlefield;
-- the character contains a multipart 3D mesh assembly and uses Q-style proportions;
-- a normal attack changes the character's animation state;
+- the Three.js renderer initializes and all three sworn brothers attach to the battlefield;
+- each character contains a high-detail multipart 3D assembly with its own silhouette and signature weapon;
+- Guan Yu and Zhang Fei's signature weapons remain in the visible forward layer;
+- attack and skill inputs change each character's animation state;
 - battle damage, skill energy, defence, enemy turns, and save/reload continue to work.
 
 The Android emulator/device job remains skipped when the project owner requests browser-only validation.
@@ -34,4 +35,4 @@ The Android emulator/device job remains skipped when the project owner requests 
 ## Licence
 
 - Three.js: MIT License. The bundled runtime is sourced from https://github.com/mrdoob/three.js.
-- Liu Bei's procedural mesh design and part-animation code in `hero3d.js` are original project code.
+- The three sworn brothers' procedural mesh designs and part-animation code in `hero3d.js` are original project code.
