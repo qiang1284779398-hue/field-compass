@@ -5,11 +5,11 @@ import numpy as np
 import torch
 from torch import nn
 
-DS="codepawl/pixel-atlas-glb"
+SOURCES=["codepawl/pixel-atlas-glb","codepawl/objaverse-clean-glb"]
 OUT=Path("mobile-gpu-lab/trained")
 CACHE=Path("/tmp/glb-cache")
 MAX=int(os.getenv("MAX_MODELS","10000"))
-LIMIT=int(os.getenv("MAX_GLB_BYTES",str(4*1024*1024)))
+LIMIT=int(os.getenv("MAX_GLB_BYTES",str(16*1024*1024)))
 N=128
 random.seed(17); np.random.seed(17); torch.manual_seed(17)
 torch.set_num_threads(2)
@@ -34,20 +34,24 @@ def api(url,params):
 
 def rows():
  base="https://datasets-server.huggingface.co"
- sp=api(base+"/splits",{"dataset":DS}).get("splits",[])
  out=[]
- for x in sp[:12]:
-  offset=0
-  while offset<2000 and len(out)<MAX*12:
-   try:
-    q=api(base+"/rows",{"dataset":DS,"config":x["config"],"split":x["split"],"offset":offset,"length":100})
-    batch=q.get("rows",[])
-    out.extend(z.get("row",{}) for z in batch)
-    if len(batch)<100: break
-    offset+=100
-   except Exception as e:
-    print("[WARN] split page:",x.get("split"),offset,str(e)[:160],flush=True); break
-  if len(out)>=MAX*12: break
+ for dataset in SOURCES:
+  try:
+   splits=api(base+"/splits",{"dataset":dataset}).get("splits",[])
+  except Exception as e:
+   print("[WARN] split metadata",dataset,str(e)[:160],flush=True); continue
+  for x in splits:
+   offset=0
+   while offset<100000 and len(out)<MAX*3:
+    try:
+     q=api(base+"/rows",{"dataset":dataset,"config":x["config"],"split":x["split"],"offset":offset,"length":100})
+     batch=q.get("rows",[])
+     out.extend((dataset,z.get("row",{})) for z in batch)
+     if len(batch)<100: break
+     offset+=100
+    except Exception as e:
+     print("[WARN] page",dataset,offset,str(e)[:160],flush=True); break
+   if len(out)>=MAX*3: break
  return out
 
 def getpath(r):
@@ -59,7 +63,7 @@ def getpath(r):
   if isinstance(v,str) and v.lower().split("?")[0].endswith(".glb"): return v
  return None
 
-def getpoints(path):
+def getpoints(path,dataset):
  url=path if path.startswith("http") else "https://huggingface.co/datasets/"+DS+"/resolve/main/"+path.lstrip("/")
  r=S.get(url,timeout=90); r.raise_for_status()
  b=r.content
@@ -121,20 +125,26 @@ def feat(s,d=256):
 def main():
  OUT.mkdir(parents=True,exist_ok=True); samples=[]; seen=set(); rejected={}
  rr=rows(); print("[INFO] metadata rows",len(rr),flush=True)
- for r in rr:
+ for dataset,r in rr:
   lic=str(r.get("license") or "").upper().replace("_","-")
-  path=getpath(r); caption=str(r.get("caption") or r.get("subject") or r.get("title") or "").strip()
-  if lic not in ("CC0-1.0","CC0"): rejected["license"]=rejected.get("license",0)+1; continue
+  path=getpath(r)
+  title=str(r.get("title") or r.get("subject") or r.get("id") or "").strip()
+  category=str(r.get("category") or r.get("kind") or "").strip()
+  caption=str(r.get("caption") or r.get("subject") or "").strip()
+  if not caption: caption=(title+" "+category).strip()
+  if lic not in ("CC0-1.0","CC0","CC-BY-4.0","CC-BY"): rejected["license"]=rejected.get("license",0)+1; continue
   if not path or len(caption)<3: rejected["missing_path_or_caption"]=rejected.get("missing_path_or_caption",0)+1; continue
-  if path in seen: continue
-  seen.add(path)
+  key=dataset+":"+path
+  if key in seen: continue
+  seen.add(key)
   try:
-   pts,size=getpoints(path)
-   samples.append({"id":str(r.get("id") or path),"caption":caption[:250],"license":"CC0-1.0","path":path,"bytes":size,"points":pts})
-   print("[DATA]",len(samples),caption[:65],size,flush=True)
+   pts,size=getpoints(path,dataset)
+   samples.append({"id":str(r.get("id") or path),"caption":caption[:250],"license":lic,"dataset":dataset,"path":path,"author":str(r.get("authors") or r.get("author") or ""),"source_url":str(r.get("source_url") or ""),"license_url":str(r.get("license_url") or ""),"bytes":size,"points":pts})
+   print("[DATA]",len(samples),dataset,lic,caption[:65],size,flush=True)
    if len(samples)>=MAX: break
   except Exception as e:
-   rejected["asset_parse"]=rejected.get("asset_parse",0)+1; print("[SKIP]",path,str(e)[:180],flush=True)
+   rejected["asset_parse"]=rejected.get("asset_parse",0)+1; print("[SKIP]",dataset,path,str(e)[:180],flush=True)
+
  if len(samples)<4: raise RuntimeError("Only %d usable CC0 assets; rejected=%s"%(len(samples),rejected))
  X=torch.tensor(np.stack([feat(s["caption"]) for s in samples]))
  Y=torch.tensor(np.stack([s["points"].reshape(-1) for s in samples]))
@@ -165,9 +175,9 @@ def main():
   if ep==0 or (ep+1)%10==0: print("epoch",ep+1,"/",epochs,"Chamfer",round(avg,6),flush=True)
  weights={k:v.detach().tolist() for k,v in model.state_dict().items()}
  (OUT/"pointcloud-model.json").write_text(json.dumps({"schema":"text3d-cpu-mlp-v1","input_dim":256,"hidden_dim":128,"points":N,"architecture":"256-128-ReLU-384-Tanh","weights":weights},separators=(",",":")))
- clean=[{"id":s["id"],"caption":s["caption"],"license":s["license"],"source":DS,"path":s["path"],"bytes":s["bytes"],"points":np.round(s["points"],5).tolist()} for s in samples]
+ clean=[{"id":s["id"],"caption":s["caption"],"license":s["license"],"source":s["dataset"],"path":s["path"],"author":s["author"],"source_url":s["source_url"],"license_url":s["license_url"],"bytes":s["bytes"],"points":np.round(s["points"],5).tolist()} for s in samples]
  (OUT/"training-samples.json").write_text(json.dumps({"schema":"text3d-pointcloud-samples-v1","point_count":N,"samples":clean},ensure_ascii=False,separators=(",",":")))
- manifest={"dataset":DS,"license_filter":"per-row CC0 only","device":"GitHub Actions CPU","sample_count":len(samples),"point_count":N,"epochs":epochs,"warm_started":warm_started,"initial_chamfer":hist[0],"final_chamfer":hist[-1],"best_chamfer":min(hist),"history":hist,"rejected":rejected,"created_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),"limitations":["small low-poly subset", "raw source GLB remains addressable by dataset path; this run stores normalized point clouds and provenance, not binary GLB files","hashed character n-gram features, no pretrained language model","point cloud only; no mesh topology, materials, textures or rigging","experimental baseline, not comparable to commercial text-to-3D systems"]}
+ manifest={"datasets":SOURCES,"license_filter":"per-row CC0 or CC-BY-4.0; attribution retained for CC-BY","device":"GitHub Actions CPU","sample_count":len(samples),"point_count":N,"epochs":epochs,"warm_started":warm_started,"initial_chamfer":hist[0],"final_chamfer":hist[-1],"best_chamfer":min(hist),"history":hist,"rejected":rejected,"created_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),"limitations":["small low-poly subset", "raw source GLB remains addressable by dataset path; this run stores normalized point clouds and provenance, not binary GLB files","hashed character n-gram features, no pretrained language model","point cloud only; no mesh topology, materials, textures or rigging","experimental baseline, not comparable to commercial text-to-3D systems"]}
  (OUT/"training-manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
  print("[DONE] assets",len(samples),"final Chamfer",hist[-1],flush=True)
 
