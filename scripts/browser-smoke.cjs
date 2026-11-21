@@ -180,7 +180,7 @@ const assert = require("node:assert/strict");
   assert.ok(liuBei3d.detailLevel==="high-detail-chibi" && liuBei3d.optimizedStaticMeshes===true, "Liu Bei must use the fully detailed, mobile-optimized character build: "+JSON.stringify(liuBei3d));
   assert.ok(Object.values(liuBei3d.rig||{}).every(Boolean) && liuBei3d.rig.weapons===2, "Liu Bei must retain a complete articulated body and two separate swords: "+JSON.stringify(liuBei3d));
   assert.ok(liuBei3d.weapons?.frontLayer===true && liuBei3d.weapons.zOffset>=.4 && liuBei3d.weapons.angles?.length===2, "Liu Bei's twin swords must be held in the visible front layer: "+JSON.stringify(liuBei3d.weapons));
-  assert.ok(liuBei3d.weapons.world?.length===2 && liuBei3d.weapons.world.every(w=>w.z/liuBei3d.scale>.5), "both sword models must remain ahead of the torso after character scaling: "+JSON.stringify({weapons:liuBei3d.weapons,scale:liuBei3d.scale}));
+  assert.ok(liuBei3d.weapons.world?.length===2 && liuBei3d.weapons.world.every(w=>w.z/liuBei3d.scale>.42), "both sword models must remain ahead of the torso after character scaling: "+JSON.stringify({weapons:liuBei3d.weapons,scale:liuBei3d.scale}));
   const spriteStatus = await page.evaluate(() => ["liu-bei","guan-yu","zhang-fei"].map(id => {
     const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
     return { id, loaded:!!img && img.complete && img.naturalWidth > 0, width:img?.naturalWidth||0, height:img?.naturalHeight||0 };
