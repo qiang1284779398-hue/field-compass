@@ -10,14 +10,14 @@
     roughness: roughness == null ? 0.72 : roughness
   });
   const mats = {
-    robe: mat(0x8a2928, 0.12, 0.76), robeLight: mat(0xb54638, 0.08, 0.68),
-    robeDark: mat(0x4c1e22, 0.16, 0.82), skin: mat(0xe6b18d, 0.02, 0.88),
-    skinShade: mat(0xb9765c, 0.02, 0.9), hair: mat(0x211a18, 0.02, 0.9),
-    beard: mat(0x352721, 0.02, 0.96), gold: mat(0xd8b66f, 0.72, 0.3),
-    goldDark: mat(0x89602d, 0.62, 0.44), leather: mat(0x38251d, 0.05, 0.86),
-    steel: mat(0xc8d0ca, 0.78, 0.24), steelDark: mat(0x657777, 0.72, 0.3),
-    white: mat(0xf4ead9, 0.02, 0.48), pupil: mat(0x211715, 0.02, 0.28),
-    black: mat(0x211b19, 0.02, 0.92), jade: mat(0x2d8062, 0.4, 0.28)
+    robe: mat(0x681d24, 0.05, 0.82), robeLight: mat(0x91332f, 0.04, 0.78),
+    robeDark: mat(0x35171d, 0.04, 0.88), skin: mat(0xc98766, 0.01, 0.92),
+    skinShade: mat(0x87513f, 0.01, 0.94), hair: mat(0x171210, 0.01, 0.96),
+    beard: mat(0x211915, 0.01, 0.98), gold: mat(0xa77b3d, 0.42, 0.42),
+    goldDark: mat(0x65451f, 0.32, 0.55), leather: mat(0x281a15, 0.02, 0.94),
+    steel: mat(0x9caeb0, 0.52, 0.34), steelDark: mat(0x4c6264, 0.38, 0.48),
+    white: mat(0xd9c8ad, 0.01, 0.72), pupil: mat(0x1a100e, 0.01, 0.42),
+    black: mat(0x171310, 0.01, 0.96), jade: mat(0x1e684d, 0.22, 0.42)
   };
 
   function add(parent, geometry, material, position, scale, rotation) {
@@ -169,9 +169,11 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.25));
     renderer.setClearColor(0x000000,0);
     if(THREE.sRGBEncoding)renderer.outputEncoding=THREE.sRGBEncoding;
-    scene.add(new THREE.HemisphereLight(0xfff1df,0x42322c,2.05));
-    const key=new THREE.DirectionalLight(0xffe6be,2.1);key.position.set(-3,6,8);scene.add(key);
-    const fill=new THREE.DirectionalLight(0x86a9c9,.72);fill.position.set(4,2,-5);scene.add(fill);
+    if(THREE.ACESFilmicToneMapping!==undefined)renderer.toneMapping=THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure=.82;
+    scene.add(new THREE.HemisphereLight(0xffe6ce,0x34231d,.88));
+    const key=new THREE.DirectionalLight(0xffd59c,1.18);key.position.set(-3,6,8);scene.add(key);
+    const fill=new THREE.DirectionalLight(0x86a9c9,.30);fill.position.set(4,2,-5);scene.add(fill);
     app={scene,camera,renderer,width:0,height:0};
   }
   function ensureActor(id,key) {
@@ -253,7 +255,7 @@
     if(lastScene&&lastScene.isConnected){sync(lastScene);actors.forEach(a=>animate(a,now));app.renderer.render(app.scene,app.camera);}
   }
   window.__hero3dStatus=function(){
-    return Array.from(actors.values()).map(a=>({id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,model:"procedural-chibi-3d",heightRatio:2.02/0.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}}));
+    return Array.from(actors.values()).map(a=>({id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",heightRatio:2.02/0.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}}));
   };
   window.initHero3D=function(sceneEl){
     try{init();if(!app)return;sync(sceneEl);if(!raf)raf=requestAnimationFrame(frame);}
