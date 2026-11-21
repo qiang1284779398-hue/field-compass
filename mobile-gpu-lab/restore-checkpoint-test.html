@@ -4,7 +4,7 @@
 :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px;background:#10151d;color:#e8eef7;font:15px system-ui;line-height:1.55}.wrap{max-width:760px;margin:auto}h1{font-size:23px}.card{background:#1a2431;border:1px solid #344355;border-radius:14px;padding:16px;margin:14px 0}.muted{color:#9fb0c4}.big{font-size:24px;font-weight:700;overflow-wrap:anywhere}button{width:100%;padding:14px;border:0;border-radius:10px;background:#5c9cff;color:#071321;font-size:16px;font-weight:700}button:disabled{opacity:.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c1118;padding:12px;border-radius:10px;font-size:12px}.bar{height:12px;background:#344355;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#70e0a1}
 </style></head><body><main class="wrap">
 <h1>第八阶段：跨页面恢复检查点</h1>
-<p class="muted">本阶段不重新训练。它会从上一阶段写入的 IndexedDB 读取检查点，把 49 个已训练参数重新装入 GPU Buffer，再从 GPU 读回比对。请在上一阶段显示 PASS 后再运行。</p>
+<p class="muted">本阶段不重新训练。它会从上一阶段写入的 IndexedDB 读取检查点（保存数组长度为 64，其中前 49 项为有效训练参数），把有效参数重新装入 GPU Buffer，再从 GPU 读回比对。请在上一阶段显示 PASS 后再运行。</p>
 <div class="card"><div class="muted">状态</div><div class="big" id="status">等待验证</div><div class="bar"><i id="progress"></i></div><p class="muted" id="detail">点击按钮开始读取手机本地检查点。</p></div>
 <button id="run">读取旧检查点并恢复到 GPU</button>
 <div class="card"><div class="muted">恢复参数数量</div><div class="big" id="count">—</div><p id="verdict" class="muted">完成后显示验证结论。</p></div>
@@ -24,12 +24,12 @@ async function run(){
  const b=$('run');b.disabled=true;$('status').textContent='按钮已响应，读取本地数据…';$('progress').style.width='10%';$('detail').textContent='正在打开 IndexedDB。';
  try{
   const cp=await loadCheckpoint();if(!cp||!Array.isArray(cp.weights))throw Error('没有找到有效检查点。请先运行第七阶段并确认 PASS。');
-  if(cp.weights.length!==49||cp.weights.some(x=>!Number.isFinite(x)))throw Error('检查点参数格式错误：需要 49 个有限数值。');
+  if((cp.weights.length!==49&&cp.weights.length!==64)||cp.weights.slice(0,49).some(x=>!Number.isFinite(x)))throw Error('检查点参数格式错误：应为 49 个有效参数，或第七阶段保存的 64 项参数缓冲区。');
   $('status').textContent='本地检查点读取成功';$('progress').style.width='35%';
   if(!navigator.gpu)throw Error('当前浏览器没有开放 WebGPU。');
   const adapter=await navigator.gpu.requestAdapter();if(!adapter)throw Error('无法获取 GPU adapter。');
   const device=await adapter.requestDevice();$('status').textContent='正在恢复到 GPU…';$('progress').style.width='55%';
-  const full=new Float32Array(64);full.set(cp.weights);
+  const full=new Float32Array(64);full.set(cp.weights.slice(0,64));
   const gpu=device.createBuffer({size:256,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC|GPUBufferUsage.COPY_DST});
   const read=device.createBuffer({size:256,usage:GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST});
   device.queue.writeBuffer(gpu,0,full);
@@ -38,10 +38,10 @@ async function run(){
   let maxDiff=0;for(let i=0;i<49;i++)maxDiff=Math.max(maxDiff,Math.abs(restored[i]-cp.weights[i]));
   let mse=0;for(let i=0;i<128;i++){const x=-1+2*i/127;let y=restored[48];for(let j=0;j<16;j++)y+=restored[32+j]*Math.max(0,restored[j]*x+restored[16+j]);mse+=(y-x*x)**2;}mse/=128;
   const pass=maxDiff===0&&Number.isFinite(mse);
-  $('count').textContent=cp.weights.length+' / 49';
+  $('count').textContent='49 / 49';
   $('status').textContent=pass?'跨页面恢复通过':'恢复校验未通过';$('status').style.color=pass?'#70e0a1':'#ff8585';$('progress').style.width='100%';
   $('verdict').textContent=pass?'通过：即使重新打开独立页面，也能从手机本地数据库取回原训练参数，并成功写入 GPU Buffer。':'GPU 参数比对未通过，请查看日志。';
-  $('log').textContent=['检查点版本：'+cp.version,'原始训练保存时间：'+cp.createdAt,'本地参数数量：'+cp.weights.length,'GPU Buffer 恢复：成功','GPU 读回最大误差：'+maxDiff,'恢复参数计算的 MSE：'+mse,'结论：'+(pass?'PASS':'CHECK')].join(String.fromCharCode(10));
+  $('log').textContent=['检查点版本：'+cp.version,'原始训练保存时间：'+cp.createdAt,'数据库保存数组长度：'+cp.weights.length,'参与模型计算的有效参数：49','GPU Buffer 恢复：成功','GPU 读回最大误差：'+maxDiff,'恢复参数计算的 MSE：'+mse,'结论：'+(pass?'PASS':'CHECK')].join(String.fromCharCode(10));
   gpu.destroy();read.destroy();device.destroy();
  }catch(e){$('status').textContent='验证失败';$('status').style.color='#ff8585';$('verdict').textContent=e.message;$('log').textContent=e.stack||String(e);$('progress').style.width='0%';}
  finally{b.disabled=false;$('detail').textContent='完成后可查看下方日志。';}
