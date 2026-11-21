@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="180 66 440 500"><title>小乔头像</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>小乔头像</title>
+<defs>
+ <radialGradient id="portrait-bg" cx="48%" cy="38%" r="70%"><stop stop-color="#7a5258"/><stop offset="1" stop-color="#462c42"/></radialGradient>
+ <clipPath id="portrait-clip"><circle cx="256" cy="256" r="218"/></clipPath>
+</defs>
+<circle cx="256" cy="256" r="246" fill="url(#portrait-bg)" stroke="#b58d50" stroke-width="12"/>
+<circle cx="256" cy="256" r="225" fill="none" stroke="#f5d0ae" stroke-width="2" opacity=".62"/>
+<g clip-path="url(#portrait-clip)">
+ <svg x="34" y="22" width="444" height="444" viewBox="160 0 480 500" preserveAspectRatio="xMidYMid slice">
 <title>小乔 · 2D 立绘</title>
 <desc>以貂蝉的精细线条和材质为基础，按角色身份单独设计服装、发式、武器和体态。</desc>
 <defs>
@@ -23,11 +32,11 @@
 <path d="M340 374 Q310 405 300 490 L280 570 Q300 590 330 570 L367 470 M460 374 Q500 400 520 490 L540 570 Q520 590 490 570 L453 470" fill="none" stroke="#c88b7e" stroke-width="17" stroke-linecap="round"/>
 <path d="M303 505 Q280 515 281 548 Q290 568 314 559 L330 535Z M488 535 Q503 517 527 528 L540 551 Q530 575 505 565Z" fill="url(#skin)" stroke="#855746" stroke-width="7"/>
 
-<path d="M360 330 L360 390 Q400 415 490 390 L490 330Z" fill="url(#skin)" stroke="#704936" stroke-width="7"/>
-<path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="#bd8e8a" stroke="#211d20" stroke-width="10"/><circle cx="376" cy="131" r="34" fill="#bd8e8a" stroke="#211d20" stroke-width="8"/><circle cx="528" cy="131" r="34" fill="#bd8e8a" stroke="#211d20" stroke-width="8"/><path d="M358 104 Q330 73 320 100 M546 103 Q576 75 590 103" fill="none" stroke="#e4c17e" stroke-width="9"/>
-<path d="M365 222 Q370 120 447 112 Q523 118 540 223 L525 295 Q504 347 450 361 Q397 346 379 294Z" fill="url(#skin)" stroke="#704936" stroke-width="9"/><path d="M390 243 Q412 225 433 242 M466 242 Q489 225 511 243" fill="none" stroke="#211d20" stroke-width="6" stroke-linecap="round"/><path d="M391 261 Q413 270 434 261 Q413 250 391 261Z M466 261 Q489 270 511 261 Q489 250 466 261Z" fill="#fff0df"/><ellipse cx="413" cy="262" rx="4" ry="6" fill="#281d20"/><ellipse cx="489" cy="262" rx="4" ry="6" fill="#281d20"/><path d="M451 266 L442 294 Q451 299 461 293 M435 315 Q452 324 470 315" fill="none" stroke="#a9695b" stroke-width="4"/>
-<path d="M385 231 Q410 214 436 232 M465 232 Q492 214 516 231" fill="none" stroke="#754b48" stroke-width="4"/><path d="M432 315 Q452 332 472 315" fill="none" stroke="#bd756d" stroke-width="4"/>
-<path d="M358 212 Q343 114 412 78 Q479 42 536 101 Q559 130 551 211 Q522 172 490 152 Q445 130 394 178Z" fill="#bd8e8a" stroke="#211d20" stroke-width="10"/><circle cx="376" cy="126" r="31" fill="#bd8e8a" stroke="#211d20" stroke-width="8"/><circle cx="528" cy="126" r="31" fill="#bd8e8a" stroke="#211d20" stroke-width="8"/><path d="M350 112 Q328 71 310 99 M549 111 Q576 70 595 101" fill="none" stroke="#e4c17e" stroke-width="9"/>
-<g fill="#e4c17e" stroke="#705443" stroke-width="4"><circle cx="450" cy="92" r="12"/><circle cx="426" cy="82" r="7"/><circle cx="474" cy="82" r="7"/></g>
+<path d="M382 337 L382 390 Q400 405 418 390 L418 337Z" fill="url(#skin)" stroke="#704936" stroke-width="6"/>
+<g id="head-group" transform="translate(-50 0)"><path d="M365 173 Q370 80 445 79 Q525 79 542 180 L520 260 Q500 315 470 326 L480 190 Q450 142 410 181 L395 280 Q360 260 365 173Z" fill="#bd8e8a" stroke="#211d20" stroke-width="10"/><circle cx="376" cy="131" r="34" fill="#bd8e8a" stroke="#211d20" stroke-width="8"/><circle cx="528" cy="131" r="34" fill="#bd8e8a" stroke="#211d20" stroke-width="8"/><path d="M358 104 Q330 73 320 100 M546 103 Q576 75 590 103" fill="none" stroke="#e4c17e" stroke-width="9"/><path d="M365 222 Q370 120 447 112 Q523 118 540 223 L525 295 Q504 347 450 361 Q397 346 379 294Z" fill="url(#skin)" stroke="#704936" stroke-width="9"/><path d="M390 243 Q412 225 433 242 M466 242 Q489 225 511 243" fill="none" stroke="#211d20" stroke-width="6" stroke-linecap="round"/><path d="M391 261 Q413 270 434 261 Q413 250 391 261Z M466 261 Q489 270 511 261 Q489 250 466 261Z" fill="#fff0df"/><ellipse cx="413" cy="262" rx="4" ry="6" fill="#281d20"/><ellipse cx="489" cy="262" rx="4" ry="6" fill="#281d20"/><path d="M451 266 L442 294 Q451 299 461 293 M435 315 Q452 324 470 315" fill="none" stroke="#a9695b" stroke-width="4"/><path d="M385 231 Q410 214 436 232 M465 232 Q492 214 516 231" fill="none" stroke="#754b48" stroke-width="4"/><path d="M432 315 Q452 332 472 315" fill="none" stroke="#bd756d" stroke-width="4"/><path d="M358 212 Q343 114 412 78 Q479 42 536 101 Q559 130 551 211 Q522 172 490 152 Q445 130 394 178Z" fill="#bd8e8a" stroke="#211d20" stroke-width="10"/><circle cx="376" cy="126" r="31" fill="#bd8e8a" stroke="#211d20" stroke-width="8"/><circle cx="528" cy="126" r="31" fill="#bd8e8a" stroke="#211d20" stroke-width="8"/><path d="M350 112 Q328 71 310 99 M549 111 Q576 70 595 101" fill="none" stroke="#e4c17e" stroke-width="9"/><g fill="#e4c17e" stroke="#705443" stroke-width="4"><circle cx="450" cy="92" r="12"/><circle cx="426" cy="82" r="7"/><circle cx="474" cy="82" r="7"/></g></g>
 <g fill="#e4c17e" stroke="#211d20" stroke-width="4"><circle cx="354" cy="425" r="6"/><circle cx="446" cy="425" r="6"/><path d="M400 420 L400 535" fill="none" stroke="#f4d9a4" stroke-width="4"/></g>
+</svg>
+</g>
+<path d="M102 360 Q256 420 410 360" fill="none" stroke="#f5d0ae" stroke-width="2" opacity=".22"/>
+<circle cx="256" cy="256" r="237" fill="none" stroke="#f2c6a4" stroke-width="1.5" opacity=".52"/>
 </svg>

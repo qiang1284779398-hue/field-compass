@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="170 52 460 510"><title>夏侯渊头像</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>夏侯渊头像</title>
+<defs>
+ <radialGradient id="portrait-bg" cx="48%" cy="38%" r="70%"><stop stop-color="#465044"/><stop offset="1" stop-color="#232e27"/></radialGradient>
+ <clipPath id="portrait-clip"><circle cx="256" cy="256" r="218"/></clipPath>
+</defs>
+<circle cx="256" cy="256" r="246" fill="url(#portrait-bg)" stroke="#b58d50" stroke-width="12"/>
+<circle cx="256" cy="256" r="225" fill="none" stroke="#dec285" stroke-width="2" opacity=".62"/>
+<g clip-path="url(#portrait-clip)">
+ <svg x="34" y="22" width="444" height="444" viewBox="160 0 480 500" preserveAspectRatio="xMidYMid slice">
 <title>夏侯渊 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b8b89a"/><stop offset=".2" stop-color="#78866a"/><stop offset=".58" stop-color="#5f6b57"/><stop offset="1" stop-color="#2d3b2e"/></linearGradient>
@@ -79,3 +88,7 @@
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#78866a" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#e3c990" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
 <g transform="translate(400 540) scale(.13) translate(-400 -500)" fill="none" stroke="#d4b46e" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"><path d="M170 360 L690 360 M170 500 L690 500 M170 640 L690 640 M625 325 L720 360 L625 395 M625 465 L720 500 L625 535 M625 605 L720 640 L625 675"/><circle cx="400" cy="500" r="70" stroke="#fff0c8" stroke-width="25" opacity=".75"/></g><g transform="translate(0 0)"><path d="M372 218 L426 205 L433 218 M452 218 L507 205 L512 218" fill="none" stroke="#2b211d" stroke-width="8" stroke-linecap="round"/><path d="M379 246 Q405 232 430 244 M451 244 Q477 232 503 246" fill="none" stroke="#2a211f" stroke-width="6"/><path d="M370 255 Q376 290 402 306 M508 255 Q502 290 478 306" fill="none" stroke="#8d5a47" stroke-width="4" opacity=".42"/></g><g transform="translate(0 0)"><path d="M395 130 Q405 69 445 77 Q485 69 495 130Z" fill="#65746d" stroke="#c6a86d" stroke-width="7"/><path d="M445 90 L475 34 L488 92Z" fill="#c7d0c7" stroke="#5b6b67" stroke-width="5"/></g></g></svg>
+</g>
+<path d="M102 360 Q256 420 410 360" fill="none" stroke="#dec285" stroke-width="2" opacity=".22"/>
+<circle cx="256" cy="256" r="237" fill="none" stroke="#d4b46e" stroke-width="1.5" opacity=".52"/>
+</svg>

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="170 52 460 510"><title>徐庶头像</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>徐庶头像</title>
+<defs>
+ <radialGradient id="portrait-bg" cx="48%" cy="38%" r="70%"><stop stop-color="#445358"/><stop offset="1" stop-color="#1c2a33"/></radialGradient>
+ <clipPath id="portrait-clip"><circle cx="256" cy="256" r="218"/></clipPath>
+</defs>
+<circle cx="256" cy="256" r="246" fill="url(#portrait-bg)" stroke="#b58d50" stroke-width="12"/>
+<circle cx="256" cy="256" r="225" fill="none" stroke="#dbc99a" stroke-width="2" opacity=".62"/>
+<g clip-path="url(#portrait-clip)">
+ <svg x="34" y="22" width="444" height="444" viewBox="160 0 480 500" preserveAspectRatio="xMidYMid slice">
 <title>徐庶 · 2D 立绘</title><desc>按刘关张基准线稿绘制，结合史料与新三国演员身材参照；头脸、盔甲、武器和体态各自独立。</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b6bbaf"/><stop offset=".2" stop-color="#748b91"/><stop offset=".58" stop-color="#5c6f74"/><stop offset="1" stop-color="#223540"/></linearGradient>
@@ -79,3 +88,7 @@
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#748b91" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#e0cea2" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
 <g transform="translate(400 540) scale(.13) translate(-400 -500)" fill="none" stroke="#d0bd8a" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"><path d="M210 700 L550 290 L660 220 L620 340 L280 760Z M235 470 Q365 350 490 455 Q580 530 700 420"/><circle cx="400" cy="500" r="70" stroke="#fff0c8" stroke-width="25" opacity=".75"/></g><g transform="translate(0 0)"><path d="M374 214 Q404 205 430 214 M451 214 Q478 205 506 214" fill="none" stroke="#332522" stroke-width="7" stroke-linecap="round"/><path d="M379 244 Q404 226 430 245 Q406 259 379 244Z M451 245 Q478 226 503 244 Q477 259 451 245Z" fill="none" stroke="#2a201d" stroke-width="5"/><path d="M380 235 L429 229 M453 229 L502 235" stroke="#2a201d" stroke-width="4"/><path d="M370 255 Q376 290 402 306 M508 255 Q502 290 478 306" fill="none" stroke="#8d5a47" stroke-width="4" opacity=".42"/></g><g transform="translate(0 0)"><path d="M390 132 Q406 88 445 93 Q484 88 500 132" fill="none" stroke="#54534b" stroke-width="13"/><path d="M405 115 L483 115" stroke="#b79f6d" stroke-width="4"/></g></g></svg>
+</g>
+<path d="M102 360 Q256 420 410 360" fill="none" stroke="#dbc99a" stroke-width="2" opacity=".22"/>
+<circle cx="256" cy="256" r="237" fill="none" stroke="#d0bd8a" stroke-width="1.5" opacity=".52"/>
+</svg>

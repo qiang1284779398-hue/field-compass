@@ -88,7 +88,7 @@
 <path d="M275 718 Q331 752 388 739 L360 838 Q302 805 260 779Z M520 718 Q573 716 612 693 L641 780 Q589 815 540 821Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
 <!-- rivets -->
 <g fill="#e5c986" stroke="#514020" stroke-width="3"><circle cx="286" cy="427" r="6"/><circle cx="355" cy="415" r="6"/><circle cx="529" cy="415" r="6"/><circle cx="591" cy="438" r="6"/><circle cx="363" cy="485" r="5"/><circle cx="437" cy="473" r="5"/><circle cx="510" cy="485" r="5"/></g>
-</svg></g><path d="M310 520 L690 390 M650 360 L720 380 L668 425" fill="none" stroke="#bd9558" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/><path d="M310 520 L690 390 M650 360 L720 380 L668 425" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.072"/></g><g transform="translate(800 0)"><g transform="translate(-8 -5) rotate(-2 400 820)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(800 0)"><g transform="translate(-8 -5) rotate(-2 400 820)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Zhang Fei — original 2D full-body game sprite</title><desc>A broad, fierce Three Kingdoms general wearing dark iron armor and a black tiger-striped war mantle, carrying a long spear.</desc>
 <defs>
  <linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8d9695"/><stop offset=".2" stop-color="#47545a"/><stop offset=".58" stop-color="#202b31"/><stop offset="1" stop-color="#0b1419"/></linearGradient>
@@ -177,7 +177,7 @@
 <path d="M275 718 Q331 752 388 739 L360 838 Q302 805 260 779Z M520 718 Q573 716 612 693 L641 780 Q589 815 540 821Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
 <!-- rivets -->
 <g fill="#e5c986" stroke="#514020" stroke-width="3"><circle cx="286" cy="427" r="6"/><circle cx="355" cy="415" r="6"/><circle cx="529" cy="415" r="6"/><circle cx="591" cy="438" r="6"/><circle cx="363" cy="485" r="5"/><circle cx="437" cy="473" r="5"/><circle cx="510" cy="485" r="5"/></g>
-</svg></g><path d="M285 500 L730 340 M682 310 L752 330 L700 375" fill="none" stroke="#bd9558" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.48"/><path d="M285 500 L730 340 M682 310 L752 330 L700 375" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.34559999999999996"/></g><g transform="translate(1600 0)"><g transform="translate(20 -10) rotate(4 400 820)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(1600 0)"><g transform="translate(20 -10) rotate(4 400 820)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Zhang Fei — original 2D full-body game sprite</title><desc>A broad, fierce Three Kingdoms general wearing dark iron armor and a black tiger-striped war mantle, carrying a long spear.</desc>
 <defs>
  <linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8d9695"/><stop offset=".2" stop-color="#47545a"/><stop offset=".58" stop-color="#202b31"/><stop offset="1" stop-color="#0b1419"/></linearGradient>
@@ -266,7 +266,7 @@
 <path d="M275 718 Q331 752 388 739 L360 838 Q302 805 260 779Z M520 718 Q573 716 612 693 L641 780 Q589 815 540 821Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
 <!-- rivets -->
 <g fill="#e5c986" stroke="#514020" stroke-width="3"><circle cx="286" cy="427" r="6"/><circle cx="355" cy="415" r="6"/><circle cx="529" cy="415" r="6"/><circle cx="591" cy="438" r="6"/><circle cx="363" cy="485" r="5"/><circle cx="437" cy="473" r="5"/><circle cx="510" cy="485" r="5"/></g>
-</svg></g><path d="M245 485 L755 315 M700 285 L780 300 L722 352" fill="none" stroke="#bd9558" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M245 485 L755 315 M700 285 L780 300 L722 352" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.72"/></g><g transform="translate(2400 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(2400 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Zhang Fei — original 2D full-body game sprite</title><desc>A broad, fierce Three Kingdoms general wearing dark iron armor and a black tiger-striped war mantle, carrying a long spear.</desc>
 <defs>
  <linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8d9695"/><stop offset=".2" stop-color="#47545a"/><stop offset=".58" stop-color="#202b31"/><stop offset="1" stop-color="#0b1419"/></linearGradient>
@@ -355,4 +355,4 @@
 <path d="M275 718 Q331 752 388 739 L360 838 Q302 805 260 779Z M520 718 Q573 716 612 693 L641 780 Q589 815 540 821Z" fill="url(#red)" stroke="url(#gold)" stroke-width="8"/>
 <!-- rivets -->
 <g fill="#e5c986" stroke="#514020" stroke-width="3"><circle cx="286" cy="427" r="6"/><circle cx="355" cy="415" r="6"/><circle cx="529" cy="415" r="6"/><circle cx="591" cy="438" r="6"/><circle cx="363" cy="485" r="5"/><circle cx="437" cy="473" r="5"/><circle cx="510" cy="485" r="5"/></g>
-</svg></g><path d="M300 510 L690 390" fill="none" stroke="#bd9558" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.32"/><path d="M300 510 L690 390" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.2304"/></g></svg>
+</svg></g></g></svg>

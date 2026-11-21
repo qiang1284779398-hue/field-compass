@@ -128,7 +128,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g><g opacity="0.18" fill="none" stroke="#d9bd79" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path d="M160 620 C250 350 420 300 560 410 C690 520 560 690 410 610 C310 550 400 450 520 470 M520 380 L650 300 L610 440Z"/><circle cx="400" cy="500" r="85" stroke="#d9bd79" stroke-width="5" opacity=".3"/></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -257,7 +257,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g><g opacity="0.52" fill="none" stroke="#d9bd79" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M160 620 C250 350 420 300 560 410 C690 520 560 690 410 610 C310 550 400 450 520 470 M520 380 L650 300 L610 440Z"/><circle cx="400" cy="500" r="107" stroke="#d9bd79" stroke-width="5" opacity=".3"/></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -386,7 +386,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g><g opacity="1" fill="none" stroke="#d9bd79" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"><path d="M160 620 C250 350 420 300 560 410 C690 520 560 690 410 610 C310 550 400 450 520 470 M520 380 L650 300 L610 440Z"/><circle cx="400" cy="500" r="129" stroke="#d9bd79" stroke-width="5" opacity=".3"/></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -515,4 +515,4 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g><g opacity="0.42" fill="none" stroke="#d9bd79" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M160 620 C250 350 420 300 560 410 C690 520 560 690 410 610 C310 550 400 450 520 470 M520 380 L650 300 L610 440Z"/><circle cx="400" cy="500" r="151" stroke="#d9bd79" stroke-width="5" opacity=".3"/></g></g></svg>
+</svg></g></g></svg>

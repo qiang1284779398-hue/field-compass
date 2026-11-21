@@ -85,7 +85,7 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8b302a" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#8e342e" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#f1d895" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-</svg></g><path d="M270 670 L600 350" fill="none" stroke="#d8b56a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/><path d="M270 670 L600 350" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.072"/></g><g transform="translate(800 0)"><g transform="translate(-12 -8) rotate(-4 400 820)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(800 0)"><g transform="translate(-12 -8) rotate(-4 400 820)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Liu Bei — original 2D full-body game sprite</title><desc>A dignified Han-era warlord in vermilion and gold lamellar armor, with a restrained imperial headpiece and twin swords.</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ed9a70"/><stop offset=".2" stop-color="#b64b38"/><stop offset=".58" stop-color="#7b2b29"/><stop offset="1" stop-color="#391b1d"/></linearGradient>
@@ -171,7 +171,7 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8b302a" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#8e342e" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#f1d895" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-</svg></g><path d="M220 700 L650 285" fill="none" stroke="#d8b56a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.48"/><path d="M220 700 L650 285" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.34559999999999996"/></g><g transform="translate(1600 0)"><g transform="translate(25 -12) rotate(7 400 820)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(1600 0)"><g transform="translate(25 -12) rotate(7 400 820)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Liu Bei — original 2D full-body game sprite</title><desc>A dignified Han-era warlord in vermilion and gold lamellar armor, with a restrained imperial headpiece and twin swords.</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ed9a70"/><stop offset=".2" stop-color="#b64b38"/><stop offset=".58" stop-color="#7b2b29"/><stop offset="1" stop-color="#391b1d"/></linearGradient>
@@ -257,7 +257,7 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8b302a" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#8e342e" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#f1d895" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-</svg></g><path d="M175 710 L700 240" fill="none" stroke="#d8b56a" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M175 710 L700 240" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.72"/></g><g transform="translate(2400 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g transform="translate(2400 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Liu Bei — original 2D full-body game sprite</title><desc>A dignified Han-era warlord in vermilion and gold lamellar armor, with a restrained imperial headpiece and twin swords.</desc>
 <defs>
  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ed9a70"/><stop offset=".2" stop-color="#b64b38"/><stop offset=".58" stop-color="#7b2b29"/><stop offset="1" stop-color="#391b1d"/></linearGradient>
@@ -343,4 +343,4 @@
 <path d="M426 694 L463 688 L471 718 L433 726Z" fill="#8b302a" stroke="#edcf8a" stroke-width="4"/>
 <path d="M281 717 Q327 745 377 737 L354 831 Q306 804 267 780Z M523 716 Q573 717 610 693 L635 782 Q585 813 543 818Z" fill="#8e342e" stroke="url(#gold)" stroke-width="8"/>
 <g fill="#f1d895" stroke="#604421" stroke-width="3"><circle cx="303" cy="427" r="6"/><circle cx="362" cy="419" r="6"/><circle cx="515" cy="416" r="6"/><circle cx="577" cy="432" r="6"/><circle cx="365" cy="482" r="5"/><circle cx="429" cy="477" r="5"/><circle cx="495" cy="485" r="5"/></g>
-</svg></g><path d="M280 675 L610 355" fill="none" stroke="#d8b56a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.32"/><path d="M280 675 L610 355" fill="none" stroke="#fff0c8" stroke-width="4" stroke-linecap="round" opacity="0.2304"/></g></svg>
+</svg></g></g></svg>
