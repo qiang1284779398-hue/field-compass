@@ -24,7 +24,19 @@
     cloth: mat(0x641c24, 0.01, 0.98), clothLight: mat(0x87302f, 0.01, 0.95),
     skinLight: mat(0xd29a78, 0.01, 0.91), skinWarm: mat(0xa96850, 0.01, 0.94),
     lip: mat(0x793d37, 0.01, 0.91), eyeDark: mat(0x2b1b18, 0.01, 0.55),
-    hairLight: mat(0x35231c, 0.01, 0.90), redJewel: mat(0x7d252b, 0.24, 0.28)
+    hairLight: mat(0x35231c, 0.01, 0.90), redJewel: mat(0x7d252b, 0.24, 0.28),
+    guanGreen: mat(0x174b35, 0.08, 0.82), guanGreenLight: mat(0x2c7450, 0.08, 0.78),
+    guanGreenDark: mat(0x102c25, 0.12, 0.86), guanLacquer: mat(0x1b3e32, 0.42, 0.48),
+    guanGold: mat(0xb18b4e, 0.58, 0.38), guanGoldBright: mat(0xd7b96f, 0.68, 0.27),
+    guanSkin: mat(0x9c3e34, 0.01, 0.91), guanSkinLight: mat(0xb95a49, 0.01, 0.88),
+    guanBeard: mat(0x171b18, 0.02, 0.93), guanBeardLight: mat(0x332b22, 0.02, 0.91),
+    guanSteel: mat(0xb9c8c5, 0.76, 0.25), guanSteelDark: mat(0x566c67, 0.67, 0.42),
+    zhangBlack: mat(0x171b1d, 0.12, 0.77), zhangBlackLight: mat(0x333c40, 0.24, 0.62),
+    zhangBlackDark: mat(0x0b1013, 0.10, 0.88), zhangRed: mat(0x76262a, 0.08, 0.82),
+    zhangRedLight: mat(0xa33b35, 0.06, 0.76), zhangSteel: mat(0x9ba8ad, 0.7, 0.30),
+    zhangSteelDark: mat(0x455358, 0.58, 0.46), zhangSkin: mat(0xb77658, 0.01, 0.92),
+    zhangSkinLight: mat(0xd09772, 0.01, 0.90), zhangBeard: mat(0x171411, 0.01, 0.96),
+    tassel: mat(0x9f2c26, 0.04, 0.85)
   };
 
   function add(parent, geometry, material, position, scale, rotation) {
@@ -99,6 +111,365 @@
     sword.rotation.z=sword.userData.restRotationZ;
     hand.add(sword);
     return sword;
+  }
+
+  function createGuanDao(hand,side) {
+    const weapon=new THREE.Group();
+    // Long hardwood shaft with engraved bronze ferrules.
+    cylinder(weapon,mats.leather,[0,.57,0],.033,.044,1.30,16);
+    cylinder(weapon,mats.guanGold,[0,-.055,.006],.052,.048,.075,14);
+    cylinder(weapon,mats.guanGoldBright,[0,1.12,.006],.052,.045,.07,14);
+    for(let i=0;i<9;i++){
+      const y=.05+i*.125;
+      cylinder(weapon,i%2?mats.guanGold:mats.guanGoldBright,[0,y,.006],.038,.038,.012,12);
+    }
+    // Broad crescent blade, with a swept outer hook and a visible steel bevel.
+    const bladeShape=new THREE.Shape();
+    bladeShape.moveTo(-.015,1.08); bladeShape.quadraticCurveTo(-.12,1.25,-.28,1.40);
+    bladeShape.quadraticCurveTo(-.48,1.51,-.57,1.37);
+    bladeShape.quadraticCurveTo(-.50,1.23,-.36,1.18);
+    bladeShape.quadraticCurveTo(-.23,1.16,-.17,1.03);
+    bladeShape.lineTo(-.09,1.10); bladeShape.lineTo(-.015,1.08);
+    const blade=add(weapon,new THREE.ExtrudeGeometry(bladeShape,{depth:.035,bevelEnabled:true,bevelSegments:3,bevelSize:.012,bevelThickness:.008}),mats.guanSteel,[0,0,.025]);
+    blade.material.side=THREE.DoubleSide;
+    seam(weapon,[[-.04,1.12,.066],[-.22,1.27,.064],[-.42,1.40,.050],[-.51,1.38,.045]],.008,mats.guanSteelDark,24);
+    seam(weapon,[[-.05,1.14,.072],[-.22,1.30,.07],[-.40,1.42,.055]],.004,mats.steelBright,18);
+    // Dragon-head socket, whisker-like fins and red silk tassel.
+    ball(weapon,mats.guanGold,[0,1.085,.035],[.09,.115,.07],16);
+    sculptedPlate(weapon,mats.guanGoldBright,-.015,1.12,.09,.16,.12,.035,"shield");
+    gem(weapon,.025,1.12,.14,.028,mats.jade);
+    seam(weapon,[[.045,1.09,.11],[.12,1.02,.10],[.17,.96,.09]],.012,mats.guanGold,12);
+    for(let i=0;i<5;i++){
+      const x=(i-2)*.018;
+      tube(weapon,[[x,.99,.075],[x*1.4,.86,.08],[x*1.8,.73-Math.abs(i-2)*.015,.07]],.009,mats.tassel,12);
+    }
+    ball(weapon,mats.guanGoldBright,[0,-.13,.015],[.055,.045,.05],12);
+    weapon.position.set(side*.018,-.035,.47);
+    weapon.userData.restRotationZ=-.18;
+    weapon.rotation.z=weapon.userData.restRotationZ;
+    hand.add(weapon);
+    return weapon;
+  }
+
+  function createZhangSpear(hand,side) {
+    const weapon=new THREE.Group();
+    // Heavy blackwood shaft with spiral red lacquer inlays and iron collars.
+    cylinder(weapon,mats.leather,[0,.53,0],.038,.052,1.26,16);
+    cylinder(weapon,mats.zhangSteelDark,[0,-.07,.01],.064,.05,.09,14);
+    cylinder(weapon,mats.zhangSteel,[0,1.08,.01],.064,.052,.075,14);
+    for(let i=0;i<7;i++){
+      const y=.02+i*.15;
+      tube(weapon,[[-.033,y-.035,.034],[0,y,.052],[.033,y+.035,.034]],.006,mats.zhangRedLight,8);
+    }
+    // Serpentine spear point: narrow steel leaf, recurved hook and sharp tip.
+    const point=new THREE.Shape();
+    point.moveTo(0,1.02); point.quadraticCurveTo(-.10,1.17,-.055,1.39);
+    point.lineTo(0,1.57); point.lineTo(.048,1.38);
+    point.quadraticCurveTo(.10,1.20,.025,1.08);
+    point.quadraticCurveTo(.11,1.16,.16,1.12);
+    point.quadraticCurveTo(.12,1.02,.02,1.01); point.closePath();
+    const blade=add(weapon,new THREE.ExtrudeGeometry(point,{depth:.03,bevelEnabled:true,bevelSegments:2,bevelSize:.009,bevelThickness:.006}),mats.zhangSteel,[0,0,.025]);
+    blade.material.side=THREE.DoubleSide;
+    seam(weapon,[[0,1.08,.062],[.005,1.27,.059],[0,1.48,.045]],.006,mats.zhangSteelDark,18);
+    // Prominent red horsehair tassel at the socket.
+    ball(weapon,mats.zhangRed,[0,1.035,.045],[.065,.055,.055],12);
+    for(let i=0;i<9;i++){
+      const x=(i-4)*.012;
+      tube(weapon,[[x,1.02,.07],[x*1.3,.89,.078],[x*1.55,.77-Math.abs(i-4)*.008,.07]],.009,mats.tassel,12);
+    }
+    weapon.position.set(side*.02,-.045,.48);
+    weapon.userData.restRotationZ=-.14;
+    weapon.rotation.z=weapon.userData.restRotationZ;
+    hand.add(weapon);
+    return weapon;
+  }
+
+  function createGuanYu() {
+    const world=new THREE.Group(),motion=new THREE.Group(),body=new THREE.Group();
+    world.add(motion);motion.add(body);
+    const headPivot=new THREE.Group();headPivot.position.set(0,1.27,.02);body.add(headPivot);
+    const shadow=add(motion,new THREE.CircleGeometry(.43,32),new THREE.MeshBasicMaterial({color:0x07100c,transparent:true,opacity:.23,depthWrite:false}),[0,.012,0],[1,.30,1],[-Math.PI/2,0,0]);
+    const legs=[];
+    [-1,1].forEach(side=>{
+      const leg=new THREE.Group();leg.position.set(side*.15,.47,0);body.add(leg);
+      cylinder(leg,mats.guanGreenDark,[0,-.15,0],.11,.125,.32,16);
+      ball(leg,mats.leather,[0,-.315,.045],[.145,.09,.21],14);
+      sculptedPlate(leg,mats.guanLacquer,0,-.14,.105,.15,.235,.035,"shield");
+      sculptedPlate(leg,mats.guanGold,0,-.135,.132,.127,.205,.022,"shield");
+      sculptedPlate(leg,mats.guanGreen,0,-.13,.149,.105,.178,.016,"shield");
+      seam(leg,[[-.05,-.23,.165],[0,-.255,.17],[.05,-.23,.165]],.006,mats.guanGoldBright,12);
+      legs.push(leg);
+    });
+    // Flowing green war robe and layered front skirts.
+    cylinder(body,mats.guanGreen,[0,.405,0],.26,.38,.64,24);
+    cylinder(body,mats.guanGreenDark,[0,.12,0],.39,.402,.08,24);
+    cylinder(body,mats.guanGold,[0,.16,0],.397,.407,.035,24);
+    cylinder(body,mats.guanGreenLight,[0,.25,0],.34,.37,.20,24);
+    for(let side=-1;side<=1;side+=2){
+      for(let i=0;i<3;i++){
+        const x=side*(.12+i*.075);
+        seam(body,[[x,.59,.22],[x*1.1,.37,.30],[x*1.2,.16,.32]],.008,i===1?mats.guanGreenLight:mats.guanGreenDark,18);
+      }
+    }
+    // Front robe lapels, embroidered piping and seven hanging lamellar panels.
+    sculptedPlate(body,mats.guanGreenDark,-.12,.31,.31,.23,.44,.028,"shield");
+    sculptedPlate(body,mats.guanGreenLight,-.12,.315,.332,.19,.405,.014,"shield");
+    sculptedPlate(body,mats.guanGreenDark,.12,.31,.31,.23,.44,.028,"shield");
+    sculptedPlate(body,mats.guanGreenLight,.12,.315,.332,.19,.405,.014,"shield");
+    for(let i=0;i<7;i++){
+      const x=(i-3)*.09;
+      sculptedPlate(body,mats.guanLacquer,x,.31,.35,.083,.16,.03,"shield");
+      sculptedPlate(body,mats.guanGreen,x,.315,.371,.068,.13,.018,"shield");
+      seam(body,[[x-.025,.36,.39],[x,.385,.394],[x+.025,.36,.39]],.004,mats.guanGoldBright,8);
+    }
+    // Green lamellar chest cuirass, raised collar and dragon-roundel.
+    ball(body,mats.guanGreenDark,[0,.73,.22],[.34,.34,.09],24);
+    ball(body,mats.guanLacquer,[0,.73,.27],[.31,.31,.06],24);
+    seam(body,[[-.22,1.01,.12],[-.14,1.075,.19],[0,1.10,.21],[.14,1.075,.19],[.22,1.01,.12]],.024,mats.guanGold,26);
+    seam(body,[[-.20,1.02,.145],[-.12,1.07,.215],[0,1.085,.23],[.12,1.07,.215],[.20,1.02,.145]],.008,mats.guanGoldBright,24);
+    for(let row=0;row<4;row++){
+      for(let col=0;col<7;col++){
+        const x=(col-3)*.076,y=.89-row*.087,z=.326+.025*Math.max(0,1-x*x/.09-(y-.73)*(y-.73)/.11);
+        sculptedPlate(body,mats.guanGold,x,y,z,.072,.064,.02,"round");
+        sculptedPlate(body,(row+col)%3===0?mats.guanGreenLight:mats.guanGreen,x,y+.003,z+.014,.061,.052,.014,"round");
+        ball(body,mats.guanGoldBright,[x-.021,y+.012,z+.032],[.006,.006,.004],8);
+      }
+    }
+    ball(body,mats.guanGold,[0,.73,.365],[.125,.145,.036],18);
+    ball(body,mats.guanGreenLight,[0,.73,.392],[.092,.11,.022],18);
+    seam(body,[[0,.81,.414],[-.035,.76,.418],[0,.72,.423],[.035,.68,.418],[0,.64,.414]],.008,mats.guanGoldBright,18);
+    gem(body,0,.73,.438,.035,mats.jade);
+    // Wide shoulders with layered green scale pauldrons.
+    const arms=[];
+    [-1,1].forEach(side=>{
+      const arm=new THREE.Group();arm.position.set(side*.36,.95,.02);body.add(arm);
+      ball(arm,mats.guanGreenDark,[0,-.08,0],[.18,.21,.17],18);
+      sculptedPlate(arm,mats.guanGold,0,-.07,.12,.27,.23,.05,"shield");
+      sculptedPlate(arm,mats.guanGreen,0,-.065,.151,.23,.19,.03,"shield");
+      sculptedPlate(arm,mats.guanGreenLight,0,-.06,.17,.19,.15,.018,"shield");
+      seam(arm,[[-.09,-.01,.18],[0,.015,.195],[.09,-.01,.18]],.007,mats.guanGoldBright,14);
+      const forearm=new THREE.Group();forearm.position.set(0,-.255,.02);arm.add(forearm);
+      cylinder(forearm,mats.guanGreen,[0,-.11,0],.11,.09,.25,16);
+      sculptedPlate(forearm,mats.guanGold,0,-.12,.09,.16,.25,.032,"shield");
+      sculptedPlate(forearm,mats.guanGreenLight,0,-.12,.112,.13,.21,.018,"shield");
+      cylinder(forearm,mats.guanGold,[0,-.245,.035],.105,.105,.065,14);
+      cylinder(forearm,mats.guanGoldBright,[0,-.245,.078],.093,.093,.018,14);
+      const hand=new THREE.Group();hand.position.set(0,-.305,.045);forearm.add(hand);
+      ball(hand,mats.guanSkin,[0,0,.02],[.085,.092,.075],14);
+      for(let finger=0;finger<4;finger++)ball(hand,mats.guanSkinLight,[(finger-1.5)*.033,-.054,.04],[.018,.043,.023],10);
+      const weapon=side===1?createGuanDao(hand,side):null;
+      arms.push({arm,forearm,hand,sword:weapon,weapon,side});
+    });
+    // Back cape, split green mantle and gold embroidery.
+    const capeShape=new THREE.Shape();capeShape.moveTo(-.23,.98);capeShape.quadraticCurveTo(0,1.08,.23,.98);capeShape.lineTo(.39,.14);capeShape.quadraticCurveTo(0,.02,-.39,.14);capeShape.closePath();
+    const capeMat=mats.guanGreenDark.clone();capeMat.side=THREE.DoubleSide;
+    add(body,new THREE.ExtrudeGeometry(capeShape,{depth:.018,bevelEnabled:true,bevelSegments:2,bevelSize:.01,bevelThickness:.008}),capeMat,[0,.02,-.24]);
+    seam(body,[[-.36,.15,-.205],[-.2,.09,-.205],[0,.07,-.205],[.2,.09,-.205],[.36,.15,-.205]],.01,mats.guanGold,24);
+    for(let i=-2;i<=2;i++){
+      const x=i*.11;seam(body,[[x*.7,.88,-.21],[x,.53,-.212],[x*1.3,.22,-.21]],.006,mats.guanGreenLight,16);
+    }
+    // Jade belt plaque and hanging green tassels.
+    box(body,mats.leather,[0,.445,.30],[.61,.105,.07]);
+    box(body,mats.guanGold,[0,.445,.345],[.15,.14,.03]);
+    ball(body,mats.guanGreenLight,[0,.445,.37],[.09,.105,.025],16);
+    gem(body,0,.445,.398,.035,mats.jade);
+    for(let i=0;i<9;i++)ball(body,mats.guanGoldBright,[(i-4)*.068,.485,.35],[.009,.009,.008],8);
+    // Head and face: ruddy complexion, long black side-locks and legendary flowing beard.
+    cylinder(body,mats.guanSkin,[0,1.105,.01],.11,.10,.21,16);
+    ball(headPivot,mats.guanBeard,[0,.005,-.05],[.375,.405,.34],22);
+    ball(headPivot,mats.guanSkin,[0,.015,.035],[.34,.37,.315],26);
+    ball(headPivot,mats.guanSkinLight,[0,.07,.205],[.29,.25,.15],22);
+    ball(headPivot,mats.guanSkin,[0,-.20,.16],[.255,.15,.17],18);
+    [-1,1].forEach(side=>{
+      ball(headPivot,mats.guanSkin,[side*.34,-.035,.03],[.08,.125,.085],14);
+      ball(headPivot,mats.guanBeard,[side*.31,.06,-.015],[.07,.24,.09],14);
+      ball(headPivot,mats.guanBeardLight,[side*.30,-.13,.07],[.06,.17,.07],12);
+      // Long sideburns frame the face; ear studs are deliberately understated.
+      tube(headPivot,[[side*.285,.20,.08],[side*.32,.02,.10],[side*.34,-.20,.10]],.03,mats.guanBeard,18);
+      ball(headPivot,mats.guanGold,[side*.37,-.08,.07],[.018,.03,.016],10);
+    });
+    ball(headPivot,mats.guanBeard,[0,.265,-.02],[.345,.16,.30],18);
+    // Green battle turban and layered gold brow-guard with a high crest.
+    sculptedPlate(headPivot,mats.guanGreenDark,0,.38,-.015,.46,.17,.19,"shield");
+    sculptedPlate(headPivot,mats.guanGold,0,.405,.17,.43,.075,.035,"round");
+    sculptedPlate(headPivot,mats.guanGoldBright,0,.416,.19,.38,.04,.018,"round");
+    gem(headPivot,0,.49,.15,.055,mats.jade);
+    [-1,1].forEach(side=>{
+      sculptedPlate(headPivot,mats.guanGold,side*.35,.39,.02,.38,.11,.04,"shield");
+      sculptedPlate(headPivot,mats.guanGreen,side*.35,.398,.045,.32,.065,.014,"round");
+      for(let i=0;i<5;i++)ball(headPivot,mats.guanGoldBright,[side*(.25+i*.05),.40,.06],[.01,.01,.008],8);
+    });
+    add(headPivot,new THREE.ConeGeometry(.085,.24,12),mats.tassel,[0,.61,.015],[1,.9,1],[0,0,.12]);
+    // Stern narrow eyes, heavy black brows, red cheek shading and a strong nose.
+    [-1,1].forEach(side=>{
+      seam(headPivot,[[side*.055,.10,.35],[side*.12,.12,.36],[side*.19,.09,.35]],.014,mats.guanBeard,16);
+      ball(headPivot,mats.black,[side*.12,.015,.35],[.06,.038,.025],14);
+      ball(headPivot,mats.white,[side*.12,.015,.37],[.05,.03,.018],14);
+      ball(headPivot,mats.pupil,[side*.11,.01,.386],[.021,.025,.012],12);
+      ball(headPivot,mats.white,[side*.098,.022,.395],[.007,.007,.004],8);
+      seam(headPivot,[[side*.07,-.01,.373],[side*.12,-.03,.378],[side*.17,-.01,.37]],.005,mats.guanSkin,12);
+      ball(headPivot,mats.guanSkinLight,[side*.22,-.10,.29],[.06,.04,.015],10);
+    });
+    ball(headPivot,mats.guanSkinLight,[0,-.035,.365],[.035,.085,.045],12);
+    ball(headPivot,mats.guanSkin,[0,-.09,.395],[.047,.045,.04],12);
+    // Guan Yu's sweeping moustache and exceptional long beard, split into visible flowing locks.
+    seam(headPivot,[[0,-.13,.37],[-.07,-.15,.39],[-.15,-.13,.36],[-.23,-.08,.31]],.032,mats.guanBeard,22);
+    seam(headPivot,[[0,-.13,.37],[.07,-.15,.39],[.15,-.13,.36],[.23,-.08,.31]],.032,mats.guanBeard,22);
+    const beardEnds=[-.20,-.14,-.07,0,.07,.14,.20];
+    beardEnds.forEach((x,i)=>{
+      const sway=(i-3)*.014,tip=-.78-Math.abs(i-3)*.012;
+      seam(headPivot,[[x*.35,-.17,.37],[x*.55,-.34,.35],[x+sway,-.55,.30],[x+sway*1.5,tip,.25]],.014-(Math.abs(i-3)*.0007),i%2?mats.guanBeard:mats.guanBeardLight,22);
+    });
+    // Small jade beard clasp and a carved chest knot.
+    ball(headPivot,mats.guanGold,[0,-.37,.31],[.045,.05,.025],12);
+    gem(headPivot,0,-.37,.34,.022,mats.jade);
+    ball(body,mats.guanGold,[0,.96,.245],[.035,.035,.02],10);
+    optimizeStaticMeshes(world);
+    return {world,motion,body,headPivot,arms,legs,shadow,meshes:0,baseHeight:2.12,
+      weaponObjects:arms.filter(x=>x.weapon).map(x=>x.weapon),weaponNames:["青龙偃月刀"],
+      action:"idle",actionAt:0,wasSwinging:false,wasCast:false,wasHurt:false,wasDead:false,
+      baseX:0,baseY:0,scale:1};
+  }
+
+  function createZhangFei() {
+    const world=new THREE.Group(),motion=new THREE.Group(),body=new THREE.Group();
+    world.add(motion);motion.add(body);
+    const headPivot=new THREE.Group();headPivot.position.set(0,1.26,.02);body.add(headPivot);
+    const shadow=add(motion,new THREE.CircleGeometry(.45,32),new THREE.MeshBasicMaterial({color:0x07100c,transparent:true,opacity:.25,depthWrite:false}),[0,.012,0],[1,.30,1],[-Math.PI/2,0,0]);
+    const legs=[];
+    [-1,1].forEach(side=>{
+      const leg=new THREE.Group();leg.position.set(side*.17,.46,0);body.add(leg);
+      cylinder(leg,mats.zhangBlackDark,[0,-.15,0],.12,.135,.32,16);
+      ball(leg,mats.leather,[0,-.315,.045],[.16,.095,.22],14);
+      sculptedPlate(leg,mats.zhangSteelDark,0,-.14,.11,.17,.24,.04,"shield");
+      sculptedPlate(leg,mats.zhangBlack,0,-.13,.14,.145,.20,.025,"shield");
+      sculptedPlate(leg,mats.zhangRed,0,-.13,.159,.11,.17,.018,"shield");
+      seam(leg,[[-.05,-.23,.18],[0,-.255,.185],[.05,-.23,.18]],.007,mats.zhangSteel,12);
+      legs.push(leg);
+    });
+    // Thick crimson under-robe and wide black lamellar skirt.
+    cylinder(body,mats.zhangRed,[0,.40,0],.28,.405,.66,24);
+    cylinder(body,mats.zhangBlackDark,[0,.12,0],.42,.425,.09,24);
+    cylinder(body,mats.zhangSteelDark,[0,.16,0],.425,.425,.035,24);
+    cylinder(body,mats.zhangBlack,[0,.25,0],.37,.39,.20,24);
+    for(let i=0;i<9;i++){
+      const x=(i-4)*.082,y=.31-Math.abs(i-4)*.012;
+      sculptedPlate(body,mats.zhangSteelDark,x,y,.34,.078,.15,.038,"shield");
+      sculptedPlate(body,i%2?mats.zhangBlackLight:mats.zhangBlack,x,y+.004,.363,.064,.125,.02,"shield");
+      ball(body,mats.zhangRedLight,[x,.37,.38],[.012,.014,.008],8);
+    }
+    // Broad, barrel-chested build under overlapping black iron plates.
+    ball(body,mats.zhangRed,[0,.75,0],[.405,.405,.29],24);
+    ball(body,mats.zhangBlackDark,[0,.74,.23],[.37,.35,.10],24);
+    ball(body,mats.zhangBlack,[0,.74,.285],[.34,.32,.065],24);
+    seam(body,[[-.24,1.04,.12],[-.16,1.105,.20],[0,1.13,.23],[.16,1.105,.20],[.24,1.04,.12]],.028,mats.zhangSteelDark,24);
+    seam(body,[[-.21,1.045,.15],[-.12,1.09,.22],[0,1.105,.245],[.12,1.09,.22],[.21,1.045,.15]],.009,mats.zhangSteel,22);
+    for(let row=0;row<4;row++){
+      for(let col=0;col<7;col++){
+        const x=(col-3)*.083,y=.91-row*.09,z=.346+.025*Math.max(0,1-x*x/.105-(y-.74)*(y-.74)/.12);
+        sculptedPlate(body,mats.zhangSteelDark,x,y,z,.078,.07,.022,"round");
+        sculptedPlate(body,(row+col)%2?mats.zhangBlackLight:mats.zhangBlack,x,y+.004,z+.015,.067,.057,.016,"round");
+        ball(body,mats.zhangRedLight,[x,y+.014,z+.033],[.007,.007,.005],8);
+      }
+    }
+    // Tiger-face boss at the breastplate center.
+    ball(body,mats.zhangSteelDark,[0,.74,.38],[.13,.15,.035],18);
+    ball(body,mats.zhangBlackLight,[0,.74,.407],[.105,.12,.022],18);
+    ball(body,mats.zhangRed,[0,.74,.424],[.07,.09,.014],16);
+    [-1,1].forEach(side=>{
+      tube(body,[[side*.02,.81,.44],[side*.08,.77,.445],[side*.025,.72,.45]],.008,mats.zhangSteel,14);
+      ball(body,mats.zhangGold,[side*.04,.77,.45],[.012,.012,.008],8);
+    });
+    // Massive tiger pauldron shoulders.
+    const arms=[];
+    [-1,1].forEach(side=>{
+      const arm=new THREE.Group();arm.position.set(side*.405,.96,.02);body.add(arm);
+      ball(arm,mats.zhangBlackDark,[0,-.09,0],[.205,.23,.19],18);
+      ball(arm,mats.zhangRed,[0,-.13,.015],[.15,.19,.14],16);
+      sculptedPlate(arm,mats.zhangSteelDark,0,-.065,.13,.30,.26,.06,"shield");
+      sculptedPlate(arm,mats.zhangBlack,0,-.06,.17,.265,.22,.035,"shield");
+      sculptedPlate(arm,mats.zhangRed,0,-.065,.19,.21,.17,.022,"shield");
+      seam(arm,[[-.10,-.01,.21],[0,.03,.22],[.10,-.01,.21]],.008,mats.zhangSteel,14);
+      for(let i=0;i<3;i++)ball(arm,mats.zhangSteel,[((i-1)*.065),-.13,.215],[.012,.012,.01],8);
+      const forearm=new THREE.Group();forearm.position.set(0,-.265,.02);arm.add(forearm);
+      cylinder(forearm,mats.zhangBlack,[0,-.12,0],.12,.095,.26,16);
+      sculptedPlate(forearm,mats.zhangSteelDark,0,-.12,.10,.17,.26,.04,"shield");
+      sculptedPlate(forearm,mats.zhangBlackLight,0,-.12,.13,.14,.23,.02,"shield");
+      sculptedPlate(forearm,mats.zhangRed,0,-.12,.15,.095,.19,.016,"shield");
+      cylinder(forearm,mats.zhangSteelDark,[0,-.245,.04],.12,.12,.075,14);
+      const hand=new THREE.Group();hand.position.set(0,-.31,.045);forearm.add(hand);
+      ball(hand,mats.zhangSkin,[0,0,.02],[.096,.10,.085],14);
+      for(let finger=0;finger<4;finger++)ball(hand,mats.zhangSkinLight,[(finger-1.5)*.038,-.06,.04],[.021,.048,.025],10);
+      const weapon=side===1?createZhangSpear(hand,side):null;
+      arms.push({arm,forearm,hand,sword:weapon,weapon,side});
+    });
+    // Heavy black shoulder mantle with red inner lining.
+    const capeShape=new THREE.Shape();capeShape.moveTo(-.25,.99);capeShape.quadraticCurveTo(0,1.08,.25,.99);capeShape.lineTo(.42,.13);capeShape.quadraticCurveTo(0,.02,-.42,.13);capeShape.closePath();
+    const capeMat=mats.zhangBlackDark.clone();capeMat.side=THREE.DoubleSide;
+    add(body,new THREE.ExtrudeGeometry(capeShape,{depth:.02,bevelEnabled:true,bevelSegments:2,bevelSize:.012,bevelThickness:.008}),capeMat,[0,.015,-.24]);
+    seam(body,[[-.4,.15,-.205],[-.2,.09,-.205],[0,.07,-.205],[.2,.09,-.205],[.4,.15,-.205]],.012,mats.zhangRed,24);
+    // Wide leather belt, square iron buckle and red cords.
+    box(body,mats.leather,[0,.44,.31],[.67,.115,.075]);
+    box(body,mats.zhangSteelDark,[0,.44,.36],[.17,.15,.035]);
+    box(body,mats.zhangSteel,[0,.44,.383],[.12,.11,.018]);
+    gem(body,0,.44,.405,.03,mats.redJewel);
+    for(let i=0;i<9;i++)ball(body,mats.zhangSteel,[((i-4)*.073),.48,.36],[.01,.01,.008],8);
+    // Heavy head, blunt jaw and fierce brow.
+    cylinder(body,mats.zhangSkin,[0,1.09,.01],.12,.11,.22,16);
+    ball(headPivot,mats.zhangBlackDark,[0,.012,-.05],[.385,.41,.34],22);
+    ball(headPivot,mats.zhangSkin,[0,.01,.04],[.36,.37,.32],26);
+    ball(headPivot,mats.zhangSkinLight,[0,.07,.205],[.30,.255,.16],22);
+    ball(headPivot,mats.zhangSkin,[0,-.205,.18],[.285,.17,.18],20);
+    [-1,1].forEach(side=>{
+      ball(headPivot,mats.zhangSkin,[side*.35,-.04,.04],[.085,.13,.085],14);
+      ball(headPivot,mats.zhangBlack,[side*.315,.08,-.015],[.08,.25,.09],14);
+      tube(headPivot,[[side*.30,.22,.08],[side*.33,-.02,.09],[side*.34,-.22,.10]],.035,mats.zhangBeard,18);
+      ball(headPivot,mats.zhangSteelDark,[side*.37,-.10,.07],[.02,.045,.02],10);
+      // Three sculpted forehead creases help the fierce expression read at game scale.
+      for(let i=0;i<3;i++)seam(headPivot,[[side*(.03+i*.025),.16+i*.018,.355],[side*(.08+i*.025),.145+i*.018,.36]],.004,mats.zhangSkin,8);
+    });
+    // Black wrapped headcloth, red brow tie and knotted rear tails.
+    ball(headPivot,mats.zhangBlack,[0,.27,-.025],[.35,.17,.30],18);
+    sculptedPlate(headPivot,mats.zhangBlackDark,0,.385,-.005,.46,.16,.18,"shield");
+    sculptedPlate(headPivot,mats.zhangRed,0,.402,.16,.43,.065,.03,"round");
+    sculptedPlate(headPivot,mats.zhangRedLight,0,.412,.18,.35,.03,.015,"round");
+    ball(headPivot,mats.zhangBlack,[0,.49,-.02],[.12,.12,.12],14);
+    seam(headPivot,[[-.12,.43,-.035],[-.27,.31,-.08],[-.35,.20,-.10]],.035,mats.zhangBlack,18);
+    seam(headPivot,[[.12,.43,-.035],[.27,.31,-.08],[.35,.20,-.10]],.035,mats.zhangBlack,18);
+    add(headPivot,new THREE.ConeGeometry(.075,.20,10),mats.zhangRed,[0,.57,.01],[1,.85,1],[0,0,-.12]);
+    // Huge tiger eyes, thick slanting brows, broad nose and snarling mouth.
+    [-1,1].forEach(side=>{
+      seam(headPivot,[[side*.045,.10,.36],[side*.12,.15,.37],[side*.20,.105,.35]],.024,mats.zhangBeard,16);
+      ball(headPivot,mats.zhangSkin,[side*.12,.005,.348],[.075,.065,.026],14);
+      ball(headPivot,mats.white,[side*.12,.005,.37],[.059,.044,.02],14);
+      ball(headPivot,mats.pupil,[side*.11,.002,.388],[.027,.033,.014],12);
+      ball(headPivot,mats.eyeDark,[side*.11,.002,.398],[.013,.021,.008],10);
+      ball(headPivot,mats.white,[side*.098,.02,.407],[.009,.009,.004],8);
+      seam(headPivot,[[side*.065,-.025,.378],[side*.12,-.05,.383],[side*.18,-.02,.374]],.006,mats.zhangSkin,12);
+    });
+    ball(headPivot,mats.zhangSkinLight,[0,-.035,.365],[.05,.09,.05],14);
+    ball(headPivot,mats.zhangSkin,[0,-.09,.398],[.075,.06,.05],14);
+    [-1,1].forEach(side=>ball(headPivot,mats.zhangSkin,[side*.055,-.11,.38],[.03,.025,.02],10));
+    seam(headPivot,[[-.07,-.18,.37],[-.035,-.20,.39],[0,-.205,.395],[.035,-.20,.39],[.07,-.18,.37]],.01,mats.zhangRed,18);
+    // Thick forked black moustache and dense pointed beard.
+    seam(headPivot,[[0,-.13,.38],[-.08,-.14,.395],[-.17,-.11,.36],[-.23,-.065,.32]],.034,mats.zhangBeard,22);
+    seam(headPivot,[[0,-.13,.38],[.08,-.14,.395],[.17,-.11,.36],[.23,-.065,.32]],.034,mats.zhangBeard,22);
+    ball(headPivot,mats.zhangBeard,[0,-.235,.32],[.105,.135,.055],16);
+    for(let i=0;i<9;i++){
+      const x=(i-4)*.022;
+      seam(headPivot,[[x,-.20,.365],[x*1.15,-.30,.35],[x*1.3,-.39-Math.abs(i-4)*.008,.32]],.009,mats.zhangBeard,12);
+    }
+    // Extra brow rivets, shoulder studs and tiger-striped skirt piping.
+    for(let i=0;i<5;i++){
+      const x=(i-2)*.11;
+      ball(body,mats.zhangSteel,[x,.99,.23],[.012,.012,.01],8);
+      seam(body,[[x,.23,.36],[x+.025,.19,.365],[x+.05,.23,.36]],.005,mats.zhangRedLight,8);
+    }
+    optimizeStaticMeshes(world);
+    return {world,motion,body,headPivot,arms,legs,shadow,meshes:0,baseHeight:2.10,
+      weaponObjects:arms.filter(x=>x.weapon).map(x=>x.weapon),weaponNames:["丈八蛇矛"],
+      action:"idle",actionAt:0,wasSwinging:false,wasCast:false,wasHurt:false,wasDead:false,
+      baseX:0,baseY:0,scale:1};
   }
 
   function createLiuBei() {
