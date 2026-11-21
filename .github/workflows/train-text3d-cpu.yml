@@ -1,6 +1,9 @@
 name: CPU Text-to-3D Training
 
 on:
+  push:
+    paths:
+      - ".github/workflows/train-text3d-cpu.yml"
   workflow_dispatch:
     inputs:
       max_models:
