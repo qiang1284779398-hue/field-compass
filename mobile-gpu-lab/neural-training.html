@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>手机 GPU 神经网络训练验证</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#10151d;color:#e8eef7;font:15px system-ui,-apple-system,sans-serif;padding:20px;line-height:1.55}.wrap{max-width:760px;margin:auto}h1{font-size:23px}.card{background:#1a2431;border:1px solid #344355;border-radius:14px;padding:16px;margin:14px 0}.muted{color:#9fb0c4}.big{font-size:28px;font-weight:700}.ok{color:#70e0a1}.bad{color:#ff8585}button{border:0;border-radius:10px;background:#5c9cff;color:#071321;padding:13px 18px;font-weight:700;font-size:16px;width:100%}button:disabled{opacity:.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c1118;padding:12px;border-radius:10px;font-size:12px}.bar{height:12px;background:#344355;border-radius:9px;overflow:hidden}.bar>i{display:block;height:100%;width:0;background:#70e0a1}canvas{width:100%;height:190px;background:#0c1118;border-radius:10px}
+</style>
+</head>
+<body><main class="wrap">
+<h1>第五阶段：手机 GPU 神经网络训练</h1>
+<p class="muted">真实 WebGPU 计算验证：一个 1→16→1 的小型全连接网络，在 GPU 上执行前向传播、反向传播和梯度下降，拟合 y = x²。不是单纯矩阵乘法基准。</p>
+<div class="card"><div class="muted">当前状态</div><div class="big" id="status">等待开始</div><div class="bar"><i id="progress"></i></div><p id="detail" class="muted">建议使用 Chrome，保持页面在前台，手机不要切换应用。</p></div>
+<button id="run">开始 GPU 训练</button>
+<div class="card"><div class="muted">初始损失 / 最终损失（越低越好）</div><div class="big" id="loss">—</div><p id="verdict" class="muted">训练完成后显示验证结论。</p></div>
+<div class="card"><b>训练损失曲线</b><canvas id="plot" width="700" height="190"></canvas></div>
+<div class="card"><b>设备与训练日志</b><pre id="log">尚未运行。</pre></div>
+<div class="card muted"><b>测试边界</b><br>本测试只证明手机浏览器能够在 GPU 上完成一个小型网络的训练闭环。它不代表手机能从零训练 Tripo 级 3D 生成模型，也不代表可用显存容量等于系统 RAM。测试不读取芯片温度；若手机明显发热，请停止并冷却。</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const log=s=>$('log').textContent=s;
+function draw(values){const c=$('plot'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);ctx.strokeStyle='#344355';ctx.lineWidth=1;for(let i=1;i<4;i++){ctx.beginPath();ctx.moveTo(0,h*i/4);ctx.lineTo(w,h*i/4);ctx.stroke()}if(values.length<2)return;const max=Math.max(...values,1e-8),min=0;ctx.strokeStyle='#70e0a1';ctx.lineWidth=3;ctx.beginPath();values.forEach((v,i)=>{const x=i/(values.length-1)*w,y=h-12-(v-min)/(max-min||1)*(h-24);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke()}
+const shader=`
+struct Out { values: array<f32, 64>, };
+@group(0) @binding(0) var<storage, read_write> out: Out;
+@compute @workgroup_size(1)
+fn main() {
+  var w1: array<f32,16>;
+  var b1: array<f32,16>;
+  var w2: array<f32,16>;
+  var b2: f32 = 0.0;
+  var gw1: array<f32,16>;
+  var gb1: array<f32,16>;
+  var gw2: array<f32,16>;
+  for(var j:u32=0u;j<16u;j=j+1u){
+    let q=f32(j);
+    w1[j]=0.12*sin((q+1.0)*1.71);
+    b1[j]=0.03*cos((q+1.0)*0.91);
+    w2[j]=0.08*cos((q+1.0)*1.33);
+  }
+  let n:u32=128u;
+  var initial:f32=0.0;
+  for(var i:u32=0u;i<n;i=i+1u){
+    let x=-1.0+2.0*f32(i)/f32(n-1u);
+    var a:array<f32,16>;
+    var pred:f32=b2;
+    for(var j:u32=0u;j<16u;j=j+1u){a[j]=max(0.0,w1[j]*x+b1[j]);pred=pred+w2[j]*a[j];}
+    let d=pred-x*x;initial=initial+d*d;
+  }
+  out.values[0]=initial/f32(n);
+  for(var epoch:u32=0u;epoch<1000u;epoch=epoch+1u){
+    for(var j:u32=0u;j<16u;j=j+1u){gw1[j]=0.0;gb1[j]=0.0;gw2[j]=0.0;}
+    var gb2:f32=0.0;
+    for(var i:u32=0u;i<n;i=i+1u){
+      let x=-1.0+2.0*f32(i)/f32(n-1u);
+      let target=x*x;
+      var a:array<f32,16>;
+      var z:array<f32,16>;
+      var pred:f32=b2;
+      for(var j:u32=0u;j<16u;j=j+1u){z[j]=w1[j]*x+b1[j];a[j]=max(0.0,z[j]);pred=pred+w2[j]*a[j];}
+      let delta=2.0*(pred-target)/f32(n);
+      gb2=gb2+delta;
+      for(var j:u32=0u;j<16u;j=j+1u){
+        gw2[j]=gw2[j]+delta*a[j];
+        let dh=select(0.0,delta*w2[j],z[j]>0.0);
+        gw1[j]=gw1[j]+dh*x;gb1[j]=gb1[j]+dh;
+      }
+    }
+    let lr=0.025;
+    b2=b2-lr*gb2;
+    for(var j:u32=0u;j<16u;j=j+1u){w1[j]=w1[j]-lr*gw1[j];b1[j]=b1[j]-lr*gb1[j];w2[j]=w2[j]-lr*gw2[j];}
+    if((epoch+1u)%25u==0u){
+      var loss:f32=0.0;
+      for(var i:u32=0u;i<n;i=i+1u){
+        let x=-1.0+2.0*f32(i)/f32(n-1u);var p:f32=b2;
+        for(var j:u32=0u;j<16u;j=j+1u){p=p+w2[j]*max(0.0,w1[j]*x+b1[j]);}
+        let d=p-x*x;loss=loss+d*d;
+      }
+      out.values[1u+(epoch/25u)]=loss/f32(n);
+    }
+  }
+  var final_loss:f32=0.0;
+  for(var i:u32=0u;i<n;i=i+1u){
+    let x=-1.0+2.0*f32(i)/f32(n-1u);var p:f32=b2;
+    for(var j:u32=0u;j<16u;j=j+1u){p=p+w2[j]*max(0.0,w1[j]*x+b1[j]);}
+    let d=p-x*x;final_loss=final_loss+d*d;
+  }
+  out.values[41]=final_loss/f32(n);
+  out.values[42]=1000.0;
+}`;
+async function run(){
+ const btn=$('run');btn.disabled=true;$('status').textContent='检测 WebGPU…';$('progress').style.width='4%';$('verdict').textContent='正在初始化设备。';
+ try{
+  if(!navigator.gpu)throw Error('当前浏览器没有开放 WebGPU。请尝试最新版 Chrome，并检查 Android 系统及浏览器支持。');
+  const adapter=await navigator.gpu.requestAdapter();if(!adapter)throw Error('没有获取到 GPU adapter。');
+  const device=await adapter.requestDevice({requiredLimits:{maxStorageBufferBindingSize:Math.min(adapter.limits.maxStorageBufferBindingSize,4096)}});
+  const info=adapter.info||{};let lines=['WebGPU 已启用', 'GPU: '+(info.description||info.device||'浏览器未公开设备名称'),'网络结构：1 → 16(ReLU) → 1','训练样本：128','训练轮数：1000','执行位置：GPU compute shader'];
+  $('status').textContent='GPU 训练中';$('progress').style.width='15%';log(lines.join('\n'));
+  const module=device.createShaderModule({code:shader});
+  const compilation=await module.getCompilationInfo();const errors=compilation.messages.filter(m=>m.type==='error');if(errors.length)throw Error(errors.map(e=>e.message).join('\n'));
+  const buffer=device.createBuffer({size:64*4,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC});
+  const read=device.createBuffer({size:64*4,usage:GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST});
+  const pipeline=device.createComputePipeline({layout:'auto',compute:{module,entryPoint:'main'}});
+  const bind=device.createBindGroup({layout:pipeline.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer}}]});
+  const encoder=device.createCommandEncoder();const pass=encoder.beginComputePass();pass.setPipeline(pipeline);pass.setBindGroup(0,bind);pass.dispatchWorkgroups(1);pass.end();encoder.copyBufferToBuffer(buffer,0,read,0,64*4);device.queue.submit([encoder.finish()]);
+  await read.mapAsync(GPUMapMode.READ);const vals=new Float32Array(read.getMappedRange().slice(0));read.unmap();
+  const initial=vals[0],final=vals[41],curve=[initial,...Array.from({length:40},(_,i)=>vals[i+1])];
+  draw(curve);$('loss').textContent=initial.toFixed(6)+' → '+final.toFixed(6);
+  const ratio=final/initial;const passed=Number.isFinite(final)&&initial>0&&final<initial*0.5;
+  $('status').textContent=passed?'训练验证通过':'训练运行完成，下降幅度不足';$('status').className='big '+(passed?'ok':'bad');$('progress').style.width='100%';
+  $('verdict').textContent='损失下降 '+((1-ratio)*100).toFixed(1)+'%。'+(passed?' GPU 已完成前向传播、反向传播及参数更新，满足本阶段基本验证标准。':' 本轮未达到损失至少下降 50% 的标准，需要调整训练参数后复测。');
+  lines.push('初始 MSE: '+initial,'最终 MSE: '+final,'损失下降: '+((1-ratio)*100).toFixed(2)+'%','判定: '+(passed?'PASS':'CHECK'));
+  log(lines.join('\n'));buffer.destroy();read.destroy();device.destroy();
+ }catch(e){$('status').textContent='测试失败';$('status').className='big bad';$('verdict').textContent=e.message;log(e.stack||String(e));$('progress').style.width='0%';}
+ finally{btn.disabled=false;}
+}
+$('run').addEventListener('click',run);
+</script></body></html>
