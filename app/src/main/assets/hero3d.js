@@ -329,6 +329,7 @@
       seam(body,[[side*.29,.79,.14],[side*.35,.73,.13],[side*.39,.66,.11]],.006,mats.goldBright,14);
     });
 
+    optimizeStaticMeshes(world);
     return {world,motion,body,headPivot,arms,legs,shadow,meshes:0,baseHeight:2.08,
       action:"idle",actionAt:0,wasSwinging:false,wasCast:false,wasHurt:false,wasDead:false,
       baseX:0,baseY:0,scale:1};
@@ -356,6 +357,37 @@
     const rec=createLiuBei();rec.id=id;rec.key=key;
     rec.meshes=0;rec.world.traverse(o=>{if(o.isMesh)rec.meshes++;});
     app.scene.add(rec.world);actors.set(key,rec);return rec;
+  }
+  // Merge static sibling meshes by material inside each rig segment. This keeps the sculpted
+  // detail while reducing hundreds of tiny draw calls on mid-range Android devices.
+  function mergeStaticMeshes(group) {
+    const buckets=new Map(), remove=[];
+    group.children.forEach(child=>{
+      if(!child.isMesh||!child.geometry||!child.geometry.attributes.position)return;
+      child.updateMatrix();
+      const key=child.material.uuid;
+      if(!buckets.has(key))buckets.set(key,{material:child.material,positions:[],normals:[]});
+      const bucket=buckets.get(key),geometry=child.geometry.clone();
+      geometry.applyMatrix4(child.matrix);
+      if(!geometry.attributes.normal)geometry.computeVertexNormals();
+      const p=geometry.attributes.position.array,n=geometry.attributes.normal.array;
+      for(let i=0;i<p.length;i++)bucket.positions.push(p[i]);
+      for(let i=0;i<n.length;i++)bucket.normals.push(n[i]);
+      geometry.dispose();remove.push(child);
+    });
+    remove.forEach(child=>group.remove(child));
+    buckets.forEach(bucket=>{
+      const geometry=new THREE.BufferGeometry();
+      geometry.setAttribute("position",new THREE.BufferAttribute(new Float32Array(bucket.positions),3));
+      geometry.setAttribute("normal",new THREE.BufferAttribute(new Float32Array(bucket.normals),3));
+      geometry.computeBoundingSphere();
+      const mesh=new THREE.Mesh(geometry,bucket.material);
+      mesh.castShadow=false;mesh.receiveShadow=false;
+      group.add(mesh);
+    });
+  }
+  function optimizeStaticMeshes(root) {
+    root.traverse(node=>{if(node.isGroup)mergeStaticMeshes(node);});
   }
   const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
   function chooseAction(rec,kind,now) {
@@ -392,37 +424,54 @@
   }
   function animate(rec,now) {
     const t=(now-rec.actionAt)/1000, idleWave=Math.sin(now*.0024);
-    let slash=0,raise=0,lean=0,tilt=0;
-    if(rec.action==="attack"&&t<.74){
-      const p=t/.74;slash=p<.22?smooth(p/.22):p<.57?1-smooth((p-.22)/.35):0;
-      lean=Math.sin(Math.min(1,p)*Math.PI)*.16;tilt=-slash*.10;
-    } else if(rec.action==="skill"&&t<.84){
-      const p=t/.84;raise=p<.28?smooth(p/.28):p<.66?1-smooth((p-.28)/.38):0;
-      lean=Math.sin(p*Math.PI)*.09;
-    } else if(rec.action==="hurt"&&t<.54){
-      const p=t/.54;tilt=Math.sin(p*Math.PI)*.20;lean=-Math.sin(p*Math.PI)*.06;
+    let slash=0,raise=0,lean=0,tilt=0,brace=0;
+    if(rec.action==="attack"&&t<.78){
+      const p=t/.78;
+      // Anticipation -> committed cut -> short impact hold -> weighted recovery.
+      if(p<.23){brace=smooth(p/.23);slash=-.16*brace;}
+      else if(p<.48){const q=smooth((p-.23)/.25);slash=-.16+1.16*q;}
+      else if(p<.62){slash=1.0-.06*smooth((p-.48)/.14);}
+      else slash=.94*(1-smooth((p-.62)/.38));
+      lean=Math.sin(Math.min(1,p)*Math.PI)*.17;
+      tilt=-slash*.12;
+    } else if(rec.action==="skill"&&t<.92){
+      const p=t/.92;
+      raise=p<.30?smooth(p/.30):p<.69?1-smooth((p-.30)/.39):0;
+      lean=Math.sin(p*Math.PI)*.11;
+      brace=raise;
+    } else if(rec.action==="hurt"&&t<.58){
+      const p=t/.58;tilt=Math.sin(p*Math.PI)*.22;lean=-Math.sin(p*Math.PI)*.075;
     } else if(rec.action==="dead"){
       tilt=-1.25;lean=-.18;
-    } else if(rec.action!=="idle"&&t>(rec.action==="attack"?.74:rec.action==="skill"?.84:.54)){
+    } else if(rec.action!=="idle"&&t>(rec.action==="attack"?.78:rec.action==="skill"?.92:.58)){
       rec.action="idle";rec.actionAt=now;
     }
-    rec.motion.position.y=.014*Math.sin(now*.003)+lean;
-    rec.motion.position.x=(rec.action==="attack"?slash*.07:0);
+    rec.motion.position.y=.012*Math.sin(now*.003)+lean;
+    rec.motion.position.x=(rec.action==="attack"?slash*.075:0);
     rec.motion.rotation.z=tilt;
-    rec.body.rotation.y=(rec.action==="attack"?slash*.32:0)+.025*Math.sin(now*.0014);
-    rec.headPivot.rotation.x=.025*Math.sin(now*.0017);
-    rec.headPivot.rotation.y=.035*Math.sin(now*.0012);
+    rec.body.rotation.y=(rec.action==="attack"?slash*.34:0)+.022*Math.sin(now*.0014);
+    rec.body.scale.y=1-(rec.action==="attack"?.025*slash:0);
+    rec.headPivot.rotation.x=.018*Math.sin(now*.0017)+(rec.action==="attack"?-.045*slash:0);
+    rec.headPivot.rotation.y=.028*Math.sin(now*.0012)+(rec.action==="attack"?-.06*slash:0);
     rec.arms.forEach(arm=>{
-      const idle=arm.side*(.10+.035*idleWave);
-      if(rec.action==="attack")arm.arm.rotation.z=idle+slash*(arm.side===1?-1.62:1.18);
-      else if(rec.action==="skill")arm.arm.rotation.z=idle+raise*(arm.side===1?-.88:1.06);
-      else if(rec.action==="hurt")arm.arm.rotation.z=idle+Math.sin(t/ .54*Math.PI)*arm.side*.28;
-      else if(rec.action==="dead")arm.arm.rotation.z=arm.side*.65;
+      const idle=arm.side*(.085+.025*idleWave);
+      if(rec.action==="attack")arm.arm.rotation.z=idle+slash*(arm.side===1?-1.72:1.28);
+      else if(rec.action==="skill")arm.arm.rotation.z=idle+raise*(arm.side===1?-.98:1.12);
+      else if(rec.action==="hurt")arm.arm.rotation.z=idle+Math.sin(t/.58*Math.PI)*arm.side*.32;
+      else if(rec.action==="dead")arm.arm.rotation.z=arm.side*.68;
       else arm.arm.rotation.z=idle;
-      arm.forearm.rotation.z=rec.action==="attack"?slash*(arm.side===1?-.44:.34):rec.action==="skill"?raise*-.30:0;
-      arm.sword.rotation.z=(rec.action==="attack"?slash*(arm.side===1?-.62:.42):rec.action==="skill"?raise*(arm.side===1?-.38:.45):0);
+      arm.forearm.rotation.z=rec.action==="attack"?slash*(arm.side===1?-.56:.42):rec.action==="skill"?raise*-.36:0;
+      arm.hand.rotation.z=rec.action==="attack"?slash*(arm.side===1?-.19:.15):rec.action==="skill"?raise*.10:0;
+      arm.sword.rotation.z=(rec.action==="attack"?slash*(arm.side===1?-.72:.52):rec.action==="skill"?raise*(arm.side===1?-.42:.48):0);
     });
+    rec.legs.forEach((leg,index)=>{
+      const side=index===0?-1:1;
+      leg.rotation.z=rec.action==="attack"?side*.035*slash:rec.action==="hurt"?side*.06:rec.action==="dead"?side*.12:side*.008*Math.sin(now*.002);
+      leg.rotation.x=rec.action==="attack"?(index===1?-.07:.035)*slash:0;
+    });
+    rec.shadow.material.opacity=rec.action==="dead"?.30:.23;
   }
+
   function frame(now) {
     raf=requestAnimationFrame(frame);
     if(!app)return;
