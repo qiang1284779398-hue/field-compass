@@ -1,29 +1,35 @@
-# Three Kingdoms rigged 3D hero pipeline
+# Q-style 3D hero prototype
 
-The player-side Liu Bei, Guan Yu and Zhang Fei are generated as separate GLB characters during the Android build and bundled into the APK. The APK does not fetch character files from the internet.
+## Current implementation
 
-## Character identity
+The first playable 3D hero is **Liu Bei**, integrated into the allied formation in the existing 2.5D battlefield.
 
-- Liu Bei: older, East Asian face settings, mustache with light stubble, warm red/brown costume palette and a crown-like headpiece.
-- Guan Yu: East Asian face settings, full dark-green beard plus a longer head-bone-attached beard extension, green/gold costume palette, crescent guandao attached at the right-hand weapon socket.
-- Zhang Fei: broad/heavy build, prominent jaw and square head modifiers, short heavy beard, dark armour palette and a spear attached at the right-hand weapon socket.
+- Character source: `app/src/main/assets/hero3d.js`.
+- Geometry: original procedural Three.js meshes assembled from spheres, cylinders, boxes, and shaped surfaces. The head, torso, legs, shoulders, arms, forearms, hands, and swords are separate objects connected through nested transform groups.
+- Style: compact Q-style proportions, vermilion robe, bronze/gold lamellar armour, crown ornament, moustache and short stubble, paired swords.
+- Animation: procedural idle breathing/sway, two-handed sword attack with a forward body lunge, skill preparation, hit reaction, and a simple knockdown/death pose.
+- Runtime: Three.js r128, loaded locally from `app/src/main/assets/vendor/three.min.js`; no model or texture is fetched at runtime.
+- Scene integration: a transparent WebGL canvas is layered into the existing 2.5D battlefield and positions Liu Bei against the same `.body-art` anchor used by the original 2D sprites.
+- Fallback: Liu Bei's existing SVG remains in the markup and is revealed automatically if the WebGL model cannot initialize.
+- Scope: only the allied Liu Bei currently uses the new 3D renderer. Guan Yu, Zhang Fei, enemy characters, and the rest of the general roster retain their existing 2D artwork. The terrain painter and miniature pixel troop formations are unchanged.
 
-Historical portraits are visual references for silhouette, beard, costume palette and headwear. They are not stretched over the model as flat face stickers. Each hero is an independently generated 3D human with its own face parameters, facial hair, materials, skin weights and facial/body rig.
+## What this prototype is not
 
-## Runtime
-
-- Three.js r128 classic browser build, GLTFLoader and SkeletonUtils are copied into local Android assets during CI.
-- Each GLB contains a skinned humanoid mesh and animation clips. Runtime clones the skinned skeleton per character, uses AnimationMixer, and drives idle/attack/death clips from existing battle animation states.
-- Weapon props attach to the rig's `WeaponR` hand socket. The battle scene keeps its existing 2.5D terrain renderer; the three named player generals are rendered as 3D models above it.
-- If WebGL or a model fails to load, the original SVG figure remains visible. Combat damage, target selection, skills, story and save logic remain in the existing game code.
+This first pass is **not** a skinned GLB/GLTF character and does not use motion-capture clips. It is a hand-assembled 3D mesh character with hierarchical part animation. The current animation poses are a prototype foundation; they are not yet a finished combat animation library.
 
 ## Build and validation
 
-`.github/workflows/android.yml` generates the three GLBs from `characters/*.json`, verifies that they exist, runs browser tests against the local GLB files, then packages them into the APK. Browser QA checks that at least one loaded hero has skinned meshes, a humanoid skeleton and multiple animation clips.
+The Android workflow installs Three.js r128, copies its minified runtime into the app's offline assets, then runs source checks, Chromium browser interaction tests, and the APK build.
 
-## Licences
+The browser test checks that:
+- the Three.js renderer initializes and the Liu Bei character is attached to the battlefield;
+- the character contains a multipart 3D mesh assembly and uses Q-style proportions;
+- a normal attack changes the character's animation state;
+- battle damage, skill energy, defence, enemy turns, and save/reload continue to work.
 
-- Ara 3D Gen generator code: MIT.
-- MakeHuman character data used by the generator: CC0 1.0.
-- Three.js: MIT.
-- Motion-capture clips included by the generator derive from the CMU Graphics Lab Motion Capture Database; the source permits use including commercial use but does not permit reselling the raw data by itself. Retain upstream notices when redistributing the game.
+The Android emulator/device job remains skipped when the project owner requests browser-only validation.
+
+## Licence
+
+- Three.js: MIT License. The bundled runtime is sourced from https://github.com/mrdoob/three.js.
+- Liu Bei's procedural mesh design and part-animation code in `hero3d.js` are original project code.
