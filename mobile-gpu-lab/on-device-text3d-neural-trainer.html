@@ -5,7 +5,7 @@
 </style></head><body><main class="wrap">
 <h1>端侧 3D AI · 神经网络训练器</h1>
 <p class="muted">这是训练路线的第一版真实神经网络：字符 n-gram 文本特征 → 32 隐藏单元 MLP → 12 个连续 3D 体型参数。训练样本、反向传播、梯度汇总和参数更新均在当前手机 WebGPU 上完成；训练权重保存在本机 IndexedDB。训练集目前是程序生成的带标签形体描述，目的是先打通可学习的文本条件形体模型，不代表已经具备开放域人物理解能力。</p>
-<div class="card"><b>训练任务</b><div class="big" id="status">等待开始</div><div class="bar"><i id="progress"></i></div><p class="muted" id="detail">128 条带标签描述 · 32 输入特征 · 32 隐藏单元 · 12 个 3D 参数 · WebGPU 反向传播训练</p><button id="train">在手机 GPU 上训练神经网络</button><button id="resume">读取本地权重并继续训练</button></div>
+<div class="card"><b>训练任务</b><div class="big" id="status">等待开始</div><div class="bar"><i id="progress"></i></div><p class="muted" id="detail">512 条带标签描述 · 32 输入特征 · 32 隐藏单元 · 12 个 3D 参数 · WebGPU 反向传播训练</p><button id="train">在手机 GPU 上训练神经网络</button><button id="resume">读取本地权重并继续训练</button></div>
 <div class="card"><b>训练损失（MSE）</b><div class="big" id="loss">尚未训练</div><p class="muted" id="trainInfo">完成训练后显示损失变化、轮数和权重保存状态。</p></div>
 <div class="card"><b>输入文字，让已训练模型预测形体</b><textarea id="prompt">一个高大强壮、穿重型铠甲、戴头盔的中国古代武将，手持长柄大刀</textarea><button id="infer">用已训练的神经网络生成形体</button><button id="download" disabled>导出模型预测的 3D 网格（GLB）</button><div id="pred" class="muted">尚无预测结果。</div></div>
 <div class="card"><b>训练日志</b><pre id="log">训练尚未开始。</pre></div>
@@ -13,7 +13,7 @@
 </main>
 <script>
 const $=id=>document.getElementById(id);
-const S=32,H=32,O=12,N=128,P=S*H+H+H*O+O,OFFB1=S*H,OFFW2=OFFB1+H,OFFB2=OFFW2+H*O;
+const S=32,H=32,O=12,N=512,P=S*H+H+H*O+O,OFFB1=S*H,OFFW2=OFFB1+H,OFFB2=OFFW2+H*O;
 let currentWeights=null,lastBlob=null,lastUrl=null;
 const vocab={
  heights:[['矮小',.36],['中等身高',.50],['高大',.68],['魁梧高大',.78]],
@@ -52,7 +52,7 @@ struct Buf {v:array<f32>,}
 @group(0) @binding(3) var<storage,read_write> grads:Buf;
 @compute @workgroup_size(64)
 fn main(@builtin(global_invocation_id) gid:vec3<u32>){
- let n=gid.x;if(n>=128u){return;}
+ let n=gid.x;if(n>=512u){return;}
  var hidden:array<f32,32>;var pre:array<f32,32>;var pred:array<f32,12>;
  for(var j:u32=0u;j<32u;j++){
   var z=weights.v[1056u+j];
@@ -82,8 +82,8 @@ struct Buf {v:array<f32>,}
 @compute @workgroup_size(64)
 fn main(@builtin(global_invocation_id) gid:vec3<u32>){
  let p=gid.x;if(p>=1452u){return;}var sum=0.0;
- for(var n:u32=0u;n<128u;n++){sum=sum+grads.v[n*1452u+p];}
- weights.v[p]=weights.v[p]-0.025*(sum/128.0);
+ for(var n:u32=0u;n<512u;n++){sum=sum+grads.v[n*1452u+p];}
+ weights.v[p]=weights.v[p]-0.025*(sum/512.0);
 }`;
 const inferShader=`
 struct Buf {v:array<f32>,}
@@ -111,7 +111,7 @@ async function train(resume){const btn=$('train');$('resume').disabled=true;btn.
   const gp=device.createComputePipeline({layout:'auto',compute:{module:gm,entryPoint:'main'}}),up=device.createComputePipeline({layout:'auto',compute:{module:um,entryPoint:'main'}});
   const gbg=device.createBindGroup({layout:gp.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:wb}},{binding:1,resource:{buffer:xb}},{binding:2,resource:{buffer:yb}},{binding:3,resource:{buffer:gb}}]});
   const ubg=device.createBindGroup({layout:up.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:wb}},{binding:1,resource:{buffer:gb}}]});
-  const epochs=resume?150:500;$('status').textContent='手机 GPU 正在训练 MLP…';$('detail').textContent='每轮执行 128 条样本的前向传播、反向传播、梯度汇总与参数更新；训练轮数 '+epochs;
+  const epochs=resume?150:500;$('status').textContent='手机 GPU 正在训练 MLP…';$('detail').textContent='每轮执行 512 条样本的前向传播、反向传播、梯度汇总与参数更新；训练轮数 '+epochs;
   const enc=device.createCommandEncoder();for(let e=0;e<epochs;e++){let pass=enc.beginComputePass();pass.setPipeline(gp);pass.setBindGroup(0,gbg);pass.dispatchWorkgroups(2);pass.end();pass=enc.beginComputePass();pass.setPipeline(up);pass.setBindGroup(0,ubg);pass.dispatchWorkgroups(Math.ceil(P/64));pass.end();}
   enc.copyBufferToBuffer(wb,0,read,0,P*4);device.queue.submit([enc.finish()]);await read.mapAsync(GPUMapMode.READ);weights=new Float32Array(read.getMappedRange().slice(0));read.unmap();
   const after=mse(weights,data.X,data.Y);if(!Number.isFinite(after))throw Error('训练损失出现非有限值，停止保存。');await saveWeights(weights,{version:1,input:S,hidden:H,output:O,epochs:(resume?150:500),samples:data.count,training:'WebGPU backprop MLP',dataset:'synthetic labeled shape descriptions'});
