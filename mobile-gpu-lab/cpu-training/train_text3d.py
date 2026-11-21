@@ -64,7 +64,7 @@ def getpath(r):
  return None
 
 def getpoints(path,dataset):
- url=path if path.startswith("http") else "https://huggingface.co/datasets/"+DS+"/resolve/main/"+path.lstrip("/")
+ url=path if path.startswith("http") else "https://huggingface.co/datasets/"+dataset+"/resolve/main/"+path.lstrip("/")
  r=S.get(url,timeout=90); r.raise_for_status()
  b=r.content
  if len(b)>LIMIT: raise ValueError("file exceeds size limit")
