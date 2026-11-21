@@ -19,3 +19,7 @@ Open the repository Actions tab, choose CPU Text-to-3D Training, then Run workfl
 
 ## Honest limitations
 This is a reproducible CPU baseline, not a pretrained commercial text-to-3D model. The source dataset is mostly pixel-art/low-poly objects; text features are hashed character n-grams, not a pretrained language encoder. Output is a point cloud, not a watertight editable mesh; no textures, materials, or rigging are generated.
+
+## Full-mesh generator (new path)
+
+The legacy 128-point point-cloud experiment above is preserved as a baseline. For actual text-conditioned implicit 3D generation and GLB mesh export, see [`mobile-gpu-lab/generation/README.md`](../generation/README.md). The new Shap-E workflow downloads the published pretrained model, generates a full triangle mesh on a CPU runner, and stores the GLB plus provenance manifest. The 5,943 custom samples remain preserved but have not yet been used to fine-tune Shap-E.
