@@ -116,37 +116,58 @@
 
   function createGuanDao(hand,side) {
     const weapon=new THREE.Group();
-    // Long hardwood shaft with engraved bronze ferrules.
-    cylinder(weapon,mats.leather,[0,.57,0],.033,.044,1.30,16);
-    cylinder(weapon,mats.guanGold,[0,-.055,.006],.052,.048,.075,14);
-    cylinder(weapon,mats.guanGoldBright,[0,1.12,.006],.052,.045,.07,14);
+    const outward=side<0?-1:1;
+    // Long, dark hardwood pole. The blade now sweeps OUTWARD from Guan Yu's
+    // right hand, instead of crossing back over his face and crown.
+    cylinder(weapon,mats.leather,[0,.57,0],.033,.044,1.30,18);
+    cylinder(weapon,mats.guanGold,[0,-.055,.006],.052,.048,.075,16);
+    cylinder(weapon,mats.guanGoldBright,[0,1.12,.006],.052,.045,.07,16);
     for(let i=0;i<9;i++){
       const y=.05+i*.125;
       cylinder(weapon,i%2?mats.guanGold:mats.guanGoldBright,[0,y,.006],.038,.038,.012,12);
     }
-    // Broad crescent blade, with a swept outer hook and a visible steel bevel.
+
+    // Crescent-shaped blade group mirrored with the grip side. The broad
+    // silver face and hooked outer tip are deliberately oversized to read
+    // clearly at the game's small battlefield scale.
+    const bladeGroup=new THREE.Group();
+    bladeGroup.scale.x=outward;
+    weapon.add(bladeGroup);
     const bladeShape=new THREE.Shape();
-    bladeShape.moveTo(-.015,1.08); bladeShape.quadraticCurveTo(-.12,1.25,-.28,1.40);
-    bladeShape.quadraticCurveTo(-.48,1.51,-.57,1.37);
-    bladeShape.quadraticCurveTo(-.50,1.23,-.36,1.18);
-    bladeShape.quadraticCurveTo(-.23,1.16,-.17,1.03);
-    bladeShape.lineTo(-.09,1.10); bladeShape.lineTo(-.015,1.08);
-    const blade=add(weapon,new THREE.ExtrudeGeometry(bladeShape,{depth:.035,bevelEnabled:true,bevelSegments:3,bevelSize:.012,bevelThickness:.008}),mats.guanSteel,[0,0,.025]);
+    bladeShape.moveTo(.035,1.075);
+    bladeShape.quadraticCurveTo(.19,1.19,.405,1.395);
+    bladeShape.quadraticCurveTo(.565,1.535,.735,1.515);
+    bladeShape.quadraticCurveTo(.785,1.385,.705,1.245);
+    bladeShape.quadraticCurveTo(.625,1.105,.455,1.055);
+    bladeShape.quadraticCurveTo(.285,1.005,.135,.935);
+    bladeShape.lineTo(.105,1.045);
+    bladeShape.quadraticCurveTo(.075,1.075,.035,1.075);
+    const blade=add(bladeGroup,new THREE.ExtrudeGeometry(bladeShape,{
+      depth:.046,bevelEnabled:true,bevelSegments:3,bevelSize:.014,bevelThickness:.009
+    }),mats.guanSteel,[0,0,.035]);
     blade.material.side=THREE.DoubleSide;
-    seam(weapon,[[-.04,1.12,.066],[-.22,1.27,.064],[-.42,1.40,.050],[-.51,1.38,.045]],.008,mats.guanSteelDark,24);
-    seam(weapon,[[-.05,1.14,.072],[-.22,1.30,.07],[-.40,1.42,.055]],.004,mats.steelBright,18);
-    // Dragon-head socket, whisker-like fins and red silk tassel.
-    ball(weapon,mats.guanGold,[0,1.085,.035],[.09,.115,.07],16);
-    sculptedPlate(weapon,mats.guanGoldBright,-.015,1.12,.09,.16,.12,.035,"shield");
-    gem(weapon,.025,1.12,.14,.028,mats.jade);
-    seam(weapon,[[.045,1.09,.11],[.12,1.02,.10],[.17,.96,.09]],.012,mats.guanGold,12);
-    for(let i=0;i<5;i++){
-      const x=(i-2)*.018;
-      tube(weapon,[[x,.99,.075],[x*1.4,.86,.08],[x*1.8,.73-Math.abs(i-2)*.015,.07]],.009,mats.tassel,12);
+
+    // Raised forged spine, dark fuller and a bright sharpened outer edge.
+    seam(bladeGroup,[[.09,1.09,.090],[.27,1.22,.089],[.47,1.405,.080],[.67,1.49,.063]],.010,mats.guanSteelDark,28);
+    seam(bladeGroup,[[.17,1.105,.094],[.34,1.265,.092],[.53,1.435,.081]],.005,mats.steelBright,22);
+    seam(bladeGroup,[[.735,1.50,.082],[.755,1.385,.082],[.684,1.25,.082],[.565,1.14,.082]],.009,mats.steelBright,24);
+    seam(bladeGroup,[[.14,1.035,.088],[.31,1.085,.09],[.49,1.135,.087]],.006,mats.guanSteelDark,18);
+
+    // Sculpted gold dragon socket, jade eye and a clearly visible red tassel.
+    ball(weapon,mats.guanGold,[0,1.085,.045],[.092,.112,.075],18);
+    sculptedPlate(weapon,mats.guanGoldBright,.035,1.12,.105,.19,.14,.045,"shield");
+    gem(weapon,.075,1.115,.155,.032,mats.jade);
+    seam(weapon,[[.055,1.085,.13],[.13,1.025,.12],[.19,.975,.10]],.014,mats.guanGold,14);
+    for(let i=0;i<7;i++){
+      const x=(i-3)*.018;
+      tube(weapon,[[x,.995,.09],[x*1.25,.865,.105],[x*1.55,.70-Math.abs(i-3)*.014,.09]],.011,mats.tassel,14);
     }
     ball(weapon,mats.guanGoldBright,[0,-.13,.015],[.055,.045,.05],12);
-    weapon.position.set(side*.018,-.035,.47);
-    weapon.userData.restRotationZ=-.18;
+
+    weapon.position.set(side*.018,-.035,.55);
+    weapon.userData.restRotationZ=-.12;
+    weapon.userData.bladeProfile="outward-crescent";
+    weapon.userData.bladeSpan=.75;
     weapon.rotation.z=weapon.userData.restRotationZ;
     hand.add(weapon);
     return weapon;
@@ -869,7 +890,7 @@
       return {id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",
         rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:weapons.length},
         weaponNames:a.weaponNames||[],weapons:{frontLayer:true,restPose:"forward-held",zOffset:weapons.length ? .445 : 0,
-          angles:weapons.map(w=>w.userData.restRotationZ||0),
+          angles:weapons.map(w=>w.userData.restRotationZ||0),profiles:weapons.map(w=>w.userData.bladeProfile||"standard"),bladeSpans:weapons.map(w=>w.userData.bladeSpan||0),
           world:weapons.map(w=>{const p=new THREE.Vector3();w.getWorldPosition(p);return {x:p.x,y:p.y,z:p.z,rotationZ:w.rotation.z};})},
         optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",
         heightRatio:(a.baseHeight||2.08)/.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}};
