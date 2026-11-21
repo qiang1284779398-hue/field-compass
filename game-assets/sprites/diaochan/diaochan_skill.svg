@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>貂蝉·专属战技四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>貂蝉·专属战技四帧</title><g data-motion-only="true" transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>貂蝉 — 闭月 original 2D full-body sprite</title>
 <desc>Original hand-drawn vector character: 绛紫霓裳·月影双刃. Unique costume silhouette, weapon, materials, insignia and facial features. Transparent background.</desc>
 <defs>
@@ -33,7 +33,7 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-</svg></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g data-motion-only="true" transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>貂蝉 — 闭月 original 2D full-body sprite</title>
 <desc>Original hand-drawn vector character: 绛紫霓裳·月影双刃. Unique costume silhouette, weapon, materials, insignia and facial features. Transparent background.</desc>
 <defs>
@@ -67,7 +67,7 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-</svg></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g data-motion-only="true" transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>貂蝉 — 闭月 original 2D full-body sprite</title>
 <desc>Original hand-drawn vector character: 绛紫霓裳·月影双刃. Unique costume silhouette, weapon, materials, insignia and facial features. Transparent background.</desc>
 <defs>
@@ -101,7 +101,7 @@
 <path d="M412 269 Q418 292 433 303 M520 268 Q512 291 501 301" fill="none" stroke="#ffe0c0" stroke-width="4" opacity=".4"/>
 <path d="M635 625 Q650 610 672 638 L680 671 Q662 699 634 688 L616 665Z" fill="url(#skin)" stroke="#744b3b" stroke-width="7"/>
 <path d="M635 642 L667 654" stroke="url(#metal)" stroke-width="8"/>
-</svg></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g data-motion-only="true" transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>貂蝉 — 闭月 original 2D full-body sprite</title>
 <desc>Original hand-drawn vector character: 绛紫霓裳·月影双刃. Unique costume silhouette, weapon, materials, insignia and facial features. Transparent background.</desc>
 <defs>

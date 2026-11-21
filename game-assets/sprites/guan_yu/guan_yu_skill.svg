@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>关羽·专属战技四帧</title><g transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>关羽·专属战技四帧</title><g data-motion-only="true" transform="translate(0 0)"><g transform="translate(0 0)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -128,7 +128,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g></g><g transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g data-motion-only="true" transform="translate(800 0)"><g transform="translate(0 -18) scale(1.02)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -257,7 +257,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g></g><g transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g data-motion-only="true" transform="translate(1600 0)"><g transform="translate(0 -28) scale(1.06)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
@@ -386,7 +386,7 @@
 <path d="M616 636 Q638 627 658 639 L651 655 Q631 652 617 650Z" fill="url(#gold)" stroke="#634522" stroke-width="5"/>
 <!-- subtle facial highlights -->
 <path d="M412 268 Q419 289 433 298 M544 266 Q538 285 526 296" fill="none" stroke="#f7d9b4" stroke-width="4" opacity=".5"/>
-</svg></g></g><g transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
+</svg></g></g><g data-motion-only="true" transform="translate(2400 0)"><g transform="translate(0 -2) scale(1.01)"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">
 <title>Guan Yu — portrait-ratio full-body 2D character sprite</title>
 <desc>Hand-authored layered vector illustration: Guan Yu in late Han inspired lamellar armor and green war robe, with long black beard and Green Dragon Crescent Blade. Transparent background.</desc>
 <defs>
