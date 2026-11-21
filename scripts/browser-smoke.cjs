@@ -179,6 +179,8 @@ const assert = require("node:assert/strict");
   assert.ok(liuBei3d && liuBei3d.model==="procedural-chibi-3d" && liuBei3d.meshes>=35 && liuBei3d.heightRatio>2.5, "Liu Bei must render as a multipart Q-style 3D model: "+JSON.stringify(liuBei3d));
   assert.ok(liuBei3d.detailLevel==="high-detail-chibi" && liuBei3d.optimizedStaticMeshes===true, "Liu Bei must use the fully detailed, mobile-optimized character build: "+JSON.stringify(liuBei3d));
   assert.ok(Object.values(liuBei3d.rig||{}).every(Boolean) && liuBei3d.rig.weapons===2, "Liu Bei must retain a complete articulated body and two separate swords: "+JSON.stringify(liuBei3d));
+  assert.ok(liuBei3d.weapons?.frontLayer===true && liuBei3d.weapons.zOffset>=.4 && liuBei3d.weapons.angles?.length===2, "Liu Bei's twin swords must be held in the visible front layer: "+JSON.stringify(liuBei3d.weapons));
+  assert.ok(liuBei3d.weapons.world?.length===2 && liuBei3d.weapons.world.every(w=>w.z>.4), "both sword models must remain in front of the torso in world space: "+JSON.stringify(liuBei3d.weapons));
   const spriteStatus = await page.evaluate(() => ["liu-bei","guan-yu","zhang-fei"].map(id => {
     const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
     return { id, loaded:!!img && img.complete && img.naturalWidth > 0, width:img?.naturalWidth||0, height:img?.naturalHeight||0 };
@@ -254,6 +256,8 @@ const assert = require("node:assert/strict");
   assert.ok((await page.locator('.warrior[data-side="enemy"][data-index="0"]').getAttribute("class")).includes("targeted"), "clicked enemy should become the selected target");
   await page.locator('button[onclick="basicAttack()"]').click();
   await page.waitForFunction(() => window.__hero3dStatus && window.__hero3dStatus().some(x=>x.id==="liu-bei"&&x.state==="attack"), {timeout:1500});
+  const swordDuringAttack = await page.evaluate(() => window.__hero3dStatus().find(x=>x.id==="liu-bei").weapons.world.map(w=>w.rotationZ));
+  assert.ok(swordDuringAttack.length===2 && swordDuringAttack.every(Number.isFinite), "both visible swords must remain attached and animated during Liu Bei's attack: "+JSON.stringify(swordDuringAttack));
   await page.waitForFunction(() => !fight.actionRunning, {timeout:5000});
   await page.waitForTimeout(120);
   const afterAttack = await readFight();
