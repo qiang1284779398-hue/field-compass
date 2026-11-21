@@ -181,6 +181,26 @@ const assert = require("node:assert/strict");
   assert.ok(Object.values(liuBei3d.rig||{}).every(Boolean) && liuBei3d.rig.weapons===2, "Liu Bei must retain a complete articulated body and two separate swords: "+JSON.stringify(liuBei3d));
   assert.ok(liuBei3d.weapons?.frontLayer===true && liuBei3d.weapons.zOffset>=.4 && liuBei3d.weapons.angles?.length===2, "Liu Bei's twin swords must be held in the visible front layer: "+JSON.stringify(liuBei3d.weapons));
   assert.ok(liuBei3d.weapons.world?.length===2 && liuBei3d.weapons.world.every(w=>w.z/liuBei3d.scale>.42), "both sword models must remain ahead of the torso after character scaling: "+JSON.stringify({weapons:liuBei3d.weapons,scale:liuBei3d.scale}));
+  await page.waitForFunction(() => window.__hero3dStatus && ["guan-yu","zhang-fei"].every(id => {
+    const actor=window.__hero3dStatus().find(x=>x.id===id);
+    const el=document.querySelector('#battleScene .warrior[data-hero3d="'+id+'"].hero3d-ready');
+    return !!actor&&actor.ready&&actor.renderer&&actor.meshes>=45&&actor.detailLevel==="high-detail-chibi"&&!!el;
+  }), {timeout:12000});
+  const threeHero3d = await page.evaluate(() => window.__hero3dStatus());
+  const guanYu3d = threeHero3d.find(x=>x.id==="guan-yu"), zhangFei3d = threeHero3d.find(x=>x.id==="zhang-fei");
+  assert.ok(guanYu3d&&guanYu3d.model==="procedural-chibi-3d"&&guanYu3d.meshes>=45&&guanYu3d.heightRatio>2.5, "Guan Yu must render as a high-detail multipart 3D general: "+JSON.stringify(guanYu3d));
+  assert.ok(zhangFei3d&&zhangFei3d.model==="procedural-chibi-3d"&&zhangFei3d.meshes>=45&&zhangFei3d.heightRatio>2.5, "Zhang Fei must render as a high-detail multipart 3D general: "+JSON.stringify(zhangFei3d));
+  assert.ok(guanYu3d.weaponNames?.includes("青龙偃月刀")&&guanYu3d.weapons.world?.length===1&&guanYu3d.weapons.world[0].z/guanYu3d.scale>.42, "Guan Yu's Dragon Crescent Blade must be a visible front-held 3D weapon: "+JSON.stringify(guanYu3d.weapons));
+  assert.ok(zhangFei3d.weaponNames?.includes("丈八蛇矛")&&zhangFei3d.weapons.world?.length===1&&zhangFei3d.weapons.world[0].z/zhangFei3d.scale>.42, "Zhang Fei's serpent spear must be a visible front-held 3D weapon: "+JSON.stringify(zhangFei3d.weapons));
+  // Exercise the 3D animation hooks for both new generals independently.
+  for (const id of ["guan-yu","zhang-fei"]) {
+    await page.evaluate(heroId => document.querySelector('#battleScene .warrior[data-hero3d="'+heroId+'"]').classList.add("swinging","attack-right"), id);
+    await page.waitForFunction(heroId => window.__hero3dStatus().some(x=>x.id===heroId&&x.state==="attack"), id, {timeout:2000});
+    await page.evaluate(heroId => {const e=document.querySelector('#battleScene .warrior[data-hero3d="'+heroId+'"]');e.classList.remove("swinging","attack-right");}, id);
+    await page.evaluate(heroId => document.querySelector('#battleScene .warrior[data-hero3d="'+heroId+'"]').classList.add("cast"), id);
+    await page.waitForFunction(heroId => window.__hero3dStatus().some(x=>x.id===heroId&&x.state==="skill"), id, {timeout:2000});
+    await page.evaluate(heroId => document.querySelector('#battleScene .warrior[data-hero3d="'+heroId+'"]').classList.remove("cast"), id);
+  }
   const spriteStatus = await page.evaluate(() => ["liu-bei","guan-yu","zhang-fei"].map(id => {
     const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
     return { id, loaded:!!img && img.complete && img.naturalWidth > 0, width:img?.naturalWidth||0, height:img?.naturalHeight||0 };
@@ -196,6 +216,7 @@ const assert = require("node:assert/strict");
     scene: await page.locator("#battleScene").evaluate(el => ({ width: el.clientWidth, height: el.clientHeight })),
     sprites: spriteStatus,
     liuBei3D: liuBei3d,
+    threeHero3D: { guanYu: guanYu3d, zhangFei: zhangFei3d },
     visible2DWarriors: await page.locator("#battleScene .warrior[data-hero2d]").count(),
     imagesLoaded: await page.locator("#battleScene .warrior[data-hero2d] .hero-portrait").evaluateAll(imgs => imgs.every(img => img.complete && img.naturalWidth>0))
   }, null, 2));
