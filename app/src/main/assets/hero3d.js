@@ -894,7 +894,7 @@
       return {id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",
         rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:weapons.length},
         weaponNames:a.weaponNames||[],weapons:{frontLayer:true,restPose:"forward-held",zOffset:weapons.length ? .445 : 0,
-          angles:weapons.map(w=>w.userData.restRotationZ||0),profiles:weapons.map(w=>w.userData.bladeProfile||"standard"),bladeSpans:weapons.map(w=>w.userData.bladeSpan||0),backHooks:weapons.map(w=>!!w.userData.backHook),
+          angles:weapons.map(w=>w.userData.restRotationZ||0),profiles:weapons.map(w=>w.userData.bladeProfile||"standard"),bladeSpans:weapons.map(w=>w.userData.bladeSpan||0),bladePitches:weapons.map(w=>w.userData.bladePitch||"unknown"),backHooks:weapons.map(w=>!!w.userData.backHook),
           world:weapons.map(w=>{const p=new THREE.Vector3();w.getWorldPosition(p);return {x:p.x,y:p.y,z:p.z,rotationZ:w.rotation.z};})},
         optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",
         heightRatio:(a.baseHeight||2.08)/.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}};
