@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第九阶段：从检查点继续训练</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px;background:#10151d;color:#e8eef7;font:15px system-ui;line-height:1.55}.wrap{max-width:760px;margin:auto}h1{font-size:23px}.card{background:#1a2431;border:1px solid #344355;border-radius:14px;padding:16px;margin:14px 0}.muted{color:#9fb0c4}.big{font-size:24px;font-weight:700;overflow-wrap:anywhere}button{width:100%;padding:14px;border:0;border-radius:10px;background:#5c9cff;color:#071321;font-size:16px;font-weight:700}button:disabled{opacity:.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c1118;padding:12px;border-radius:10px;font-size:12px}.bar{height:12px;background:#344355;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#70e0a1}
+</style></head><body><main class="wrap">
+<h1>第九阶段：从检查点继续训练</h1>
+<p class="muted">读取第七阶段保存的训练权重，不重新初始化参数；在 GPU 上继续训练 80 轮，然后把更新后的参数覆盖保存回手机本地数据库，并重新读取校验。</p>
+<div class="card"><div class="muted">状态</div><div class="big" id="status">等待开始</div><div class="bar"><i id="progress"></i></div><p class="muted" id="detail">请确保第七、八阶段已经通过。</p></div>
+<button id="run">读取检查点并继续训练</button>
+<div class="card"><div class="muted">继续训练前 MSE → 训练后 MSE</div><div class="big" id="loss">—</div><p id="verdict" class="muted">完成后显示验证结论。</p></div>
+<div class="card"><b>运行日志</b><pre id="log">尚未运行。</pre></div>
+</main>
+<script>
+const $=id=>document.getElementById(id),N=128,H=16,EPOCHS=80;
+const gradCode=`
+struct Params { v: array<f32,64>, }
+struct Grads { v: array<f32,6272>, }
+@group(0) @binding(0) var<storage,read> p: Params;
+@group(0) @binding(1) var<storage,read_write> g: Grads;
+@compute @workgroup_size(64)
+fn gradients(@builtin(global_invocation_id) gid: vec3<u32>) {
+ let i=gid.x; if(i>=128u){return;}
+ let x=-1.0+2.0*f32(i)/127.0; let y=x*x;
+ var a:array<f32,16>; var z:array<f32,16>; var pred=p.v[48];
+ for(var j:u32=0u;j<16u;j=j+1u){z[j]=p.v[j]*x+p.v[16u+j];a[j]=max(0.0,z[j]);pred=pred+p.v[32u+j]*a[j];}
+ let d=2.0*(pred-y)/128.0; let base=i*49u;
+ for(var j:u32=0u;j<16u;j=j+1u){
+  g.v[base+j]=select(0.0,d*p.v[32u+j]*x,z[j]>0.0);
+  g.v[base+16u+j]=select(0.0,d*p.v[32u+j],z[j]>0.0);
+  g.v[base+32u+j]=d*a[j];
+ }
+ g.v[base+48u]=d;
+}`;
+const updateCode=`
+struct Params { v: array<f32,64>, }
+struct Grads { v: array<f32,6272>, }
+@group(0) @binding(0) var<storage,read_write> p: Params;
+@group(0) @binding(1) var<storage,read> g: Grads;
+@compute @workgroup_size(1)
+fn update() {
+ var sums:array<f32,49>;
+ for(var k:u32=0u;k<49u;k=k+1u){sums[k]=0.0;}
+ for(var i:u32=0u;i<128u;i=i+1u){let base=i*49u;for(var k:u32=0u;k<49u;k=k+1u){sums[k]=sums[k]+g.v[base+k];}}
+ let lr=0.035;
+ for(var j:u32=0u;j<16u;j=j+1u){p.v[j]=p.v[j]-lr*sums[j];p.v[16u+j]=p.v[16u+j]-lr*sums[16u+j];p.v[32u+j]=p.v[32u+j]-lr*sums[32u+j];}
+ p.v[48]=p.v[48]-lr*sums[48];
+}`;
+function loss(p){let s=0;for(let i=0;i<N;i++){const x=-1+2*i/(N-1);let v=p[48];for(let j=0;j<H;j++)v+=p[32+j]*Math.max(0,p[j]*x+p[16+j]);s+=(v-x*x)**2;}return s/N;}
+async function openDb(){const req=indexedDB.open('mobile-3d-ai-lab');return await new Promise((resolve,reject)=>{req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);req.onupgradeneeded=()=>reject(Error('本地数据库不存在，请先完成第七阶段。'));});}
+async function run(){
+ const b=$('run');b.disabled=true;$('status').textContent='按钮已响应，读取检查点…';$('progress').style.width='5%';
+ let device,db;
+ try{
+  if(!indexedDB)throw Error('IndexedDB 不可用。');
+  db=await openDb();if(!db.objectStoreNames.contains('checkpoints'))throw Error('检查点仓库不存在，请先完成第七阶段。');
+  const cp=await new Promise((resolve,reject)=>{const tx=db.transaction('checkpoints','readonly'),q=tx.objectStore('checkpoints').get('latest');q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error);tx.onerror=()=>reject(tx.error);});
+  if(!cp||!cp.weights)throw Error('未找到训练检查点。');
+  const weights=Array.from(cp.weights,Number);
+  if((weights.length!==49&&weights.length!==64)||weights.slice(0,49).some(x=>!Number.isFinite(x)))throw Error('检查点内容异常：数组长度='+weights.length);
+  const full=new Float32Array(64);full.set(weights.slice(0,64));const before=loss(full);
+  $('status').textContent='检查点已读取，正在连接 GPU…';$('progress').style.width='15%';
+  if(!navigator.gpu)throw Error('当前浏览器未开放 WebGPU。');
+  const adapter=await navigator.gpu.requestAdapter();if(!adapter)throw Error('无法获取 GPU adapter。');device=await adapter.requestDevice();
+  const params=device.createBuffer({size:256,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC|GPUBufferUsage.COPY_DST});
+  const grads=device.createBuffer({size:N*49*4,usage:GPUBufferUsage.STORAGE});
+  const read=device.createBuffer({size:256,usage:GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST});
+  device.queue.writeBuffer(params,0,full);
+  const gm=device.createShaderModule({code:gradCode}),um=device.createShaderModule({code:updateCode});
+  const infos=await Promise.all([gm.getCompilationInfo(),um.getCompilationInfo()]);
+  const errors=infos.flatMap(x=>x.messages.filter(m=>m.type==='error'));if(errors.length)throw Error(errors.map(x=>x.message).join('; '));
+  const gp=device.createComputePipeline({layout:'auto',compute:{module:gm,entryPoint:'gradients'}}),up=device.createComputePipeline({layout:'auto',compute:{module:um,entryPoint:'update'}});
+  const gb=device.createBindGroup({layout:gp.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:params}},{binding:1,resource:{buffer:grads}}]});
+  const ub=device.createBindGroup({layout:up.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:params}},{binding:1,resource:{buffer:grads}}]});
+  $('status').textContent='GPU 正在从旧权重继续训练…';$('progress').style.width='30%';
+  const enc=device.createCommandEncoder();
+  for(let e=0;e<EPOCHS;e++){let pass=enc.beginComputePass();pass.setPipeline(gp);pass.setBindGroup(0,gb);pass.dispatchWorkgroups(2);pass.end();pass=enc.beginComputePass();pass.setPipeline(up);pass.setBindGroup(0,ub);pass.dispatchWorkgroups(1);pass.end();}
+  enc.copyBufferToBuffer(params,0,read,0,256);device.queue.submit([enc.finish()]);
+  await read.mapAsync(GPUMapMode.READ);const trained=new Float32Array(read.getMappedRange().slice(0));read.unmap();
+  const after=loss(trained);$('status').textContent='继续训练完成，正在保存新权重…';$('progress').style.width='75%';
+  const payload={version:2,createdAt:new Date().toISOString(),weights:Array.from(trained)};
+  await new Promise((resolve,reject)=>{const tx=db.transaction('checkpoints','readwrite');tx.objectStore('checkpoints').put(payload,'latest');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});
+  const verify=await new Promise((resolve,reject)=>{const tx=db.transaction('checkpoints','readonly'),q=tx.objectStore('checkpoints').get('latest');q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error);tx.onerror=()=>reject(tx.error);});
+  if(!verify||!Array.isArray(verify.weights)||verify.weights.length!==64)throw Error('新检查点重新读取失败。');
+  let maxDiff=0;for(let i=0;i<64;i++)maxDiff=Math.max(maxDiff,Math.abs(trained[i]-verify.weights[i]));
+  const pass=Number.isFinite(after)&&after<before&&maxDiff===0;
+  $('loss').textContent=before.toFixed(7)+' → '+after.toFixed(7);
+  $('status').textContent=pass?'继续训练与保存通过':'未达到验证标准';$('status').style.color=pass?'#70e0a1':'#ff8585';$('progress').style.width='100%';
+  $('verdict').textContent=pass?'通过：本次训练从旧检查点开始，GPU 更新了参数，新权重已覆盖保存并重新读取，64 项逐项一致。':'训练已执行，但损失未下降或保存校验未通过。';
+  $('log').textContent=['读取的旧检查点时间：'+cp.createdAt,'旧参数数组长度：'+weights.length,'继续训练轮数：'+EPOCHS,'训练前 MSE：'+before,'训练后 MSE：'+after,'新检查点数组长度：'+verify.weights.length,'重新读取最大参数误差：'+maxDiff,'结果：'+(pass?'PASS':'CHECK')].join(String.fromCharCode(10));
+  params.destroy();grads.destroy();read.destroy();
+ }catch(e){$('status').textContent='测试失败';$('status').style.color='#ff8585';$('verdict').textContent=e.message;$('log').textContent=e.stack||String(e);$('progress').style.width='0%';}
+ finally{if(db)db.close();if(device)device.destroy();b.disabled=false;$('detail').textContent='测试结束，可查看完整日志。';}
+}
+$('run').addEventListener('click',run);
+</script></body></html>
