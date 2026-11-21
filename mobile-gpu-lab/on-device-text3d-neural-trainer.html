@@ -121,7 +121,7 @@ async function train(resume){const btn=$('train');$('resume').disabled=true;btn.
  }catch(e){$('status').textContent='训练失败';$('status').style.color='#ff8585';$('log').textContent=e.stack||String(e);$('trainInfo').textContent=e.message;}
  finally{if(device)device.destroy();btn.disabled=false;$('resume').disabled=false;}
 }
-function boxMesh(P,N,I,c,s){const [x,y,z]=c,[a,b,d]=s,faces=[[-1,0,0],[1,0,0],[0,-1,0],[0,1,0],[0,0,-1],[0,0,1]],corners=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]],quads=[[0,3,2,1],[4,5,6,7],[0,4,7,3],[1,2,6,5],[0,1,5,4],[3,7,6,2]];
+function boxMesh(P,N,I,c,s){const [x,y,z]=c,[a,b,d]=s,faces=[[0,0,-1],[0,0,1],[-1,0,0],[1,0,0],[0,-1,0],[0,1,0]],corners=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]],quads=[[0,3,2,1],[4,5,6,7],[0,4,7,3],[1,2,6,5],[0,1,5,4],[3,7,6,2]];
  for(let f=0;f<6;f++){const base=P.length/3,normal=faces[f],q=quads[f];for(const id of q){const v=corners[id];P.push(x+v[0]*a/2,y+v[1]*b/2,z+v[2]*d/2);N.push(...normal);}I.push(base,base+1,base+2,base,base+2,base+3);}
 }
 function cylMesh(P,N,I,c,r,len,segments=12){const [x,y,z]=c;for(let i=0;i<segments;i++){const a=2*Math.PI*i/segments,b=2*Math.PI*(i+1)/segments,base=P.length/3,A=[Math.cos(a)*r,y-len/2,Math.sin(a)*r],B=[Math.cos(b)*r,y-len/2,Math.sin(b)*r],C=[Math.cos(b)*r,y+len/2,Math.sin(b)*r],D=[Math.cos(a)*r,y+len/2,Math.sin(a)*r];for(const v of [A,B,C,D]){P.push(x+v[0],v[1],z+v[2]);const l=Math.hypot(v[0],0,v[2])||1;N.push(v[0]/l,0,v[2]/l);}I.push(base,base+1,base+2,base,base+2,base+3);}}
