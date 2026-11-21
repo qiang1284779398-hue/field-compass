@@ -8,7 +8,7 @@ from torch import nn
 DS="codepawl/pixel-atlas-glb"
 OUT=Path("mobile-gpu-lab/trained")
 CACHE=Path("/tmp/glb-cache")
-MAX=int(os.getenv("MAX_MODELS","64"))
+MAX=int(os.getenv("MAX_MODELS","10000"))
 LIMIT=int(os.getenv("MAX_GLB_BYTES",str(4*1024*1024)))
 N=128
 random.seed(17); np.random.seed(17); torch.manual_seed(17)
@@ -17,7 +17,20 @@ S=requests.Session()
 S.headers["User-Agent"]="game-text3d-cpu-training/1.0"
 
 def api(url,params):
- r=S.get(url,params=params,timeout=60); r.raise_for_status(); return r.json()
+ last=None
+ for attempt in range(9):
+  try:
+   r=S.get(url,params=params,timeout=90)
+   if r.status_code in (429,500,502,503,504):
+    last=RuntimeError("HTTP %s: %s"%(r.status_code,r.text[:160]))
+    time.sleep(min(60,2**attempt))
+    continue
+   r.raise_for_status()
+   return r.json()
+  except (requests.RequestException,ValueError) as e:
+   last=e
+   time.sleep(min(60,2**attempt))
+ raise RuntimeError("Hugging Face API retries exhausted: "+str(last))
 
 def rows():
  base="https://datasets-server.huggingface.co"
@@ -142,7 +155,7 @@ def main():
   a=a.view(-1,N,3); b=b.view(-1,N,3)
   d=torch.cdist(a,b).square()
   return d.min(2).values.mean()+d.min(1).values.mean()
- hist=[]; epochs=int(os.getenv("EPOCHS","200"))
+ hist=[]; epochs=int(os.getenv("EPOCHS","10"))
  for ep in range(epochs):
   perm=torch.randperm(len(X)); ls=[]
   for ids in perm.split(8):
