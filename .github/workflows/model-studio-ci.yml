@@ -1,0 +1,63 @@
+name: Model Studio checks
+
+on:
+  push:
+    paths:
+      - "model-studio/**"
+      - ".github/workflows/model-studio-ci.yml"
+  pull_request:
+    paths:
+      - "model-studio/**"
+      - ".github/workflows/model-studio-ci.yml"
+  workflow_dispatch:
+
+jobs:
+  browser-smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check module JavaScript syntax
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          html = Path("model-studio/index.html").read_text(encoding="utf-8")
+          blocks = re.findall(r'<script type="module">(.*?)</script>', html, re.S)
+          if len(blocks) != 1:
+              raise SystemExit(f"Expected one module script, found {len(blocks)}")
+          Path("/tmp/model-studio.mjs").write_text(blocks[0], encoding="utf-8")
+          PY
+          node --check /tmp/model-studio.mjs
+      - name: Install browser test tools
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Test preview and GLB export
+        run: |
+          python3 -m http.server 4173 --directory model-studio >/tmp/model-studio-server.log 2>&1 &
+          node <<'JS'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage();
+            const errors = [];
+            page.on('pageerror', error => errors.push(error.message));
+            await page.goto('http://127.0.0.1:4173', { waitUntil: 'networkidle', timeout: 90000 });
+            await page.waitForSelector('#view canvas', { timeout: 30000 });
+            await page.waitForFunction(() => document.querySelector('#status')?.textContent.includes('生成完成'));
+            await page.locator('#generate').click();
+            const downloadPromise = page.waitForEvent('download', { timeout: 30000 });
+            await page.locator('#glb').click();
+            const download = await downloadPromise;
+            if (!download.suggestedFilename().toLowerCase().endsWith('.glb')) {
+              throw new Error('GLB export produced an unexpected filename: ' + download.suggestedFilename());
+            }
+            if (errors.length) throw new Error('Browser errors: ' + errors.join(' | '));
+            console.log('PASS: 3D preview rendered and GLB export triggered:', download.suggestedFilename());
+            await browser.close();
+          })().catch(error => { console.error(error); process.exit(1); });
+          JS
