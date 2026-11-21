@@ -76,8 +76,7 @@ async function run(){
   device.queue.writeBuffer(params,0,p0);
   const gm=device.createShaderModule({code:gradCode}),um=device.createShaderModule({code:updateCode});
   const infos=await Promise.all([gm.getCompilationInfo(),um.getCompilationInfo()]);
-  const errs=infos.flatMap(x=>x.messages.filter(m=>m.type==='error'));if(errs.length)throw Error(errs.map(x=>x.message).join('
-'));
+  const errs=infos.flatMap(x=>x.messages.filter(m=>m.type==='error'));if(errs.length)throw Error(errs.map(x=>x.message).join(String.fromCharCode(10)));
   const gp=device.createComputePipeline({layout:'auto',compute:{module:gm,entryPoint:'gradients'}});
   const up=device.createComputePipeline({layout:'auto',compute:{module:um,entryPoint:'update'}});
   const gb=device.createBindGroup({layout:gp.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:params}},{binding:1,resource:{buffer:grads}}]});
@@ -95,8 +94,7 @@ async function run(){
   $('loss').textContent=initial.toFixed(6)+' → '+final.toFixed(6);
   $('status').textContent=passed?'并行训练通过':'训练完成，未达标准';$('status').style.color=passed?'#70e0a1':'#ff8585';$('progress').style.width='100%';
   $('verdict').textContent='损失下降 '+drop.toFixed(1)+'%。'+(passed?'通过：GPU 完成并行训练，49 个训练参数已保存到手机本地并成功读取，逐项比对完全一致。':'未达到损失下降 50% 的标准，需要调整参数复测。');
-  $('log').textContent=['GPU: '+(adapter.info?.description||'浏览器未公开名称'),'训练方式：样本级并行梯度 + GPU 梯度汇总','网络：1 → 16(ReLU) → 1','样本数：128','训练轮数：'+EPOCHS,'检查点存储：IndexedDB 本地数据库','初始 MSE：'+initial,'最终 MSE：'+final,'损失下降：'+drop.toFixed(2)+'%','本地检查点参数数：'+checkpoint.count,'保存时间：'+checkpoint.createdAt,'恢复后最大参数误差：'+checkpoint.maxDiff,'结果：'+(passed?'PASS':'CHECK')].join('
-');
+  $('log').textContent=['GPU: '+(adapter.info?.description||'浏览器未公开名称'),'训练方式：样本级并行梯度 + GPU 梯度汇总','网络：1 → 16(ReLU) → 1','样本数：128','训练轮数：'+EPOCHS,'检查点存储：IndexedDB 本地数据库','初始 MSE：'+initial,'最终 MSE：'+final,'损失下降：'+drop.toFixed(2)+'%','本地检查点参数数：'+checkpoint.count,'保存时间：'+checkpoint.createdAt,'恢复后最大参数误差：'+checkpoint.maxDiff,'结果：'+(passed?'PASS':'CHECK')].join(String.fromCharCode(10));
   params.destroy();grads.destroy();read.destroy();device.destroy();
  }catch(e){$('status').textContent='测试失败';$('status').style.color='#ff8585';$('verdict').textContent=e.message;$('log').textContent=e.stack||String(e);$('progress').style.width='0%';}
  finally{b.disabled=false;$('detail').textContent='可以再次运行；若失败，请查看下方完整日志。';}
