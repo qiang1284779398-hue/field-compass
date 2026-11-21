@@ -712,6 +712,8 @@ def portrait_svg(body,h):
     bg0=_dark(armor,.48)
     bg1=_dark(cloth,.46)
     rim=_light(accent,.24)
+    # Diao Chan's preserved master sprite has a right-shifted head origin.
+    view_x=210 if h["slug"]=="diaochan" else 160
     return f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
 <title>{esc(h["name"])}头像</title>
@@ -722,7 +724,7 @@ def portrait_svg(body,h):
 <circle cx="256" cy="256" r="246" fill="url(#portrait-bg)" stroke="#b58d50" stroke-width="12"/>
 <circle cx="256" cy="256" r="225" fill="none" stroke="{rim}" stroke-width="2" opacity=".62"/>
 <g clip-path="url(#portrait-clip)">
- <svg x="34" y="22" width="444" height="444" viewBox="160 0 480 500" preserveAspectRatio="xMidYMid slice">{inner}</svg>
+ <svg x="34" y="22" width="444" height="444" viewBox="{view_x} 0 480 500" preserveAspectRatio="xMidYMid slice">{inner}</svg>
 </g>
 <path d="M102 360 Q256 420 410 360" fill="none" stroke="{rim}" stroke-width="2" opacity=".22"/>
 <circle cx="256" cy="256" r="237" fill="none" stroke="{accent}" stroke-width="1.5" opacity=".52"/>
