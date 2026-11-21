@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101827"><title>手机 GPU 持续负载测试</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans SC",sans-serif;background:#0b1220;color:#e8eef8}*{box-sizing:border-box}body{margin:0;padding:20px 16px 40px;max-width:760px;margin-inline:auto}h1{font-size:23px;margin:8px 0}p{color:#aab8cc;line-height:1.65}.sub{font-size:14px}.card{background:#131f31;border:1px solid #293b55;border-radius:16px;padding:16px;margin:14px 0}.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #26364c}.row:last-child{border:0}.k{color:#9fb0c8}.v{font-weight:600;text-align:right;overflow-wrap:anywhere}button{border:0;border-radius:12px;padding:14px 18px;background:#4c8dff;color:white;font-weight:700;font-size:16px;width:100%;margin-top:8px}button:disabled{opacity:.5}.good{color:#6ee7a8}.warn{color:#ffd27a}.bad{color:#ff8c8c}pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#b9c9df;font-size:12px;line-height:1.5}.meter{height:8px;background:#25364d;border-radius:9px;overflow:hidden}.bar{height:100%;width:0;background:#54a0ff}
+</style></head><body>
+<h1>一加 Ace 6 · GPU 持续负载测试</h1>
+<p class="sub">第三阶段：连续运行 GPU 矩阵乘法，观察长时间任务是否稳定、吞吐是否明显下降、GPU 设备是否丢失。全程本机运行。</p>
+<div class="card"><div class="row"><span class="k">WebGPU</span><span class="v" id="gpu">未检测</span></div><div class="row"><span class="k">GPU 适配器</span><span class="v" id="adapter">—</span></div><div class="row"><span class="k">测试矩阵</span><span class="v">512 × 512 FP32</span></div><div class="row"><span class="k">目标时长</span><span class="v">90 秒</span></div></div>
+<button id="start">开始 90 秒持续负载测试</button>
+<div class="card"><b>实时状态</b><p id="status" class="sub">建议插电、关闭省电模式，手机放在通风处。测试中不要切换应用。</p><div class="meter"><div class="bar" id="bar"></div></div>
+<div class="row"><span class="k">已运行</span><span class="v" id="elapsed">0 秒</span></div><div class="row"><span class="k">已完成矩阵乘法</span><span class="v" id="iterations">0</span></div><div class="row"><span class="k">最近 10 秒平均耗时</span><span class="v" id="recent">—</span></div><div class="row"><span class="k">首段 / 末段耗时</span><span class="v" id="trend">—</span></div><div class="row"><span class="k">设备状态</span><span class="v" id="deviceState">等待测试</span></div><div class="row"><span class="k">最终判定</span><span class="v" id="verdict">未运行</span></div></div>
+<div class="card"><b>日志</b><pre id="log">本测试不读取手机温度传感器，也不能直接测量 GPU 频率。它通过持续执行真实矩阵乘法，记录耗时变化和设备丢失事件。</pre></div>
+<div class="card"><b>安全提示</b><p class="sub">若手机明显烫手、出现系统温度警告、画面卡顿或浏览器退出，请立即停止并让手机冷却。测试页面保持前台才能获得有效结果。</p></div>
+<script>
+const $=id=>document.getElementById(id),log=s=>$('log').textContent+='\n'+s;
+let dev=null,stopped=false,deviceLost=false;
+const code=`
+struct P{n:u32,tiles:u32,p0:u32,p1:u32};
+@group(0) @binding(0) var<storage,read> A:array<f32>;
+@group(0) @binding(1) var<storage,read> B:array<f32>;
+@group(0) @binding(2) var<storage,read_write> C:array<f32>;
+@group(0) @binding(3) var<uniform> p:P;
+var<workgroup> ta:array<f32,256>;var<workgroup> tb:array<f32,256>;
+@compute @workgroup_size(16,16)
+fn main(@builtin(workgroup_id) wg:vec3<u32>,@builtin(local_invocation_id) l:vec3<u32>){
+let r=wg.y*16u+l.y;let c=wg.x*16u+l.x;var s=0.0;
+for(var t=0u;t<p.tiles;t=t+1u){
+let ai=r*p.n+t*16u+l.x;let bi=(t*16u+l.y)*p.n+c;
+ta[l.y*16u+l.x]=select(0.0,A[ai],r<p.n&&t*16u+l.x<p.n);
+tb[l.y*16u+l.x]=select(0.0,B[bi],t*16u+l.y<p.n&&c<p.n);
+workgroupBarrier();for(var k=0u;k<16u;k=k+1u){s+=ta[l.y*16u+k]*tb[k*16u+l.x];}workgroupBarrier();}
+if(r<p.n&&c<p.n){C[r*p.n+c]=s;}}
+`;
+async function start(){
+$('start').disabled=true;$('log').textContent='初始化 WebGPU…';stopped=false;deviceLost=false;
+try{
+if(!navigator.gpu)throw Error('WebGPU 不可用');const ad=await navigator.gpu.requestAdapter();if(!ad)throw Error('未取得 GPU adapter');
+const inf=ad.info||{};$('gpu').textContent='可用';$('gpu').className='v good';$('adapter').textContent=[inf.vendor,inf.architecture,inf.device].filter(Boolean).join(' / ')||'已取得（详情隐藏）';
+dev=await ad.requestDevice();dev.lost.then(x=>{deviceLost=true;$('deviceState').textContent='GPU 设备丢失：'+x.message;$('deviceState').className='v bad';log('设备丢失：'+x.message);});
+const n=512,N=n*n,bytes=N*4,A=new Float32Array(N),B=new Float32Array(N);for(let i=0;i<N;i++){A[i]=(i%29)/29;B[i]=(i%31)/31;}
+const a=dev.createBuffer({size:bytes,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST}),b=dev.createBuffer({size:bytes,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST}),c=dev.createBuffer({size:bytes,usage:GPUBufferUsage.STORAGE}),u=dev.createBuffer({size:16,usage:GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST});
+dev.queue.writeBuffer(a,0,A);dev.queue.writeBuffer(b,0,B);dev.queue.writeBuffer(u,0,new Uint32Array([n,n/16,0,0]));
+const m=dev.createShaderModule({code});const ci=await m.getCompilationInfo();const errs=ci.messages.filter(x=>x.type==='error');if(errs.length)throw Error(errs.map(x=>x.message).join(';'));
+const p=dev.createComputePipeline({layout:'auto',compute:{module:m,entryPoint:'main'}}),bg=dev.createBindGroup({layout:p.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:a}},{binding:1,resource:{buffer:b}},{binding:2,resource:{buffer:c}},{binding:3,resource:{buffer:u}}]});
+const times=[];let count=0;const began=performance.now();let windowStart=began,windowTimes=[];
+$('deviceState').textContent='运行中';$('deviceState').className='v good';log('开始 90 秒持续 GPU 计算；每轮 512×512 矩阵乘法');
+while(performance.now()-began<90000&&!deviceLost&&!stopped){
+const e=dev.createCommandEncoder(),pass=e.beginComputePass();pass.setPipeline(p);pass.setBindGroup(0,bg);pass.dispatchWorkgroups(n/16,n/16);pass.end();
+const t=performance.now();dev.queue.submit([e.finish()]);await dev.queue.onSubmittedWorkDone();const dt=performance.now()-t;
+times.push(dt);windowTimes.push(dt);count++;
+const now=performance.now(),sec=(now-began)/1000;
+$('elapsed').textContent=sec.toFixed(1)+' 秒';$('iterations').textContent=String(count);$('bar').style.width=Math.min(100,sec/90*100)+'%';
+if(now-windowStart>=10000){const avg=windowTimes.reduce((x,y)=>x+y,0)/windowTimes.length; $('recent').textContent=avg.toFixed(2)+' ms';if(times.length>1){const first=times.slice(0,Math.min(5,times.length)).reduce((x,y)=>x+y,0)/Math.min(5,times.length);const last=times.slice(-5).reduce((x,y)=>x+y,0)/Math.min(5,times.length);$('trend').textContent=first.toFixed(2)+' / '+last.toFixed(2)+' ms';}log('已运行 '+sec.toFixed(0)+' 秒；近 10 秒平均 '+avg.toFixed(2)+' ms；累计 '+count+' 轮');windowStart=now;windowTimes=[];$('status').textContent='持续计算中，请保持页面前台。';}
+}
+await dev.queue.onSubmittedWorkDone();const duration=(performance.now()-began)/1000;
+if(deviceLost)throw Error('GPU 设备在持续运行期间丢失');
+$('bar').style.width='100%';$('deviceState').textContent='设备保持在线';$('deviceState').className='v good';
+const first=times.slice(0,Math.min(5,times.length)).reduce((x,y)=>x+y,0)/Math.min(5,times.length),last=times.slice(-5).reduce((x,y)=>x+y,0)/Math.min(5,times.length);
+$('trend').textContent=first.toFixed(2)+' / '+last.toFixed(2)+' ms';
+$('verdict').textContent=duration>=85?'90 秒持续计算通过':'测试提前结束';$('verdict').className='v '+(duration>=85?'good':'warn');
+$('status').textContent='测试结束。';log('结束：'+duration.toFixed(1)+' 秒；完成 '+count+' 轮；首段均值 '+first.toFixed(2)+' ms；末段均值 '+last.toFixed(2)+' ms。');
+}catch(e){$('verdict').textContent='测试失败/中断';$('verdict').className='v bad';$('status').textContent=e.message;log(e.stack||String(e));}
+finally{if(dev){try{dev.destroy()}catch{}}$('start').disabled=false;}
+}
+$('start').onclick=start;
+</script></body></html>
