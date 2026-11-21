@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第十阶段：GPU 几何生成与 GLB 导出</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px;background:#10151d;color:#e8eef7;font:15px system-ui;line-height:1.55}.wrap{max-width:760px;margin:auto}h1{font-size:23px}.card{background:#1a2431;border:1px solid #344355;border-radius:14px;padding:16px;margin:14px 0}.muted{color:#9fb0c4}.big{font-size:24px;font-weight:700;overflow-wrap:anywhere}button{width:100%;padding:14px;border:0;border-radius:10px;background:#5c9cff;color:#071321;font-size:16px;font-weight:700;margin:5px 0}button:disabled{opacity:.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c1118;padding:12px;border-radius:10px;font-size:12px}.bar{height:12px;background:#344355;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#70e0a1}a{color:#8dbaff}
+</style></head><body><main class="wrap">
+<h1>第十阶段：GPU 几何生成与 GLB 导出</h1>
+<p class="muted">本阶段建立真正的 3D 网格数据通路：由手机 GPU 计算球面网格顶点，读取顶点数据，组装标准 GLB 文件并下载。它是几何生成与导出管线测试，不是文字 AI 生成模型。</p>
+<div class="card"><div class="muted">状态</div><div class="big" id="status">等待开始</div><div class="bar"><i id="progress"></i></div><p class="muted" id="detail">点击按钮开始在 GPU 上生成网格。</p></div>
+<button id="run">用手机 GPU 生成 3D 网格</button>
+<button id="download" disabled>下载 GLB 模型</button>
+<div class="card"><div class="muted">网格规模</div><div class="big" id="stats">—</div><p id="verdict" class="muted">完成后显示验证结论。</p></div>
+<div class="card"><b>运行日志</b><pre id="log">尚未运行。</pre></div>
+</main>
+<script>
+const $=id=>document.getElementById(id),U=64,V=32,COUNT=(U+1)*(V+1);
+let glbBlob=null,glbUrl=null;
+const shader=`
+struct Output { values: array<f32>, }
+@group(0) @binding(0) var<storage,read_write> out: Output;
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+ let id=gid.x;
+ if(id>=2145u){return;}
+ let u=id%65u; let v=id/65u;
+ let theta=6.28318530718*f32(u)/64.0;
+ let phi=3.14159265359*f32(v)/32.0;
+ let x=sin(phi)*cos(theta);
+ let y=cos(phi);
+ let z=sin(phi)*sin(theta);
+ let base=id*3u;
+ out.values[base]=x;
+ out.values[base+1u]=y;
+ out.values[base+2u]=z;
+}`;
+function makeGLB(positions,indices){
+ const posBytes=positions.byteLength,idxOffset=(posBytes+3)&~3,idxBytes=indices.byteLength,binLength=idxOffset+idxBytes;
+ const bin=new Uint8Array(binLength);bin.set(new Uint8Array(positions.buffer,positions.byteOffset,positions.byteLength),0);bin.set(new Uint8Array(indices.buffer,indices.byteOffset,indices.byteLength),idxOffset);
+ let min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];
+ for(let i=0;i<positions.length;i+=3)for(let k=0;k<3;k++){min[k]=Math.min(min[k],positions[i+k]);max[k]=Math.max(max[k],positions[i+k]);}
+ const json={asset:{version:"2.0",generator:"Mobile GPU Geometry Lab"},scene:0,scenes:[{nodes:[0]}],nodes:[{mesh:0}],meshes:[{primitives:[{attributes:{POSITION:0},indices:1,mode:4}]}],buffers:[{byteLength:binLength}],bufferViews:[{buffer:0,byteOffset:0,byteLength:posBytes,target:34962},{buffer:0,byteOffset:idxOffset,byteLength:idxBytes,target:34963}],accessors:[{bufferView:0,componentType:5126,count:positions.length/3,type:"VEC3",min,max},{bufferView:1,componentType:5125,count:indices.length,type:"SCALAR",min:[0],max:[positions.length/3-1]}]};
+ let jsonBytes=new TextEncoder().encode(JSON.stringify(json));const jsonLen=(jsonBytes.length+3)&~3;const binLen=(bin.length+3)&~3;const total=12+8+jsonLen+8+binLen;
+ const out=new ArrayBuffer(total),dv=new DataView(out);let o=0;
+ dv.setUint32(o,0x46546c67,true);o+=4;dv.setUint32(o,2,true);o+=4;dv.setUint32(o,total,true);o+=4;
+ dv.setUint32(o,jsonLen,true);o+=4;dv.setUint32(o,0x4e4f534a,true);o+=4;new Uint8Array(out,o,jsonBytes.length).set(jsonBytes);new Uint8Array(out,o+jsonBytes.length,jsonLen-jsonBytes.length).fill(0x20);o+=jsonLen;
+ dv.setUint32(o,binLen,true);o+=4;dv.setUint32(o,0x004e4942,true);o+=4;new Uint8Array(out,o,bin.length).set(bin);
+ return new Blob([out],{type:"model/gltf-binary"});
+}
+async function run(){
+ const b=$('run');b.disabled=true;$('download').disabled=true;$('status').textContent='按钮已响应，正在连接 GPU…';$('progress').style.width='5%';
+ try{
+  if(!navigator.gpu)throw Error('当前浏览器没有开放 WebGPU，请使用最新版 Android Chrome。');
+  const adapter=await navigator.gpu.requestAdapter();if(!adapter)throw Error('无法获取 GPU adapter。');const device=await adapter.requestDevice();
+  const output=device.createBuffer({size:COUNT*3*4,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC});
+  const read=device.createBuffer({size:COUNT*3*4,usage:GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST});
+  const module=device.createShaderModule({code:shader});const info=await module.getCompilationInfo();const errs=info.messages.filter(x=>x.type==='error');if(errs.length)throw Error(errs.map(x=>x.message).join('; '));
+  const pipeline=device.createComputePipeline({layout:'auto',compute:{module,entryPoint:'main'}});
+  const bind=device.createBindGroup({layout:pipeline.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:output}}]});
+  $('status').textContent='GPU 正在生成球面顶点…';$('progress').style.width='35%';
+  const enc=device.createCommandEncoder();const pass=enc.beginComputePass();pass.setPipeline(pipeline);pass.setBindGroup(0,bind);pass.dispatchWorkgroups(Math.ceil(COUNT/64));pass.end();enc.copyBufferToBuffer(output,0,read,0,COUNT*3*4);device.queue.submit([enc.finish()]);
+  await read.mapAsync(GPUMapMode.READ);const positions=new Float32Array(read.getMappedRange().slice(0));read.unmap();
+  $('status').textContent='GPU 顶点已生成，正在构建三角网格…';$('progress').style.width='65%';
+  const indices=new Uint32Array(U*V*6);let q=0;
+  for(let y=0;y<V;y++)for(let x=0;x<U;x++){const a=y*(U+1)+x,b0=a+U+1,c=b0+1,d=a+1;indices[q++]=a;indices[q++]=b0;indices[q++]=d;indices[q++]=d;indices[q++]=b0;indices[q++]=c;}
+  glbBlob=makeGLB(positions,indices);if(glbUrl)URL.revokeObjectURL(glbUrl);glbUrl=URL.createObjectURL(glbBlob);
+  $('status').textContent='GLB 已构建，正在验证文件头…';$('progress').style.width='85%';
+  const head=await glbBlob.slice(0,12).arrayBuffer(),dv=new DataView(head);const valid=dv.getUint32(0,true)===0x46546c67&&dv.getUint32(4,true)===2&&dv.getUint32(8,true)===glbBlob.size;
+  if(!valid)throw Error('GLB 文件头校验失败。');
+  $('stats').textContent=COUNT.toLocaleString()+' 个顶点 · '+indices.length.toLocaleString()+' 个索引';
+  $('verdict').textContent='通过：手机 GPU 生成了网格顶点，已组装成标准 GLB v2 文件（'+(glbBlob.size/1024).toFixed(1)+' KiB），文件头与总长度校验通过。';
+  $('status').textContent='GPU 几何生成与 GLB 构建通过';$('status').style.color='#70e0a1';$('progress').style.width='100%';$('download').disabled=false;
+  $('log').textContent=['GPU adapter：'+(adapter.info?.description||'未公开'),'生成方式：WebGPU compute shader','球面分段：经向 '+U+' × 纬向 '+V,'顶点数：'+COUNT,'三角形数：'+(indices.length/3),'索引数：'+indices.length,'GLB 版本：2.0','GLB 文件大小：'+glbBlob.size+' bytes','文件头校验：'+(valid?'PASS':'FAIL'),'注意：这是程序化几何，不是 AI 文本生成。'].join(String.fromCharCode(10));
+  output.destroy();read.destroy();device.destroy();
+ }catch(e){$('status').textContent='测试失败';$('status').style.color='#ff8585';$('verdict').textContent=e.message;$('log').textContent=e.stack||String(e);$('progress').style.width='0%';}
+ finally{b.disabled=false;$('detail').textContent='生成成功后可下载 GLB 文件。';}
+}
+$('run').addEventListener('click',run);
+$('download').addEventListener('click',()=>{if(!glbBlob)return;const a=document.createElement('a');a.href=glbUrl;a.download='mobile-gpu-sphere.glb';a.click();});
+</script></body></html>
