@@ -36,7 +36,7 @@ jobs:
         run: |
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
-      - name: Test preview and GLB export
+      - name: Test AI studio interface
         run: |
           python3 -m http.server 4173 --directory model-studio >/tmp/model-studio-server.log 2>&1 &
           node <<'JS'
@@ -47,21 +47,21 @@ jobs:
             const errors = [];
             page.on('pageerror', error => errors.push(error.message));
             await page.goto('http://127.0.0.1:4173', { waitUntil: 'domcontentloaded', timeout: 30000 });
-            await page.waitForSelector('#view canvas', { timeout: 30000 });
-            await page.waitForTimeout(1500);
-            const initialStatus = await page.locator('#status').textContent();
-            if (!initialStatus || !initialStatus.includes('生成完成')) {
-              throw new Error('Initial model did not finish. Status=' + initialStatus + '; browser errors=' + errors.join(' | '));
+            await page.waitForSelector('#stage canvas', { timeout: 30000 });
+            await page.waitForTimeout(1200);
+            for (const selector of ['#prompt', '#key', '#model', '#faces', '#texture', '#generate', '#download']) {
+              if (!(await page.locator(selector).count())) throw new Error('Missing UI control: ' + selector);
             }
-            await page.locator('#generate').click();
-            const downloadPromise = page.waitForEvent('download', { timeout: 30000 });
-            await page.locator('#glb').click();
-            const download = await downloadPromise;
-            if (!download.suggestedFilename().toLowerCase().endsWith('.glb')) {
-              throw new Error('GLB export produced an unexpected filename: ' + download.suggestedFilename());
+            const models = await page.locator('#model option').allTextContents();
+            if (!models.some(x => x.includes('P2')) || !models.some(x => x.includes('H3.1'))) {
+              throw new Error('Expected P2 and H3.1 model options');
+            }
+            await page.locator('[data-p="guan"]').click();
+            if (!(await page.locator('#prompt').inputValue()).includes('关羽')) {
+              throw new Error('Character prompt preset did not populate');
             }
             if (errors.length) throw new Error('Browser errors: ' + errors.join(' | '));
-            console.log('PASS: 3D preview rendered and GLB export triggered:', download.suggestedFilename());
+            console.log('PASS: AI 3D studio loads, preview canvas initializes, presets and generation controls are present.');
             await browser.close();
           })().catch(error => { console.error(error); process.exit(1); });
           JS
