@@ -126,34 +126,32 @@
       cylinder(weapon,i%2?mats.guanGold:mats.guanGoldBright,[0,y,.006],.038,.038,.012,12);
     }
 
-    // Broad yanyuedao blade: a sweeping convex cutting edge, a deep inner
-    // crescent and the unmistakable backward hook/spike on the blade spine.
+    // User-requested silhouette: blade rises vertically above the shaft, no sideways sweep.
     const bladeGroup=new THREE.Group();
     bladeGroup.scale.x=outward;
     weapon.add(bladeGroup);
     const bladeShape=new THREE.Shape();
-    bladeShape.moveTo(.025,1.055);
-    bladeShape.quadraticCurveTo(.24,1.075,.455,1.205);
-    bladeShape.quadraticCurveTo(.67,1.335,.825,1.385);
-    bladeShape.quadraticCurveTo(.785,1.205,.69,1.115);
-    bladeShape.quadraticCurveTo(.615,1.035,.50,1.015);
-    // Rear hook bends upward slightly; the crescent stays broad and mostly sideways.
-    bladeShape.lineTo(.595,1.245);
-    bladeShape.lineTo(.425,1.115);
-    bladeShape.quadraticCurveTo(.205,1.075,.025,1.055);
+    bladeShape.moveTo(-.035,1.055);
+    bladeShape.quadraticCurveTo(-.095,1.16,-.075,1.295);
+    bladeShape.lineTo(-.025,1.445);
+    bladeShape.quadraticCurveTo(0,1.49,.025,1.445);
+    bladeShape.lineTo(.075,1.295);
+    bladeShape.quadraticCurveTo(.095,1.16,.035,1.055);
+    bladeShape.quadraticCurveTo(0,1.015,-.035,1.055);
     bladeShape.closePath();
     const blade=add(bladeGroup,new THREE.ExtrudeGeometry(bladeShape,{
       depth:.052,bevelEnabled:true,bevelSegments:3,bevelSize:.014,bevelThickness:.009
     }),mats.guanSteel,[0,0,.035]);
     blade.material.side=THREE.DoubleSide;
 
-    // Forged spine and bright sharpened edge emphasize the moon-like sweep.
-    seam(bladeGroup,[[.075,1.075,.095],[.28,1.145,.095],[.50,1.245,.086],[.78,1.365,.067]],.010,mats.guanSteelDark,28);
-    seam(bladeGroup,[[.16,1.09,.098],[.36,1.175,.097],[.60,1.315,.082]],.005,mats.steelBright,22);
-    seam(bladeGroup,[[.81,1.37,.085],[.775,1.22,.089],[.69,1.12,.092],[.55,1.045,.096]],.009,mats.steelBright,26);
-    // Small raised rear hook ridge, not a tall diagonal blade.
-    seam(bladeGroup,[[.50,1.045,.102],[.585,1.145,.108],[.605,1.235,.105]],.012,mats.guanSteelDark,14);
-    seam(bladeGroup,[[.08,1.045,.093],[.27,1.075,.097],[.43,1.105,.10]],.006,mats.guanSteelDark,18);
+    // Vertical forged spine and edge lines.
+    seam(bladeGroup,[[0,1.075,.095],[0,1.205,.095],[0,1.335,.086],[0,1.445,.067]],.010,mats.guanSteelDark,28);
+    seam(bladeGroup,[[-.012,1.09,.098],[-.018,1.22,.097],[-.012,1.36,.082]],.005,mats.steelBright,22);
+    seam(bladeGroup,[[.012,1.09,.098],[.018,1.22,.097],[.012,1.36,.082]],.005,mats.steelBright,22);
+    seam(bladeGroup,[[.072,1.29,.085],[.045,1.205,.089],[.03,1.12,.092],[.01,1.055,.096]],.009,mats.steelBright,26);
+    // Short upper hook ridge, kept vertical rather than projecting sideways.
+    seam(bladeGroup,[[.025,1.12,.102],[.055,1.205,.108],[.035,1.29,.105]],.012,mats.guanSteelDark,14);
+    seam(bladeGroup,[[-.07,1.07,.093],[-.045,1.15,.097],[-.025,1.22,.10]],.006,mats.guanSteelDark,18);
 
     // Dragon-shaped gold swallow-mouth, jade eye and red silk tassel.
     ball(weapon,mats.guanGold,[0,1.085,.045],[.092,.112,.075],18);
@@ -170,7 +168,7 @@
     weapon.userData.restRotationZ=-.12;
     weapon.userData.bladeProfile="crescent-with-back-hook";
     weapon.userData.bladeSpan=.80;
-    weapon.userData.bladePitch="near-horizontal";
+    weapon.userData.bladePitch="vertical-up";
     weapon.userData.backHook=true;
     weapon.rotation.z=weapon.userData.restRotationZ;
     hand.add(weapon);
