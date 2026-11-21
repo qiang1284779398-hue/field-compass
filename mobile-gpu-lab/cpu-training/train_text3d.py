@@ -126,12 +126,23 @@ def main():
  X=torch.tensor(np.stack([feat(s["caption"]) for s in samples]))
  Y=torch.tensor(np.stack([s["points"].reshape(-1) for s in samples]))
  model=nn.Sequential(nn.Linear(256,128),nn.ReLU(),nn.Linear(128,N*3),nn.Tanh())
- opt=torch.optim.AdamW(model.parameters(),lr=.001,weight_decay=1e-5)
+ # Continue from the last committed checkpoint when its architecture matches.
+ checkpoint=OUT/"pointcloud-model.json"
+ warm_started=False
+ if checkpoint.exists():
+  try:
+   saved=json.loads(checkpoint.read_text())
+   if saved.get("schema")=="text3d-cpu-mlp-v1" and saved.get("points")==N:
+    state={k:torch.tensor(v,dtype=torch.float32) for k,v in saved["weights"].items()}
+    model.load_state_dict(state,strict=True); warm_started=True
+    print("[INFO] warm-started from previous checkpoint",flush=True)
+  except Exception as e: print("[WARN] checkpoint ignored:",str(e)[:160],flush=True)
+ opt=torch.optim.AdamW(model.parameters(),lr=.0005 if warm_started else .001,weight_decay=1e-5)
  def chamfer(a,b):
   a=a.view(-1,N,3); b=b.view(-1,N,3)
   d=torch.cdist(a,b).square()
   return d.min(2).values.mean()+d.min(1).values.mean()
- hist=[]; epochs=int(os.getenv("EPOCHS","80"))
+ hist=[]; epochs=int(os.getenv("EPOCHS","200"))
  for ep in range(epochs):
   perm=torch.randperm(len(X)); ls=[]
   for ids in perm.split(8):
@@ -143,7 +154,7 @@ def main():
  (OUT/"pointcloud-model.json").write_text(json.dumps({"schema":"text3d-cpu-mlp-v1","input_dim":256,"hidden_dim":128,"points":N,"architecture":"256-128-ReLU-384-Tanh","weights":weights},separators=(",",":")))
  clean=[{"id":s["id"],"caption":s["caption"],"license":s["license"],"source":DS,"path":s["path"],"bytes":s["bytes"],"points":np.round(s["points"],5).tolist()} for s in samples]
  (OUT/"training-samples.json").write_text(json.dumps({"schema":"text3d-pointcloud-samples-v1","point_count":N,"samples":clean},ensure_ascii=False,separators=(",",":")))
- manifest={"dataset":DS,"license_filter":"per-row CC0 only","device":"GitHub Actions CPU","sample_count":len(samples),"point_count":N,"epochs":epochs,"initial_chamfer":hist[0],"final_chamfer":hist[-1],"best_chamfer":min(hist),"history":hist,"rejected":rejected,"created_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),"limitations":["small low-poly subset", "raw source GLB remains addressable by dataset path; this run stores normalized point clouds and provenance, not binary GLB files","hashed character n-gram features, no pretrained language model","point cloud only; no mesh topology, materials, textures or rigging","experimental baseline, not comparable to commercial text-to-3D systems"]}
+ manifest={"dataset":DS,"license_filter":"per-row CC0 only","device":"GitHub Actions CPU","sample_count":len(samples),"point_count":N,"epochs":epochs,"warm_started":warm_started,"initial_chamfer":hist[0],"final_chamfer":hist[-1],"best_chamfer":min(hist),"history":hist,"rejected":rejected,"created_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),"limitations":["small low-poly subset", "raw source GLB remains addressable by dataset path; this run stores normalized point clouds and provenance, not binary GLB files","hashed character n-gram features, no pretrained language model","point cloud only; no mesh topology, materials, textures or rigging","experimental baseline, not comparable to commercial text-to-3D systems"]}
  (OUT/"training-manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
  print("[DONE] assets",len(samples),"final Chamfer",hist[-1],flush=True)
 
