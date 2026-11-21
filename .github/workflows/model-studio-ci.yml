@@ -49,10 +49,10 @@ jobs:
             await page.goto('http://127.0.0.1:4173', { waitUntil: 'domcontentloaded', timeout: 30000 });
             await page.waitForSelector('#view canvas', { timeout: 30000 });
             await page.waitForTimeout(1500);
-    const initialStatus = await page.locator('#status').textContent();
-    if (!initialStatus || !initialStatus.includes('生成完成')) {
-      throw new Error('Initial model did not finish. Status=' + initialStatus + '; browser errors=' + errors.join(' | '));
-    }
+            const initialStatus = await page.locator('#status').textContent();
+            if (!initialStatus || !initialStatus.includes('生成完成')) {
+              throw new Error('Initial model did not finish. Status=' + initialStatus + '; browser errors=' + errors.join(' | '));
+            }
             await page.locator('#generate').click();
             const downloadPromise = page.waitForEvent('download', { timeout: 30000 });
             await page.locator('#glb').click();
