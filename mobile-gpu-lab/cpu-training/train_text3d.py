@@ -8,7 +8,7 @@ from torch import nn
 DS="codepawl/pixel-atlas-glb"
 OUT=Path("mobile-gpu-lab/trained")
 CACHE=Path("/tmp/glb-cache")
-MAX=int(os.getenv("MAX_MODELS","32"))
+MAX=int(os.getenv("MAX_MODELS","64"))
 LIMIT=int(os.getenv("MAX_GLB_BYTES",str(4*1024*1024)))
 N=128
 random.seed(17); np.random.seed(17); torch.manual_seed(17)
@@ -23,12 +23,18 @@ def rows():
  base="https://datasets-server.huggingface.co"
  sp=api(base+"/splits",{"dataset":DS}).get("splits",[])
  out=[]
- for x in sp[:6]:
-  try:
-   q=api(base+"/rows",{"dataset":DS,"config":x["config"],"split":x["split"],"offset":0,"length":100})
-   out.extend(z.get("row",{}) for z in q.get("rows",[]))
-  except Exception as e: print("[WARN] split:",e,flush=True)
-  if len(out)>=300: break
+ for x in sp[:12]:
+  offset=0
+  while offset<2000 and len(out)<MAX*12:
+   try:
+    q=api(base+"/rows",{"dataset":DS,"config":x["config"],"split":x["split"],"offset":offset,"length":100})
+    batch=q.get("rows",[])
+    out.extend(z.get("row",{}) for z in batch)
+    if len(batch)<100: break
+    offset+=100
+   except Exception as e:
+    print("[WARN] split page:",x.get("split"),offset,str(e)[:160],flush=True); break
+  if len(out)>=MAX*12: break
  return out
 
 def getpath(r):
@@ -137,7 +143,7 @@ def main():
  (OUT/"pointcloud-model.json").write_text(json.dumps({"schema":"text3d-cpu-mlp-v1","input_dim":256,"hidden_dim":128,"points":N,"architecture":"256-128-ReLU-384-Tanh","weights":weights},separators=(",",":")))
  clean=[{"id":s["id"],"caption":s["caption"],"license":s["license"],"source":DS,"path":s["path"],"bytes":s["bytes"],"points":np.round(s["points"],5).tolist()} for s in samples]
  (OUT/"training-samples.json").write_text(json.dumps({"schema":"text3d-pointcloud-samples-v1","point_count":N,"samples":clean},ensure_ascii=False,separators=(",",":")))
- manifest={"dataset":DS,"license_filter":"per-row CC0 only","device":"GitHub Actions CPU","sample_count":len(samples),"point_count":N,"epochs":epochs,"initial_chamfer":hist[0],"final_chamfer":hist[-1],"best_chamfer":min(hist),"history":hist,"rejected":rejected,"created_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),"limitations":["small low-poly subset","hashed character n-gram features, no pretrained language model","point cloud only; no mesh topology, materials, textures or rigging","experimental baseline, not comparable to commercial text-to-3D systems"]}
+ manifest={"dataset":DS,"license_filter":"per-row CC0 only","device":"GitHub Actions CPU","sample_count":len(samples),"point_count":N,"epochs":epochs,"initial_chamfer":hist[0],"final_chamfer":hist[-1],"best_chamfer":min(hist),"history":hist,"rejected":rejected,"created_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),"limitations":["small low-poly subset", "raw source GLB remains addressable by dataset path; this run stores normalized point clouds and provenance, not binary GLB files","hashed character n-gram features, no pretrained language model","point cloud only; no mesh topology, materials, textures or rigging","experimental baseline, not comparable to commercial text-to-3D systems"]}
  (OUT/"training-manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
  print("[DONE] assets",len(samples),"final Chamfer",hist[-1],flush=True)
 
