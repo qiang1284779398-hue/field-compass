@@ -5,9 +5,10 @@
 The first playable 3D hero is **Liu Bei**, integrated into the allied formation in the existing 2.5D battlefield.
 
 - Character source: `app/src/main/assets/hero3d.js`.
-- Geometry: original procedural Three.js meshes assembled from spheres, cylinders, boxes, and shaped surfaces. The head, torso, legs, shoulders, arms, forearms, hands, and swords are separate objects connected through nested transform groups.
-- Style: compact Q-style proportions, vermilion robe, bronze/gold lamellar armour, crown ornament, moustache and short stubble, paired swords.
-- Animation: procedural idle breathing/sway, two-handed sword attack with a forward body lunge, skill preparation, hit reaction, and a simple knockdown/death pose.
+- Geometry: original procedural Three.js meshes with beveled extruded plates, curved tubes, shaped robe panels, layered metal fittings, sculpted facial forms, and detailed straight jian swords. Static sibling meshes are merged by material inside each rig segment to keep Android draw calls manageable.
+- Style: compact Q-style proportions; deep vermilion layered robe; individually modeled lamellar chest scales, faulds, shoulder guards, bracers and greaves; decorated winged ceremonial crown with jade and red enamel; long earlobes; layered moustache and divided chin beard; paired ornamented jian.
+- Face: separate cheek/jaw planes, brow ridges, eyelids, irises, pupils, catchlights, nose bridge/tip/nostrils, mouth, sideburns and individual beard strands.
+- Animation: procedural idle breathing/sway, anticipation-to-strike-to-recovery sword movement, articulated shoulder/elbow/wrist/hand response, subtle leg bracing, skill preparation, hit reaction, and a simple knockdown/death pose.
 - Runtime: Three.js r128, loaded locally from `app/src/main/assets/vendor/three.min.js`; no model or texture is fetched at runtime.
 - Scene integration: a transparent WebGL canvas is layered into the existing 2.5D battlefield and positions Liu Bei against the same `.body-art` anchor used by the original 2D sprites.
 - Fallback: Liu Bei's existing SVG remains in the markup and is revealed automatically if the WebGL model cannot initialize.
