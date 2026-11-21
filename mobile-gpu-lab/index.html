@@ -35,6 +35,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#b9c9df;font-size:12px;lin
 </div>
 <div class="card"><b>详细日志</b><pre id="log">本实验使用 WebGPU compute shader 在 GPU 上反复更新一个简单回归模型的参数。已调整学习率和训练轮数以避免误报收敛失败；它仍不代表已经能训练 3D 生成模型。</pre></div>
 <div class="card"><b>重要说明</b><p class="sub">若 WebGPU 不可用，先尝试最新版 Chrome、系统更新及关闭省电模式。不要为了本测试安装来源不明的 APK。即使微型实验通过，也只证明浏览器可执行 GPU 计算；要训练真正的 3D 模型，还需验证更大矩阵运算、显存/共享内存容量、持续运行稳定性与 Android 训练框架兼容性。</p></div>
+<div class="card"><b>原始基础模型 · 文生3D测试</b><p class="sub">加载仓库中已训练的 5943 样本基础模型，输入文字生成128点3D点云并导出PLY。</p><a href="./original-base-text3d-test.html" style="display:block;text-align:center;padding:13px;border-radius:10px;background:#4c8dff;color:white;font-weight:700;text-decoration:none">打开原始模型测试器</a></div>
 <script>
 const $=id=>document.getElementById(id);
 $('device').textContent=navigator.userAgent.match(/Android[^;)]*/)?.[0]||'未识别';
