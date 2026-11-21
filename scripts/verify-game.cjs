@@ -30,7 +30,8 @@ assert.ok(source.includes('data-hero3d="liu-bei"') && source.includes('initHero3
 assert.ok(html.includes('vendor/three.min.js') && fs.existsSync("app/src/main/assets/vendor/three.min.js"), "offline Three.js runtime must be bundled for browser and APK use");
 assert.ok(fs.existsSync("app/src/main/assets/hero3d.js"), "procedural Q-style Liu Bei 3D model runtime is missing");
 const hero3dSource=fs.readFileSync("app/src/main/assets/hero3d.js","utf8");
-for(const marker of ["createLiuBei","createSword","MeshStandardMaterial","__hero3dStatus","attack","skill","hurt","dead","sculptedPlate","optimizeStaticMeshes","ExtrudeGeometry","steelGroove","high-detail-chibi"]) assert.ok(hero3dSource.includes(marker), "Q-style Liu Bei model runtime is missing: "+marker);
+for(const marker of ["createLiuBei","createGuanYu","createZhangFei","createSword","createGuanDao","createZhangSpear","MeshStandardMaterial","__hero3dStatus","attack","skill","hurt","dead","sculptedPlate","optimizeStaticMeshes","ExtrudeGeometry","steelGroove","high-detail-chibi","青龙偃月刀","丈八蛇矛"]) assert.ok(hero3dSource.includes(marker), "Q-style Three Kingdoms hero runtime is missing: "+marker);
+assert.ok(hero3dSource.includes('"guan-yu":createGuanYu') && hero3dSource.includes('"zhang-fei":createZhangFei'),"Guan Yu and Zhang Fei must be routed to their own 3D constructors");
 assert.ok(source.includes("function initBattleRenderer") && source.includes("battle-3d-canvas") && source.includes('getContext("2d"'), "combat scene must use the offline 2.5D canvas renderer");
 const preservationContracts = [
   ["30-chapter campaign", "const CHAPTERS="],
