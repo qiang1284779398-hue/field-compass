@@ -155,6 +155,7 @@ ALL_ART = BASE + EXTRAS
 for hero in ALL_ART:
     hero["physique"] = PHYSIQUE_DATA[hero["slug"]]
 KEEP_BASE = {"liu-bei","guan-yu","zhang-fei","diaochan"}
+KEEP_BASE_PORTRAITS = {"liu-bei","guan-yu","zhang-fei"}
 
 def esc(s):
     return str(s).replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace('"',"&quot;")
@@ -606,12 +607,8 @@ def female_hero_svg(h):
 <path d="M340 374 Q310 405 300 490 L280 570 Q300 590 330 570 L367 470 M460 374 Q500 400 520 490 L540 570 Q520 590 490 570 L453 470" fill="none" stroke="{_light(armor,.18)}" stroke-width="17" stroke-linecap="round"/>
 {hands}
 {weapon if slug=="sunshangxiang" else ""}
-<path d="M360 330 L360 390 Q400 415 490 390 L490 330Z" fill="url(#skin)" stroke="#704936" stroke-width="7"/>
-{hair_markup}
-{face}
-{expression}
-{front_hair}
-{crest}
+<path d="M382 337 L382 390 Q400 405 418 390 L418 337Z" fill="url(#skin)" stroke="#704936" stroke-width="6"/>
+<g id="head-group" transform="translate(-50 0)">{hair_markup}{face}{expression}{front_hair}{crest}</g>
 {accent_detail}
 </svg>'''
 
@@ -707,9 +704,29 @@ def body_svg(h, index):
 def portrait_svg(body,h):
     m=re.search(r'<svg[^>]*>(.*)</svg>',body,re.S)
     inner=m.group(1) if m else ''
-    view="180 66 440 500" if h["gender"]=="f" else "170 52 460 510"
-    return f'<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="{view}"><title>{esc(h["name"])}头像</title>{inner}</svg>'
-
+    # Shared Liu/Guan/Zhang icon language: circular bust crop, dark radial field,
+    # restrained double gold rim. Every generated portrait uses one crop and scale.
+    armor=h.get("armor","#76634b")
+    cloth=h.get("cloth","#2c3435")
+    accent=h.get("accent","#c8a568")
+    bg0=_dark(armor,.48)
+    bg1=_dark(cloth,.46)
+    rim=_light(accent,.24)
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>{esc(h["name"])}头像</title>
+<defs>
+ <radialGradient id="portrait-bg" cx="48%" cy="38%" r="70%"><stop stop-color="{bg0}"/><stop offset="1" stop-color="{bg1}"/></radialGradient>
+ <clipPath id="portrait-clip"><circle cx="256" cy="256" r="218"/></clipPath>
+</defs>
+<circle cx="256" cy="256" r="246" fill="url(#portrait-bg)" stroke="#b58d50" stroke-width="12"/>
+<circle cx="256" cy="256" r="225" fill="none" stroke="{rim}" stroke-width="2" opacity=".62"/>
+<g clip-path="url(#portrait-clip)">
+ <svg x="34" y="22" width="444" height="444" viewBox="160 0 480 500" preserveAspectRatio="xMidYMid slice">{inner}</svg>
+</g>
+<path d="M102 360 Q256 420 410 360" fill="none" stroke="{rim}" stroke-width="2" opacity=".22"/>
+<circle cx="256" cy="256" r="237" fill="none" stroke="{accent}" stroke-width="1.5" opacity=".52"/>
+</svg>'''
 def attack_mark(h,frame):
     a=[.10,.48,1,.32][frame]; w=h["weapon"]; c=h["accent"]
     width=16 if frame==2 else 10
@@ -846,8 +863,8 @@ def sprite_sheet(body,h,mode):
     }
     transforms=(attack_motion.get(h["weapon"],["translate(0 0)","translate(-10 -8) rotate(-3 400 840)","translate(28 -16) rotate(7 400 840)","translate(-4 0) rotate(-1 400 840)"]) if mode=="attack" else ["translate(0 0)","translate(0 -18) scale(1.02)","translate(0 -28) scale(1.06)","translate(0 -2) scale(1.01)"])
     for i,tr in enumerate(transforms):
-        mark=attack_mark(h,i) if mode=="attack" else skill_mark(h,i)
-        frames.append(f'<g transform="translate({i*800} 0)"><g transform="{tr}"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">{inner}</svg></g>{mark}</g>')
+        # Keep only weapon/body action poses; remove all slash, aura and skill glyph overlays.
+        frames.append(f'<g transform="translate({i*800} 0)"><g transform="{tr}"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">{inner}</svg></g></g>')
     label="普通攻击四帧" if mode=="attack" else "专属战技四帧"
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>{esc(h["name"])}·{label}</title>'+''.join(frames)+'</svg>'
 
@@ -867,10 +884,12 @@ def main():
         if slug not in KEEP_BASE:
             body=body_svg(h,idx)
             write(ART/(slug+".svg"),body)
+        else:
+            body=(ART/(slug+".svg")).read_text(encoding="utf-8")
+        if slug not in KEEP_BASE_PORTRAITS:
             portrait=portrait_svg(body,h)
             write(PORTRAITS/(slug+".svg"),portrait)
         else:
-            body=(ART/(slug+".svg")).read_text(encoding="utf-8")
             portrait=(PORTRAITS/(slug+".svg")).read_text(encoding="utf-8")
         write(ANIMS/(slug+"-attack.svg"),sprite_sheet(body,h,"attack"))
         write(ANIMS/(slug+"-skill.svg"),sprite_sheet(body,h,"skill"))
