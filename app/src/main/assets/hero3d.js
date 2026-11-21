@@ -367,13 +367,15 @@
       child.updateMatrix();
       const key=child.material.uuid;
       if(!buckets.has(key))buckets.set(key,{material:child.material,positions:[],normals:[]});
-      const bucket=buckets.get(key),geometry=child.geometry.clone();
-      geometry.applyMatrix4(child.matrix);
+      const bucket=buckets.get(key),source=child.geometry.clone();
+      source.applyMatrix4(child.matrix);
+      const geometry=source.index?source.toNonIndexed():source;
+      if(geometry!==source)source.dispose();
       if(!geometry.attributes.normal)geometry.computeVertexNormals();
       const p=geometry.attributes.position.array,n=geometry.attributes.normal.array;
       for(let i=0;i<p.length;i++)bucket.positions.push(p[i]);
       for(let i=0;i<n.length;i++)bucket.normals.push(n[i]);
-      geometry.dispose();remove.push(child);
+      geometry.dispose();child.geometry.dispose();remove.push(child);
     });
     remove.forEach(child=>group.remove(child));
     buckets.forEach(bucket=>{
