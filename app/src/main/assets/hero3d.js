@@ -32,6 +32,7 @@
     guanBeard: mat(0x171b18, 0.02, 0.93), guanBeardLight: mat(0x332b22, 0.02, 0.91),
     guanSteel: mat(0xb9c8c5, 0.76, 0.25), guanSteelDark: mat(0x566c67, 0.67, 0.42),
     zhangBlack: mat(0x171b1d, 0.12, 0.77), zhangBlackLight: mat(0x333c40, 0.24, 0.62),
+    zhangGold: mat(0x987243, 0.55, 0.43),
     zhangBlackDark: mat(0x0b1013, 0.10, 0.88), zhangRed: mat(0x76262a, 0.08, 0.82),
     zhangRedLight: mat(0xa33b35, 0.06, 0.76), zhangSteel: mat(0x9ba8ad, 0.7, 0.30),
     zhangSteelDark: mat(0x455358, 0.58, 0.46), zhangSkin: mat(0xb77658, 0.01, 0.92),
