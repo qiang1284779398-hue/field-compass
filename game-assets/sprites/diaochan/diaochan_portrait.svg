@@ -8,7 +8,7 @@
 <circle cx="256" cy="256" r="246" fill="url(#portrait-bg)" stroke="#b58d50" stroke-width="12"/>
 <circle cx="256" cy="256" r="225" fill="none" stroke="#ecd0db" stroke-width="2" opacity=".62"/>
 <g clip-path="url(#portrait-clip)">
- <svg x="34" y="22" width="444" height="444" viewBox="160 0 480 500" preserveAspectRatio="xMidYMid slice">
+ <svg x="34" y="22" width="444" height="444" viewBox="210 0 480 500" preserveAspectRatio="xMidYMid slice">
 <title>貂蝉 — 闭月 original 2D full-body sprite</title>
 <desc>Original hand-drawn vector character: 绛紫霓裳·月影双刃. Unique costume silhouette, weapon, materials, insignia and facial features. Transparent background.</desc>
 <defs>
