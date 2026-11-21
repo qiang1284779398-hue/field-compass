@@ -6,6 +6,20 @@ const assert = require("node:assert/strict");
 
 (async () => {
   const html = fs.readFileSync(path.resolve("app/src/main/assets/index.html"), "utf8");
+  const artRoot = path.resolve("app/src/main/assets/characters/2d");
+  const rosterManifest = JSON.parse(fs.readFileSync(path.join(artRoot,"roster-manifest.json"),"utf8"));
+  assert.equal(rosterManifest.total,50,"portrait regression must cover the complete 50-general roster");
+  for (const hero of rosterManifest.heroes) {
+    if (["liu-bei","guan-yu","zhang-fei"].includes(hero.art)) continue; // Preserve the three approved portrait masters.
+    const portrait = fs.readFileSync(path.join(artRoot,"portraits",hero.art+".svg"),"utf8");
+    assert.ok(portrait.includes('viewBox="0 0 512 512"') && portrait.includes('id="portrait-clip"') && portrait.includes('id="portrait-bg"'), hero.name+" must use the shared circular portrait composition");
+  }
+  for (const femaleId of ["sunshangxiang","daqiao","xiaoqiao","zhenji","huangyueying","wangyi","mayunlu","ganfuren"]) {
+    const femaleSvg = fs.readFileSync(path.join(artRoot,femaleId+".svg"),"utf8");
+    assert.ok(femaleSvg.includes('id="head-group" transform="translate(-50 0)"'), femaleId+" head must align to the torso centreline");
+    assert.ok(femaleSvg.includes('M382 337 L382 390 Q400 405 418 390 L418 337Z'), femaleId+" neck must use the narrow, upright neck construction");
+  }
+  assert.ok(!html.includes("skill-aura") && !html.includes("impact-burst") && !html.includes("slash-fx") && !html.includes("fx-flash"), "combat overlay FX should be fully removed from styles and runtime");
   for (const id of ["liu-bei","guan-yu","zhang-fei","zhao-yun","zhuge-liang","huang-zhong","diaochan","cao-cao","zhou-yu","lv-bu","dian-wei","jiang-wei"]) {
     assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/"+id+".svg")), id+" full-body 2D SVG must be bundled");
     assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/portraits/"+id+".svg")), id+" portrait SVG must be bundled");
@@ -67,8 +81,12 @@ const assert = require("node:assert/strict");
       const actionSheetCount = await page.evaluate(() => Object.keys(HERO_ANIM_META).length);
       assert.equal(actionSheetCount, 50, "all fifty generals must have per-hero animation metadata");
       for (const h of await page.evaluate(() => HEROES.map(x => HERO_ART_IDS[x.id]))) {
-        assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/animations/"+h+"-attack.svg")), h+" weapon attack sheet missing");
-        assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/animations/"+h+"-skill.svg")), h+" skill animation sheet missing");
+        for (const mode of ["attack","skill"]) {
+          const sheetPath = path.resolve("app/src/main/assets/characters/2d/animations/"+h+"-"+mode+".svg");
+          assert.ok(fs.existsSync(sheetPath), h+" "+mode+" animation sheet missing");
+          const sheet = fs.readFileSync(sheetPath,"utf8");
+          assert.equal((sheet.match(/data-motion-only="true"/g)||[]).length,4,h+" "+mode+" sheet must contain four clean motion-only frames");
+        }
       }
       assert.equal(rosterPortraitStatus.length, 50, "all fifty generals must have bespoke portraits in the roster");
       assert.ok(rosterPortraitStatus.every(x=>x.loaded&&x.width>=300&&x.height>=300), "all fifty roster portraits must load at full resolution");
@@ -222,12 +240,13 @@ const assert = require("node:assert/strict");
   await page.locator('.warrior[data-side="enemy"][data-index="0"]').click();
   assert.ok((await page.locator('.warrior[data-side="enemy"][data-index="0"]').getAttribute("class")).includes("targeted"), "clicked enemy should become the selected target");
   await page.locator('button[onclick="basicAttack()"]').click();
-  await page.locator(".impact-burst").waitFor({state:"visible",timeout:2000});
-  await page.waitForTimeout(900);
+  await page.waitForFunction(() => !fight.actionRunning, {timeout:5000});
+  await page.waitForTimeout(120);
   const afterAttack = await readFight();
   assert.ok(afterAttack.enemyHp < hpBefore, "basic attack must reduce the selected enemy HP");
+  assert.equal(await page.locator(".impact-burst,.slash-fx,.fx-flash,.skill-aura").count(),0,"basic attacks must not spawn decorative overlays");
 
-  // A distinct hero skill must spend energy and produce a combat effect.
+  // A distinct hero skill must spend energy and apply a gameplay effect without decorative overlays.
   await page.locator('button[onclick="selectActor(1)"]').click();
   await page.evaluate(() => { fight.allies[1].alive = true; fight.allies[1].hp = Math.max(1, fight.allies[1].max); fight.allies[1].skill = "魏武雄略"; fight.allies[1].energy = 5; fight.acted = fight.acted.filter(i => i !== 1); fight.enemies[0].alive = true; fight.enemies[0].hp = fight.enemies[0].max; fight.enemies[0].shield = 0; fight.enemies[0].status = {}; fight.target = 0; drawBattle(); });
   const skillBefore = await readFight();
@@ -235,6 +254,7 @@ const assert = require("node:assert/strict");
   assert.equal(skillLockProbe.locked, true, "skill execution must hold the action lock during its animation: " + JSON.stringify(skillLockProbe));
   assert.equal(skillLockProbe.actorAfterAttempt, 1, "actor switching must be locked in the same task while a skill animation is running");
   await page.evaluate(() => window.__qaSkillRun);
+  assert.equal(await page.locator(".impact-burst,.slash-fx,.fx-flash,.skill-aura").count(),0,"skills must not spawn decorative overlays");
   assert.equal(await page.evaluate(() => fight.actor), 2, "the next living ally should become active after the skill finishes");
   assert.match(await page.locator(".combat-log").innerText(), /魏武雄略/, "skill execution must be written to the combat log");
   const afterSkill = await readFight();
