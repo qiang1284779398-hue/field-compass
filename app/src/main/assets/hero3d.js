@@ -1,4 +1,4 @@
-/* Procedural Q-style 3D Liu Bei prototype. Three.js is bundled locally for offline APK use. */
+/* Original high-detail procedural Q-style 3D models for Liu Bei, Guan Yu and Zhang Fei. */
 (function () {
   "use strict";
   if (!window.THREE) { console.warn("Three.js runtime unavailable; keeping the Liu Bei SVG fallback."); return; }
@@ -868,7 +868,7 @@
       const weapons=(a.weaponObjects||[]).filter(Boolean);
       return {id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",
         rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:weapons.length},
-        weaponNames:a.weaponNames||[],weapons:{frontLayer:true,restPose:"forward-held",zOffset:weapons.length?.445:0,
+        weaponNames:a.weaponNames||[],weapons:{frontLayer:true,restPose:"forward-held",zOffset:weapons.length ? .445 : 0,
           angles:weapons.map(w=>w.userData.restRotationZ||0),
           world:weapons.map(w=>{const p=new THREE.Vector3();w.getWorldPosition(p);return {x:p.x,y:p.y,z:p.z,rotationZ:w.rotation.z};})},
         optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",
@@ -877,7 +877,7 @@
   };
   window.initHero3D=function(sceneEl){
     try{init();if(!app)return;sync(sceneEl);if(!raf)raf=requestAnimationFrame(frame);}
-    catch(e){console.warn("Q版3D刘备初始化失败，保留2D立绘回退",e);}
+    catch(e){console.warn("Q版3D武将初始化失败，保留对应2D立绘回退",e);}
   };
   window.addEventListener("resize",()=>{if(lastScene&&lastScene.isConnected)sync(lastScene);});
 })();
