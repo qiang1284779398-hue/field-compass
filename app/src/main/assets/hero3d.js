@@ -10,19 +10,19 @@
     roughness: roughness == null ? 0.72 : roughness
   });
   const mats = {
-    robe: mat(0x681d24, 0.05, 0.82), robeLight: mat(0x91332f, 0.04, 0.78),
+    robe: mat(0x57171f, 0.05, 0.84), robeLight: mat(0x79252b, 0.04, 0.80),
     robeDark: mat(0x35171d, 0.04, 0.88), skin: mat(0xc98766, 0.01, 0.92),
     skinShade: mat(0x87513f, 0.01, 0.94), hair: mat(0x171210, 0.01, 0.96),
-    beard: mat(0x211915, 0.01, 0.98), gold: mat(0xa77b3d, 0.42, 0.42),
+    beard: mat(0x211915, 0.01, 0.98), gold: mat(0x92703c, 0.48, 0.48),
     goldDark: mat(0x65451f, 0.32, 0.55), leather: mat(0x281a15, 0.02, 0.94),
     steel: mat(0x9caeb0, 0.52, 0.34), steelDark: mat(0x4c6264, 0.38, 0.48),
     white: mat(0xd9c8ad, 0.01, 0.72), pupil: mat(0x1a100e, 0.01, 0.42),
     black: mat(0x171310, 0.01, 0.96), jade: mat(0x1e684d, 0.22, 0.42),
     robeEdge: mat(0xc18b51, 0.22, 0.58), lacquer: mat(0x4b171e, 0.24, 0.48),
-    goldBright: mat(0xd9b66f, 0.58, 0.31), bronze: mat(0x805329, 0.48, 0.50),
+    goldBright: mat(0xb99555, 0.62, 0.34), bronze: mat(0x70451f, 0.52, 0.50),
     steelBright: mat(0xe2e5dd, 0.72, 0.24), steelGroove: mat(0x64777c, 0.62, 0.43),
-    cloth: mat(0x7d252b, 0.01, 0.98), clothLight: mat(0xa4433b, 0.01, 0.94),
-    skinLight: mat(0xe2ac8b, 0.01, 0.90), skinWarm: mat(0xb87359, 0.01, 0.93),
+    cloth: mat(0x641c24, 0.01, 0.98), clothLight: mat(0x87302f, 0.01, 0.95),
+    skinLight: mat(0xd29a78, 0.01, 0.91), skinWarm: mat(0xa96850, 0.01, 0.94),
     lip: mat(0x793d37, 0.01, 0.91), eyeDark: mat(0x2b1b18, 0.01, 0.55),
     hairLight: mat(0x35231c, 0.01, 0.90), redJewel: mat(0x7d252b, 0.24, 0.28)
   };
@@ -264,21 +264,24 @@
     ball(headPivot,mats.hair,[0,.385,-.035],[.09,.095,.11],14);
 
     // Imperial scholar-warrior crown: cloth cap, embossed gold band, long horizontal wings and jewels.
-    sculptedPlate(headPivot,mats.robeDark,0,.385,-.012,.47,.18,.20,"shield");
+    sculptedPlate(headPivot,mats.hair,0,.385,-.012,.43,.15,.18,"shield");
     sculptedPlate(headPivot,mats.goldDark,0,.408,.168,.46,.085,.035,"round");
     sculptedPlate(headPivot,mats.goldBright,0,.419,.188,.405,.047,.018,"round");
+    sculptedPlate(headPivot,mats.redJewel,0,.419,.202,.30,.018,.008,"round");
     seam(headPivot,[[-.19,.42,.205],[-.10,.439,.212],[0,.445,.214],[.10,.439,.212],[.19,.42,.205]],.006,mats.goldBright,22);
     // Symmetrical ceremonial wings with inset red enamel and fine gold rims.
     [-1,1].forEach(side=>{
-      const wing= sculptedPlate(headPivot,mats.goldDark,side*.405,.397,.01,.39,.10,.045,"shield");
+      const wing= sculptedPlate(headPivot,mats.goldDark,side*.405,.397,.01,.43,.135,.045,"shield");
       wing.rotation.z=side*.035;
-      const inset=sculptedPlate(headPivot,mats.robeDark,side*.405,.402,.037,.33,.052,.012,"round");
+      const inset=sculptedPlate(headPivot,mats.robeDark,side*.405,.402,.037,.35,.072,.012,"round");
       inset.rotation.z=side*.035;
-      for(let i=0;i<5;i++){
-        const x=side*(.275+i*.055);
-        ball(headPivot,mats.goldBright,[x,.407,.056],[.009,.009,.008],8);
+      for(let i=0;i<6;i++){
+        const x=side*(.255+i*.052);
+        ball(headPivot,mats.goldBright,[x,.407+i*.002,.056],[.010,.010,.008],8);
       }
-      gem(headPivot,side*.56,.397,.035,.025,mats.jade);
+      seam(headPivot,[[side*.26,.435,.055],[side*.42,.455,.056],[side*.58,.443,.052]],.006,mats.goldBright,16);
+      gem(headPivot,side*.57,.397,.055,.03,mats.jade);
+      ball(headPivot,mats.goldBright,[side*.60,.438,.052],[.022,.03,.018],12);
     });
     sculptedPlate(headPivot,mats.goldDark,0,.50,-.005,.22,.13,.18,"shield");
     sculptedPlate(headPivot,mats.gold,0,.513,.105,.18,.085,.035,"round");
@@ -288,35 +291,35 @@
     add(headPivot,new THREE.ConeGeometry(.045,.12,10),mats.goldBright,[0,.63,.02]);
     // Brow ridge, almond eyes, lids, irises, catchlights and cheek warmth.
     [-1,1].forEach(side=>{
-      tube(headPivot,[[side*.055,.095,.319],[side*.11,.115,.325],[side*.18,.09,.31]],.014,mats.hair,16);
-      ball(headPivot,mats.skinWarm,[side*.12,.012,.314],[.071,.052,.024],16);
-      ball(headPivot,mats.white,[side*.12,.012,.335],[.053,.036,.018],16);
-      ball(headPivot,mats.pupil,[side*.11,.008,.351],[.023,.029,.012],14);
-      ball(headPivot,mats.eyeDark,[side*.11,.008,.359],[.011,.019,.007],10);
-      ball(headPivot,mats.white,[side*.098,.023,.366],[.008,.008,.004],8);
-      seam(headPivot,[[side*.065,.00,.346],[side*.12,-.026,.351],[side*.175,.0,.344]],.005,mats.skinShade,14);
+      tube(headPivot,[[side*.055,.095,.356],[side*.11,.115,.365],[side*.18,.09,.35]],.011,mats.hair,16);
+      ball(headPivot,mats.skinWarm,[side*.12,.012,.345],[.071,.052,.024],16);
+      ball(headPivot,mats.white,[side*.12,.012,.378],[.061,.043,.022],16);
+      ball(headPivot,mats.pupil,[side*.11,.008,.397],[.025,.031,.013],14);
+      ball(headPivot,mats.eyeDark,[side*.11,.008,.406],[.012,.020,.008],10);
+      ball(headPivot,mats.white,[side*.098,.023,.414],[.009,.009,.005],8);
+      seam(headPivot,[[side*.065,.00,.385],[side*.12,-.026,.395],[side*.175,.0,.383]],.005,mats.skinShade,14);
       ball(headPivot,mats.skinWarm,[side*.225,-.095,.292],[.062,.043,.012],12);
       ball(headPivot,mats.robeLight,[side*.235,-.105,.302],[.025,.01,.006],8);
     });
     // Sculpted nose: bridge, rounded tip, wings and nostril shadows.
-    ball(headPivot,mats.skinLight,[0,-.035,.326],[.035,.085,.045],14);
-    ball(headPivot,mats.skin,[0,-.09,.356],[.048,.045,.042],14);
+    ball(headPivot,mats.skinLight,[0,-.035,.366],[.035,.085,.045],14);
+    ball(headPivot,mats.skin,[0,-.09,.397],[.048,.045,.042],14);
     [-1,1].forEach(side=>{
-      ball(headPivot,mats.skinWarm,[side*.035,-.103,.34],[.027,.022,.019],10);
-      ball(headPivot,mats.skinShade,[side*.027,-.118,.357],[.009,.006,.005],8);
+      ball(headPivot,mats.skinWarm,[side*.035,-.103,.383],[.027,.022,.019],10);
+      ball(headPivot,mats.skinShade,[side*.027,-.118,.401],[.009,.006,.005],8);
     });
     // A quiet, confident mouth sits below the moustache.
-    seam(headPivot,[[-.055,-.178,.337],[-.025,-.188,.344],[0,-.19,.346],[.025,-.188,.344],[.055,-.178,.337]],.006,mats.lip,18);
-    ball(headPivot,mats.skinLight,[0,-.205,.326],[.052,.018,.018],12);
+    seam(headPivot,[[-.055,-.178,.382],[-.025,-.188,.39],[0,-.19,.392],[.025,-.188,.39],[.055,-.178,.382]],.006,mats.lip,18);
+    ball(headPivot,mats.skinLight,[0,-.205,.372],[.052,.018,.018],12);
     // Distinct Liu Bei moustache, layered beard curls and short divided chin beard.
-    seam(headPivot,[[0,-.135,.351],[-.05,-.145,.363],[-.13,-.13,.354],[-.205,-.092,.318]],.027,mats.beard,24);
-    seam(headPivot,[[0,-.135,.351],[.05,-.145,.363],[.13,-.13,.354],[.205,-.092,.318]],.027,mats.beard,24);
-    seam(headPivot,[[0,-.16,.354],[-.02,-.205,.36],[-.025,-.265,.34],[-.012,-.31,.312]],.018,mats.beard,20);
-    seam(headPivot,[[0,-.16,.354],[.02,-.205,.36],[.025,-.265,.34],[.012,-.31,.312]],.018,mats.beard,20);
-    ball(headPivot,mats.beard,[0,-.21,.323],[.07,.075,.045],14);
+    seam(headPivot,[[0,-.135,.397],[-.05,-.145,.407],[-.13,-.13,.395],[-.205,-.092,.357]],.022,mats.beard,24);
+    seam(headPivot,[[0,-.135,.397],[.05,-.145,.407],[.13,-.13,.395],[.205,-.092,.357]],.022,mats.beard,24);
+    seam(headPivot,[[0,-.16,.40],[-.02,-.205,.411],[-.025,-.265,.389],[-.012,-.31,.36]],.015,mats.beard,20);
+    seam(headPivot,[[0,-.16,.40],[.02,-.205,.411],[.025,-.265,.389],[.012,-.31,.36]],.015,mats.beard,20);
+    ball(headPivot,mats.beard,[0,-.21,.376],[.06,.075,.045],14);
     for(let i=0;i<7;i++){
       const x=(i-3)*.019;
-      seam(headPivot,[[x,-.205,.36],[x*1.12,-.255,.35],[x*1.25,-.30-Math.abs(i-3)*.006,.326]],.006,mats.hairLight,12);
+      seam(headPivot,[[x,-.205,.411],[x*1.12,-.255,.397],[x*1.25,-.30-Math.abs(i-3)*.006,.37]],.006,mats.hairLight,12);
     }
     // Fine decorative studs, chest rivets, cloth rosettes and sleeve seams.
     for(let i=0;i<4;i++){
@@ -341,13 +344,13 @@
     const camera=new THREE.OrthographicCamera(-2,2,2,-2,.1,100);
     camera.position.set(0,0,20); camera.lookAt(0,0,0);
     const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:"low-power",preserveDrawingBuffer:false});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.25));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
     renderer.setClearColor(0x000000,0);
     if(THREE.sRGBEncoding)renderer.outputEncoding=THREE.sRGBEncoding;
     if(THREE.ACESFilmicToneMapping!==undefined)renderer.toneMapping=THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure=.82;
-    scene.add(new THREE.HemisphereLight(0xffe6ce,0x34231d,.88));
-    const key=new THREE.DirectionalLight(0xffd59c,1.18);key.position.set(-3,6,8);scene.add(key);
+    renderer.toneMappingExposure=.79;
+    scene.add(new THREE.HemisphereLight(0xffe6ce,0x34231d,.76));
+    const key=new THREE.DirectionalLight(0xffd59c,1.02);key.position.set(-3,6,8);scene.add(key);
     const fill=new THREE.DirectionalLight(0x86a9c9,.30);fill.position.set(4,2,-5);scene.add(fill);
     app={scene,camera,renderer,width:0,height:0};
   }
@@ -412,7 +415,7 @@
       rec.baseX=(cx-w/2)/100;rec.baseY=(h/2-base)/100;
       const desiredHeight=a.height/100;rec.scale=desiredHeight/rec.baseHeight;
       rec.world.position.set(rec.baseX,rec.baseY,0);rec.world.scale.setScalar(rec.scale);
-      rec.world.rotation.y=.12;
+      rec.world.rotation.y=.17;
       const now=performance.now(),swing=el.classList.contains("swinging")||el.classList.contains("attack-left")||el.classList.contains("attack-right"),
         cast=el.classList.contains("cast"),hurt=el.classList.contains("hurt"),dead=el.classList.contains("dead");
       if(swing&&!rec.wasSwinging)chooseAction(rec,"attack",now);
