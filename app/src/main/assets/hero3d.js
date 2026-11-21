@@ -78,22 +78,48 @@
     ball(body,mats.goldDark,[0,.70,.225],[.325,.33,.085],18);
     ball(body,mats.robeDark,[0,.71,.276],[.294,.298,.055],18);
     ball(body,mats.robeLight,[0,.73,.314],[.274,.273,.035],18);
-    for(let row=0;row<3;row++){
+    // Individually layered lamellar plates with dark seams, rivets and engraved edging.
+    for(let row=0;row<4;row++){
       for(let col=0;col<5;col++){
-        const x=(col-2)*.094, y=.86-row*.105;
-        box(body,mats.gold,[x,y,.351-Math.abs(x)*.12],[.078,.055,.022],[0,0,-x*.25]);
-        ball(body,mats.goldDark,[x,y-.028,.366-Math.abs(x)*.12],[.012,.012,.008],8);
+        const x=(col-2)*.094, y=.875-row*.092, z=.351-Math.abs(x)*.12;
+        box(body,mats.goldDark,[x,y-.006,z-.006],[.084,.066,.026],[0,0,-x*.25]);
+        box(body,mats.gold,[x,y+.004,z+.009],[.073,.047,.022],[0,0,-x*.25]);
+        ball(body,mats.goldDark,[x-.026,y+.004,z+.022],[.008,.008,.006],8);
+        ball(body,mats.goldDark,[x+.026,y+.004,z+.022],[.008,.008,.006],8);
       }
+    }
+    // Raised central breastplate, embossed cloud motif and lower segmented faulds.
+    ball(body,mats.gold,[0,.69,.354],[.105,.145,.035],16);
+    ball(body,mats.goldDark,[0,.69,.385],[.071,.105,.014],14);
+    tube(body,[[0,.77,.402],[-.035,.72,.404],[0,.68,.406],[.035,.64,.404],[0,.60,.402]],.009,mats.gold);
+    for(let i=0;i<5;i++){
+      const x=(i-2)*.105;
+      box(body,mats.goldDark,[x,.265,.333],[.088,.095,.028],[0,0,-x*.12]);
+      box(body,mats.robeLight,[x,.27,.35],[.071,.073,.018],[0,0,-x*.12]);
+      ball(body,mats.gold,[x,.31,.367],[.012,.012,.008],8);
     }
     box(body,mats.gold,[0,.49,.276],[.58,.045,.055]);
     box(body,mats.leather,[0,.43,.27],[.60,.11,.055]);
     box(body,mats.gold,[0,.43,.31],[.12,.12,.04]);
-    ball(body,mats.jade,[0,.43,.34],[.045,.045,.018],12);
+    box(body,mats.goldDark,[0,.43,.337],[.075,.075,.018]);
+    ball(body,mats.jade,[0,.43,.35],[.038,.038,.018],14);
+    // Belt rivets and paired hanging jade/gold fittings.
+    for(let i=0;i<7;i++)ball(body,mats.gold,[((i-3)*.075),.49,.314],[.012,.012,.009],8);
+    [-1,1].forEach(side=>{
+      box(body,mats.robeDark,[side*.19,.30,.33],[.065,.19,.035],[0,0,side*.08]);
+      box(body,mats.gold,[side*.19,.30,.355],[.012,.17,.012],[0,0,side*.08]);
+    });
     [-1,1].forEach(side=>{
       ball(body,mats.robeDark,[side*.34,.91,0],[.22,.18,.23],14);
-      ball(body,mats.gold,[side*.34,.94,.16],[.19,.14,.095],14);
-      ball(body,mats.goldDark,[side*.34,.94,.225],[.135,.095,.035],12);
-      for(let k=0;k<3;k++)box(body,mats.gold,[side*(.30+k*.025),.90-k*.045,.253],[.20,.025,.018],[0,0,side*.06]);
+      ball(body,mats.goldDark,[side*.34,.94,.12],[.205,.15,.12],16);
+      ball(body,mats.gold,[side*.34,.94,.19],[.18,.125,.075],16);
+      ball(body,mats.robeLight,[side*.34,.94,.235],[.145,.09,.025],14);
+      for(let k=0;k<4;k++){
+        const yy=.99-k*.045;
+        box(body,mats.goldDark,[side*.34,yy,.25],[.205,.028,.018],[0,0,side*.06]);
+        box(body,mats.gold,[side*.34,yy+.008,.263],[.17,.012,.012],[0,0,side*.06]);
+      }
+      ball(body,mats.gold,[side*.34,.87,.27],[.035,.035,.02],10);
     });
 
     // Back mantle: a layered red cape with a gold hem.
@@ -129,28 +155,47 @@
     });
     // Forehead/hairline and crown.
     ball(headPivot,mats.hair,[0,.265,-.005],[.34,.16,.31],18);
+    // Layered imperial headpiece: cloth cap, engraved brow band, side wings and jade crest.
     box(headPivot,mats.robeDark,[0,.375,-.005],[.43,.12,.34]);
-    box(headPivot,mats.gold,[0,.405,.174],[.31,.045,.035]);
-    box(headPivot,mats.goldDark,[0,.47,-.005],[.19,.09,.16]);
-    box(headPivot,mats.gold,[0,.485,.082],[.15,.08,.035]);
-    [-1,1].forEach(side=>box(headPivot,mats.gold,[side*.31,.405,-.005],[.38,.045,.08],[0,0,side*-.025]));
-    ball(headPivot,mats.jade,[0,.54,.09],[.065,.065,.035],14);
-    add(headPivot,new THREE.ConeGeometry(.055,.12,8),mats.gold,[0,.61,0]);
+    box(headPivot,mats.goldDark,[0,.405,.174],[.34,.055,.045]);
+    box(headPivot,mats.gold,[0,.416,.198],[.29,.027,.018]);
+    for(let i=0;i<7;i++)ball(headPivot,mats.gold,[((i-3)*.043),.416,.212],[.009,.009,.006],8);
+    box(headPivot,mats.goldDark,[0,.47,-.005],[.21,.105,.17]);
+    box(headPivot,mats.gold,[0,.485,.087],[.17,.09,.035]);
+    box(headPivot,mats.robeLight,[0,.47,.108],[.10,.06,.018]);
+    [-1,1].forEach(side=>{
+      box(headPivot,mats.goldDark,[side*.31,.405,-.005],[.38,.055,.09],[0,0,side*-.025]);
+      box(headPivot,mats.gold,[side*.31,.416,.044],[.34,.018,.018],[0,0,side*-.025]);
+      ball(headPivot,mats.gold,[side*.47,.39,-.005],[.025,.025,.025],10);
+    });
+    ball(headPivot,mats.jade,[0,.55,.11],[.058,.058,.035],16);
+    ball(headPivot,mats.gold,[0,.55,.135],[.075,.018,.018],12);
+    add(headPivot,new THREE.ConeGeometry(.052,.13,8),mats.gold,[0,.63,0]);
     // Brows, almond eyes, pupils, nose and cheek shading.
     [-1,1].forEach(side=>{
-      box(headPivot,mats.black,[side*.12,.075,.317],[.105,.022,.018],[0,0,side*.08]);
-      ball(headPivot,mats.white,[side*.115,.015,.321],[.052,.038,.022],12);
-      ball(headPivot,mats.pupil,[side*.105,.014,.343],[.023,.03,.012],12);
-      ball(headPivot,mats.black,[side*.105,.014,.354],[.009,.015,.008],8);
+      // Sculpted brows, upper/lower eyelids, iris glint and cheek planes.
+      box(headPivot,mats.hair,[side*.12,.078,.319],[.12,.028,.024],[0,0,side*.11]);
+      ball(headPivot,mats.skinShade,[side*.115,.015,.321],[.062,.046,.022],14);
+      ball(headPivot,mats.white,[side*.115,.015,.337],[.049,.034,.018],14);
+      ball(headPivot,mats.pupil,[side*.105,.014,.352],[.022,.027,.012],12);
+      ball(headPivot,mats.black,[side*.105,.014,.361],[.009,.014,.007],8);
+      ball(headPivot,mats.white,[side*.094,.026,.366],[.007,.007,.004],8);
+      tube(headPivot,[[side*.07,-.012,.35],[side*.115,-.025,.355],[side*.16,-.012,.35]],.006,mats.skinShade);
       ball(headPivot,mats.skinShade,[side*.22,-.095,.285],[.065,.04,.015],10);
+      ball(headPivot,mats.robeLight,[side*.23,-.11,.296],[.034,.012,.009],8);
     });
     ball(headPivot,mats.skinShade,[0,-.045,.345],[.042,.052,.036],12);
     ball(headPivot,mats.skin,[0,-.025,.35],[.03,.04,.028],12);
-    // Mature Liu Bei moustache, with short chin stubble rather than a long heroic beard.
-    tube(headPivot,[[0,-.115,.342],[-.07,-.12,.35],[-.16,-.105,.33],[-.21,-.08,.30]],.024,mats.beard);
-    tube(headPivot,[[0,-.115,.342],[.07,-.12,.35],[.16,-.105,.33],[.21,-.08,.30]],.024,mats.beard);
-    ball(headPivot,mats.beard,[0,-.19,.31],[.085,.10,.055],12);
-    for(let i=0;i<5;i++)ball(headPivot,mats.beard,[(i-2)*.025,-.255-Math.abs(i-2)*.012,.31],[.014,.035,.014],8);
+    // Layered moustache and shaped goatee, with individual tapered strands.
+    tube(headPivot,[[0,-.105,.35],[-.055,-.12,.365],[-.13,-.105,.35],[-.20,-.075,.315]],.027,mats.beard);
+    tube(headPivot,[[0,-.105,.35],[.055,-.12,.365],[.13,-.105,.35],[.20,-.075,.315]],.027,mats.beard);
+    tube(headPivot,[[0,-.17,.354],[-.018,-.23,.35],[-.012,-.29,.325]],.018,mats.beard);
+    tube(headPivot,[[0,-.17,.354],[.018,-.23,.35],[.012,-.29,.325]],.018,mats.beard);
+    ball(headPivot,mats.beard,[0,-.19,.32],[.075,.09,.045],14);
+    for(let i=0;i<7;i++){
+      const x=(i-3)*.022;
+      tube(headPivot,[[x,-.21,.35],[x*1.15,-.26,.34],[x*1.3,-.30-Math.abs(i-3)*.006,.32]],.008,mats.beard);
+    }
     // Small ear ornaments and a gold chest medallion.
     [-1,1].forEach(side=>{
       ball(headPivot,mats.gold,[side*.365,-.03,.03],[.025,.05,.025],10);
