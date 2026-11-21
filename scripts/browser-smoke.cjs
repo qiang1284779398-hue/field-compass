@@ -19,6 +19,8 @@ const assert = require("node:assert/strict");
     assert.ok(femaleSvg.includes('id="head-group" transform="translate(-50 0)"'), femaleId+" head must align to the torso centreline");
     assert.ok(femaleSvg.includes('M382 337 L382 390 Q400 405 418 390 L418 337Z'), femaleId+" neck must use the narrow, upright neck construction");
   }
+  const diaochanSvg = fs.readFileSync(path.join(artRoot,"diaochan.svg"),"utf8");
+  assert.ok(diaochanSvg.includes('M430 338 L430 404 Q450 420 470 404 L470 338Z'), "Diao Chan's preserved master sprite must also use the corrected narrow upright neck");
   assert.ok(!html.includes("skill-aura") && !html.includes("impact-burst") && !html.includes("slash-fx") && !html.includes("fx-flash"), "combat overlay FX should be fully removed from styles and runtime");
   for (const id of ["liu-bei","guan-yu","zhang-fei","zhao-yun","zhuge-liang","huang-zhong","diaochan","cao-cao","zhou-yu","lv-bu","dian-wei","jiang-wei"]) {
     assert.ok(fs.existsSync(path.resolve("app/src/main/assets/characters/2d/"+id+".svg")), id+" full-body 2D SVG must be bundled");
