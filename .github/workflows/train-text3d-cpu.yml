@@ -23,7 +23,7 @@ permissions:
 
 concurrency:
   group: text3d-cpu-training
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   train:
