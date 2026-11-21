@@ -709,6 +709,7 @@
 
     optimizeStaticMeshes(world);
     return {world,motion,body,headPivot,arms,legs,shadow,meshes:0,baseHeight:2.08,
+      weaponObjects:arms.map(x=>x.sword),weaponNames:["双股剑","双股剑"],
       action:"idle",actionAt:0,wasSwinging:false,wasCast:false,wasHurt:false,wasDead:false,
       baseX:0,baseY:0,scale:1};
   }
@@ -731,8 +732,9 @@
   }
   function ensureActor(id,key) {
     if(actors.has(key))return actors.get(key);
-    if(id!=="liu-bei")return null;
-    const rec=createLiuBei();rec.id=id;rec.key=key;
+    const factories={"liu-bei":createLiuBei,"guan-yu":createGuanYu,"zhang-fei":createZhangFei};
+    const factory=factories[id];if(!factory)return null;
+    const rec=factory();rec.id=id;rec.key=key;
     rec.meshes=0;rec.world.traverse(o=>{if(o.isMesh)rec.meshes++;});
     app.scene.add(rec.world);actors.set(key,rec);return rec;
   }
@@ -782,8 +784,9 @@
       app.width=w;app.height=h;app.renderer.setSize(w,h,false);
       app.camera.left=-w/200;app.camera.right=w/200;app.camera.top=h/200;app.camera.bottom=-h/200;app.camera.updateProjectionMatrix();
     }
-    sceneEl.querySelectorAll('.warrior[data-hero3d="liu-bei"]').forEach(el=>{
-      const key="liu-bei:"+el.dataset.side+":"+el.dataset.index,rec=ensureActor("liu-bei",key);
+    sceneEl.querySelectorAll('.warrior[data-hero3d]').forEach(el=>{
+      const actorId=el.dataset.hero3d;
+      const key=actorId+":"+el.dataset.side+":"+el.dataset.index,rec=ensureActor(actorId,key);
       if(!rec)return;
       const anchor=el.querySelector(".body-art");if(!anchor)return;
       const a=anchor.getBoundingClientRect(),cx=a.left-rect.left+a.width/2,base=a.bottom-rect.top;
@@ -843,7 +846,8 @@
       arm.forearm.rotation.z=rec.action==="attack"?slash*(arm.side===1?-.56:.42):rec.action==="skill"?raise*-.36:0;
       arm.hand.rotation.z=rec.action==="attack"?slash*(arm.side===1?-.19:.15):rec.action==="skill"?raise*.10:0;
       const weaponSwing=rec.action==="attack"?slash*(arm.side===1?-.62:.48):rec.action==="skill"?raise*(arm.side===1?-.34:.40):0;
-      arm.sword.rotation.z=(arm.sword.userData.restRotationZ||0)+weaponSwing;
+      const weapon=arm.weapon||arm.sword;
+      if(weapon)weapon.rotation.z=(weapon.userData.restRotationZ||0)+weaponSwing;
     });
     rec.legs.forEach((leg,index)=>{
       const side=index===0?-1:1;
@@ -859,7 +863,16 @@
     if(lastScene&&lastScene.isConnected){sync(lastScene);actors.forEach(a=>animate(a,now));app.renderer.render(app.scene,app.camera);}
   }
   window.__hero3dStatus=function(){
-    return Array.from(actors.values()).map(a=>({id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:2},weapons:{frontLayer:true,restPose:"outward-held",zOffset:0.445,angles:Array.isArray(a.arms)?a.arms.map(x=>x.sword.userData.restRotationZ):[],world:Array.isArray(a.arms)?a.arms.map(x=>{const p=new THREE.Vector3();x.sword.getWorldPosition(p);return {x:p.x,y:p.y,z:p.z,rotationZ:x.sword.rotation.z};}):[]},optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",heightRatio:2.08/0.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}}));
+    return Array.from(actors.values()).map(a=>{
+      const weapons=(a.weaponObjects||[]).filter(Boolean);
+      return {id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",
+        rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:weapons.length},
+        weaponNames:a.weaponNames||[],weapons:{frontLayer:true,restPose:"forward-held",zOffset:weapons.length?.445:0,
+          angles:weapons.map(w=>w.userData.restRotationZ||0),
+          world:weapons.map(w=>{const p=new THREE.Vector3();w.getWorldPosition(p);return {x:p.x,y:p.y,z:p.z,rotationZ:w.rotation.z};})},
+        optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",
+        heightRatio:(a.baseHeight||2.08)/.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}};
+    });
   };
   window.initHero3D=function(sceneEl){
     try{init();if(!app)return;sync(sceneEl);if(!raf)raf=requestAnimationFrame(frame);}
