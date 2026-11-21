@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第六阶段：并行 GPU 训练</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px;background:#10151d;color:#e8eef7;font:15px system-ui;line-height:1.55}.wrap{max-width:760px;margin:auto}h1{font-size:23px}.card{background:#1a2431;border:1px solid #344355;border-radius:14px;padding:16px;margin:14px 0}.muted{color:#9fb0c4}.big{font-size:26px;font-weight:700}button{width:100%;padding:14px;border:0;border-radius:10px;background:#5c9cff;color:#071321;font-size:16px;font-weight:700}button:disabled{opacity:.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c1118;padding:12px;border-radius:10px;font-size:12px}.bar{height:12px;background:#344355;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#70e0a1}
+</style></head><body><main class="wrap">
+<h1>第六阶段：并行 GPU 神经网络训练</h1>
+<p class="muted">这次不让一个 GPU 线程包办全部训练。128 个训练样本并行计算梯度，再由 GPU 汇总梯度并更新参数，验证更接近实际训练的并行工作方式。</p>
+<div class="card"><div class="muted">状态</div><div class="big" id="status">等待开始</div><div class="bar"><i id="progress"></i></div><p class="muted" id="detail">请使用 Chrome，保持页面在前台。</p></div>
+<button id="run">开始并行 GPU 训练</button>
+<div class="card"><div class="muted">初始损失 → 最终损失</div><div class="big" id="loss">—</div><p id="verdict" class="muted">完成后显示验证结论。</p></div>
+<div class="card"><b>运行日志</b><pre id="log">尚未运行。</pre></div>
+<div class="card muted"><b>本测试验证什么</b><br>128 个样本由多个 GPU invocation 并行计算梯度；GPU 再执行梯度汇总和参数更新。网络仍是小型 1→16→1 MLP，不能据此推断手机能训练数十亿参数的 3D 生成模型。若明显发热请停止。</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const N=128,H=16,EPOCHS=300;
+const gradCode=`
+struct Params { v: array<f32,64>, }
+struct Grads { v: array<f32,6272>, }
+@group(0) @binding(0) var<storage,read> p: Params;
+@group(0) @binding(1) var<storage,read_write> g: Grads;
+@compute @workgroup_size(64)
+fn gradients(@builtin(global_invocation_id) gid: vec3<u32>) {
+ let i=gid.x; if(i>=128u){return;}
+ let x=-1.0+2.0*f32(i)/127.0; let y=x*x;
+ var a:array<f32,16>; var z:array<f32,16>; var pred=p.v[48];
+ for(var j:u32=0u;j<16u;j=j+1u){z[j]=p.v[j]*x+p.v[16u+j];a[j]=max(0.0,z[j]);pred=pred+p.v[32u+j]*a[j];}
+ let d=2.0*(pred-y)/128.0; let base=i*49u;
+ for(var j:u32=0u;j<16u;j=j+1u){
+  g.v[base+j]=select(0.0,d*p.v[32u+j]*x,z[j]>0.0);
+  g.v[base+16u+j]=select(0.0,d*p.v[32u+j],z[j]>0.0);
+  g.v[base+32u+j]=d*a[j];
+ }
+ g.v[base+48u]=d;
+}`;
+const updateCode=`
+struct Params { v: array<f32,64>, }
+struct Grads { v: array<f32,6272>, }
+@group(0) @binding(0) var<storage,read_write> p: Params;
+@group(0) @binding(1) var<storage,read> g: Grads;
+@compute @workgroup_size(1)
+fn update() {
+ var sums:array<f32,49>;
+ for(var k:u32=0u;k<49u;k=k+1u){sums[k]=0.0;}
+ for(var i:u32=0u;i<128u;i=i+1u){let base=i*49u;for(var k:u32=0u;k<49u;k=k+1u){sums[k]=sums[k]+g.v[base+k];}}
+ let lr=0.035;
+ for(var j:u32=0u;j<16u;j=j+1u){p.v[j]=p.v[j]-lr*sums[j];p.v[16u+j]=p.v[16u+j]-lr*sums[16u+j];p.v[32u+j]=p.v[32u+j]-lr*sums[32u+j];}
+ p.v[48]=p.v[48]-lr*sums[48];
+}`;
+function initialParams(){const a=new Float32Array(64);for(let j=0;j<16;j++){const q=j;a[j]=.12*Math.sin((q+1)*1.71);a[16+j]=.03*Math.cos((q+1)*.91);a[32+j]=.08*Math.cos((q+1)*1.33);}return a;}
+function loss(p){let s=0;for(let i=0;i<N;i++){const x=-1+2*i/(N-1);let v=p[48];for(let j=0;j<H;j++)v+=p[32+j]*Math.max(0,p[j]*x+p[16+j]);s+=(v-x*x)**2;}return s/N;}
+async function run(){
+ const b=$('run');b.disabled=true;$('status').textContent='检测 GPU…';$('progress').style.width='3%';
+ try{
+  if(!navigator.gpu)throw Error('浏览器没有开放 WebGPU，请用最新版 Android Chrome。');
+  const adapter=await navigator.gpu.requestAdapter();if(!adapter)throw Error('无法获取 GPU adapter。');
+  const device=await adapter.requestDevice();
+  const p0=initialParams(),initial=loss(p0);
+  const params=device.createBuffer({size:256,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC|GPUBufferUsage.COPY_DST});
+  const grads=device.createBuffer({size:N*49*4,usage:GPUBufferUsage.STORAGE});
+  const read=device.createBuffer({size:256,usage:GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST});
+  device.queue.writeBuffer(params,0,p0);
+  const gm=device.createShaderModule({code:gradCode}),um=device.createShaderModule({code:updateCode});
+  const infos=await Promise.all([gm.getCompilationInfo(),um.getCompilationInfo()]);
+  const errs=infos.flatMap(x=>x.messages.filter(m=>m.type==='error'));if(errs.length)throw Error(errs.map(x=>x.message).join('\n'));
+  const gp=device.createComputePipeline({layout:'auto',compute:{module:gm,entryPoint:'gradients'}});
+  const up=device.createComputePipeline({layout:'auto',compute:{module:um,entryPoint:'update'}});
+  const gb=device.createBindGroup({layout:gp.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:params}},{binding:1,resource:{buffer:grads}}]});
+  const ub=device.createBindGroup({layout:up.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:params}},{binding:1,resource:{buffer:grads}}]});
+  $('status').textContent='并行训练中';$('progress').style.width='10%';
+  const enc=device.createCommandEncoder();
+  for(let e=0;e<EPOCHS;e++){
+   let pass=enc.beginComputePass();pass.setPipeline(gp);pass.setBindGroup(0,gb);pass.dispatchWorkgroups(2);pass.end();
+   pass=enc.beginComputePass();pass.setPipeline(up);pass.setBindGroup(0,ub);pass.dispatchWorkgroups(1);pass.end();
+  }
+  enc.copyBufferToBuffer(params,0,read,0,256);device.queue.submit([enc.finish()]);
+  await read.mapAsync(GPUMapMode.READ);const p1=new Float32Array(read.getMappedRange().slice(0));read.unmap();
+  const final=loss(p1),drop=(1-final/initial)*100,passed=Number.isFinite(final)&&final<initial*.5;
+  $('loss').textContent=initial.toFixed(6)+' → '+final.toFixed(6);
+  $('status').textContent=passed?'并行训练通过':'训练完成，未达标准';$('status').style.color=passed?'#70e0a1':'#ff8585';$('progress').style.width='100%';
+  $('verdict').textContent='损失下降 '+drop.toFixed(1)+'%。'+(passed?'通过：多个 GPU invocation 并行计算样本梯度，并完成 GPU 参数更新。':'未达到损失下降 50% 的标准，需要调整参数复测。');
+  $('log').textContent=['GPU: '+(adapter.info?.description||'浏览器未公开名称'),'训练方式：样本级并行梯度 + GPU 梯度汇总','网络：1 → 16(ReLU) → 1','样本数：128','训练轮数：'+EPOCHS,'初始 MSE：'+initial,'最终 MSE：'+final,'损失下降：'+drop.toFixed(2)+'%','结果：'+(passed?'PASS':'CHECK')].join('\n');
+  params.destroy();grads.destroy();read.destroy();device.destroy();
+ }catch(e){$('status').textContent='测试失败';$('status').style.color='#ff8585';$('verdict').textContent=e.message;$('log').textContent=e.stack||String(e);$('progress').style.width='0%';}
+ finally{b.disabled=false;}
+}
+$('run').addEventListener('click',run);
+</script></body></html>
