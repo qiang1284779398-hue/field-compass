@@ -92,7 +92,11 @@
     cylinder(sword,mats.goldDark,[0,-.18,.025],.045,.035,.055,12);
     gem(sword,0,-.183,.057,.025,mats.jade);
     ball(sword,mats.goldBright,[0,-.205,.025],[.027,.027,.027],12);
-    sword.rotation.z=side*-.055;
+    // Keep both blades clearly in front of the chest/cape instead of intersecting the torso.
+    // Rest pose angles each jian outward so the pair remains visibly separated beside Liu Bei.
+    sword.position.set(side*.035,-.012,.445);
+    sword.userData.restRotationZ=-side*.40;
+    sword.rotation.z=sword.userData.restRotationZ;
     hand.add(sword);
     return sword;
   }
@@ -467,7 +471,8 @@
       else arm.arm.rotation.z=idle;
       arm.forearm.rotation.z=rec.action==="attack"?slash*(arm.side===1?-.56:.42):rec.action==="skill"?raise*-.36:0;
       arm.hand.rotation.z=rec.action==="attack"?slash*(arm.side===1?-.19:.15):rec.action==="skill"?raise*.10:0;
-      arm.sword.rotation.z=(rec.action==="attack"?slash*(arm.side===1?-.72:.52):rec.action==="skill"?raise*(arm.side===1?-.42:.48):0);
+      const weaponSwing=rec.action==="attack"?slash*(arm.side===1?-.62:.48):rec.action==="skill"?raise*(arm.side===1?-.34:.40):0;
+      arm.sword.rotation.z=(arm.sword.userData.restRotationZ||0)+weaponSwing;
     });
     rec.legs.forEach((leg,index)=>{
       const side=index===0?-1:1;
@@ -483,7 +488,7 @@
     if(lastScene&&lastScene.isConnected){sync(lastScene);actors.forEach(a=>animate(a,now));app.renderer.render(app.scene,app.camera);}
   }
   window.__hero3dStatus=function(){
-    return Array.from(actors.values()).map(a=>({id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:2},optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",heightRatio:2.08/0.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}}));
+    return Array.from(actors.values()).map(a=>({id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:2},weapons:{frontLayer:true,restPose:"outward-held",zOffset:0.445,angles:Array.isArray(a.arms)?a.arms.map(x=>x.sword.userData.restRotationZ):[]},optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",heightRatio:2.08/0.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}}));
   };
   window.initHero3D=function(sceneEl){
     try{init();if(!app)return;sync(sceneEl);if(!raf)raf=requestAnimationFrame(frame);}
