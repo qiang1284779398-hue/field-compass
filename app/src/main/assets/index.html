@@ -36,11 +36,9 @@
 @keyframes chargeLeft{0%{transform:translate(0,0) scale(1)}48%{transform:translate(-66px,-7px) scale(1.15)}100%{transform:translate(0,0) scale(1)}}
 @keyframes castHero{0%{transform:translateY(0) scale(1)}35%{transform:translateY(-18px) scale(1.2);filter:drop-shadow(0 0 15px #f6dc91)}100%{transform:translateY(0) scale(1)}}
 @keyframes bodyHit{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px) rotate(-5deg)}55%{transform:translateX(8px) rotate(5deg)}}
-.battle-vs{position:absolute;left:0;right:0;top:47%;text-align:center;color:#f5d9a1;font-weight:bold;letter-spacing:5px;font-size:12px;text-shadow:0 2px 5px #000}.slash-fx{position:absolute;z-index:9;left:50%;top:43%;width:115px;height:52px;transform:translate(-50%,-50%) rotate(-22deg);border-top:7px solid #fff2bd;border-bottom:3px solid #ffb86e;border-radius:50%;filter:drop-shadow(0 0 12px #fff);animation:slash .42s ease-out forwards;pointer-events:none}
-@keyframes slash{0%{opacity:0;transform:translate(-50%,-50%) rotate(-40deg) scale(.25)}25%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(1.2)}100%{opacity:0;transform:translate(-50%,-50%) rotate(9deg) scale(1.5)}}
+.battle-vs{position:absolute;left:0;right:0;top:47%;text-align:center;color:#f5d9a1;font-weight:bold;letter-spacing:5px;font-size:12px;text-shadow:0 2px 5px #000}@keyframes slash{0%{opacity:0;transform:translate(-50%,-50%) rotate(-40deg) scale(.25)}25%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(1.2)}100%{opacity:0;transform:translate(-50%,-50%) rotate(9deg) scale(1.5)}}
 .damage{position:absolute;z-index:12;left:50%;top:10%;transform:translateX(-50%);font:900 20px system-ui;color:#ffedbd;text-shadow:0 3px 5px #000;animation:damageUp .95s ease-out forwards;pointer-events:none;white-space:nowrap}.damage.critical{font-size:25px;color:#ff987b}
 @keyframes damageUp{0%{opacity:0;transform:translate(-50%,10px) scale(.65)}18%{opacity:1;transform:translate(-50%,0) scale(1.25)}100%{opacity:0;transform:translate(-50%,-46px) scale(.95)}}
-.fx-flash{position:absolute;inset:0;z-index:7;background:radial-gradient(circle at 50% 52%,#fff9,transparent 55%);animation:fadeFlash .35s ease-out forwards;pointer-events:none}
 @keyframes fadeFlash{to{opacity:0}}.unit-status{font-size:8px;color:#ffbd82;background:#341d18cc;border-radius:4px;padding:1px 4px;margin:2px auto;max-width:95%;white-space:nowrap;overflow:hidden}.battle-scene:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.2;background:repeating-linear-gradient(165deg,transparent 0 23px,#d9d0a8 24px 25px,transparent 26px 50px),radial-gradient(ellipse at 50% 90%,#9b7c45 0,transparent 60%)}.terrain-2:before{background:repeating-linear-gradient(0deg,transparent 0 18px,#8fc5d7 19px 21px,transparent 22px 39px)}.terrain-3:before{background:radial-gradient(ellipse at 15% 30%,#66805a 0 8%,transparent 9%),radial-gradient(ellipse at 85% 20%,#536b48 0 10%,transparent 11%)}.battle-status{padding:7px 10px;background:#111a14;color:#d9cfb4;font-size:9px;display:flex;justify-content:space-between}
 .combat-log{padding:8px 10px;max-height:96px;overflow:auto;background:#111914;color:#c8d1c0;font-size:9px;line-height:1.7;border-top:1px solid #43513e}.combat-log div{animation:logIn .22s ease}
 @keyframes logIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
@@ -92,8 +90,6 @@
 .warrior.dead{filter:grayscale(1) brightness(.55);opacity:.52}
 .warrior.dead .body-art{transform:rotate(76deg) translateY(14px) scale(.72);transform-origin:50% 100%;animation:none}
 .warrior.targeted .label{box-shadow:0 0 9px #f3c76d;animation:targetGlow 1.1s ease-in-out infinite}
-.slash-fx{position:absolute;z-index:4;left:50%;top:47%;width:120px;height:3px;background:linear-gradient(90deg,transparent,#fff8c8,#ffdb73,transparent);transform:translate(-50%,-50%) rotate(-25deg);filter:drop-shadow(0 0 8px #ffb93c);animation:slashArc .45s ease-out forwards;pointer-events:none}
-.fx-flash{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 54%,#fff8d5a0,transparent 48%);animation:flashFade .38s ease-out forwards}
 .boss-wave{position:absolute;z-index:5;inset:0;background:radial-gradient(circle,#f3c97966,#a32f2555 45%,transparent 70%);animation:bossReveal .82s ease-out;pointer-events:none}
 .battle-scene.terrain-forest{background:linear-gradient(180deg,#455c43 0%,#6c7650 38%,#514a2f 42%,#2a3d26 100%)}
 .battle-scene.terrain-river{background:linear-gradient(180deg,#879a94 0%,#8c927a 38%,#4c6b70 43%,#2a4849 62%,#34442d 100%)}
@@ -111,7 +107,7 @@
 @keyframes slashArc{0%{opacity:0;transform:translate(-50%,-50%) rotate(-55deg) scaleX(.2)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(22deg) scaleX(1.3)}}
 @keyframes flashFade{0%{opacity:1}100%{opacity:0}}
 @keyframes bossReveal{0%{opacity:0;transform:scale(.3)}30%{opacity:1}100%{opacity:0;transform:scale(1.5)}}
-@media(prefers-reduced-motion:reduce){.warrior .body-art,.warrior.hurt,.warrior.targeted,.boss-wave,.boss-title,.boss-arrival .formation-row.hostile,.boss-arrival .formation-row.hostile .warrior:last-child .body-art,.slash-fx,.fx-flash{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.warrior .body-art,.warrior.hurt,.warrior.targeted,.boss-wave,.boss-title,.boss-arrival .formation-row.hostile,.boss-arrival .formation-row.hostile .warrior:last-child .body-art,.slash-fx,}
 
 
 /* Visual direction pass: stronger hierarchy, tactile controls and readable battle feedback */
@@ -134,7 +130,6 @@
 .warrior.targeted .label{border-color:#ffe29a;box-shadow:0 0 0 2px #f0ce8b44,0 0 18px #f0ce8b}
 .damage{font-weight:900;text-shadow:0 2px 5px #000,0 0 8px #ff9b55;animation:damageRise .82s cubic-bezier(.2,.8,.2,1) forwards}
 .damage.critical{font-size:1.25em;color:#ffe08a;text-shadow:0 2px 5px #5b1a0a,0 0 14px #ff6b36}
-.slash-fx{height:5px;border-radius:99px;box-shadow:0 0 10px #ffe7a4,0 0 24px #f28d39}
 @keyframes damageRise{0%{opacity:0;transform:translate(-50%,12px) scale(.7)}18%{opacity:1}100%{opacity:0;transform:translate(-50%,-35px) scale(1.12)}}
 @media(prefers-reduced-motion:reduce){.tile,.btn,.choice,.map-node{transition:none!important}.damage{animation:none!important}}
 
@@ -151,11 +146,8 @@
 @media(prefers-reduced-motion:reduce){.weather-layer{animation:none!important}}
 .battle-scene.boss-arrival .formation-row.hostile{animation:bossLineIn .9s cubic-bezier(.15,.75,.2,1) both}.battle-scene.boss-arrival .formation-row.hostile .warrior:last-child .body-art{animation:bossHeroIn 1.05s cubic-bezier(.12,.8,.2,1) both;filter:drop-shadow(0 0 14px #ff9a58)}.boss-title{position:absolute;z-index:13;left:50%;top:42%;transform:translate(-50%,-50%);padding:8px 14px;border:1px solid #f0b978;border-radius:6px;background:linear-gradient(90deg,#261813ee,#5a2c20ee,#261813ee);color:#ffe0ad;font-weight:900;letter-spacing:3px;font-size:14px;text-shadow:0 2px 5px #000;box-shadow:0 0 22px #e8794c88;animation:bossTitleIn 2.1s ease-out forwards;pointer-events:none;white-space:nowrap}@keyframes bossLineIn{0%{opacity:0;transform:translateY(-36px) scale(.92)}65%{opacity:1;transform:translateY(5px) scale(1.02)}100%{transform:translateY(0) scale(1)}}@keyframes bossHeroIn{0%{transform:translateY(-55px) scale(.55);opacity:.2}60%{transform:translateY(5px) scale(1.18)}100%{transform:translateY(0) scale(1)}}@keyframes bossTitleIn{0%,100%{opacity:0}12%,75%{opacity:1}}.battle-scene:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#10190e55,transparent 18%,transparent 82%,#10190e55),linear-gradient(0deg,#111b12aa,transparent 38%)}.warrior{isolation:isolate}.warrior .label{box-shadow:0 2px 6px #0005}
 \n/* Impact effect positioned directly over the struck unit */
-.impact-burst{position:absolute;z-index:14;width:76px;height:76px;margin:-38px 0 0 -38px;border:4px solid #fff0a8;border-radius:50%;background:radial-gradient(circle,#fff9 0 8%,#ffcb6b55 24%,transparent 68%);box-shadow:0 0 16px #ffd27a,inset 0 0 12px #fff8;pointer-events:none;animation:impactBurst .48s cubic-bezier(.12,.7,.25,1) forwards}
-.impact-burst:before,.impact-burst:after{content:"";position:absolute;left:50%;top:50%;width:108px;height:3px;background:linear-gradient(90deg,transparent,#fff4bd,transparent);transform:translate(-50%,-50%) rotate(45deg)}
-.impact-burst:after{transform:translate(-50%,-50%) rotate(-45deg)}.impact-burst.critical{border-color:#ff8b63;box-shadow:0 0 24px #ff563d;background:radial-gradient(circle,#fff 0 8%,#ff4b3255 30%,transparent 70%)}
-@keyframes impactBurst{0%{opacity:0;transform:scale(.18) rotate(-35deg)}28%{opacity:1;transform:scale(1.12) rotate(0)}100%{opacity:0;transform:scale(1.55) rotate(30deg)}}
-@media(prefers-reduced-motion:reduce){.impact-burst{animation:none!important;opacity:.65}}
+.impact-burst:before,@keyframes impactBurst{0%{opacity:0;transform:scale(.18) rotate(-35deg)}28%{opacity:1;transform:scale(1.12) rotate(0)}100%{opacity:0;transform:scale(1.55) rotate(30deg)}}
+@media(prefers-reduced-motion:reduce){}
 /* Workstream pass: campaign consequences, cinematic readability and combat feedback */\n.battle-scene{background-image:radial-gradient(ellipse at 50% 88%,#c7a66b25,transparent 48%),linear-gradient(180deg,#dce5d022,transparent 48%)}\n.battle-scene:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent 58%,#080e0bcc 100%);opacity:.55}\n.boss-arrival .formation-row.hostile{animation:bossLineAdvance .72s cubic-bezier(.16,.78,.22,1) both}\n.boss-arrival .warrior.enemy:last-child .body-art{animation:bossChampionRise .82s .12s cubic-bezier(.18,.8,.22,1) both}\n@keyframes bossLineAdvance{from{opacity:0;transform:translateY(-26px) scale(.82)}to{opacity:1;transform:translateY(0) scale(.92)}}\n@keyframes bossChampionRise{0%{opacity:.25;transform:translateY(-32px) scale(.72);filter:brightness(1.8) drop-shadow(0 0 0 #ff9b54)}65%{opacity:1;transform:translateY(3px) scale(1.18);filter:brightness(1.3) drop-shadow(0 0 18px #ff8a4c)}100%{transform:translateY(0) scale(1);filter:drop-shadow(0 5px 3px #0009)}}\n.boss-title{position:absolute;z-index:13;left:50%;top:45%;transform:translate(-50%,-50%);padding:9px 18px;border:1px solid #f3c17c;border-radius:5px;background:linear-gradient(90deg,#281b18e8,#513022ed,#281b18e8);color:#ffe1ae;font-weight:900;letter-spacing:2px;white-space:nowrap;text-shadow:0 2px 8px #000;box-shadow:0 0 28px #ff8b4b55;animation:bossTitleReveal .85s ease both;pointer-events:none}\n@keyframes bossTitleReveal{0%{opacity:0;letter-spacing:10px;filter:blur(5px)}35%{opacity:1}100%{opacity:1;letter-spacing:2px;filter:blur(0)}}\n@media(prefers-reduced-motion:reduce){.boss-arrival .formation-row.hostile,.boss-arrival .warrior.enemy:last-child .body-art,.boss-title{animation:none!important}}\n\n/* Reliable vector battlefield models: visible even when optional sprite atlases fail on Android WebView */
 .warrior .body-art{width:88px!important;height:104px!important;display:flex!important;align-items:center;justify-content:center;background:none!important;background-image:none!important;background-color:transparent!important;overflow:visible;image-rendering:auto}
 .unit-figure{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 5px 3px #000b);transform-origin:50% 100%}
@@ -165,11 +157,7 @@
 .warrior.hurt .unit-figure{animation:unitFigureHit .36s ease}
 @keyframes unitFigureLunge{0%,100%{transform:translateX(0) scale(1)}45%{transform:translateX(14px) translateY(-5px) scale(1.1)}}
 @keyframes unitFigureCast{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-14px) scale(1.18);filter:drop-shadow(0 0 13px #ffe29b)}}
-@keyframes unitFigureHit{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px) rotate(-6deg)}60%{transform:translateX(7px) rotate(6deg)}}
-.skill-aura{width:190px;height:190px;border-width:5px;font-size:22px;letter-spacing:2px}
-.impact-burst{width:56px;height:56px;border:4px solid #fff0bd;border-radius:50%;background:radial-gradient(circle,#fff9 0 8%,#ffbb5c88 22%,transparent 70%);box-shadow:0 0 20px #ffb65b;animation:impactExpand .48s ease-out forwards}
-.impact-burst.critical{border-color:#ff7863;box-shadow:0 0 26px #ff5848;background:radial-gradient(circle,#fff 0 8%,#ff584b99 25%,transparent 70%)}
-@keyframes impactExpand{0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.65)}}
+@keyframes unitFigureHit{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px) rotate(-6deg)}60%{transform:translateX(7px) rotate(6deg)}}@keyframes impactExpand{0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.65)}}
 @media (prefers-reduced-motion:reduce){.warrior.swinging .weapon-gesture,.warrior.attack-right .body-art,.warrior.attack-left .body-art,.warrior.cast .body-art,.warrior.hurt .body-art{animation-duration:.01ms!important;animation-iteration-count:1!important}}
 /* 2.5D canvas scene layer: high-DPI rendering and depth-aware scenery. */
 .battle-scene{background:#52604a!important;isolation:isolate}
@@ -199,13 +187,7 @@
 .warrior[data-hero2d].attack-right .hero-sprite,.warrior[data-hero2d].attack-left .hero-sprite{background-image:var(--attack-sheet);animation:heroSpriteFrames .5s steps(3,end) forwards}
 .warrior[data-hero2d].cast .hero-sprite{background-image:var(--skill-sheet);animation:heroSpriteFrames .72s steps(3,end) forwards}
 .warrior[data-hero2d].attack-right .hero-sprite .hero-portrait,.warrior[data-hero2d].attack-left .hero-sprite .hero-portrait,.warrior[data-hero2d].cast .hero-sprite .hero-portrait{opacity:0}
-@keyframes heroSpriteFrames{from{background-position:0 0}to{background-position:100% 0}}
-.skill-aura.dragon,.skill-aura.tiger,.skill-aura.wind,.skill-aura.storm{border-color:#8ed2df;box-shadow:0 0 34px #55aebe,inset 0 0 28px #a9e8ee;background:#4aa8ba22}
-.skill-aura.formation,.skill-aura.shadow,.skill-aura.thunder{border-color:#b9b0df;box-shadow:0 0 34px #9384d5,inset 0 0 28px #bcb1ef;background:#9584d522}
-.skill-aura.arrow{border-color:#e3cc87;box-shadow:0 0 30px #d5ad56,inset 0 0 24px #f3dfa5;background:#d4b66c22}
-.skill-aura.ice{border-color:#b9e7f4;box-shadow:0 0 34px #8bd6f2,inset 0 0 28px #d4f6ff;background:#8bd6f222}
-
-</style>
+@keyframes heroSpriteFrames{from{background-position:0 0}to{background-position:100% 0}}</style>
 </head><body>
 <header class="top">
  <div class="eyebrow">建安纪年 · 天下十三州 · 群雄逐鹿</div>
