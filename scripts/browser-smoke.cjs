@@ -32,7 +32,7 @@ const assert = require("node:assert/strict");
   }
   assert.ok(html.includes("data-hero2d") && html.includes('class="hero-portrait"'), "battle actors must expose integrated 2D hero image anchors");
   assert.ok(html.includes("function generalPortrait") && html.includes("characters/2d/portraits/"), "general roster must use bespoke 2D portraits");
-  assert.ok(html.includes('initHero3D($("#battleScene"))') && html.includes('vendor/three.min.js') && fs.existsSync(path.resolve("app/src/main/assets/vendor/three.min.js")), "Q-style 3D Liu Bei and its offline Three.js runtime must be bundled");
+  assert.ok(html.includes('initHero3D($("battleScene"))') && html.includes('vendor/three.min.js') && fs.existsSync(path.resolve("app/src/main/assets/vendor/three.min.js")), "Q-style 3D Liu Bei and its offline Three.js runtime must be bundled");
   assert.ok(fs.existsSync(path.resolve("app/src/main/assets/hero3d.js")), "procedural Liu Bei 3D source must be bundled");
   assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: weapon sweep animation");
   for (const cls of ["hero-guan","hero-zhang","hero-liu"]) assert.ok(html.includes(cls), "battle art identity class must exist: "+cls);
