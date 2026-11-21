@@ -190,7 +190,7 @@ const assert = require("node:assert/strict");
   const guanYu3d = threeHero3d.find(x=>x.id==="guan-yu"), zhangFei3d = threeHero3d.find(x=>x.id==="zhang-fei");
   assert.ok(guanYu3d&&guanYu3d.model==="procedural-chibi-3d"&&guanYu3d.meshes>=45&&guanYu3d.heightRatio>2.5, "Guan Yu must render as a high-detail multipart 3D general: "+JSON.stringify(guanYu3d));
   assert.ok(zhangFei3d&&zhangFei3d.model==="procedural-chibi-3d"&&zhangFei3d.meshes>=45&&zhangFei3d.heightRatio>2.5, "Zhang Fei must render as a high-detail multipart 3D general: "+JSON.stringify(zhangFei3d));
-  assert.ok(guanYu3d.weaponNames?.includes("青龙偃月刀")&&guanYu3d.weapons.world?.length===1&&guanYu3d.weapons.world[0].z/guanYu3d.scale>.48&&guanYu3d.weapons.profiles?.[0]==="crescent-with-back-hook"&&guanYu3d.weapons.bladeSpans?.[0]>=.78&&guanYu3d.weapons.backHooks?.[0]===true, "Guan Yu's hooked crescent blade must be visible in the front layer: "+JSON.stringify(guanYu3d.weapons));
+  assert.ok(guanYu3d.weaponNames?.includes("青龙偃月刀")&&guanYu3d.weapons.world?.length===1&&guanYu3d.weapons.world[0].z/guanYu3d.scale>.48&&guanYu3d.weapons.profiles?.[0]==="crescent-with-back-hook"&&guanYu3d.weapons.bladeSpans?.[0]>=.78&&guanYu3d.weapons.backHooks?.[0]===true&&guanYu3d.weapons.bladePitches?.[0]==="near-horizontal", "Guan Yu's hooked crescent blade must be visible in the front layer: "+JSON.stringify(guanYu3d.weapons));
   assert.ok(zhangFei3d.weaponNames?.includes("丈八蛇矛")&&zhangFei3d.weapons.world?.length===1&&zhangFei3d.weapons.world[0].z/zhangFei3d.scale>.42, "Zhang Fei's serpent spear must be a visible front-held 3D weapon: "+JSON.stringify(zhangFei3d.weapons));
   // Exercise the 3D animation hooks for both new generals independently.
   for (const id of ["guan-yu","zhang-fei"]) {
