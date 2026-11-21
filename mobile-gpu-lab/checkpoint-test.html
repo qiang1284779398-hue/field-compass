@@ -51,23 +51,23 @@ function initialParams(){const a=new Float32Array(64);for(let j=0;j<16;j++){cons
 function loss(p){let s=0;for(let i=0;i<N;i++){const x=-1+2*i/(N-1);let v=p[48];for(let j=0;j<H;j++)v+=p[32+j]*Math.max(0,p[j]*x+p[16+j]);s+=(v-x*x)**2;}return s/N;}
 
 async function saveAndReloadCheckpoint(values){
- const openReq=indexedDB.open('mobile-3d-ai-lab',1);
- const db=await new Promise((resolve,reject)=>{openReq.onupgradeneeded=()=>openReq.result.createObjectStore('checkpoints');openReq.onsuccess=()=>resolve(openReq.result);openReq.onerror=()=>reject(openReq.error);});
- const payload={version:1,createdAt:new Date().toISOString(),weights:Array.from(values)};
+ const openReq=indexedDB.open('mobile-3d-ai-lab',2);
+ const db=await new Promise((resolve,reject)=>{openReq.onupgradeneeded=()=>{if(!openReq.result.objectStoreNames.contains('checkpoints'))openReq.result.createObjectStore('checkpoints')};openReq.onsuccess=()=>resolve(openReq.result);openReq.onerror=()=>reject(openReq.error);});
+ if(!indexedDB)throw Error('当前浏览器禁用了 IndexedDB，无法保存检查点。');const payload={version:2,createdAt:new Date().toISOString(),weights:Array.from(values)};
  await new Promise((resolve,reject)=>{const tx=db.transaction('checkpoints','readwrite');tx.objectStore('checkpoints').put(payload,'latest');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});
  const restored=await new Promise((resolve,reject)=>{const tx=db.transaction('checkpoints','readonly');const req=tx.objectStore('checkpoints').get('latest');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
  db.close();
- if(!restored||restored.version!==1||!Array.isArray(restored.weights)||restored.weights.length!==values.length)throw Error('检查点读取失败或格式不匹配');
+ if(!restored||restored.version!==2||!Array.isArray(restored.weights)||restored.weights.length!==values.length)throw Error('检查点读取失败或格式不匹配');
  let maxDiff=0;for(let i=0;i<values.length;i++)maxDiff=Math.max(maxDiff,Math.abs(values[i]-restored.weights[i]));
  return {maxDiff,createdAt:restored.createdAt,count:restored.weights.length};
 }
 \nasync function run(){
- const b=$('run');b.disabled=true;$('status').textContent='检测 GPU…';$('progress').style.width='3%';
+ const b=$('run');b.disabled=true;$('status').textContent='正在启动…';$('progress').style.width='3%';$('detail').textContent='正在请求手机 GPU，请稍候。';
  try{
   if(!navigator.gpu)throw Error('浏览器没有开放 WebGPU，请用最新版 Android Chrome。');
-  const adapter=await navigator.gpu.requestAdapter();if(!adapter)throw Error('无法获取 GPU adapter。');
+  const adapter=await navigator.gpu.requestAdapter();if(!adapter)throw Error('无法获取 GPU adapter。');$('status').textContent='GPU 已连接，准备训练…';$('progress').style.width='8%';
   const device=await adapter.requestDevice();
-  const p0=initialParams(),initial=loss(p0);
+  const p0=initialParams(),initial=loss(p0);$('status').textContent='正在初始化训练参数…';$('progress').style.width='12%';
   const params=device.createBuffer({size:256,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC|GPUBufferUsage.COPY_DST});
   const grads=device.createBuffer({size:N*49*4,usage:GPUBufferUsage.STORAGE});
   const read=device.createBuffer({size:256,usage:GPUBufferUsage.MAP_READ|GPUBufferUsage.COPY_DST});
@@ -80,13 +80,13 @@ async function saveAndReloadCheckpoint(values){
   const gb=device.createBindGroup({layout:gp.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:params}},{binding:1,resource:{buffer:grads}}]});
   const ub=device.createBindGroup({layout:up.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:params}},{binding:1,resource:{buffer:grads}}]});
   $('status').textContent='并行训练中';$('progress').style.width='10%';
-  const enc=device.createCommandEncoder();
+  $('status').textContent='GPU 正在执行 300 轮训练…';$('progress').style.width='20%';\n  const enc=device.createCommandEncoder();
   for(let e=0;e<EPOCHS;e++){
    let pass=enc.beginComputePass();pass.setPipeline(gp);pass.setBindGroup(0,gb);pass.dispatchWorkgroups(2);pass.end();
    pass=enc.beginComputePass();pass.setPipeline(up);pass.setBindGroup(0,ub);pass.dispatchWorkgroups(1);pass.end();
   }
   enc.copyBufferToBuffer(params,0,read,0,256);device.queue.submit([enc.finish()]);
-  await read.mapAsync(GPUMapMode.READ);const p1=new Float32Array(read.getMappedRange().slice(0));read.unmap();
+  $('status').textContent='训练完成，正在读取权重…';$('progress').style.width='75%';await read.mapAsync(GPUMapMode.READ);const p1=new Float32Array(read.getMappedRange().slice(0));read.unmap();
   const final=loss(p1);$('status').textContent='保存并验证本地检查点…';$('progress').style.width='85%';const checkpoint=await saveAndReloadCheckpoint(p1);const drop=(1-final/initial)*100,passed=Number.isFinite(final)&&final<initial*.5&&checkpoint.maxDiff===0;
   $('loss').textContent=initial.toFixed(6)+' → '+final.toFixed(6);
   $('status').textContent=passed?'并行训练通过':'训练完成，未达标准';$('status').style.color=passed?'#70e0a1':'#ff8585';$('progress').style.width='100%';
@@ -94,7 +94,7 @@ async function saveAndReloadCheckpoint(values){
   $('log').textContent=['GPU: '+(adapter.info?.description||'浏览器未公开名称'),'训练方式：样本级并行梯度 + GPU 梯度汇总','网络：1 → 16(ReLU) → 1','样本数：128','训练轮数：'+EPOCHS,'检查点存储：IndexedDB 本地数据库','初始 MSE：'+initial,'最终 MSE：'+final,'损失下降：'+drop.toFixed(2)+'%','本地检查点参数数：'+checkpoint.count,'保存时间：'+checkpoint.createdAt,'恢复后最大参数误差：'+checkpoint.maxDiff,'结果：'+(passed?'PASS':'CHECK')].join('\n');
   params.destroy();grads.destroy();read.destroy();device.destroy();
  }catch(e){$('status').textContent='测试失败';$('status').style.color='#ff8585';$('verdict').textContent=e.message;$('log').textContent=e.stack||String(e);$('progress').style.width='0%';}
- finally{b.disabled=false;}
+ finally{b.disabled=false;$('detail').textContent='可以再次运行；若失败，请查看下方完整日志。';}
 }
 $('run').addEventListener('click',run);
 </script></body></html>
