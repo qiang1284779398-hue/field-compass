@@ -33,7 +33,8 @@ def rows():
 
 def getpath(r):
  f=r.get("files") or {}
- vals=[f.get("web"),f.get("glb"),r.get("web"),r.get("glb"),r.get("mesh")]
+ # Prefer the uncompressed engine tier; the web tier uses EXT_meshopt_compression.
+ vals=[f.get("engine"),f.get("glb"),r.get("engine"),f.get("web"),r.get("web"),r.get("glb"),r.get("mesh")]
  for v in vals:
   if isinstance(v,dict): v=v.get("path") or v.get("url")
   if isinstance(v,str) and v.lower().split("?")[0].endswith(".glb"): return v
