@@ -864,7 +864,7 @@ def sprite_sheet(body,h,mode):
     transforms=(attack_motion.get(h["weapon"],["translate(0 0)","translate(-10 -8) rotate(-3 400 840)","translate(28 -16) rotate(7 400 840)","translate(-4 0) rotate(-1 400 840)"]) if mode=="attack" else ["translate(0 0)","translate(0 -18) scale(1.02)","translate(0 -28) scale(1.06)","translate(0 -2) scale(1.01)"])
     for i,tr in enumerate(transforms):
         # Keep only weapon/body action poses; remove all slash, aura and skill glyph overlays.
-        frames.append(f'<g transform="translate({i*800} 0)"><g transform="{tr}"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">{inner}</svg></g></g>')
+        frames.append(f'<g data-motion-only="true" transform="translate({i*800} 0)"><g transform="{tr}"><svg x="0" y="0" width="800" height="1000" viewBox="0 0 800 1000">{inner}</svg></g></g>')
     label="普通攻击四帧" if mode=="attack" else "专属战技四帧"
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1000" viewBox="0 0 3200 1000"><title>{esc(h["name"])}·{label}</title>'+''.join(frames)+'</svg>'
 
