@@ -33,7 +33,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#b9c9df;font-size:12px;lin
  <div class="row"><span class="k">训练实验结果</span><span class="v" id="loss">—</span></div>
  <div class="row"><span class="k">GPU 训练判定</span><span class="v" id="verdict">未运行</span></div>
 </div>
-<div class="card"><b>详细日志</b><pre id="log">本实验使用 WebGPU compute shader 在 GPU 上反复更新一个简单回归模型的参数。它能验证 GPU 计算路径，不代表已经能训练 3D 生成模型。</pre></div>
+<div class="card"><b>详细日志</b><pre id="log">本实验使用 WebGPU compute shader 在 GPU 上反复更新一个简单回归模型的参数。已调整学习率和训练轮数以避免误报收敛失败；它仍不代表已经能训练 3D 生成模型。</pre></div>
 <div class="card"><b>重要说明</b><p class="sub">若 WebGPU 不可用，先尝试最新版 Chrome、系统更新及关闭省电模式。不要为了本测试安装来源不明的 APK。即使微型实验通过，也只证明浏览器可执行 GPU 计算；要训练真正的 3D 模型，还需验证更大矩阵运算、显存/共享内存容量、持续运行稳定性与 Android 训练框架兼容性。</p></div>
 <script>
 const $=id=>document.getElementById(id);
@@ -88,14 +88,14 @@ $('run').addEventListener('click',async()=>{
   const buf=device.createBuffer({size:bytes,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC|GPUBufferUsage.COPY_DST});
   device.queue.writeBuffer(buf,0,data);
   const pbuf=device.createBuffer({size:16,usage:GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST});
-  device.queue.writeBuffer(pbuf,0,new Uint32Array([0x3d4ccccd,n,0,0])); // lr≈0.05
+  device.queue.writeBuffer(pbuf,0,new Uint32Array([0x3da3d70a,n,0,0])); // lr≈0.08
   const mod1=device.createShaderModule({code:shader}),mod2=device.createShaderModule({code:reduce});
   const pipe1=device.createComputePipeline({layout:'auto',compute:{module:mod1,entryPoint:'main'}});
   const pipe2=device.createComputePipeline({layout:'auto',compute:{module:mod2,entryPoint:'main'}});
   const bg1=device.createBindGroup({layout:pipe1.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:buf}},{binding:1,resource:{buffer:pbuf}}]});
   const bg2=device.createBindGroup({layout:pipe2.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:buf}},{binding:1,resource:{buffer:pbuf}}]});
   const read=device.createBuffer({size:bytes,usage:GPUBufferUsage.COPY_DST|GPUBufferUsage.MAP_READ});
-  const t0=performance.now();const rounds=300;
+  const t0=performance.now();const rounds=600;
   for(let r=0;r<rounds;r++){
     const enc=device.createCommandEncoder();const pass=enc.beginComputePass();
     pass.setPipeline(pipe1);pass.setBindGroup(0,bg1);pass.dispatchWorkgroups(Math.ceil(n/64));
@@ -111,7 +111,7 @@ $('run').addEventListener('click',async()=>{
   $('loss').textContent='w='+w.toFixed(4)+', b='+b.toFixed(4);
   const ok=Math.abs(w-2)<0.08&&Math.abs(b-1)<0.08;
   $('verdict').textContent=ok?'GPU 计算与参数训练通过':'GPU 已运行，但收敛未达标';$('verdict').className='v '+(ok?'good':'warn');
-  setStatus('实验完成。',100);log('300轮 GPU compute dispatch 完成');log('最终参数：w='+w+', b='+b);log('误差指标：'+loss);log('总耗时：'+elapsed.toFixed(2)+' ms');log('结论：这是微型 GPU 训练验证，不是 3D 模型训练。');
+  setStatus('实验完成。',100);log('600轮 GPU compute dispatch 完成');log('最终参数：w='+w+', b='+b);log('误差指标：'+loss);log('总耗时：'+elapsed.toFixed(2)+' ms');log('结论：这是微型 GPU 训练验证，不是 3D 模型训练。');
   device.destroy();
  }catch(e){$('verdict').textContent='测试失败';$('verdict').className='v bad';setStatus('发生错误：'+e.message,100);log(e.stack||String(e))}
  finally{btn.disabled=false}
