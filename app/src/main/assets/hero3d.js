@@ -164,7 +164,7 @@
     if(app) return;
     const scene=new THREE.Scene();
     const camera=new THREE.OrthographicCamera(-2,2,2,-2,.1,100);
-    camera.position.set(0,1.05,20); camera.lookAt(0,1.05,0);
+    camera.position.set(0,0,20); camera.lookAt(0,0,0);
     const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:"low-power",preserveDrawingBuffer:false});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.25));
     renderer.setClearColor(0x000000,0);
