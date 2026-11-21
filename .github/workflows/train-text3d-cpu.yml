@@ -10,7 +10,7 @@ on:
       max_models:
         description: Maximum CC0 GLB assets
         required: false
-        default: "32"
+        default: "64"
       epochs:
         description: CPU training epochs
         required: false
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
-      MAX_MODELS: ${{ github.event.inputs.max_models || '32' }}
+      MAX_MODELS: ${{ github.event.inputs.max_models || '64' }}
       EPOCHS: ${{ github.event.inputs.epochs || '80' }}
       OMP_NUM_THREADS: "2"
       MKL_NUM_THREADS: "2"
