@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101827"><title>手机 GPU 内存容量测试</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans SC",sans-serif;background:#0b1220;color:#e8eef8}*{box-sizing:border-box}body{margin:0;padding:20px 16px 40px;max-width:760px;margin-inline:auto}h1{font-size:23px;margin:8px 0}p{color:#aab8cc;line-height:1.65}.sub{font-size:14px}.card{background:#131f31;border:1px solid #293b55;border-radius:16px;padding:16px;margin:14px 0}.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #26364c}.row:last-child{border:0}.k{color:#9fb0c8}.v{font-weight:600;text-align:right;overflow-wrap:anywhere}button{border:0;border-radius:12px;padding:14px 18px;background:#4c8dff;color:white;font-weight:700;font-size:16px;width:100%;margin-top:8px}button:disabled{opacity:.5}.good{color:#6ee7a8}.warn{color:#ffd27a}.bad{color:#ff8c8c}pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#b9c9df;font-size:12px;line-height:1.5}.meter{height:8px;background:#25364d;border-radius:9px;overflow:hidden}.bar{height:100%;width:0;background:#54a0ff}
+</style></head><body>
+<h1>一加 Ace 6 · GPU 内存容量测试</h1>
+<p class="sub">第四阶段：逐步申请 GPU 存储缓冲区，写入数据并读回抽样校验。采用渐进式测试，最高目标 256 MiB；这不是系统总 RAM 或真实专用显存的测量。</p>
+<div class="card"><div class="row"><span class="k">WebGPU</span><span class="v" id="gpu">未检测</span></div><div class="row"><span class="k">单缓冲区上限</span><span class="v" id="maxbuf">—</span></div><div class="row"><span class="k">存储绑定上限</span><span class="v" id="maxstorage">—</span></div><div class="row"><span class="k">本次测试目标</span><span class="v">16 → 256 MiB</span></div></div>
+<button id="start">开始渐进式 GPU 内存测试</button>
+<div class="card"><b>测试进度</b><p id="status" class="sub">测试会逐级增加分配量。请插电、保持页面前台；如手机发热明显或出现卡顿，立即停止。</p><div class="meter"><div class="bar" id="bar"></div></div>
+<div class="row"><span class="k">当前申请量</span><span class="v" id="current">—</span></div><div class="row"><span class="k">成功保留总量</span><span class="v" id="allocated">0 MiB</span></div><div class="row"><span class="k">写入与校验</span><span class="v" id="verify">—</span></div><div class="row"><span class="k">最大成功档位</span><span class="v" id="maxpass">—</span></div><div class="row"><span class="k">最终判定</span><span class="v" id="verdict">未运行</span></div></div>
+<div class="card"><b>详细日志</b><pre id="log">测试按 16、32、64、128、192、256 MiB 逐档尝试。每档使用 GPU buffer，并通过 GPU clear 操作触发写入，再将首尾区域复制回 CPU 校验。完成后释放所有缓冲区。</pre></div>
+<div class="card"><b>重要说明</b><p class="sub">浏览器可能延迟实际物理内存提交；GPU 缓冲区申请成功不等于全部数据都常驻显存。WebGPU 不向网页开放手机可用 GPU 内存总量。本实验只给出当前浏览器/驱动下可申请并操作的容量下限。不要在手机已经发热或内存紧张时运行。</p></div>
+<script>
+const $=id=>document.getElementById(id),log=s=>$('log').textContent+='\n'+s;
+let dev=null,stopped=false;
+$('start').onclick=async()=>{
+ const btn=$('start');btn.disabled=true;$('log').textContent='初始化 WebGPU…';$('verdict').textContent='测试中';$('verdict').className='v';
+ const buffers=[];let total=0,last=0;
+ try{
+  if(!navigator.gpu)throw Error('当前浏览器不支持 WebGPU');
+  const ad=await navigator.gpu.requestAdapter();if(!ad)throw Error('无法取得 GPU adapter');
+  $('gpu').textContent='可用';$('gpu').className='v good';
+  $('maxbuf').textContent=(ad.limits.maxBufferSize/1048576).toFixed(0)+' MiB';
+  $('maxstorage').textContent=(ad.limits.maxStorageBufferBindingSize/1048576).toFixed(0)+' MiB';
+  dev=await ad.requestDevice();
+  const sizes=[16,32,64,128,192,256];
+  for(let i=0;i<sizes.length;i++){
+   const mib=sizes[i],bytes=mib*1048576;
+   $('current').textContent=mib+' MiB';$('bar').style.width=((i+1)/sizes.length*100)+'%';$('status').textContent='正在申请并操作 '+mib+' MiB GPU 缓冲区…';
+   if(bytes>dev.limits.maxBufferSize||bytes>dev.limits.maxStorageBufferBindingSize){log(mib+' MiB 超出设备声明的单缓冲区限制，停止后续档位。');break;}
+   try{
+    const buf=dev.createBuffer({size:bytes,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC|GPUBufferUsage.COPY_DST});
+    buffers.push(buf);
+    // GPU clearBuffer 写入整个缓冲区，随后复制首尾 4KB 做读回验证。
+    const read=dev.createBuffer({size:8192,usage:GPUBufferUsage.COPY_DST|GPUBufferUsage.MAP_READ});
+    const enc=dev.createCommandEncoder();enc.clearBuffer(buf,0,bytes);enc.copyBufferToBuffer(buf,0,read,0,4096);enc.copyBufferToBuffer(buf,bytes-4096,read,4096,4096);dev.queue.submit([enc.finish()]);
+    await dev.queue.onSubmittedWorkDone();await read.mapAsync(GPUMapMode.READ);
+    const view=new Uint8Array(read.getMappedRange());let ok=true;for(let j=0;j<view.length;j++){if(view[j]!==0){ok=false;break;}}
+    read.unmap();read.destroy();
+    if(!ok)throw Error('数据读回校验失败');
+    total+=mib;last=mib;$('allocated').textContent=total+' MiB';$('verify').textContent='通过';$('verify').className='v good';$('maxpass').textContent=mib+' MiB';
+    log(mib+' MiB：buffer 创建、GPU 清零、首尾读回校验通过；累计成功申请 '+total+' MiB。');
+   }catch(e){log(mib+' MiB 档位失败：'+e.message);$('verify').textContent='失败/受限';$('verify').className='v warn';break;}
+   await new Promise(requestAnimationFrame);
+  }
+  $('verdict').textContent=last?'测试完成，已测得容量下限':'未能完成首档测试';$('verdict').className='v '+(last?'good':'warn');$('status').textContent='测试结束，缓冲区即将释放。';log('测试结束。最大成功单档：'+last+' MiB；累计保留：'+total+' MiB。注意累计值不是系统可用显存。');
+ }catch(e){$('verdict').textContent='测试失败';$('verdict').className='v bad';$('status').textContent=e.message;log(e.stack||String(e));}
+ finally{for(const b of buffers){try{b.destroy()}catch{}}if(dev){try{dev.destroy()}catch{}}btn.disabled=false;}
+};
+</script></body></html>
