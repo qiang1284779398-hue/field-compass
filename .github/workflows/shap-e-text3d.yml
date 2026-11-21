@@ -44,7 +44,9 @@ jobs:
       - name: Install Shap-E and GLB exporter
         run: |
           python -m pip install --upgrade pip
-          python -m pip install "git+https://github.com/openai/shap-e.git" trimesh
+          python -m pip install "numpy<2"
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install "git+https://github.com/openai/shap-e.git" trimesh PyYAML
       - name: Generate full 3D mesh on CPU
         run: |
           python mobile-gpu-lab/generation/shap_e_text_to_glb.py \
