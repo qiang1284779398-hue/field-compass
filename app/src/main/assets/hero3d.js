@@ -192,8 +192,8 @@
     capeShape.moveTo(-.22,.99); capeShape.quadraticCurveTo(0,1.08,.22,.99);
     capeShape.lineTo(.39,.16); capeShape.quadraticCurveTo(.22,.04,0,.10);
     capeShape.quadraticCurveTo(-.22,.04,-.39,.16); capeShape.closePath();
-    const cape=add(body,new THREE.ExtrudeGeometry(capeShape,{depth:.018,bevelEnabled:true,bevelSegments:2,bevelSize:.012,bevelThickness:.008}),mats.robeDark,[0,.015,-.235]);
-    cape.material.side=THREE.DoubleSide;
+    const capeMaterial=mats.robeDark.clone(); capeMaterial.side=THREE.DoubleSide;
+    const cape=add(body,new THREE.ExtrudeGeometry(capeShape,{depth:.018,bevelEnabled:true,bevelSegments:2,bevelSize:.012,bevelThickness:.008}),capeMaterial,[0,.015,-.235]);
     seam(body,[[-.37,.16,-.205],[-.26,.10,-.205],[0,.075,-.205],[.26,.10,-.205],[.37,.16,-.205]],.012,mats.goldDark,28);
     seam(body,[[-.35,.17,-.194],[-.24,.12,-.194],[0,.10,-.194],[.24,.12,-.194],[.35,.17,-.194]],.004,mats.goldBright,28);
     for(let i=-2;i<=2;i++){
