@@ -488,7 +488,7 @@
     if(lastScene&&lastScene.isConnected){sync(lastScene);actors.forEach(a=>animate(a,now));app.renderer.render(app.scene,app.camera);}
   }
   window.__hero3dStatus=function(){
-    return Array.from(actors.values()).map(a=>({id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:2},weapons:{frontLayer:true,restPose:"outward-held",zOffset:0.445,angles:Array.isArray(a.arms)?a.arms.map(x=>x.sword.userData.restRotationZ):[]},optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",heightRatio:2.08/0.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}}));
+    return Array.from(actors.values()).map(a=>({id:a.id,ready:true,renderer:!!app&&!!app.renderer.getContext(),meshes:a.meshes,detailLevel:"high-detail-chibi",rig:{head:true,torso:true,shoulders:true,forearms:true,hands:true,legs:true,weapons:2},weapons:{frontLayer:true,restPose:"outward-held",zOffset:0.445,angles:Array.isArray(a.arms)?a.arms.map(x=>x.sword.userData.restRotationZ):[],world:Array.isArray(a.arms)?a.arms.map(x=>{const p=new THREE.Vector3();x.sword.getWorldPosition(p);return {x:p.x,y:p.y,z:p.z,rotationZ:x.sword.rotation.z};}):[]},optimizedStaticMeshes:true,toneMappingExposure:app&&app.renderer.toneMappingExposure,model:"procedural-chibi-3d",heightRatio:2.08/0.74,state:a.action,scale:a.scale,position:{x:a.world.position.x,y:a.world.position.y}}));
   };
   window.initHero3D=function(sceneEl){
     try{init();if(!app)return;sync(sceneEl);if(!raf)raf=requestAnimationFrame(frame);}
