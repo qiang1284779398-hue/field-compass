@@ -26,7 +26,7 @@ for (const id of ["liu-bei","guan-yu","zhang-fei","zhao-yun","zhuge-liang","huan
 }
 assert.ok(source.includes("data-hero2d") && source.includes('class="hero-portrait"') && source.includes("characters/2d/"), "all Three Kingdoms generals must use bundled 2D hero art");
 assert.ok(source.includes("function generalPortrait") && source.includes("characters/2d/portraits/"), "the roster must use the custom general portraits");
-assert.ok(source.includes('data-hero3d="liu-bei"') && source.includes('initHero3D($("battleScene"))'), "Liu Bei must use the new Q-style 3D battlefield renderer");
+assert.ok(source.includes('data-hero3d="liu-bei"') && source.includes('data-hero3d="guan-yu"') && source.includes('data-hero3d="zhang-fei"') && source.includes('initHero3D($("battleScene"))'), "Liu Bei, Guan Yu and Zhang Fei must use the Q-style 3D battlefield renderer");
 assert.ok(html.includes('vendor/three.min.js') && fs.existsSync("app/src/main/assets/vendor/three.min.js"), "offline Three.js runtime must be bundled for browser and APK use");
 assert.ok(fs.existsSync("app/src/main/assets/hero3d.js"), "procedural Q-style Liu Bei 3D model runtime is missing");
 const hero3dSource=fs.readFileSync("app/src/main/assets/hero3d.js","utf8");
