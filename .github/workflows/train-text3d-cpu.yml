@@ -14,7 +14,7 @@ on:
       epochs:
         description: CPU training epochs
         required: false
-        default: "80"
+        default: "200"
   schedule:
     - cron: "17 2 * * 0"
 
@@ -31,7 +31,7 @@ jobs:
     timeout-minutes: 350
     env:
       MAX_MODELS: ${{ github.event.inputs.max_models || '64' }}
-      EPOCHS: ${{ github.event.inputs.epochs || '80' }}
+      EPOCHS: ${{ github.event.inputs.epochs || '200' }}
       OMP_NUM_THREADS: "2"
       MKL_NUM_THREADS: "2"
     steps:
