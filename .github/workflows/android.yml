@@ -41,6 +41,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Bundle offline Three.js runtime for the procedural 3D Liu Bei
+        run: |
+          set -euo pipefail
+          npm install --no-save --package-lock=false three@0.128.0
+          mkdir -p app/src/main/assets/vendor
+          cp node_modules/three/build/three.min.js app/src/main/assets/vendor/three.min.js
+          test -s app/src/main/assets/vendor/three.min.js
+          grep -q 'REVISION' app/src/main/assets/vendor/three.min.js
       - name: Verify game logic and content
         run: node scripts/verify-game.cjs
       - name: Verify original 2D Three Kingdoms hero artwork
@@ -50,8 +58,11 @@ jobs:
             test -s "app/src/main/assets/characters/2d/$id.svg"
             test -s "app/src/main/assets/characters/2d/portraits/$id.svg"
           done
-          ! grep -q 'vendor/three.min.js' app/src/main/assets/index.html
-          ! grep -q 'initHero3D(' app/src/main/assets/index.html
+          grep -q 'vendor/three.min.js' app/src/main/assets/index.html
+          grep -q 'hero3d.js' app/src/main/assets/index.html
+          grep -q 'initHero3D(' app/src/main/assets/index.html
+          test -s app/src/main/assets/hero3d.js
+          test -s app/src/main/assets/vendor/three.min.js
       - name: Download CC0 soundtrack for offline play
         run: |
           mkdir -p app/src/main/assets/audio

@@ -18,3 +18,10 @@ The complete asset pack is larger than the subset currently integrated. Only the
 - Public mirror used by the build: https://github.com/GeorgeQLe/assets-sfx-combat
 - Bundled files: `audio/sfx/swing.ogg` (drawKnife1), `audio/sfx/hit.ogg` (chop), and `audio/sfx/critical.ogg` (impactMetal_heavy_000).
 - Usage: weapon swing, hit impact, and critical-hit feedback.
+
+
+## Three.js Q-style 3D Liu Bei prototype
+- Runtime: Three.js r128, MIT License.
+- Source: https://github.com/mrdoob/three.js
+- Bundled offline by the Android workflow as `app/src/main/assets/vendor/three.min.js`.
+- The first playable 3D character is an original procedural, articulated Q-style Liu Bei model defined in `app/src/main/assets/hero3d.js`; it does not download models or textures at runtime.

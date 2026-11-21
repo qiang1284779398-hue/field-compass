@@ -32,11 +32,12 @@ const assert = require("node:assert/strict");
   }
   assert.ok(html.includes("data-hero2d") && html.includes('class="hero-portrait"'), "battle actors must expose integrated 2D hero image anchors");
   assert.ok(html.includes("function generalPortrait") && html.includes("characters/2d/portraits/"), "general roster must use bespoke 2D portraits");
-  assert.ok(!html.includes("initHero3D(") && !html.includes("vendor/three.min.js"), "2D build must not require the old 3D runtime");
+  assert.ok(html.includes('initHero3D($("#battleScene"))') && html.includes('vendor/three.min.js') && fs.existsSync(path.resolve("app/src/main/assets/vendor/three.min.js")), "Q-style 3D Liu Bei and its offline Three.js runtime must be bundled");
+  assert.ok(fs.existsSync(path.resolve("app/src/main/assets/hero3d.js")), "procedural Liu Bei 3D source must be bundled");
   assert.ok(html.includes("@keyframes weaponSweep"), "battle art upgrade: weapon sweep animation");
   for (const cls of ["hero-guan","hero-zhang","hero-liu"]) assert.ok(html.includes(cls), "battle art identity class must exist: "+cls);
   const assetRoot = path.resolve("app/src/main/assets");
-  const mime = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".svg":"image/svg+xml", ".glb":"model/gltf-binary", ".ogg":"audio/ogg" };
+  const mime = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".min.js":"text/javascript; charset=utf-8", ".svg":"image/svg+xml", ".glb":"model/gltf-binary", ".ogg":"audio/ogg" };
   const server = http.createServer((req, res) => {
     const pathname = decodeURIComponent(new URL(req.url, "http://127.0.0.1").pathname);
     const relative = pathname === "/" ? "index.html" : pathname.startsWith("/") ? pathname.slice(1) : pathname;
@@ -171,6 +172,11 @@ const assert = require("node:assert/strict");
       return !!img && img.complete && img.naturalWidth > 0;
     });
   }, { timeout: 15000 });
+  await page.waitForFunction(() => window.__hero3dStatus && window.__hero3dStatus().some(x=>x.id==="liu-bei"&&x.ready&&x.renderer&&x.meshes>=35), {timeout:12000});
+  await page.waitForFunction(() => !!document.querySelector('#battleScene .warrior[data-hero3d="liu-bei"].hero3d-ready'), {timeout:5000});
+  const liuBei3dStatus = await page.evaluate(() => window.__hero3dStatus());
+  const liuBei3d = liuBei3dStatus.find(x=>x.id==="liu-bei");
+  assert.ok(liuBei3d && liuBei3d.model==="procedural-chibi-3d" && liuBei3d.meshes>=35 && liuBei3d.heightRatio>2.5, "Liu Bei must render as a multipart Q-style 3D model: "+JSON.stringify(liuBei3d));
   const spriteStatus = await page.evaluate(() => ["liu-bei","guan-yu","zhang-fei"].map(id => {
     const img = document.querySelector('#battleScene .warrior[data-hero2d="'+id+'"] .hero-portrait');
     return { id, loaded:!!img && img.complete && img.naturalWidth > 0, width:img?.naturalWidth||0, height:img?.naturalHeight||0 };
@@ -185,6 +191,7 @@ const assert = require("node:assert/strict");
     capturedAt: new Date().toISOString(),
     scene: await page.locator("#battleScene").evaluate(el => ({ width: el.clientWidth, height: el.clientHeight })),
     sprites: spriteStatus,
+    liuBei3D: liuBei3d,
     visible2DWarriors: await page.locator("#battleScene .warrior[data-hero2d]").count(),
     imagesLoaded: await page.locator("#battleScene .warrior[data-hero2d] .hero-portrait").evaluateAll(imgs => imgs.every(img => img.complete && img.naturalWidth>0))
   }, null, 2));
@@ -244,10 +251,12 @@ const assert = require("node:assert/strict");
   await page.locator('.warrior[data-side="enemy"][data-index="0"]').click();
   assert.ok((await page.locator('.warrior[data-side="enemy"][data-index="0"]').getAttribute("class")).includes("targeted"), "clicked enemy should become the selected target");
   await page.locator('button[onclick="basicAttack()"]').click();
+  await page.waitForFunction(() => window.__hero3dStatus && window.__hero3dStatus().some(x=>x.id==="liu-bei"&&x.state==="attack"), {timeout:1500});
   await page.waitForFunction(() => !fight.actionRunning, {timeout:5000});
   await page.waitForTimeout(120);
   const afterAttack = await readFight();
   assert.ok(afterAttack.enemyHp < hpBefore, "basic attack must reduce the selected enemy HP");
+  assert.ok(await page.evaluate(() => window.__hero3dStatus().some(x=>x.id==="liu-bei"&&["idle","attack"].includes(x.state))), "Liu Bei 3D animation state must remain alive after the attack");
   assert.equal(await page.locator(".impact-burst,.slash-fx,.fx-flash,.skill-aura").count(),0,"basic attacks must not spawn decorative overlays");
 
   // A distinct hero skill must spend energy and apply a gameplay effect without decorative overlays.
