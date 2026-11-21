@@ -54,12 +54,12 @@ fn main() {
     var gb2:f32=0.0;
     for(var i:u32=0u;i<n;i=i+1u){
       let x=-1.0+2.0*f32(i)/f32(n-1u);
-      let target=x*x;
+      let targetVal=x*x;
       var a:array<f32,16>;
       var z:array<f32,16>;
       var pred:f32=b2;
       for(var j:u32=0u;j<16u;j=j+1u){z[j]=w1[j]*x+b1[j];a[j]=max(0.0,z[j]);pred=pred+w2[j]*a[j];}
-      let delta=2.0*(pred-target)/f32(n);
+      let delta=2.0*(pred-targetVal)/f32(n);
       gb2=gb2+delta;
       for(var j:u32=0u;j<16u;j=j+1u){
         gw2[j]=gw2[j]+delta*a[j];
