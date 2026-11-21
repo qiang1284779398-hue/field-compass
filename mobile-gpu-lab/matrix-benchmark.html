@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101827"><title>手机 GPU 矩阵运算实验</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans SC",sans-serif;background:#0b1220;color:#e8eef8}
+*{box-sizing:border-box}body{margin:0;padding:20px 16px 40px;max-width:760px;margin-inline:auto}
+h1{font-size:23px;margin:8px 0}p{color:#aab8cc;line-height:1.65}.sub{font-size:14px}
+.card{background:#131f31;border:1px solid #293b55;border-radius:16px;padding:16px;margin:14px 0}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #26364c}.row:last-child{border:0}
+.k{color:#9fb0c8}.v{font-weight:600;text-align:right;overflow-wrap:anywhere}
+button{border:0;border-radius:12px;padding:14px 18px;background:#4c8dff;color:white;font-weight:700;font-size:16px;width:100%;margin-top:8px}
+button.secondary{background:#34445d}button:disabled{opacity:.5}.good{color:#6ee7a8}.warn{color:#ffd27a}.bad{color:#ff8c8c}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#b9c9df;font-size:12px;line-height:1.5}
+.meter{height:8px;background:#25364d;border-radius:9px;overflow:hidden}.bar{height:100%;width:0;background:#54a0ff}
+</style></head><body>
+<h1>一加 Ace 6 · GPU 矩阵运算实验</h1>
+<p class="sub">第二阶段：执行真实的 GPU 矩阵乘法（FP32，A×B=C），检查结果正确性、耗时和缓冲区容量。全部计算在手机本地浏览器执行，不调用云端 GPU。</p>
+<div class="card">
+<div class="row"><span class="k">浏览器</span><span class="v" id="browser">读取中</span></div>
+<div class="row"><span class="k">WebGPU</span><span class="v" id="gpu">尚未检测</span></div>
+<div class="row"><span class="k">适配器</span><span class="v" id="adapter">—</span></div>
+<div class="row"><span class="k">最大单缓冲区</span><span class="v" id="maxbuf">—</span></div>
+<div class="row"><span class="k">最大存储绑定</span><span class="v" id="maxstorage">—</span></div>
+</div>
+<button id="standard">开始标准矩阵测试（128 / 256 / 512）</button>
+<button id="heavy" class="secondary">运行高负载测试（1024，可选）</button>
+<div class="card"><b>进度</b><p id="status" class="sub">等待开始。建议插电、关闭省电模式，测试时保持页面前台。</p><div class="meter"><div class="bar" id="bar"></div></div>
+<div class="row"><span class="k">当前测试</span><span class="v" id="current">—</span></div>
+<div class="row"><span class="k">计算耗时</span><span class="v" id="elapsed">—</span></div>
+<div class="row"><span class="k">结果校验</span><span class="v" id="check">—</span></div>
+<div class="row"><span class="k">内存估算</span><span class="v" id="memory">—</span></div>
+<div class="row"><span class="k">最终判定</span><span class="v" id="verdict">未运行</span></div></div>
+<div class="card"><b>测试日志</b><pre id="log">标准测试将依次执行 128²、256²、512² 矩阵乘法。每个矩阵元素使用 FP32。结果将与已知输入进行抽样校验。</pre></div>
+<div class="card"><b>注意</b><p class="sub">1024 测试计算量约为 21.5 亿次乘加，可能明显发热或触发降频；请先完成标准测试。此测试只验证 GPU 矩阵计算，不等于已能训练大型 3D 生成模型，也不测量系统真实可用显存。</p></div>
+<script>
+const $=id=>document.getElementById(id);const log=s=>$('log').textContent+='\n'+s;
+$('browser').textContent=navigator.userAgent;
+let adapter=null,device=null;
+const shader=`
+struct Params { n:u32, tiles:u32, pad0:u32, pad1:u32 };
+@group(0) @binding(0) var<storage,read> A:array<f32>;
+@group(0) @binding(1) var<storage,read> B:array<f32>;
+@group(0) @binding(2) var<storage,read_write> C:array<f32>;
+@group(0) @binding(3) var<uniform> p:Params;
+var<workgroup> tileA:array<f32,256>;
+var<workgroup> tileB:array<f32,256>;
+@compute @workgroup_size(16,16)
+fn main(@builtin(workgroup_id) wg:vec3<u32>, @builtin(local_invocation_id) lid:vec3<u32>){
+ let row=wg.y*16u+lid.y; let col=wg.x*16u+lid.x;
+ var sum=0.0;
+ for(var t=0u;t<p.tiles;t=t+1u){
+  let ak=row*p.n+t*16u+lid.x;
+  let bk=(t*16u+lid.y)*p.n+col;
+  tileA[lid.y*16u+lid.x]=select(0.0,A[ak],row<p.n && t*16u+lid.x<p.n);
+  tileB[lid.y*16u+lid.x]=select(0.0,B[bk],t*16u+lid.y<p.n && col<p.n);
+  workgroupBarrier();
+  for(var k=0u;k<16u;k=k+1u){sum=sum+tileA[lid.y*16u+k]*tileB[k*16u+lid.x];}
+  workgroupBarrier();
+ }
+ if(row<p.n && col<p.n){C[row*p.n+col]=sum;}
+}`;
+function setProgress(s,p){$('status').textContent=s;$('bar').style.width=p+'%'}
+async function init(){
+ if(!navigator.gpu)throw Error('当前 Chrome 没有开放 WebGPU');
+ adapter=await navigator.gpu.requestAdapter();if(!adapter)throw Error('没有取得 GPU adapter');
+ const info=adapter.info||{};$('gpu').textContent='可用';$('gpu').className='v good';
+ $('adapter').textContent=[info.vendor,info.architecture,info.device].filter(Boolean).join(' / ')||'已取得（详细信息被隐藏）';
+ $('maxbuf').textContent=(adapter.limits.maxBufferSize/1048576).toFixed(0)+' MB';
+ $('maxstorage').textContent=(adapter.limits.maxStorageBufferBindingSize/1048576).toFixed(0)+' MB';
+ device=await adapter.requestDevice();device.lost.then(x=>log('GPU 设备丢失：'+x.message));
+}
+async function runSize(n,index,total){
+ $('current').textContent=n+' × '+n+' FP32 矩阵乘法';setProgress('正在计算 '+n+' × '+n+' …',index/total*100);
+ const count=n*n,bytes=count*4,mem=bytes*3;
+ if(bytes>device.limits.maxStorageBufferBindingSize||bytes>device.limits.maxBufferSize)throw Error(n+' 超过设备单缓冲区限制');
+ const a=new Float32Array(count),b=new Float32Array(count);
+ for(let r=0;r<n;r++){a[r*n+r]=1;for(let c=0;c<n;c++)b[r*n+c]=((r*17+c*13)%101)/101;}
+ const A=device.createBuffer({size:bytes,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST});
+ const B=device.createBuffer({size:bytes,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_DST});
+ const C=device.createBuffer({size:bytes,usage:GPUBufferUsage.STORAGE|GPUBufferUsage.COPY_SRC});
+ const U=device.createBuffer({size:16,usage:GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST});
+ const R=device.createBuffer({size:bytes,usage:GPUBufferUsage.COPY_DST|GPUBufferUsage.MAP_READ});
+ device.queue.writeBuffer(A,0,a);device.queue.writeBuffer(B,0,b);device.queue.writeBuffer(U,0,new Uint32Array([n,n/16,0,0]));
+ const mod=device.createShaderModule({code:shader});
+ const info=await mod.getCompilationInfo();const errors=info.messages.filter(x=>x.type==='error');
+ if(errors.length)throw Error('WGSL 编译失败：'+errors.map(x=>x.message).join('; '));
+ const pipe=device.createComputePipeline({layout:'auto',compute:{module:mod,entryPoint:'main'}});
+ const bg=device.createBindGroup({layout:pipe.getBindGroupLayout(0),entries:[{binding:0,resource:{buffer:A}},{binding:1,resource:{buffer:B}},{binding:2,resource:{buffer:C}},{binding:3,resource:{buffer:U}}]});
+ const enc=device.createCommandEncoder(),pass=enc.beginComputePass();pass.setPipeline(pipe);pass.setBindGroup(0,bg);pass.dispatchWorkgroups(n/16,n/16);pass.end();enc.copyBufferToBuffer(C,0,R,0,bytes);
+ const t=performance.now();device.queue.submit([enc.finish()]);await device.queue.onSubmittedWorkDone();const ms=performance.now()-t;
+ await R.mapAsync(GPUMapMode.READ);const out=new Float32Array(R.getMappedRange().slice(0));R.unmap();
+ let ok=true;for(const [r,c] of [[0,0],[0,n-1],[Math.floor(n/3),Math.floor(n/2)],[n-1,0],[n-1,n-1]]){const expected=b[r*n+c];if(Math.abs(out[r*n+c]-expected)>0.0005)ok=false;}
+ $('elapsed').textContent=ms.toFixed(2)+' ms';$('check').textContent=ok?'通过（5点抽样）':'失败';$('check').className='v '+(ok?'good':'bad');$('memory').textContent=(mem/1048576).toFixed(2)+' MB（A+B+C，不含运行时开销）';
+ log(n+'×'+n+'：'+ms.toFixed(2)+' ms；A+B+C≈'+(mem/1048576).toFixed(2)+' MB；校验 '+(ok?'通过':'失败'));
+ A.destroy();B.destroy();C.destroy();U.destroy();R.destroy();
+ if(!ok)throw Error(n+' 矩阵结果校验失败');
+ return {n,ms,ok};
+}
+async function run(sizes){
+ const buttons=[$('standard'),$('heavy')];buttons.forEach(x=>x.disabled=true);
+ $('log').textContent='初始化 GPU…';$('verdict').textContent='测试中';$('verdict').className='v';
+ try{
+  if(!device)await init();
+  const results=[];for(let i=0;i<sizes.length;i++)results.push(await runSize(sizes[i],i+1,sizes.length));
+  setProgress('全部完成。',100);$('verdict').textContent='矩阵计算与结果校验全部通过';$('verdict').className='v good';
+  log('结论：本轮矩阵计算通过。请把完整日志发回，用于确定下一档压力测试规模。');
+ }catch(e){$('verdict').textContent='测试中断';$('verdict').className='v bad';setProgress('发生错误：'+e.message,100);log(e.stack||String(e));}
+ finally{buttons.forEach(x=>x.disabled=false);}
+}
+$('standard').onclick=()=>run([128,256,512]);
+$('heavy').onclick=()=>{if(confirm('1024×1024 矩阵乘法负载较高，可能发热。请确认手机已插电、非省电模式，并愿意进行高负载测试。'))run([1024]);};
+</script></body></html>
