@@ -57,7 +57,7 @@ $('generate').onclick=async()=>{
  const base='https://openapi.tripo3d.ai/v3';
  try{
   const body={prompt,model,face_limit:faces,texture:true,pbr:true,texture_quality:textureQuality};
-  if(model==='P2-20260801')body.quad=true;
+  if(model==='P1-20260311')body.face_limit=Math.min(faces,20000);
   const create=await fetch(base+'/generation/text-to-model',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify(body)});
   const created=await create.json();if(!create.ok||created.code!==0)throw new Error(created.message||created.suggestion||('提交失败 HTTP '+create.status));
   const taskId=created.data?.task_id;if(!taskId)throw new Error('服务端没有返回 task_id');
@@ -78,7 +78,7 @@ $('generate').onclick=async()=>{
   progress(98,'正在下载并加载 3D 模型…');
   const file=await fetch(url);if(!file.ok)throw new Error('模型下载失败 HTTP '+file.status);
   modelBlob=await file.blob();const buffer=await modelBlob.arrayBuffer();
-  new GLTFLoader().parse(buffer,'',gltf=>{addModel(gltf);modelName='三国武将模型';$('modelname').textContent='AI 模型生成成功';$('modeldesc').textContent=model+' · '+faces.toLocaleString()+' 面上限 · GLB';progress(100,'生成完成');toast('真实 AI 3D 模型已生成')},err=>{throw err});
+  await new Promise((resolve,reject)=>new GLTFLoader().parse(buffer,'',gltf=>{addModel(gltf);modelName='三国武将模型';$('modelname').textContent='AI 模型生成成功';$('modeldesc').textContent=model+' · '+body.face_limit.toLocaleString()+' 面上限 · GLB';progress(100,'生成完成');toast('真实 AI 3D 模型已生成');resolve()},reject));
  }catch(err){console.error(err);progress(0,'生成未完成');toast('生成失败：'+(err.message||'未知错误'));$('modeldesc').textContent='请检查 API Key、账户额度及网络/CORS 设置'}
  finally{polling=false;$('generate').disabled=false}
 };
